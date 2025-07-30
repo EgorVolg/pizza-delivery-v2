@@ -1,0 +1,36 @@
+.header {
+  border-bottom: 1px solid #ededed;
+}
+
+.main_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 3rem;
+}
+
+.logo_container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo_title {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.logo_description {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgb(156, 163, 175);
+  line-height: 0.75rem;
+}
+
+.buttons_group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
