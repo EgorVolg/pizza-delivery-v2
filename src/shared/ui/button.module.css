@@ -1,0 +1,21 @@
+.button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid #fe5f00;
+  padding: 14px 22px;
+  border-radius: 15px;
+  color: #fe5f00;
+  font-size: 1rem;
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    padding: 10px 15px;
+    gap: 0.25rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0; 
+    border: none;
+  }
+}

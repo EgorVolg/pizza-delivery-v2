@@ -1,9 +1,16 @@
- 
-import './styles/App.css'
+import Header from "../shared/Header";
+import "./styles/App.css";
 
 function App() {
-   
-  return <>Hello world</>
+  return (
+    <div className="body">
+      <div className="main-container">
+        <div className="container">
+          <Header />
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
