@@ -3,6 +3,7 @@ import styles from "./Header.module.css";
 import logo from "./../ui/assests/logo.svg";
 import { Input } from "./Input"; 
 import { useEffect, useState } from "react";
+import Container from "./Container";
 
 function Header() {
   const [isMobile, setIsMobile] = useState(false);
@@ -22,7 +23,7 @@ function Header() {
 
   return (
     <header className={styles.header}>
-      <div className={styles.main_container}>
+      <Container className={styles.header_container}>
         <div className={styles.logo_container}>
           <img src={logo} alt="logo" width={35} height={35} />
           <div>
@@ -98,7 +99,7 @@ function Header() {
             </svg>
           </Button>
         </div>
-      </div>
+      </Container>
     </header>
   );
 }

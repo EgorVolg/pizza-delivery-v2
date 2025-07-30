@@ -2,7 +2,7 @@
   border-bottom: 1px solid #ededed;
 }
 
-.main_container {
+.header_container {
   display: flex;
   align-items: center;
   justify-content: space-between;
