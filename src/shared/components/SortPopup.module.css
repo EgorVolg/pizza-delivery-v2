@@ -1,0 +1,53 @@
+.sort {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: #fafafa;
+  gap: 0.5rem;
+  font-weight: 700;
+  height: 2.75rem;
+  padding: 0 1.25rem;
+  border-radius: 1rem;
+}
+
+.sort_button {
+  all: unset;
+  text-wrap: nowrap;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  span {
+    color: #fe5f00;
+  }
+}
+
+.sort_options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+
+  background-color: #fff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+
+.sort_option {
+  display: block;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.3rem 0;
+  gap: 0.5rem;
+  z-index: 10;
+
+  &:hover {
+    color: #fe5f00;
+    font-weight: 700;
+  }
+}
