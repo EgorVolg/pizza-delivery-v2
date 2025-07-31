@@ -9,8 +9,13 @@
   padding: 31px 20px;
 }
 
-.container { 
+.container {
   min-height: 100vh;
   background-color: white;
   border-radius: 30px;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  font-weight: 500;
 }

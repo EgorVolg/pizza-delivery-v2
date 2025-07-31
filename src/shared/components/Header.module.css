@@ -18,8 +18,14 @@
 .logo_title {
   font-size: 1.5rem;
   line-height: 2rem;
-  text-transform: uppercase;
+  
+  font-family: Nunito;
   font-weight: 900;
+  font-style: ExtraBold;
+  font-size: 24px; 
+  line-height: 100%;
+  letter-spacing: 1%;
+  text-transform: uppercase;
 }
 
 .logo_description {
