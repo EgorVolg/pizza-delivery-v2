@@ -1,6 +1,7 @@
 .button {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   border: 1px solid #fe5f00;
   padding: 14px 22px;

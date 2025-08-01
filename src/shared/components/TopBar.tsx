@@ -1,6 +1,6 @@
 import styles from "./TopBar.module.css";
 import Container from "./Container";
-import Categories from "./categories";
+import Categories from "./Categories";
 import SortPopUp from "./SortPopup";
 
 const TopBar = () => {

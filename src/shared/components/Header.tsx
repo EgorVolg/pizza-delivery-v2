@@ -1,4 +1,4 @@
-import Button from "../ui/button";
+import Button from "../ui/Button";
 import styles from "./Header.module.css";
 import logo from "./../ui/assests/logo.svg";
 import { Input } from "./Input"; 
