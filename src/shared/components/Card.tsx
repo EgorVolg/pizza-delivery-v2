@@ -5,22 +5,19 @@ import styles from "./Card.module.css";
 export const Card = ({ pizza }: { pizza: Pizza }) => {
   return (
     <div className={styles.card}>
-      <div className={styles.img_container}>
-        <img src={pizzaImage} alt="Pizza" className={styles.image} />
+      <div className={styles.imageContainer}>
+        <img className={styles.image} src={pizzaImage} alt={pizza.name} />
       </div>
 
-      <div className={styles.content}>
-        <div className={styles.info}> 
-          <h2 className={styles.title}>{pizza.name}</h2>
-          <p className={styles.description}>
-            {pizza.description}
-          </p>
-        </div>
+      <h3 className={styles.title}>{pizza.name}</h3>
+      <p className={styles.ingredients}>{pizza.description}</p>
 
-        <div className={styles.bottom_content}>
-          <div className={styles.price}>от {pizza.price} $</div>
-          <button className={styles.button}>+ Добавить</button>
-        </div>
+      <div className={styles.priceContainer}>
+        <span className={styles.price}>
+          от <b className={styles.priceBold}>{pizza.price} ₽</b>
+        </span>
+
+        <button className={styles.button}>+ Добавить</button>
       </div>
     </div>
   );

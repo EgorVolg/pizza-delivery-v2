@@ -1,0 +1,60 @@
+.filter_groups {
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+}
+
+.filter_group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 25px 0;
+  width: 230px;
+}
+
+.filter_group + .filter_group {
+  border-top: 1px solid #e5e5e5;
+}
+
+.filter_price_sorting {
+  display: flex;
+  gap: 15px;
+}
+
+.input_container {
+}
+
+.price_input {
+  width: 90px;
+  height: 40px;
+  border: 1px solid #f0f0f0;
+  border-radius: 10px;
+
+  &::placeholder {
+    padding: 11px 10px;
+    color: #bbbbbb;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.filter_title {
+  font-family: Nunito;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 22px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+.filter_group_title {
+  font-family: Nunito;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}

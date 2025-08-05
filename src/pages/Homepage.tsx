@@ -1,10 +1,9 @@
 import Container from "../shared/components/Container";
 import Header from "../shared/components/Header";
 import TopBar from "../shared/components/TopBar";
-import Button from "../shared/ui/Button";
 import { Card } from "../shared/components/Card";
 import styles from "./Homepage.module.css";
-import FilterCheckbox from "../shared/ui/FilterCheckbox";
+import { Filters } from "../shared/components/Filters";
 
 export interface Pizza {
   id: number;
@@ -17,7 +16,8 @@ const pizzas = [
   {
     id: 1,
     name: "Margherita",
-    description: "Classic pizza with fresh tomatoes, mozzarella, and basil.",
+    description:
+      "Бекон , цыпленок , ветчина , сыр блю чиз , сыры чеддер и пармезан , соус песто, кубики брынзы , томаты , красный лук , моцарелла, фирменный соус альфредо, чеснок , итальянские травы ",
     price: 8.99,
   },
   {
@@ -76,17 +76,6 @@ const pizzas = [
   },
 ];
 
-const ingredients = [
-  "Грибы",
-  "Пепперони",
-  "Сыр",
-  "Оливки",
-  "Базилик",
-  "Перец",
-  "Лук",
-  "Курица",
-];
-
 export function Homepage() {
   return (
     <div className="body">
@@ -95,52 +84,8 @@ export function Homepage() {
 
       <Container className={styles.main_container}>
         <main className={styles.main}>
-          <div className={styles.filter_groups}>
-            <h1 className={styles.filter_title}>Фильтрация</h1>
-            <div className={styles.filter_group}>
-              <FilterCheckbox text="Можно собирать" />
-              <FilterCheckbox text="Новинки" />
-            </div>
-
-            <div className={styles.filter_group}>
-              <p className={styles.filter_group_title}>Цена от и до:</p>
-              <div className={styles.filter_price_sorting}>
-                <div className={styles.input_container}>
-                  <input
-                    className={styles.price_input}
-                    type="text"
-                    placeholder="0"
-                  />
-                </div>
-                <div className={styles.input_container}>
-                  <input
-                    className={styles.price_input}
-                    type="text"
-                    placeholder="100"
-                  />
-                </div>
-              </div>
-              {/* <input type="range" min="0" max="1000" /> */}
-            </div>
-
-            <div className={styles.filter_group}>
-              <p className={styles.filter_group_title}>Ингредиенты:</p>
-              <div>
-                <ul>
-                  {ingredients.map((ingredient) => (
-                    <li key={ingredient}>
-                      <FilterCheckbox text={ingredient} />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className={styles.filter_group}>
-                <p className={styles.filter_group_title}>Тип теста:</p>
-                <FilterCheckbox text="Традиционное" rounded />
-                <FilterCheckbox text="Толстое" rounded />
-              </div>
-            </div>
-            <Button>Применить</Button>
+          <div className={styles.navbar}>
+            <Filters />
           </div>
 
           <div className={styles.items_list}>
