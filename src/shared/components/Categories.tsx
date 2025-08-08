@@ -9,12 +9,12 @@ const categories = [
   "Острые",
   "С курицей",
 ];
-export default function Categories() {
-  const [activeId, setActiveId] = useState(0);
+export default function CategoriesList() {
+  const [activeCategoryId, setActiveCategoryId] = useState(0);
 
-  const handleCategoryClick = (index: number) => {
-    setActiveId(index);
-  };
+  const handleClick = (newCategoryId: number) =>
+    setActiveCategoryId(newCategoryId);
+
   return (
     <div className={styles.categories}>
       {categories.map((category, index) => (
@@ -22,13 +22,13 @@ export default function Categories() {
           key={index}
           href="#"
           className={`${styles.category} ${
-            activeId === index ? styles.active : ""
+            activeCategoryId === index ? styles.active : ""
           }`}
-          onClick={() => handleCategoryClick(index)}
+          onClick={() => handleClick(index)}
         >
           {category}
         </a>
       ))}
     </div>
   );
-} 
+}
