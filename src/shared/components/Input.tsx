@@ -1,8 +1,6 @@
 import styles from "./Input.module.css";
 
-type Props = {};
-
-export const Input = (props: Props) => {
+export const Input = () => {
   return (
     <div className={styles.input}>
       <svg

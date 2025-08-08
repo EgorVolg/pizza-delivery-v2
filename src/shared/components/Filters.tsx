@@ -1,6 +1,7 @@
 import React from "react";
 import FilterCheckbox from "../ui/FilterCheckbox";
 import Button from "../ui/Button";
+import styles from "./Filters.module.css";
 
 const ingredients = [
   "Грибы",
@@ -12,8 +13,6 @@ const ingredients = [
   "Лук",
   "Курица",
 ];
-import styles from "./Filters.module.css";
-
 export const Filters = () => {
   return (
     <div className={styles.filter_groups}>

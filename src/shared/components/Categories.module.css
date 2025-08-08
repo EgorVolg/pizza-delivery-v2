@@ -1,6 +1,6 @@
 .categories {
   display: inline-flex;
-  max-width: 60%;
+  flex-wrap: nowrap;
   overflow-x: auto;
   gap: 0.25rem;
   background-color: #fafafa;
@@ -8,12 +8,8 @@
   border-radius: 1rem;
   scroll-snap-type: mandatory;
 
-  @media (max-width: 1024px) {
-    all: unset;
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 100%;
-    gap: 0.5rem;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 

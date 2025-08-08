@@ -1,10 +1,10 @@
 import { Homepage } from "../pages/Homepage";
-import Container from "../shared/components/Container"; 
+import Container from "../shared/components/Container";
 import "./styles/App.css";
 function App() {
   return (
     <div className="body">
-      <div className="main-container">
+      <div className="main">
         <Container className="container">
           <Homepage />
         </Container>

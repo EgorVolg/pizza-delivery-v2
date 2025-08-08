@@ -17,25 +17,28 @@ const pizzas = [
     id: 1,
     name: "Margherita",
     description:
-      "Бекон , цыпленок , ветчина , сыр блю чиз , сыры чеддер и пармезан , соус песто, кубики брынзы , томаты , красный лук , моцарелла, фирменный соус альфредо, чеснок , итальянские травы ",
+      "Four cheeses (mozzarella, cheddar, provolone, and parmesan) on a classic tomato base.",
     price: 8.99,
   },
   {
     id: 2,
     name: "Pepperoni",
-    description: "Spicy pepperoni with mozzarella cheese on a tomato base.",
+    description:
+      "Four cheeses (mozzarella, cheddar, provolone, and parmesan) on a classic tomato base.",
     price: 9.99,
   },
   {
     id: 3,
     name: "Vegetarian",
-    description: "A mix of seasonal vegetables with mozzarella cheese.",
+    description:
+      "Four cheeses (mozzarella, cheddar, provolone, and parmesan) on a classic tomato base.",
     price: 7.99,
   },
   {
     id: 4,
     name: "BBQ Chicken",
-    description: "Grilled chicken with BBQ sauce, red onions, and cilantro.",
+    description:
+      "Four cheeses (mozzarella, cheddar, provolone, and parmesan) on a classic tomato base.",
     price: 10.99,
   },
   {
@@ -53,7 +56,8 @@ const pizzas = [
   {
     id: 7,
     name: "Four Cheese",
-    description: "A blend of four cheeses on a rich tomato base.",
+    description:
+      "Four cheeses (mozzarella, cheddar, provolone, and parmesan) on a classic tomato base.",
     price: 11.99,
   },
   {
@@ -78,7 +82,7 @@ const pizzas = [
 
 export function Homepage() {
   return (
-    <div className="body">
+    <div>
       <Header />
       <TopBar />
 

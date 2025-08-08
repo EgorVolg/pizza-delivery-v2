@@ -7,22 +7,34 @@
   align-items: center;
   justify-content: space-between;
   padding: 2rem 3rem;
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
+
+  @media (max-width: 375px) {
+    padding: 1rem;
+  }
 }
 
 .logo_container {
   display: flex;
   align-items: center;
   gap: 1rem;
+
+  @media (max-width: 320px) {
+    gap: 0;
+  }
 }
 
 .logo_title {
   font-size: 1.5rem;
   line-height: 2rem;
-  
+  text-wrap: nowrap;
   font-family: Nunito;
   font-weight: 900;
   font-style: ExtraBold;
-  font-size: 24px; 
+  font-size: 24px;
   line-height: 100%;
   letter-spacing: 1%;
   text-transform: uppercase;

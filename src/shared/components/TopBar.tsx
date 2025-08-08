@@ -8,7 +8,7 @@ const TopBar = () => {
     <div className={styles.topbar}>
       <Container className={styles.topbar_container}>
         <Categories />
-        <SortPopUp />
+        <SortPopUp/>
       </Container>
     </div>
   );

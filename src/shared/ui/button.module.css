@@ -11,12 +11,12 @@
   cursor: pointer;
 
   @media (max-width: 768px) {
-    padding: 10px 15px;
+    padding: 0 10px;
     gap: 0.25rem;
+    border: none;
   }
 
-  @media (max-width: 480px) {
-    padding: 0; 
-    border: none;
+  @media (max-width: 425px) {
+    padding: 0;
   }
 }

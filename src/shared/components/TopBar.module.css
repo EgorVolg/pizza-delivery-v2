@@ -1,26 +1,35 @@
 .topbar {
   position: sticky;
   top: 0;
-  background-color: white;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.75);
 
+  backdrop-filter: blur(20px);
   z-index: 10;
-
-  @media (max-width: 768px) {
-    position: static;
-  }
 }
 
 .topbar_container {
-  padding: 0 3rem;
   display: flex;
+  gap: 2rem;
   align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 3rem;
-  padding-bottom: 1rem;
+  justify-content: space-between;
+  padding: 20px 66px 40px 66px;
+  flex-wrap: nowrap;
 
-  @media (max-width: 768px) { 
-    justify-content: center;
+  @media (max-width: 1024px) {
+    flex-wrap: nowrap;
+    flex-direction: row-reverse;
+    padding: 20px 2rem 40px 2rem;
+  }
+
+  @media (max-width: 425px) {
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 20px 2rem 20px 2rem;
+  }
+
+  @media (max-width: 375px) {
+    gap: 1rem;
+    padding: 1rem;
   }
 }

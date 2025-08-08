@@ -1,9 +1,9 @@
 import Button from "../ui/Button";
 import styles from "./Header.module.css";
 import logo from "./../ui/assests/logo.svg";
-import { Input } from "./Input"; 
+import { Input } from "./Input";
+import Container from "./Container";
 import { useEffect, useState } from "react";
-import Container from "./Container"; 
 
 function Header() {
   const [isMobile, setIsMobile] = useState(false);
