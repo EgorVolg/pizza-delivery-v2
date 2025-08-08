@@ -36,6 +36,7 @@ function SortPopUp() {
     <div className={styles.sort}>
       <button className={styles.sort_button} onClick={() => handleSortSelect()}>
         <svg
+          className={styles.sort_icon}
           width="14"
           height="16"
           viewBox="0 0 14 16"
@@ -54,10 +55,7 @@ function SortPopUp() {
         )}
       </button>
 
-      <ul
-        className={styles.sort_options}
-        style={{ display: isOpen ? "block" : "none" }}
-      >
+      <ul className={`${styles.sort_options} ${isOpen ? styles.visible : ""}`}>
         {sortItems.map((item, index) => (
           <li
             key={index}
