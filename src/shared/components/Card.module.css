@@ -18,6 +18,14 @@
   border-radius: 15px;
 
   margin-bottom: 15px;
+  cursor: pointer;
+
+  &:hover {
+    .image {
+      transition: transform 0.3s ease;
+      transform: rotate(-25deg) scale(1.1);
+    }
+  }
 }
 
 .image {
@@ -96,10 +104,10 @@
   line-height: 100%;
   letter-spacing: 0%;
   border-radius: 15px;
+
+  cursor: pointer;
 }
 
 .button:hover {
-}
-
-.button:active {
+  background: #fff3e5;
 }
