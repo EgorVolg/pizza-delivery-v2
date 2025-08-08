@@ -56,6 +56,12 @@ function SortPopUp() {
       </button>
 
       <ul className={`${styles.sort_options} ${isOpen ? styles.visible : ""}`}>
+        <button
+          className={styles.sort_comebackbtn}
+          onClick={() => setIsOpen(false)}
+        >
+          ✖
+        </button>
         {sortItems.map((item, index) => (
           <li
             key={index}
