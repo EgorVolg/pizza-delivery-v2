@@ -5,6 +5,7 @@ import { Card } from "../shared/components/Card";
 import styles from "./Homepage.module.css";
 import { Filters } from "../shared/components/Filters";
 import { useEffect, useState } from "react";
+import { useScreenWidth } from "../shared/hooks/useScreen";
 
 export interface Pizza {
   id: number;
@@ -107,15 +108,21 @@ export function Homepage() {
   return (
     <div>
       <Header />
-      <TopBar />
+      <TopBar toggleMenu={toggleMenu} />
 
       <Container className={styles.main_container}>
         <main className={styles.main}>
-          {isOpenFilters || screenWidth > 1024 ? (
-            <nav className={styles.navbar}>
-              <Filters toggleMenu={toggleMenu} />
-            </nav>
-          ) : null}
+          <nav
+            className={`${styles.navbar} ${
+              isOpenFilters
+                ? isOpenFilters || screenWidth >= 1024
+                  ? styles.visible
+                  : ""
+                : ""
+            }`}
+          >
+            <Filters toggleMenu={toggleMenu} />
+          </nav>
 
           <div className={styles.items_list}>
             {pizzas.map((pizza) => (
