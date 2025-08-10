@@ -75,7 +75,7 @@
   font-family: Nunito;
   font-weight: 400;
   font-style: Regular;
-  font-size: clamp(14px, 2vw, 20px);
+  font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
 }
@@ -85,7 +85,7 @@
   font-family: Nunito;
   font-weight: 700;
   font-style: Bold;
-  font-size: clamp(14px, 2vw, 20px);
+  font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
 }
