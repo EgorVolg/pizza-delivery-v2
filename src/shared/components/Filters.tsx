@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import FilterCheckbox from "../ui/FilterCheckbox";
 import Button from "../ui/Button";
 import styles from "./Filters.module.css";
+<<<<<<< Updated upstream
+=======
+import { useState } from "react";
+import { useScreenWidth } from "../hooks/useScreenWidth";
+import Xbtn from "../ui/Xbtn";
+>>>>>>> Stashed changes
 
 const ingredients = [
   "Грибы",
@@ -12,17 +18,102 @@ const ingredients = [
   "Перец",
   "Лук",
   "Курица",
+  "Грибы",
+  "Пепперони",
+  "Сыр",
+  "Оливки",
+  "Базилик",
+  "Перец",
+  "Лук",
+  "Курица",
+  "Грибы",
+  "Пепперони",
+  "Сыр",
+  "Оливки",
+  "Базилик",
+  "Перец",
+  "Лук",
+  "Курица",
+  "Огурпа",
+  "Помидор",
+  "Ананасы",
+  "Курица",
+  "Огурпа",
+  "Помидор",
+  "Ананасы",
+  "Курица",
+  "Огурпа",
+  "Помидор",
+  "Ананасы",
+  "Курица",
+  "Огурпа",
+  "Помидор",
+  "Ананасы",
+  "Перец",
+  "Лук",
+  "Курица",
+  "Огурпа",
+  "Помидор",
+  "Ананасы",
+  "Курица",
+  "Огурпа",
+  "Помидор",
+  "Ананасы",
+  "Курица",
+  "Огурпа",
+  "Помидор",
+  "Ананасы",
+  "Курица",
+  "Огурпа",
+  "Помидор",
+  "Ананасы",
+  "Перец",
+  "Лук",
+  "Курица",
+  "Огурпа",
+  "Помидор",
+  "Ананасы",
+  "Курица",
+  "Огурпа",
+  "Помидор",
+  "Ананасы",
+  "Курица",
+  "Огурпа",
+  "Помидор",
+  "Ананасы",
+  "Курица",
+  "Огурпа",
+  "Помидор",
+  "Ананасы",
 ];
-export const Filters = () => {
+
+export const Filters = ({ toggleMenu }: { toggleMenu: () => void }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const screenWidth = useScreen();
+
   return (
     <div className={styles.filter_groups}>
-      <h1 className={styles.filter_title}>Фильтрация</h1>
+      <div className={styles.filter_top}>
+        <h1 className={styles.filter_title}>Фильтрация</h1>
+        {screenWidth <= 1024 && (
+          <Xbtn
+            className={styles.filter_close_btn}
+            onClick={() => toggleMenu()}
+          />
+        )}
+      </div>
+
       <div className={styles.filter_group}>
         <FilterCheckbox text="Можно собирать" />
         <FilterCheckbox text="Новинки" />
       </div>
-
-      <div className={styles.filter_group}>
+      <div
+        className={styles.filter_group}
+        style={{
+          borderTop: "1px solid #e5e5e5",
+          borderBottom: "1px solid #e5e5e5",
+        }}
+      >
         <p className={styles.filter_group_title}>Цена от и до:</p>
         <div className={styles.filter_price_sorting}>
           <div className={styles.input_container}>
@@ -38,25 +129,37 @@ export const Filters = () => {
         </div>
         {/* <input type="range" min="0" max="1000" /> */}
       </div>
-
-      <div className={styles.filter_group}>
+      <div className={`${styles.filter_group} ${styles.filter_ingredients}`}>
         <p className={styles.filter_group_title}>Ингредиенты:</p>
-        <div>
-          <ul>
-            {ingredients.map((ingredient) => (
-              <li key={ingredient}>
-                <FilterCheckbox text={ingredient} />
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className={styles.filter_group}>
-          <p className={styles.filter_group_title}>Тип теста:</p>
-          <FilterCheckbox text="Традиционное" rounded />
-          <FilterCheckbox text="Толстое" rounded />
-        </div>
+
+        <ul
+          className={styles.ingredients_list}
+          style={{ maxHeight: isOpen ? "none" : "225px" }}
+        >
+          {ingredients.map((ingredient) => (
+            <li key={ingredient}>
+              <FilterCheckbox text={ingredient} />
+            </li>
+          ))}
+        </ul>
+        {screenWidth > 1024 && (
+          <button
+            className={styles.filter_ingredients_button}
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? "Скрыть" : "+ Показать всё"}
+          </button>
+        )}
       </div>
-      <Button>Применить</Button>
+      <div className={styles.filter_group}>
+        <p className={styles.filter_group_title}>Тип теста:</p>
+        <FilterCheckbox text="Традиционное" rounded />
+        <FilterCheckbox text="Толстое" rounded />
+      </div>
+
+      <div className={styles.btn_container}>
+        <Button className={styles.filter_button}>Применить</Button>
+      </div>
     </div>
   );
 };

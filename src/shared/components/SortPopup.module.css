@@ -28,9 +28,14 @@
   background-color: #fafafa;
   gap: 0.5rem;
   font-weight: 700;
-  height: 2.75rem;
+  height: 3rem;
   padding: 0 1.25rem;
   border-radius: 1rem;
+  min-width: 320px;
+
+  @media (max-width: 768px) {
+    min-width: 10px;
+  }
 }
 
 .sort_button {

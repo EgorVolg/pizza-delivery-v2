@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "./SortPopup.module.css";
+<<<<<<< Updated upstream
+=======
+import { useScreenWidth } from "../hooks/useScreenWidth";
+import Xbtn from "../ui/Xbtn";
+>>>>>>> Stashed changes
 
 const sortOptions = ["рейтингу", "популярности", "цене", "алфавиту"];
 
@@ -56,12 +61,7 @@ function SortPopUp() {
       <ul
         className={`${styles.sort_options} ${menuOpen ? styles.visible : ""}`}
       >
-        <button
-          className={styles.sort_comebackbtn}
-          onClick={() => setMenuOpen(false)}
-        >
-          ✖
-        </button>
+        <Xbtn onClick={() => setMenuOpen(false)} className={styles.sort_comebackbtn}/>
         {sortOptions.map((option, index) => (
           <li
             key={index}

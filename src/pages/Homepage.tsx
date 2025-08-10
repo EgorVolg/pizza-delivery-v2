@@ -4,6 +4,7 @@ import TopBar from "../shared/components/TopBar";
 import { Card } from "../shared/components/Card";
 import styles from "./Homepage.module.css";
 import { Filters } from "../shared/components/Filters";
+import { useEffect, useState } from "react";
 
 export interface Pizza {
   id: number;
@@ -81,6 +82,28 @@ const pizzas = [
 ];
 
 export function Homepage() {
+  const [isOpenFilters, setIsOpenFilters] = useState(false);
+  const screenWidth = useScreen();
+
+  useEffect(() => {
+    if (isOpenFilters) {
+      document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+    };
+  }, [isOpenFilters]);
+
+  function toggleMenu() {
+    setIsOpenFilters(!isOpenFilters);
+  }
+
   return (
     <div>
       <Header />
@@ -88,9 +111,11 @@ export function Homepage() {
 
       <Container className={styles.main_container}>
         <main className={styles.main}>
-          <div className={styles.navbar}>
-            <Filters />
-          </div>
+          {isOpenFilters || screenWidth > 1024 ? (
+            <nav className={styles.navbar}>
+              <Filters toggleMenu={toggleMenu} />
+            </nav>
+          ) : null}
 
           <div className={styles.items_list}>
             {pizzas.map((pizza) => (
