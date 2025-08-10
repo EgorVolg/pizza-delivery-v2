@@ -81,6 +81,94 @@ const pizzas = [
     description: "Pesto sauce with seasonal vegetables and mozzarella.",
     price: 9.49,
   },
+  {
+    id: 11,
+    name: "BBQ Chicken",
+    description:
+      "Four cheeses (mozzarella, cheddar, provolone, and parmesan) on a classic tomato base.",
+    price: 10.99,
+  },
+  {
+    id: 12,
+    name: "Hawaiian",
+    description: "Ham and pineapple on a classic tomato base.",
+    price: 9.49,
+  },
+  {
+    id: 13,
+    name: "Mushroom",
+    description: "Mushrooms, mozzarella, and tomato sauce on a thin crust.",
+    price: 8.99,
+  },
+  {
+    id: 14,
+    name: "Four Cheese",
+    description:
+      "Four cheeses (mozzarella, cheddar, provolone, and parmesan) on a classic tomato base.",
+    price: 11.99,
+  },
+  {
+    id: 15,
+    name: "Spicy Italian",
+    description: "Spicy Italian sausage with peppers and onions.",
+    price: 10.49,
+  },
+  {
+    id: 16,
+    name: "Seafood Delight",
+    description: "Shrimp, calamari, and mussels on a garlic base.",
+    price: 12.99,
+  },
+  {
+    id: 17,
+    name: "Pesto Veggie",
+    description: "Pesto sauce with seasonal vegetables and mozzarella.",
+    price: 9.49,
+  },
+  {
+    id: 18,
+    name: "BBQ Chicken",
+    description:
+      "Four cheeses (mozzarella, cheddar, provolone, and parmesan) on a classic tomato base.",
+    price: 10.99,
+  },
+  {
+    id: 19,
+    name: "Hawaiian",
+    description: "Ham and pineapple on a classic tomato base.",
+    price: 9.49,
+  },
+  {
+    id: 20,
+    name: "Mushroom",
+    description: "Mushrooms, mozzarella, and tomato sauce on a thin crust.",
+    price: 8.99,
+  },
+  {
+    id: 21,
+    name: "Four Cheese",
+    description:
+      "Four cheeses (mozzarella, cheddar, provolone, and parmesan) on a classic tomato base.",
+    price: 11.99,
+  },
+  {
+    id: 22,
+    name: "Spicy Italian",
+    description: "Spicy Italian sausage with peppers and onions.",
+    price: 10.49,
+  },
+  {
+    id: 23,
+    name: "Seafood Delight",
+    description: "Shrimp, calamari, and mussels on a garlic base.",
+    price: 12.99,
+  },
+  {
+    id: 24,
+    name: "Pesto Veggie",
+    description: "Pesto sauce with seasonal vegetables and mozzarella.",
+    price: 9.49,
+  },
 ];
 
 export function Homepage() {
@@ -95,8 +183,7 @@ export function Homepage() {
   const screenWidth = useScreenWidth();
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page); 
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setCurrentPage(page);
   };
 
   useEffect(() => {

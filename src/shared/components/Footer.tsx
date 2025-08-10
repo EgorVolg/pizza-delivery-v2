@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Footer.module.css";
+import { useScreenWidth } from "../hooks/useScreen";
 
 interface FooterProps {
   currentPage: number;
@@ -17,6 +18,7 @@ export const Footer: React.FC<FooterProps> = ({
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startItem = (currentPage - 1) * itemsPerPage + 1;
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
+  const width = useScreenWidth();
 
   const handlePrevious = () => {
     if (currentPage > 1) {
@@ -65,7 +67,7 @@ export const Footer: React.FC<FooterProps> = ({
           {"←"}
         </button>
 
-        {renderPageNumbers()}
+        {width >= 425 && renderPageNumbers()}
 
         <button
           className={styles.navButton}

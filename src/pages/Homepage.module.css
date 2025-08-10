@@ -12,15 +12,11 @@
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
     gap: 0;
-    padding: 0 2rem;
-  }
-
-  @media (max-width: 425px) {
-    padding: 0 2rem;
+    padding: 0rem 2rem 2rem 2rem;
   }
 
   @media (max-width: 375px) {
-    padding: 1rem;
+    padding: 1rem 1rem 2rem 1rem;
   }
 }
 

@@ -14,11 +14,23 @@ button {
   gap: 30px;
 
   color: #888888;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
 }
 
 .buttons_container {
   display: flex;
   gap: 12px;
+
+  @media (max-width: 424px) {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
 }
 
 .navButton {
@@ -31,7 +43,7 @@ button {
 }
 
 .navButton:disabled,
-.pageButton:disabled { 
+.pageButton:disabled {
   border: 1px solid #ededed;
   color: #ededed;
 }
