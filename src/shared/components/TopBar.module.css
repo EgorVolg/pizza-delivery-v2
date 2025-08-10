@@ -19,7 +19,7 @@
     flex-wrap: nowrap;
     flex-direction: row-reverse;
     justify-content: start;
-    padding: 20px 2rem 40px 2rem;
+    padding: 20px 2rem 36px 2rem;
   }
 
   @media (max-width: 768px) {
