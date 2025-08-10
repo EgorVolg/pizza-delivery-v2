@@ -6,6 +6,7 @@ import styles from "./Homepage.module.css";
 import { Filters } from "../shared/components/Filters";
 import { useEffect, useState } from "react";
 import { useScreenWidth } from "../shared/hooks/useScreen";
+import { Footer } from "../shared/components/Footer";
 
 export interface Pizza {
   id: number;
@@ -111,24 +112,32 @@ export function Homepage() {
       <TopBar toggleMenu={toggleMenu} />
 
       <Container className={styles.main_container}>
-        <main className={styles.main}>
-          <nav
-            className={`${styles.navbar} ${
-              isOpenFilters
-                ? isOpenFilters || screenWidth >= 1024
-                  ? styles.visible
-                  : ""
+        <nav
+          className={`${styles.navbar} ${
+            isOpenFilters
+              ? isOpenFilters || screenWidth >= 1024
+                ? styles.visible
                 : ""
-            }`}
-          >
-            <Filters toggleMenu={toggleMenu} />
-          </nav>
+              : ""
+          }`}
+        >
+          <Filters toggleMenu={toggleMenu} />
+        </nav>
 
+        <main className={styles.main}>
           <div className={styles.items_list}>
             {pizzas.map((pizza) => (
               <Card key={pizza.id} pizza={pizza} />
             ))}
           </div>
+          <Footer
+            totalItems={200}
+            itemsPerPage={10}
+            onPageChange={() => {
+              console.log("change page");
+            }}
+            currentPage={1}
+          />
         </main>
       </Container>
     </div>

@@ -1,12 +1,17 @@
 .main {
-  display: flex;
-  gap: 48px;
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
 .main_container {
-  padding: 0 66px;
+  display: grid;
+  grid-template-columns: 244px auto;
+  gap: 48px;
+  padding: 0 66px 60px 66px;
 
   @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    gap: 0;
     padding: 0 2rem;
   }
 
@@ -57,6 +62,7 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 50px;
   height: max-content;
+  padding-bottom: 70px;
 
   @media (max-width: 1024px) {
     gap: 30px 50px;
