@@ -12,14 +12,19 @@
   display: flex;
   gap: 2rem;
   align-items: center;
-  justify-content: space-between;
   padding: 20px 66px 40px 66px;
   flex-wrap: nowrap;
 
   @media (max-width: 1024px) {
     flex-wrap: nowrap;
     flex-direction: row-reverse;
+    justify-content: start;
     padding: 20px 2rem 40px 2rem;
+  }
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   @media (max-width: 425px) {
@@ -32,4 +37,21 @@
     gap: 1rem;
     padding: 1rem;
   }
+}
+
+.hamburger_icon {
+  width: 24px;
+  height: 24px;
+}
+
+.hamburger {
+  all: unset;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  background-color: #fafafa;
+  border-radius: 15px;
+  height: 3rem;
+  padding: 0 20px;
+  cursor: pointer;
 }

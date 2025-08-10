@@ -12,8 +12,13 @@ const categories = [
 export default function CategoriesList() {
   const [activeCategoryId, setActiveCategoryId] = useState(0);
 
-  const handleClick = (newCategoryId: number) =>
+  const handleClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    newCategoryId: number
+  ) => {
+    event.preventDefault();
     setActiveCategoryId(newCategoryId);
+  };
 
   return (
     <div className={styles.categories}>
@@ -24,7 +29,7 @@ export default function CategoriesList() {
           className={`${styles.category} ${
             activeCategoryId === index ? styles.active : ""
           }`}
-          onClick={() => handleClick(index)}
+          onClick={(event) => handleClick(event, index)}
         >
           {category}
         </a>

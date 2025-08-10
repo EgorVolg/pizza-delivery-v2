@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import FilterCheckbox from "../ui/FilterCheckbox";
 import Button from "../ui/Button";
-import styles from "./Filters.module.css"; 
-import { useScreenWidth } from "../hooks/useScreenWidth";
+import styles from "./Filters.module.css";
+import { useScreenWidth } from "../hooks/useScreen";
 import Xbtn from "../ui/Xbtn";
 
 const ingredients = [
@@ -16,87 +16,25 @@ const ingredients = [
   "Курица",
   "Грибы",
   "Пепперони",
-  "Сыр",
-  "Оливки",
-  "Базилик",
-  "Перец",
-  "Лук",
-  "Курица",
-  "Грибы",
-  "Пепперони",
-  "Сыр",
-  "Оливки",
-  "Базилик",
-  "Перец",
-  "Лук",
-  "Курица",
-  "Огурпа",
-  "Помидор",
-  "Ананасы",
-  "Курица",
-  "Огурпа",
-  "Помидор",
-  "Ананасы",
-  "Курица",
-  "Огурпа",
-  "Помидор",
-  "Ананасы",
-  "Курица",
-  "Огурпа",
-  "Помидор",
-  "Ананасы",
-  "Перец",
-  "Лук",
-  "Курица",
-  "Огурпа",
-  "Помидор",
-  "Ананасы",
-  "Курица",
-  "Огурпа",
-  "Помидор",
-  "Ананасы",
-  "Курица",
-  "Огурпа",
-  "Помидор",
-  "Ананасы",
-  "Курица",
-  "Огурпа",
-  "Помидор",
-  "Ананасы",
-  "Перец",
-  "Лук",
-  "Курица",
-  "Огурпа",
-  "Помидор",
-  "Ананасы",
-  "Курица",
-  "Огурпа",
-  "Помидор",
-  "Ананасы",
-  "Курица",
-  "Огурпа",
-  "Помидор",
-  "Ананасы",
-  "Курица",
-  "Огурпа",
-  "Помидор",
-  "Ананасы",
+  "Сыр"
 ];
 
 export const Filters = ({ toggleMenu }: { toggleMenu: () => void }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const screenWidth = useScreenWidth();
+  const width = useScreenWidth();
 
   return (
     <div className={styles.filter_groups}>
       <div className={styles.filter_top}>
         <h1 className={styles.filter_title}>Фильтрация</h1>
-        {screenWidth <= 1024 && (
-          <Xbtn
-            className={styles.filter_close_btn}
-            onClick={() => toggleMenu()}
-          />
+        {width <= 1024 && (
+          <div className={styles.filter_close}>
+            <Xbtn
+              className={styles.filter_close_btn}
+              onClick={() => toggleMenu()}
+            />
+          </div>
         )}
       </div>
 
@@ -131,7 +69,7 @@ export const Filters = ({ toggleMenu }: { toggleMenu: () => void }) => {
 
         <ul
           className={styles.ingredients_list}
-          style={{ maxHeight: isOpen ? "none" : "225px" }}
+          style={{ maxHeight: isOpen || width <= 1024 ? "none" : "225px" }}
         >
           {ingredients.map((ingredient) => (
             <li key={ingredient}>
@@ -139,7 +77,7 @@ export const Filters = ({ toggleMenu }: { toggleMenu: () => void }) => {
             </li>
           ))}
         </ul>
-        {screenWidth > 1024 && (
+        {width > 1024 && (
           <button
             className={styles.filter_ingredients_button}
             onClick={() => setIsOpen(!isOpen)}

@@ -1,25 +1,12 @@
-import Button from "../ui/Button";
 import styles from "./Header.module.css";
 import logo from "./../ui/assests/logo.svg";
 import { Input } from "./Input";
 import Container from "./Container";
-import { useEffect, useState } from "react";
+import { useScreenWidth } from "../hooks/useScreen";
+import Button from "../ui/Button";
 
 function Header() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const width = useScreenWidth();
 
   return (
     <header className={styles.header}>
@@ -27,7 +14,7 @@ function Header() {
         <div className={styles.logo_container}>
           <img src={logo} alt="logo" width={35} height={35} />
           <div>
-            {!isMobile && (
+            {width >= 1024 && (
               <>
                 <h1 className={styles.logo_title}>Pizza Delivery</h1>
                 <div className={styles.logo_description}>
@@ -64,7 +51,7 @@ function Header() {
                 strokeLinejoin="round"
               />
             </svg>
-            {!isMobile && "Войти"}
+            {width >= 1024 && "Войти"}
           </Button>
 
           <Button>

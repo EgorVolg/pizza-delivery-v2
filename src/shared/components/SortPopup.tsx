@@ -1,37 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./SortPopup.module.css";
-<<<<<<< Updated upstream
-=======
-import { useScreenWidth } from "../hooks/useScreenWidth";
+import { useScreenWidth } from "../hooks/useScreen";
 import Xbtn from "../ui/Xbtn";
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
 const sortOptions = ["рейтингу", "популярности", "цене", "алфавиту"];
 
 function SortPopUp() {
-  const [isMobile, setIsMobile] = useState(false);
   const [selectedOption, setSelectedOption] = useState(sortOptions[0]);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const updateMobileStatus = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    updateMobileStatus();
-    window.addEventListener("resize", updateMobileStatus);
-
-    return () => {
-      window.removeEventListener("resize", updateMobileStatus);
-    };
-  }, []);
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  const width = useScreenWidth();
 
   const selectOption = (option: string) => {
     setMenuOpen(false);
@@ -40,7 +18,10 @@ function SortPopUp() {
 
   return (
     <div className={styles.sort}>
-      <button className={styles.sort_button} onClick={toggleMenu}>
+      <button
+        className={styles.sort_button}
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
         <svg
           className={styles.sort_icon}
           width="14"
@@ -54,7 +35,7 @@ function SortPopUp() {
             fill="black"
           />
         </svg>
-        {!isMobile && (
+        {width >= 768 && (
           <div>
             Сортировать по: <span>{selectedOption}</span>
           </div>
@@ -64,7 +45,13 @@ function SortPopUp() {
       <ul
         className={`${styles.sort_options} ${menuOpen ? styles.visible : ""}`}
       >
-        <Xbtn onClick={() => setMenuOpen(false)} className={styles.sort_comebackbtn}/>
+        {width <= 768 && (
+          <Xbtn
+            onClick={() => setMenuOpen(false)}
+            className={styles.sort_comebackbtn}
+          />
+        )}
+
         {sortOptions.map((option, index) => (
           <li
             key={index}
@@ -80,4 +67,3 @@ function SortPopUp() {
 }
 
 export default SortPopUp;
- 
