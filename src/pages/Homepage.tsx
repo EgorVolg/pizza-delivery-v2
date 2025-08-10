@@ -85,7 +85,19 @@ const pizzas = [
 
 export function Homepage() {
   const [isOpenFilters, setIsOpenFilters] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(6);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentPizzas = pizzas.slice(indexOfFirstItem, indexOfLastItem);
+
   const screenWidth = useScreenWidth();
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page); 
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   useEffect(() => {
     if (isOpenFilters) {
@@ -126,17 +138,15 @@ export function Homepage() {
 
         <main className={styles.main}>
           <div className={styles.items_list}>
-            {pizzas.map((pizza) => (
+            {currentPizzas.map((pizza) => (
               <Card key={pizza.id} pizza={pizza} />
             ))}
           </div>
           <Footer
-            totalItems={200}
-            itemsPerPage={10}
-            onPageChange={() => {
-              console.log("change page");
-            }}
-            currentPage={1}
+            currentPage={currentPage}
+            totalItems={pizzas.length}
+            itemsPerPage={itemsPerPage}
+            onPageChange={handlePageChange}
           />
         </main>
       </Container>
