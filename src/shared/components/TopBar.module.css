@@ -11,12 +11,13 @@
 .topbar_container {
   display: flex;
   gap: 2rem;
+  justify-content: space-between;
   align-items: center;
   padding: 20px 66px 40px 66px;
   flex-wrap: nowrap;
 
   @media (max-width: 1024px) {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     flex-direction: row-reverse;
     justify-content: start;
     padding: 20px 2rem 36px 2rem;
