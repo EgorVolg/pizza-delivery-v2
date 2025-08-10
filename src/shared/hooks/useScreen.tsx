@@ -1,52 +1,24 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { debounce } from "lodash-es";
 
-type ScreenType =
-  | "desktop"
-  | "tablet L"
-  | "tablet"
-  | "mobile L"
-  | "mobile M"
-  | "mobile S";
-
-const DEFAULT_SCREEN_TYPE: ScreenType = "desktop";
 const DEBOUNCE_DELAY = 100;
+const DEFAULT_WIDTH = 2560;
 
-export function useScreenWidthType(): ScreenType {
-  const [screenType, setScreenType] = useState<ScreenType>(DEFAULT_SCREEN_TYPE);
-
-  const detectScreenType = useCallback(() => {
-    // Для SSR-совместимости
-    if (typeof window === "undefined") return DEFAULT_SCREEN_TYPE;
-
-    const width = window.innerWidth;
-
-    if (width >= 1280) return "desktop";
-    if (width >= 1024) return "tablet L";
-    if (width >= 768) return "tablet";
-    if (width >= 425) return "mobile L";
-    if (width >= 375) return "mobile M";
-    if (width >= 320) return "mobile S";
-
-    return DEFAULT_SCREEN_TYPE;
-  }, []);
+export function useScreenWidth() {
+  const [width, setWidth] = useState(DEFAULT_WIDTH);
 
   useEffect(() => {
-    // Первоначальное определение
-    setScreenType(detectScreenType());
-
-    // Оптимизированный обработчик с debounce
-    const debouncedHandleResize = debounce(() => {
-      setScreenType(detectScreenType());
-    }, DEBOUNCE_DELAY);
+    const handleResize = () => setWidth(window.innerWidth);
+    const debouncedHandleResize = debounce(handleResize, DEBOUNCE_DELAY);
 
     window.addEventListener("resize", debouncedHandleResize);
+    handleResize();
 
     return () => {
       window.removeEventListener("resize", debouncedHandleResize);
       debouncedHandleResize.cancel();
     };
-  }, [detectScreenType]);
+  }, []);
 
-  return screenType;
+  return width;
 }
