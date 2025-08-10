@@ -12,7 +12,7 @@ type ScreenType =
 const DEFAULT_SCREEN_TYPE: ScreenType = "desktop";
 const DEBOUNCE_DELAY = 100;
 
-export function useScreenType(): ScreenType {
+export function useScreenWidthType(): ScreenType {
   const [screenType, setScreenType] = useState<ScreenType>(DEFAULT_SCREEN_TYPE);
 
   const detectScreenType = useCallback(() => {

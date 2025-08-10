@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import FilterCheckbox from "../ui/FilterCheckbox";
 import Button from "../ui/Button";
-import styles from "./Filters.module.css";
-<<<<<<< Updated upstream
-=======
-import { useState } from "react";
+import styles from "./Filters.module.css"; 
 import { useScreenWidth } from "../hooks/useScreenWidth";
 import Xbtn from "../ui/Xbtn";
->>>>>>> Stashed changes
 
 const ingredients = [
   "Грибы",
@@ -89,7 +85,8 @@ const ingredients = [
 
 export const Filters = ({ toggleMenu }: { toggleMenu: () => void }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const screenWidth = useScreen();
+
+  const screenWidth = useScreenWidth();
 
   return (
     <div className={styles.filter_groups}>

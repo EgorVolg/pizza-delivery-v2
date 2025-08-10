@@ -83,7 +83,7 @@ const pizzas = [
 
 export function Homepage() {
   const [isOpenFilters, setIsOpenFilters] = useState(false);
-  const screenWidth = useScreen();
+  const screenWidth = useScreenWidth();
 
   useEffect(() => {
     if (isOpenFilters) {

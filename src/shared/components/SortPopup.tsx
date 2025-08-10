@@ -4,6 +4,9 @@ import styles from "./SortPopup.module.css";
 =======
 import { useScreenWidth } from "../hooks/useScreenWidth";
 import Xbtn from "../ui/Xbtn";
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 const sortOptions = ["рейтингу", "популярности", "цене", "алфавиту"];
