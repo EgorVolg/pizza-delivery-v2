@@ -1,0 +1,51 @@
+button {
+  all: unset;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 15px;
+  width: 45px;
+  height: 45px;
+}
+
+.footer {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 30px;
+
+  color: #888888;
+}
+
+.buttons_container {
+  display: flex;
+  gap: 12px;
+}
+
+.navButton {
+  border: 1px solid #fe5f00;
+  color: #fe5f00;
+}
+
+.pageButton {
+  border: 1px solid #ededed;
+}
+
+.navButton:disabled,
+.pageButton:disabled { 
+  border: 1px solid #ededed;
+  color: #ededed;
+}
+
+.pageButton.active {
+  background-color: #fe5f00;
+  color: #fff;
+}
+
+.pageInfo {
+  font-family: Nunito;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 15px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
