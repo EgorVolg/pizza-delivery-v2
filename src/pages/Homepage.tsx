@@ -205,7 +205,7 @@ export function Homepage() {
               : ""
           }`}
         >
-          <Filters toggleMenu={toggleMenu} />
+          <Filters toggleMenu={toggleMenu} isOpenFilters={isOpenFilters} />
         </nav>
 
         <main className={styles.main}>

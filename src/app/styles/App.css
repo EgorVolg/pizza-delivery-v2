@@ -1,7 +1,8 @@
 .main {
   background: #ffbf9b;
   padding: 31px 29px;
-  height: 100vh;
+  min-height: 100vh;
+
 
   @media (max-width: 425px) {
     padding: 20px 15px;
