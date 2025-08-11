@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./SortPopup.module.css";
 import { useScreenWidth } from "../hooks/useScreen";
 import Xbtn from "../ui/Xbtn";
@@ -11,10 +11,37 @@ function SortPopUp() {
 
   const width = useScreenWidth();
 
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+
   const selectOption = (option: string) => {
-    setMenuOpen(false);
+    toggleMenu();
     setSelectedOption(option);
   };
+
+  const popupRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        popupRef.current &&
+        !popupRef.current.contains(event.target as Node)
+      ) {
+        toggleMenu();
+      }
+    };
+
+    
+
+    document.addEventListener("mousedown", handleClickOutside);
+    window.addEventListener("scroll", toggleMenu, { passive: true });
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("scroll", toggleMenu);
+    };
+  }, [menuOpen]);
 
   return (
     <div className={styles.sort}>
