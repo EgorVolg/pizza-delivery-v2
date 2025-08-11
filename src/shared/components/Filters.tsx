@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import FilterCheckbox from "../ui/FilterCheckbox";
 import Button from "../ui/Button";
 import styles from "./Filters.module.css";
@@ -16,13 +16,47 @@ const ingredients = [
   "Курица",
   "Грибы",
   "Пепперони",
-  "Сыр"
+  "Сыр",
 ];
 
-export const Filters = ({ toggleMenu }: { toggleMenu: () => void }) => {
+export const Filters = ({
+  toggleMenu,
+  isOpenFilters,
+}: {
+  toggleMenu: () => void;
+  isOpenFilters: boolean;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const width = useScreenWidth();
+  const popupRef = useRef<HTMLUListElement>(null);
+
+  // 1. управляем overflow
+  useEffect(() => {
+    if (width <= 1024 && isOpenFilters) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpenFilters, width]);
+
+  // 2. клик вне
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isOpenFilters &&
+        popupRef.current &&
+        !popupRef.current.contains(event.target as Node)
+      ) {
+        toggleMenu();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpenFilters, toggleMenu]);
 
   return (
     <div className={styles.filter_groups}>
@@ -30,10 +64,7 @@ export const Filters = ({ toggleMenu }: { toggleMenu: () => void }) => {
         <h1 className={styles.filter_title}>Фильтрация</h1>
         {width <= 1024 && (
           <div className={styles.filter_close}>
-            <Xbtn
-              className={styles.filter_close_btn}
-              onClick={() => toggleMenu()}
-            />
+            <Xbtn className={styles.filter_close_btn} onClick={toggleMenu} />
           </div>
         )}
       </div>
@@ -91,7 +122,6 @@ export const Filters = ({ toggleMenu }: { toggleMenu: () => void }) => {
         <FilterCheckbox text="Традиционное" rounded />
         <FilterCheckbox text="Толстое" rounded />
       </div>
-
       <div className={styles.btn_container}>
         <Button className={styles.filter_button}>Применить</Button>
       </div>
