@@ -1,5 +1,5 @@
 import { Homepage } from "../pages/Homepage";
-import Container from "../shared/components/Container";
+import Container from "../shared/ui/Container";
 import "./styles/App.css";
 function App() {
   return (

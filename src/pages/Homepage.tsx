@@ -1,4 +1,4 @@
-import Container from "../shared/components/Container";
+import Container from "../shared/ui/Container";
 import Header from "../shared/components/Header";
 import TopBar from "../shared/components/TopBar";
 import { Card } from "../shared/components/Card";
@@ -185,21 +185,6 @@ export function Homepage() {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
-
-  useEffect(() => {
-    if (isOpenFilters) {
-      document.body.style.overflow = "hidden";
-      document.body.style.touchAction = "none";
-    } else {
-      document.body.style.overflow = "";
-      document.body.style.touchAction = "";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-      document.body.style.touchAction = "";
-    };
-  }, [isOpenFilters]);
 
   function toggleMenu() {
     setIsOpenFilters(!isOpenFilters);

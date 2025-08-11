@@ -27,11 +27,18 @@
   }
 
   @media (max-width: 768px) {
+    top: 260px;
     right: 60px;
   }
 
   @media (max-width: 425px) {
-  right: 20px;
+    top: 250px;
+    right: 20px;
+  }
+
+  @media (max-width: 375px) {
+    top: 230px;
+    right: 20px;
   }
 
   li {
