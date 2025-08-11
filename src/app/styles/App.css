@@ -1,18 +1,19 @@
 .main {
   background: #ffbf9b;
   padding: 31px 29px;
+  height: 100vh;
 
   @media (max-width: 425px) {
     padding: 20px 15px;
   }
 }
 
-.container { 
+.container {
   background-color: white;
   border-radius: 30px;
 }
 
 body {
   font-family: "Nunito", sans-serif;
-  font-weight: 500;
+  font-weight: 500; 
 }
