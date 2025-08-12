@@ -1,8 +1,21 @@
+import { useState, type ChangeEvent } from "react";
+import Xbtn from "../ui/Xbtn";
 import styles from "./Input.module.css";
 
 export const Input = () => {
+  const [inputValue, setInputValue] = useState("");
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const clear = () => {
+    setInputValue("");
+  };
+
   return (
     <div className={styles.input}>
+      <div className={styles.overlay}></div>
       <svg
         width="16"
         height="16"
@@ -15,12 +28,14 @@ export const Input = () => {
           fill="#ADADAD"
         />
       </svg>
-
       <input
         type="text"
         placeholder="Поиск пиццы..."
         className={styles.search_input}
+        value={inputValue}
+        onChange={onChange}
       />
+      {inputValue && <Xbtn className={styles.xbtn} onClick={clear} />}
     </div>
   );
 };

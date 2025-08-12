@@ -49,7 +49,12 @@
   border-color: hsl(var(--ring));
 }
 
-.search_input:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
+.xbtn {
+  position: absolute;
+  top: -38px;
+  right: 0;
+  transition: transform 0.2s ease;
+  color: #adadad;
+  border: none;
+  cursor: pointer;
 }
