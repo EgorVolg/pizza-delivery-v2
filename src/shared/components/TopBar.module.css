@@ -13,7 +13,7 @@
   gap: 2rem;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 66px 40px 66px;
+  padding: 40px 66px;
   flex-wrap: nowrap;
 
   @media (max-width: 1024px) {
