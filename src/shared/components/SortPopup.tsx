@@ -7,11 +7,11 @@ const sortOptions = ["рейтингу", "популярности", "цене",
 
 function SortPopUp() {
   const [selectedOption, setSelectedOption] = useState(sortOptions[0]);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [openSortPopup, setOpenSortPopup] = useState(false);
 
   const width = useScreenWidth();
 
-  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const toggleMenu = () => setOpenSortPopup(!openSortPopup);
 
   const selectOption = (option: string) => {
     toggleMenu();
@@ -21,7 +21,7 @@ function SortPopUp() {
   const popupRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
-    if (!menuOpen) return;
+    if (!openSortPopup) return;
 
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -32,8 +32,6 @@ function SortPopUp() {
       }
     };
 
-    
-
     document.addEventListener("mousedown", handleClickOutside);
     window.addEventListener("scroll", toggleMenu, { passive: true });
 
@@ -41,13 +39,13 @@ function SortPopUp() {
       document.removeEventListener("mousedown", handleClickOutside);
       window.removeEventListener("scroll", toggleMenu);
     };
-  }, [menuOpen]);
+  }, [openSortPopup, toggleMenu]);
 
   return (
     <div className={styles.sort}>
       <button
         className={styles.sort_button}
-        onClick={() => setMenuOpen(!menuOpen)}
+        onClick={() => setOpenSortPopup(!openSortPopup)}
       >
         <svg
           className={styles.sort_icon}
@@ -70,11 +68,12 @@ function SortPopUp() {
       </button>
 
       <ul
-        className={`${styles.sort_options} ${menuOpen ? styles.visible : ""}`}
+        className={`${styles.sort_options} ${openSortPopup ? styles.visible : ""}`}
+        ref={popupRef}
       >
         {width <= 768 && (
           <Xbtn
-            onClick={() => setMenuOpen(false)}
+            onClick={() => setOpenSortPopup(false)}
             className={styles.sort_comebackbtn}
           />
         )}
