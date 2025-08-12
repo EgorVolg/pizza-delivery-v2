@@ -1,3 +1,17 @@
+.overlay {
+  display: none;
+  transition: display 0.3s ease;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index:12;
+}
+
 .input {
   position: relative;
   display: flex;
@@ -9,12 +23,10 @@
   @media (max-width: 768px) {
     margin: 0 0.5rem;
   }
+}
 
-  svg {
-    z-index: 10;
-    position: absolute;
-    left: 0.75rem;
-  }
+.input:focus-within .overlay {
+  display: block;
 }
 
 .search_input {
@@ -24,22 +36,23 @@
   padding-left: 2.5rem;
   padding-right: 0.75rem;
   border: none;
-  border-radius: 0.375rem;
+  border-radius: 15px;
   background-color: #f9f9f9;
-  color: #c0c0c0;
+  color: black;
   font-size: 0.875rem;
   line-height: 1.25rem;
-}
+  z-index:15;
 
-.search_input::file-selector-button {
-  border: 0;
-  background-color: transparent;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-family: Nunito;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px; 
+  line-height: 100%;
+  letter-spacing: 0%;
 }
 
 .search_input::placeholder {
-  color: hsl(var(--muted-foreground));
+  color: #c0c0c0;
 }
 
 .search_input:focus-visible {
@@ -49,12 +62,20 @@
   border-color: hsl(var(--ring));
 }
 
+.input_icon {
+  position: absolute;
+  left: 0.75rem;
+  color: #adadad;
+  z-index: 18;
+}
+
 .xbtn {
   position: absolute;
-  top: -38px;
+  top: -20px;
   right: 0;
   transition: transform 0.2s ease;
   color: #adadad;
   border: none;
   cursor: pointer;
+  z-index: 18;
 }

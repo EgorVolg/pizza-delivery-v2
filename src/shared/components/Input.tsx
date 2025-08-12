@@ -15,8 +15,8 @@ export const Input = () => {
 
   return (
     <div className={styles.input}>
-      <div className={styles.overlay}></div>
       <svg
+        className={styles.input_icon}
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -35,6 +35,7 @@ export const Input = () => {
         value={inputValue}
         onChange={onChange}
       />
+      <div className={styles.overlay}></div>
       {inputValue && <Xbtn className={styles.xbtn} onClick={clear} />}
     </div>
   );
