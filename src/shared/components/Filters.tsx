@@ -4,6 +4,7 @@ import Button from "../ui/Button";
 import styles from "./Filters.module.css";
 import { useScreenWidth } from "../hooks/useScreen";
 import Xbtn from "../ui/Xbtn";
+import { useLockScroll } from "../hooks/useLockScroll";
 
 const ingredients = [
   "Грибы",
@@ -31,16 +32,7 @@ export const Filters = ({
   const popupRef = useRef<HTMLUListElement>(null);
 
   // 1. управляем overflow
-  useEffect(() => {
-    if (width <= 1024 && isOpenFilters) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpenFilters, width]);
+  useLockScroll(isOpenFilters);
 
   // 2. клик вне
   useEffect(() => {
