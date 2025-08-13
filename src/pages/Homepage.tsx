@@ -191,7 +191,7 @@ export function Homepage() {
   }
 
   return (
-    <div>
+    <>
       <Header />
       <TopBar toggleMenu={toggleMenu} />
 
@@ -222,6 +222,6 @@ export function Homepage() {
           />
         </main>
       </Container>
-    </div>
+    </>
   );
 }

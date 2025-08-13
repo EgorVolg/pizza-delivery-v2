@@ -74,7 +74,7 @@
   gap: 10px;
 
   @media (max-width: 768px) {
-    flex-wrap: wrap;
+  
     width: 100%;
     min-width: none;
     height: auto;
@@ -91,6 +91,10 @@
   font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 }
 
 .priceBold {
@@ -101,6 +105,10 @@
   font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 }
 
 .button {
