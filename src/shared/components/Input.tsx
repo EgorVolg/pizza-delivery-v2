@@ -3,6 +3,31 @@ import Xbtn from "../ui/Xbtn";
 import styles from "./Input.module.css";
 import { useLockScroll } from "../hooks/useLockScroll";
 
+import pizzaImg from "../ui/assests/pizza.avif";
+
+const searchitems = [
+  {
+    name: "Vegetarian",
+    id: 1,
+    price: 300,
+  },
+  {
+    name: "Meat",
+    id: 2,
+    price: 400,
+  },
+  {
+    name: "Grilled",
+    id: 3,
+    price: 500,
+  },
+  {
+    name: "Spicy",
+    id: 4,
+    price: 600,
+  },
+];
+
 export const Input = () => {
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -52,7 +77,19 @@ export const Input = () => {
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
       />
-
+      {focused && (
+        <ul className={styles.searchInput_popup}>
+          {searchitems.map((option) => (
+            <li key={option.id} className={styles.item}>
+              <div className={styles.icon}>
+                <img src={pizzaImg} alt="" />
+              </div>
+              <p className={styles.name}>{option.name}</p>
+              <p>{option.price} ₽</p>
+            </li>
+          ))}
+        </ul>
+      )}
       {inputValue && <Xbtn className={styles.xbtn} onClick={clear} />}
     </>
   );
