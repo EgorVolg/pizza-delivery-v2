@@ -122,7 +122,6 @@
     }
 
     @media (max-width: 1440px) {
-      width: 90%;
       left: 5%;
       right: 5%;
     }
@@ -130,6 +129,13 @@
 
   @media (max-width: 1024px) {
     width: 50px;
+
+    &:focus-within {
+      border: none;
+      position: absolute;
+      width: 90%;
+      left: 5%;
+    }
   }
 
   @media (max-width: 425px) {
