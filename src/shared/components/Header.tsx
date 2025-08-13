@@ -10,6 +10,7 @@ import { useState } from "react";
 function Header() {
   const width = useScreenWidth();
   const [isOpen, setIsOpen] = useState(false);
+
   function toggleMenu() {
     setIsOpen(!isOpen);
   }
@@ -20,18 +21,17 @@ function Header() {
         <div className={styles.logo_container}>
           <img src={logo} alt="logo" width={35} height={35} />
           <div>
-            {width >= 768 && (
-              <>
-                <h1 className={styles.logo_title}>Pizza Delivery</h1>
-                <div className={styles.logo_description}>
-                  Fastest delivery in town
-                </div>
-              </>
-            )}
+            <h1 className={styles.logo_title}>Pizza Delivery</h1>
+            <div className={styles.logo_description}>
+              Fastest delivery in town
+            </div>
           </div>
         </div>
 
-        <Input />
+        <Container className={styles.search_container}>
+          <Input />
+          <div className={styles.overlay}></div>
+        </Container>
 
         <div className={styles.buttons_group}>
           <ProfilePopup toggleMenu={toggleMenu} isOpen={isOpen} />
@@ -41,7 +41,7 @@ function Header() {
               height="15"
               viewBox="0 0 13 15"
               fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+              xmlns="http://www.w3.org/2000/svg SVG namespace SVG namespace   SVG namespace SVG namespace  "
             >
               <path
                 d="M11.5706 14.2087V12.8198C11.5706 12.0831 11.2921 11.3765 10.7966 10.8556C10.301 10.3347 9.6288 10.042 8.92793 10.042H3.64264C2.94177 10.042 2.2696 10.3347 1.77401 10.8556C1.27842 11.3765 1 12.0831 1 12.8198V14.2087"
@@ -66,7 +66,7 @@ function Header() {
               height="18"
               viewBox="0 0 18 18"
               fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+              xmlns="http://www.w3.org/2000/svg SVG namespace SVG namespace   SVG namespace SVG namespace  "
             >
               <path
                 d="M6.33333 16.3332C7.06971 16.3332 7.66667 15.7362 7.66667 14.9998C7.66667 14.2635 7.06971 13.6665 6.33333 13.6665C5.59695 13.6665 5 14.2635 5 14.9998C5 15.7362 5.59695 16.3332 6.33333 16.3332Z"
