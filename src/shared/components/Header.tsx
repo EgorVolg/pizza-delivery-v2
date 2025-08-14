@@ -1,11 +1,11 @@
 import styles from "./Header.module.css";
-import logo from "./../ui/assests/logo.svg";
-import { Input } from "./Input";
+import logo from "./../ui/assests/logo.svg"; 
 import Container from "../ui/Container";
 import { useScreenWidth } from "../hooks/useScreen";
 import Button from "../ui/Button";
 import { ProfilePopup } from "./ProfilePopup";
 import { useState } from "react";
+import { Search } from "./Search";
 
 function Header() {
   const width = useScreenWidth();
@@ -28,9 +28,8 @@ function Header() {
           </div>
         </div>
 
-        <Container className={styles.search_container}>
-          <Input />
-          <div className={styles.overlay}></div>
+        <Container className={styles.search_container}> 
+          <Search />
         </Container>
 
         <div className={styles.buttons_group}>
