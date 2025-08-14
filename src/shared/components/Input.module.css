@@ -32,11 +32,6 @@
     opacity: 0;
     transition: opacity 0.4s ease;
   }
-
-  @media (max-width: 425px) { 
-    padding-right: 0.5rem;
-    padding: 0;
-  }
 }
 
 .input_icon {

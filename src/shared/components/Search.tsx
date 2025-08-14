@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import styles from "./Search.module.css"; 
+import styles from "./Search.module.css";
 import pizzaImage from "./../ui/assests/pizza.avif";
-import { useLockScroll } from "../hooks/useLockScroll"; 
+import { useLockScroll } from "../hooks/useLockScroll";
 import { Input } from "./Input";
 
 const searchVariants = [
@@ -31,25 +31,23 @@ const searchVariants = [
   },
 ];
 
-export const Search = () => {
-  const [focused, setFocused] = useState(false);
-
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (focused) {
-      inputRef.current?.focus();
-    }
-  }, [focused]);
-
-  useLockScroll(focused);
-
+export const Search = ({
+  inputRef, 
+  focused,
+  setFocused
+}: {
+  inputRef: any;
+  focused: boolean;
+  setFocused:any;
+}) => {
+  console.log(focused);
+  
   return (
     <>
       {focused && <div className={styles.overlay} />}
 
       <Input inputRef={inputRef} setFocused={setFocused} />
-      
+
       {focused && (
         <ul className={styles.dropdown}>
           {searchVariants.map((p) => (

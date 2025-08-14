@@ -1,19 +1,33 @@
 import styles from "./Header.module.css";
-import logo from "./../ui/assests/logo.svg"; 
+import logo from "./../ui/assests/logo.svg";
 import Container from "../ui/Container";
 import { useScreenWidth } from "../hooks/useScreen";
 import Button from "../ui/Button";
 import { ProfilePopup } from "./ProfilePopup";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Search } from "./Search";
+import { useLockScroll } from "../hooks/useLockScroll";
 
 function Header() {
   const width = useScreenWidth();
   const [isOpen, setIsOpen] = useState(false);
+  const [focused, setFocused] = useState(false);
 
   function toggleMenu() {
     setIsOpen(!isOpen);
   }
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (focused) {
+      inputRef.current?.focus();
+    }
+  }, [focused]);
+
+  useLockScroll(focused);
+
+  const toggleInputFocus = () => setFocused(true);
 
   return (
     <header className={styles.header}>
@@ -28,8 +42,12 @@ function Header() {
           </div>
         </div>
 
-        <Container className={styles.search_container}> 
-          <Search />
+        <Container className={styles.search_container}>
+          <Search
+            focused={focused}
+            setFocused={setFocused}
+            inputRef={inputRef}
+          />
         </Container>
 
         <div className={styles.buttons_group}>
