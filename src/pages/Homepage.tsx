@@ -7,6 +7,7 @@ import { Filters } from "../shared/components/Filters";
 import { useEffect, useState } from "react";
 import { useScreenWidth } from "../shared/hooks/useScreen";
 import { Footer } from "../shared/components/Footer";
+import Skeleton from "../shared/ui/Skeleton";
 
 export interface Pizza {
   id: number;
@@ -190,6 +191,8 @@ export function Homepage() {
     setIsOpenFilters(!isOpenFilters);
   }
 
+  const isLoading = false;
+
   return (
     <>
       <Header />
@@ -210,10 +213,13 @@ export function Homepage() {
 
         <main className={styles.main}>
           <div className={styles.items_list}>
-            {currentPizzas.map((pizza) => (
-              <Card key={pizza.id} pizza={pizza} />
-            ))}
+            {isLoading
+              ? [...Array(6)].map((_, index) => <Skeleton key={index} />)
+              : currentPizzas.map((pizza) => (
+                  <Card key={pizza.id} pizza={pizza} />
+                ))}
           </div>
+
           <Footer
             currentPage={currentPage}
             totalItems={pizzas.length}
