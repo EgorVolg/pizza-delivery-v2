@@ -33,7 +33,7 @@ export const Input = ({
         type="text"
         placeholder="Поиск пиццы..."
         value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        onChange={(e) => setSearchValue(e.target.value)} 
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
       />
