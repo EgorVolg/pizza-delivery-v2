@@ -7,12 +7,11 @@ export const Input = ({
   setFocused,
 }: {
   inputRef: React.RefObject<HTMLInputElement>;
-  setFocused: any;
+  setFocused: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [searchValue, setSearchValue] = useState("");
   return (
     <>
-    {/* <div onClick={() => setFocused(true)} style={{zIndex: 100, width: "100%"}}> */}
       <div className={styles.input_icon}>
         <svg
           onClick={() => setFocused(true)}

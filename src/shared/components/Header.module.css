@@ -12,6 +12,10 @@
     padding: 2rem;
   }
 
+  @media (max-width: 425px) {
+    padding: 1rem 2rem;
+  }
+
   @media (max-width: 375px) {
     padding: 1rem;
   }
@@ -125,7 +129,6 @@
   @media (max-width: 375px) {
     &:focus-within {
       top: 30px;
-      
     }
   }
 }

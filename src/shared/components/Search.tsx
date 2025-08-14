@@ -1,7 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
 import styles from "./Search.module.css";
 import pizzaImage from "./../ui/assests/pizza.avif";
-import { useLockScroll } from "../hooks/useLockScroll";
 import { Input } from "./Input";
 
 const searchVariants = [
@@ -32,16 +30,14 @@ const searchVariants = [
 ];
 
 export const Search = ({
-  inputRef, 
+  inputRef,
   focused,
-  setFocused
+  setFocused,
 }: {
-  inputRef: any;
+  inputRef: React.RefObject<HTMLInputElement>;
   focused: boolean;
-  setFocused:any;
+  setFocused: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  console.log(focused);
-  
   return (
     <>
       {focused && <div className={styles.overlay} />}

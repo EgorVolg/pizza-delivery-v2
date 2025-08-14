@@ -28,20 +28,22 @@
     color: #fe5f00;
     transition: color 0.2s ease;
   }
- 
 
   &.active {
     background-color: #fff;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
       0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    color: #fe5f00; 
+    color: #fe5f00;
 
     animation: shift 0.5s ease;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 0.75rem;
   }
 }
 
 @keyframes shift {
- 
   50% {
     transform: translateX(3px);
   }

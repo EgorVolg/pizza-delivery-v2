@@ -27,7 +27,6 @@ function Header() {
 
   useLockScroll(focused);
 
-  const toggleInputFocus = () => setFocused(true);
 
   return (
     <header className={styles.header}>
