@@ -1,55 +1,15 @@
-import { useEffect, useRef, useState, type ChangeEvent } from "react";
-import Xbtn from "../ui/Xbtn";
 import styles from "./Input.module.css";
-import { useLockScroll } from "../hooks/useLockScroll";
+import Xbtn from "../ui/Xbtn";
+import React, { useState } from "react";
 
-import pizzaImg from "../ui/assests/pizza.avif";
-
-const searchitems = [
-  {
-    name: "Vegetarian",
-    id: 1,
-    price: 300,
-  },
-  {
-    name: "Meat",
-    id: 2,
-    price: 400,
-  },
-  {
-    name: "Grilled",
-    id: 3,
-    price: 500,
-  },
-  {
-    name: "Spicy",
-    id: 4,
-    price: 600,
-  },
-];
-
-export const Input = () => {
-  const [focused, setFocused] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (focused) {
-      inputRef.current?.focus();
-    }
-  }, [focused]);
-
-  useLockScroll(focused);
-
-  const [inputValue, setInputValue] = useState("");
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
-
-  const clear = () => {
-    setInputValue("");
-  };
-
+export const Input = ({
+  inputRef,
+  setFocused,
+}: {
+  inputRef: React.RefObject<HTMLInputElement>;
+  setFocused: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const [searchValue, setSearchValue] = useState("");
   return (
     <>
       <button
@@ -72,25 +32,15 @@ export const Input = () => {
         className={styles.input}
         type="text"
         placeholder="Поиск пиццы..."
-        value={inputValue}
-        onChange={onChange}
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
       />
-      {focused && (
-        <ul className={styles.searchInput_popup}>
-          {searchitems.map((option) => (
-            <li key={option.id} className={styles.item}>
-              <div className={styles.icon}>
-                <img src={pizzaImg} alt="" />
-              </div>
-              <p className={styles.name}>{option.name}</p>
-              <p>{option.price} ₽</p>
-            </li>
-          ))}
-        </ul>
+
+      {searchValue && (
+        <Xbtn className={styles.xbtn} onClick={() => setSearchValue("")} />
       )}
-      {inputValue && <Xbtn className={styles.xbtn} onClick={clear} />}
     </>
   );
 };

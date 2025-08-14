@@ -60,39 +60,5 @@
   cursor: pointer;
   z-index: 30;
 }
-
-.searchInput_popup {
-  position: fixed;
-  top: 10%;
-  left: 40%;
-  width: 762px;
-  padding-top: 13px;
-  padding-bottom: 9px;
-  border-radius: 10px;
-  border: 1px solid #c0c0c0;
-  background: white;
-  z-index: 100;
-}
-
-.item {
-  display: flex;
-  align-items: center;
-  background: white;
-  padding: 10px 19px;
-}
-
-.icon {
-  width: 30px;
-  height: 30px;
-}
-
-.icon img {
-  width: 100%;
-  height: 100%;
-}
-
-.name {
-  margin: 0 13px;
-}
-
+ 
  
