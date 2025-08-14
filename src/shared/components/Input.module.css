@@ -26,6 +26,10 @@
 
   &:focus {
     outline: none;
+    border: none;
+
+    opacity: 1;
+    z-index: 30;
   }
 }
 
@@ -60,5 +64,3 @@
   cursor: pointer;
   z-index: 30;
 }
- 
- 
