@@ -35,9 +35,9 @@ function Header() {
           <div>
             {width > 320 && (
               <>
-                <h1 className={styles.logo_title}>Pizza Delivery</h1>
+                <h1 className={styles.logo_title}>React Pizza</h1>
                 <div className={styles.logo_description}>
-                  Fastest delivery in town
+                  ...more than just pizza
                 </div>
               </>
             )}
