@@ -61,6 +61,7 @@
   position: relative;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-row-gap: auto;
   gap: 50px;
   height: max-content;
  
