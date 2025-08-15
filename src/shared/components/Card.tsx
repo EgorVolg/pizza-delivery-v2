@@ -1,8 +1,10 @@
+import { useState } from "react";
 import type { Pizza } from "../../pages/Homepage";
 import pizzaImage from "../ui/assests/pizza.avif";
 import styles from "./Card.module.css";
 
 export const Card = ({ pizza }: { pizza: Pizza }) => {
+  const [pizzaQuantity, setPizzaQuantity] = useState(0);
   return (
     <div className={styles.card}>
       <div className={styles.imageContainer}>
@@ -18,7 +20,27 @@ export const Card = ({ pizza }: { pizza: Pizza }) => {
           от <b className={styles.priceBold}>{pizza.price} ₽</b>
         </span>
 
-        <button className={styles.button}>+ Добавить</button>
+        {pizzaQuantity > 0 ? (
+          <div className={styles.countContainer}>
+            <button
+              className={styles.countBtn}
+              onClick={() => setPizzaQuantity(pizzaQuantity - 1)}
+            >
+              -
+            </button>
+            <span className={styles.quantity}>{pizzaQuantity}</span>
+            <button
+              className={styles.countBtn}
+              onClick={() => setPizzaQuantity(pizzaQuantity + 1)}
+            >
+              +
+            </button>
+          </div>
+        ) : (
+          <button className={styles.button} onClick={() => setPizzaQuantity(1)}>
+            + Добавить
+          </button>
+        )}
       </div>
     </div>
   );

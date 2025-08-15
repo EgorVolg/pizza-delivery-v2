@@ -27,17 +27,20 @@ function Header() {
 
   useLockScroll(focused);
 
-
   return (
     <header className={styles.header}>
       <Container className={styles.header_container}>
         <div className={styles.logo_container}>
           <img src={logo} alt="logo" width={35} height={35} />
           <div>
-            <h1 className={styles.logo_title}>Pizza Delivery</h1>
-            <div className={styles.logo_description}>
-              Fastest delivery in town
-            </div>
+            {width > 320 && (
+              <>
+                <h1 className={styles.logo_title}>Pizza Delivery</h1>
+                <div className={styles.logo_description}>
+                  Fastest delivery in town
+                </div>
+              </>
+            )}
           </div>
         </div>
 
