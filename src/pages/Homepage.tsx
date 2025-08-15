@@ -149,7 +149,7 @@ const pizzas = [
     id: 21,
     name: "Four Cheese",
     description:
-      "Four cheeses (mozzarella, cheddar, provolone, and parmesan) on a classic tomato base.",
+      "Four cheeses (mozzarella, cheddar, provolone, and parmesan) on a classic tomato base. Four cheeses (mozzarella, cheddar, provolone, and parmesan) on a classic tomato base. Four cheeses (mozzarella, cheddar, provolone, and parmesan) on a classic tomato base.",
     price: 11.99,
   },
   {

@@ -1,6 +1,5 @@
 .main {
-  display: grid;
-  grid-template-columns: 1fr;
+  position: relative; 
 }
 
 .main_container {
@@ -59,12 +58,14 @@
 }
 
 .items_list {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 50px;
   height: max-content;
-  padding-bottom: 70px;
+ 
   margin-top: 30px;
+  margin-bottom: 105px;
 
   @media (max-width: 1440px) {
     gap: 30px;
