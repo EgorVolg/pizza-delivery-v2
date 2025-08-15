@@ -55,9 +55,8 @@ button {
 }
 
 .pageInfo {
-  font-family: Nunito;
-  font-weight: 600;
-  font-style: SemiBold;
+  font-family:  "Nunito";
+  font-weight: 600; 
   font-size: 15px;
   line-height: 100%;
   letter-spacing: 0%;

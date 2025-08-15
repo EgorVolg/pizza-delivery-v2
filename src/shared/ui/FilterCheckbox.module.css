@@ -4,9 +4,8 @@
   gap: 12px;
   margin-bottom: 15px;
 
-  font-family: Nunito;
-  font-weight: 400;
-  font-style: Regular;
+  font-family:  "Nunito";
+  font-weight: 400; 
   font-size: 16px;
   line-height: 100%;
   letter-spacing: 0%;
@@ -64,9 +63,8 @@
 }
 
 .checkmark {
-  font-family: Nunito;
-  font-weight: 400;
-  font-style: Regular;
+  font-family:  "Nunito";
+  font-weight: 400; 
   font-size: 16px;
   line-height: 100%;
   letter-spacing: 0%;

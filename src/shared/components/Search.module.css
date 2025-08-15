@@ -43,9 +43,8 @@
 }
 
 .name {
-  font-family: Nunito;
-  font-weight: 700;
-  font-style: Bold;
+  font-family:  "Nunito";
+  font-weight: 700; 
   font-size: 16px;
   line-height: 100%;
   letter-spacing: 0%;
@@ -54,9 +53,8 @@
 }
 
 .price {
-  font-family: Nunito;
-  font-weight: 400;
-  font-style: Regular;
+  font-family:  "Nunito";
+  font-weight: 400; 
   font-size: 14px;
   line-height: 100%;
   letter-spacing: 0%;

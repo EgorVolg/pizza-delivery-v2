@@ -51,9 +51,8 @@
 }
 
 .title {
-  font-family: Nunito;
-  font-weight: 700;
-  font-style: Bold;
+  font-family: "Nunito";
+  font-weight: 700; 
   font-size: clamp(18px, 2vw, 24px);
   line-height: 100%;
   letter-spacing: 0%;
@@ -65,9 +64,8 @@
   height: 63px;
   overflow: hidden;
   color: #b1b1b1;
-  font-family: Nunito;
-  font-weight: 400;
-  font-style: Regular;
+  font-family:  "Nunito";
+  font-weight: 400; 
   font-size: 14px;
   line-height: 21px;
   letter-spacing: 0%;
@@ -106,9 +104,8 @@
 
 .price {
   text-wrap: nowrap; 
-  font-family: Nunito;
-  font-weight: 400;
-  font-style: Regular;
+  font-family:  "Nunito";
+  font-weight: 400; 
   font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
@@ -124,9 +121,8 @@
 
 .priceBold {
   text-wrap: nowrap;
-  font-family: Nunito;
-  font-weight: 700;
-  font-style: Bold;
+  font-family:  "Nunito";
+  font-weight: 700; 
   font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
@@ -143,9 +139,8 @@
   color: #fe5f00;
   border: none;
   text-wrap: nowrap;
-  font-family: Nunito;
-  font-weight: 700;
-  font-style: Bold;
+  font-family:  "Nunito";
+  font-weight: 700; 
   font-size: 16px;
   line-height: 100%;
   letter-spacing: 0%;
@@ -179,9 +174,8 @@
   color: #fe5f00;
   transition: all 0.3s ease;
 
-  font-family: Nunito;
-  font-weight: 700;
-  font-style: Bold;
+  font-family:  "Nunito";
+  font-weight: 700; 
   font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;

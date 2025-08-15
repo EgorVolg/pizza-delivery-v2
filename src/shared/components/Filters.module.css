@@ -85,18 +85,16 @@
 }
 
 .filter_title {
-  font-family: Nunito;
-  font-weight: 700;
-  font-style: Bold;
+  font-family:  "Nunito";
+  font-weight: 700; 
   font-size: 22px;
   line-height: 100%;
   letter-spacing: 0%;
 }
 
 .filter_group_title {
-  font-family: Nunito;
-  font-weight: 700;
-  font-style: Bold;
+  font-family:  "Nunito";
+  font-weight: 700; 
   font-size: 16px;
   line-height: 100%;
   letter-spacing: 0%;
@@ -104,9 +102,8 @@
 
 .filter_ingredients_button {
   all: unset;
-  font-family: Nunito;
-  font-weight: 400;
-  font-style: Regular;
+  font-family:  "Nunito";
+  font-weight: 400; 
   font-size: 16px;
   line-height: 100%;
   letter-spacing: 0%;
