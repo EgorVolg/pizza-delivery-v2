@@ -4,10 +4,11 @@ import TopBar from "../shared/components/TopBar";
 import { Card } from "../shared/components/Card";
 import styles from "./Homepage.module.css";
 import { Filters } from "../shared/components/Filters";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useScreenWidth } from "../shared/hooks/useScreen";
 import { Footer } from "../shared/components/Footer";
 import Skeleton from "../shared/ui/Skeleton";
+import { useSayHelloQuery } from "../shared/api/makeRequest";
 
 export interface Pizza {
   id: number;
@@ -192,6 +193,10 @@ export function Homepage() {
   }
 
   const isLoading = false;
+
+  const hello = useSayHelloQuery({});
+
+  console.log(hello.data);
 
   return (
     <>
