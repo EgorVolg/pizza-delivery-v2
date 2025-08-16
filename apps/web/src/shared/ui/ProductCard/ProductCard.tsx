@@ -1,14 +1,13 @@
 import { useState } from "react";
-import type { Pizza } from "../../pages/Homepage";
-import pizzaImage from "../ui/assests/pizza.avif";
-import styles from "./Card.module.css";
+import styles from "./ProductCard.module.css";
+import type { Pizza } from "../../../entities/pizza/model/pizza.types";
 
-export const Card = ({ pizza }: { pizza: Pizza }) => {
+export const ProductCard = ({ pizza }: { pizza: Pizza }) => {
   const [pizzaQuantity, setPizzaQuantity] = useState(0);
   return (
     <div className={styles.card}>
       <div className={styles.imageContainer}>
-        <img className={styles.image} src={pizzaImage} alt={pizza.name} />
+        <img className={styles.image} src={pizza.imageUrl} alt={pizza.name} />
       </div>
 
       <div className={styles.content}>

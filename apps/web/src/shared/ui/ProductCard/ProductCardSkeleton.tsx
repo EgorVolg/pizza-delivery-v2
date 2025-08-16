@@ -1,7 +1,6 @@
-import React from "react";
-import styles from "./Skeleton.module.css";
+import styles from "./ProductCardSkeleton.module.css";
 
-const Skeleton = () => (
+const ProductCardSkeleton = () => (
   <div className={styles.card}>
     <div className={styles.imageContainer}>
       <div className={styles.image} />
@@ -17,4 +16,4 @@ const Skeleton = () => (
   </div>
 );
 
-export default Skeleton;
+export default ProductCardSkeleton;

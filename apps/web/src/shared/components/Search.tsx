@@ -1,5 +1,5 @@
 import styles from "./Search.module.css";
-import pizzaImage from "./../ui/assests/pizza.avif";
+import pizzaImage from "./../assests/pizza.avif";
 import { Input } from "./Input";
 
 const searchVariants = [

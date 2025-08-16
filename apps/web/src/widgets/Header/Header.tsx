@@ -1,12 +1,12 @@
-import styles from "./Header.module.css";
-import logo from "./../ui/assests/logo.svg";
+import styles from "./Header.module.css"; 
+import logo from "../../shared/assests/logo.svg";
 import Container from "../../shared/ui/Container";
-import { useScreenWidth } from "../../shared/hooks/useScreen";
-import Button from "../../shared/ui/Button";
+import { useScreenWidth } from "../../shared/hooks/useScreen"; 
 import { ProfilePopup } from "../../shared/components/ProfilePopup";
 import { useEffect, useRef, useState } from "react";
 import { Search } from "../../shared/components/Search";
 import { useLockScroll } from "../../shared/hooks/useLockScroll";
+import Button from "../../shared/ui/Button";
 
 function Header() {
   const width = useScreenWidth();
