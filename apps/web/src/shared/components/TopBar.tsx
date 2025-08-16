@@ -1,6 +1,6 @@
 import styles from "./TopBar.module.css";
 import Container from "../ui/Container";
-import Categories from "./Categories";
+import Categories from "../../entities/categories/ui/Categories";
 import SortPopUp from "./SortPopup";
 import { useScreenWidth } from "../hooks/useScreen";
 
