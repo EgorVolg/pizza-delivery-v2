@@ -1,4 +1,5 @@
-import { Homepage } from "../pages/Homepage";
+ 
+import { Homepage } from "../pages/home/Homepage";
 import Container from "../shared/ui/Container";
 import "./styles/App.css";
 function App() {
