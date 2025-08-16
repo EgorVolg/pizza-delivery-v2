@@ -1,9 +1,9 @@
 import express from "express";
+import categoryRoutes from '../routes/categories.routes';
 import "dotenv/config";
 import cors from "cors";
 import helmet from "helmet";
-import morgan from "morgan";
-import { listCategories } from "../controllers/category.controller";
+import morgan from "morgan";  
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -17,7 +17,7 @@ app.get("/api/pizzas", (_req, res) => {
   res.json([]);
 });
 
-app.get("/api/categories", listCategories);
+app.use('/api', categoryRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server listening on port ${PORT}`);

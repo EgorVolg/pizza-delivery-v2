@@ -1,10 +1,12 @@
-import { categoryRepo } from "../entities/categories/model/categories.repo";
+import { Request, Response } from "express";
+import { Category } from "../entities/categories/model/categories.model";
 
-export const listCategories = async (_req, res, next) => {
+export const getCategories = async (_req: Request, res: Response) => {
   try {
-    const categories = await categoryRepo.findAll();
+    const categories = await Category.findAll({ attributes: ["id", "name"] });
     res.json(categories);
   } catch (err) {
-    next(err);
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
   }
 };
