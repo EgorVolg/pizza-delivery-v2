@@ -1,14 +1,11 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { api } from "../api/makeRequest";
-import { sayHelloSlice } from "./slices/pizzaSlice";
-
-const reducers = combineReducers({
-  hello: sayHelloSlice.reducer,
-  [api.reducerPath]: api.reducer,
-});
+import { configureStore } from '@reduxjs/toolkit'; 
+import { rootReducer } from './rootReducer';
+import { pizzasApi } from '../entities/pizza/model/pizza.api';
 
 export const store = configureStore({
-  reducer: reducers,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(api.middleware),
+  reducer: rootReducer,
+  middleware: (getDefault) =>
+    getDefault().concat(
+      pizzasApi.middleware, 
+    ),
 });
