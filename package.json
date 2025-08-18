@@ -11,8 +11,13 @@
     "dev:server": "npm --workspace=@pizza/server run dev",
     "build": "npm --workspace=@pizza/client run build && npm --workspace=@pizza/server run build",
     "lint": "npm --workspace=@pizza/client run lint",
-    "test": "jest --workspaces --passWithNoTests",
-    "cypress": "cypress open"
+    "test": "npm run test --workspaces --if-present",
+    "test:client": "npm run test -w Client",
+    "test:server": "npm run test -w Server",
+    "test:client:watch": "npm run test:watch -w Client",
+    "test:client:coverage": "npm run test:coverage -w Client",
+    "cy:open": "npm run cy:open -w Client",
+    "cy:run": "npm run cy:run -w Client"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.9.0",
