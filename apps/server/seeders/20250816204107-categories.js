@@ -1,53 +1,28 @@
 "use strict";
-
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert(
-      "categories",
-      [
-        {
-          id: 1,
-          name: "Пиццы",
-          created_at: new Date(),
-          updated_at: new Date(),
-        },
-        {
-          id: 2,
-          name: "Римские пиццы",
-          created_at: new Date(),
-          updated_at: new Date(),
-        },
-        {
-          id: 3,
-          name: "Закуски",
-          created_at: new Date(),
-          updated_at: new Date(),
-        },
-        {
-          id: 4,
-          name: "Коктейли",
-          created_at: new Date(),
-          updated_at: new Date(),
-        },
-        { id: 5, name: "Кофе", created_at: new Date(), updated_at: new Date() },
-        {
-          id: 6,
-          name: "Напитки",
-          created_at: new Date(),
-          updated_at: new Date(),
-        },
-        {
-          id: 7,
-          name: "Соусы",
-          created_at: new Date(),
-          updated_at: new Date(),
-        },
-      ],
-      {}
-    );
-  },
+  up: async (queryInterface) =>
+    queryInterface
+      .bulkInsert(
+        "categories",
+        [
+          { name: "Пиццы", createdAt: new Date(), updatedAt: new Date() },
+          {
+            name: "Римские пиццы",
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+          { name: "Закуски", createdAt: new Date(), updatedAt: new Date() },
+          { name: "Коктейли", createdAt: new Date(), updatedAt: new Date() },
+          { name: "Кофе", createdAt: new Date(), updatedAt: new Date() },
+          { name: "Напитки", createdAt: new Date(), updatedAt: new Date() },
+          { name: "Соусы", createdAt: new Date(), updatedAt: new Date() },
+        ],
+        { returning: true }
+      ) // ← вернёт id
+      .then((inserted) => {
+        global.categoryIds = inserted.map((r) => r.id);
+      }),
 
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete("categories", null, {});
-  },
+  down: async (queryInterface) =>
+    queryInterface.bulkDelete("categories", null, {}),
 };
