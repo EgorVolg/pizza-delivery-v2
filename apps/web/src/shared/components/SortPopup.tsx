@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./SortPopup.module.css";
 import { useScreenWidth } from "../hooks/useScreen";
-import Xbtn from "../ui/Xbtn";
+import Xbtn from "../ui/Xbtn/Xbtn";
 
 const sortOptions = ["рейтингу", "популярности", "цене", "алфавиту"];
 

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import FilterCheckbox from "../ui/FilterCheckbox";
-import Button from "../ui/Button";
+import FilterCheckbox from "../ui/FilterCheckbox/FilterCheckbox";
+import Button from "../ui/Button/Button";
 import styles from "./Filters.module.css";
 import { useScreenWidth } from "../hooks/useScreen";
-import Xbtn from "../ui/Xbtn";
+import Xbtn from "../ui/Xbtn/Xbtn";
 import { useLockScroll } from "../hooks/useLockScroll";
 
 const ingredients = [

@@ -1,6 +1,6 @@
  
 import { Homepage } from "../pages/home/Homepage";
-import Container from "../shared/ui/Container";
+import Container from "../shared/ui/Container/Container";
 import "./styles/App.css";
 function App() {
   return (
