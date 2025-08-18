@@ -1,31 +1,19 @@
-import styles from "./Header.module.css"; 
-import logo from "../../shared/assests/logo.svg";
-import Container from "../../shared/ui/Container";
-import { useScreenWidth } from "../../shared/hooks/useScreen"; 
+import styles from "./Header.module.css";
+import logo from "../../shared/assets/logo.svg";
+import Container from "../../shared/ui/Container/Container";
+import { useScreenWidth } from "../../shared/hooks/useScreen";
 import { ProfilePopup } from "../../shared/components/ProfilePopup";
-import { useEffect, useRef, useState } from "react";
-import { Search } from "../../shared/components/Search";
-import { useLockScroll } from "../../shared/hooks/useLockScroll";
-import Button from "../../shared/ui/Button";
+import { useState } from "react";
+import { Search } from "../../pages/home/components/Search";
+import Button from "../../shared/ui/Button/Button";
 
 function Header() {
   const width = useScreenWidth();
   const [isOpen, setIsOpen] = useState(false);
-  const [focused, setFocused] = useState(false);
 
   function toggleMenu() {
     setIsOpen(!isOpen);
   }
-
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (focused) {
-      inputRef.current?.focus();
-    }
-  }, [focused]);
-
-  useLockScroll(focused);
 
   return (
     <header className={styles.header}>
@@ -45,11 +33,7 @@ function Header() {
         </div>
 
         <Container className={styles.search_container}>
-          <Search
-            focused={focused}
-            setFocused={setFocused}
-            inputRef={inputRef}
-          />
+          <Search />
         </Container>
 
         <div className={styles.buttons_group}>

@@ -45,8 +45,8 @@
   line-height: 2rem;
   text-wrap: nowrap;
   font-family: "Nunito";
-  font-weight: 900; 
-  font-size: 24px; 
+  font-weight: 900;
+  font-size: 24px;
   line-height: 100%;
   letter-spacing: 1%;
   text-transform: uppercase;
@@ -92,7 +92,6 @@
   border-radius: 15px;
   transition: width 0.4s ease;
   background-color: #f9fafb;
-  /* overflow: hidden; */
 
   &:focus-within {
     input {
