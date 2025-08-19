@@ -37,7 +37,7 @@
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
-    background: #ffffffae;
+    background: var(--color-bg-primary)fae;
     backdrop-filter: blur(20px);
     overflow: auto;
     transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;

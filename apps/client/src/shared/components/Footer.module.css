@@ -36,7 +36,7 @@ button {
 
 .navButton {
   border: 1px solid #fe5f00;
-  color: #fe5f00;
+  color: var(--color-brand);
 }
 
 .pageButton {
@@ -50,13 +50,13 @@ button {
 }
 
 .pageButton.active {
-  background-color: #fe5f00;
+  background-color: var(--color-brand);
   color: #fff;
 }
 
 .pageInfo {
   font-family:  "Nunito";
-  font-weight: 600; 
+  font-weight: var(--font-weight-semibold); 
   font-size: 15px;
   line-height: 100%;
   letter-spacing: 0%;

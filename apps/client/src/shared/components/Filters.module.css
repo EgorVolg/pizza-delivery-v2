@@ -76,40 +76,40 @@
 
 .filter_close_btn {
   all: unset;
-  background: #fffaf4;
+  background: var(--color-bg-primary) af4;
   border-radius: 15px;
-  color: #fe5f00;
+  color: var(--color-brand);
   width: 50px;
   height: 100%;
   cursor: pointer;
 }
 
 .filter_title {
-  font-family:  "Nunito";
-  font-weight: 700; 
+  font-family: "Nunito";
+  font-weight: var(--font-weight-bold);
   font-size: 22px;
   line-height: 100%;
   letter-spacing: 0%;
 }
 
 .filter_group_title {
-  font-family:  "Nunito";
-  font-weight: 700; 
-  font-size: 16px;
+  font-family: "Nunito";
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-md);
   line-height: 100%;
   letter-spacing: 0%;
 }
 
 .filter_ingredients_button {
   all: unset;
-  font-family:  "Nunito";
-  font-weight: 400; 
-  font-size: 16px;
+  font-family: "Nunito";
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-md);
   line-height: 100%;
   letter-spacing: 0%;
 
   padding-top: 20px;
-  color: #fe5f00;
+  color: var(--color-brand);
   cursor: pointer;
 }
 
@@ -120,14 +120,26 @@
 }
 
 .filter_button {
+  font-family: Nunito;
+  font-weight: var(--font-weight-bold);
+  font-style: Bold;
+  font-size: var(--font-size-md);
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+
   width: 300px;
   height: 50px;
   border-radius: 15px;
-  color: white;
-  background: #fe5f00;
+  color: var(--color-bg-primary);
+  background: var(--color-brand);
   cursor: pointer;
 
-  
+  &:hover {
+    background: #fff3e5;
+    border: none;
+    color: var(--color-brand);
+  }
 }
 
 .filter_ingredients {

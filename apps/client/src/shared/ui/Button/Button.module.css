@@ -6,8 +6,8 @@
   border: 1px solid #fe5f00;
   padding: 14px 22px;
   border-radius: 15px;
-  color: #fe5f00;
-  font-size: 1rem;
+  color: var(--color-brand);
+   font-size: var(--font-size-md);
   cursor: pointer;
 
   @media (max-width: 768px) {

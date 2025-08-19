@@ -6,7 +6,7 @@
   top: 290px;
 
   width: 130px;
-  background: #fff;
+  background: var(--color-bg-primary);
   border-radius: 10px;
   z-index: 50;
   padding-bottom: 9px;
@@ -51,8 +51,8 @@
     transition: opacity 0.2s ease;
 
     &:hover {
-      color: #fe5f00;
-      background: #fffaf6;
+      color: var(--color-brand);
+      background: var(--color-bg-hover);
       transition: color 0.2s ease, background 0.2s ease;
     }
 
