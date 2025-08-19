@@ -4,7 +4,7 @@ import { Category } from "../entities/categories/model/categories.model";
 
 export const getCategories = async (_req: Request, res: Response) => {
   try {
-    const categories = await Category.findAll({ attributes: ["id", "name"] });
+    const categories = await Category.findAll();
     res.json(categories);
   } catch (err) {
     console.error(err);
