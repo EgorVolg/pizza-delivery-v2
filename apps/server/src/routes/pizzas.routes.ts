@@ -4,9 +4,7 @@ import { Request, Response } from "express";
 
 export const getPizzas = async (_req: Request, res: Response) => {
   try {
-    const pizzas = await Pizza.findAll({
-      attributes: { exclude: ["createdAt", "updatedAt"] },
-    });
+    const pizzas = await Pizza.findAll({ raw: true });
     res.json(pizzas);
   } catch (err) {
     console.error(err);

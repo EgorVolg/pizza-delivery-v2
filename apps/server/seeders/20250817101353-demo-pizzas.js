@@ -21,6 +21,8 @@ module.exports = {
           description:
             "Японское вдохновение в каждом куске — сладко-острый баланс, который покорит ваш вкус!",
           category_id: 1,
+          rating: 4.7,
+          popular: 4380,
         },
         {
           name: "Чесночный цыпленок",
@@ -33,6 +35,8 @@ module.exports = {
           description:
             "Аромат чеснока и нежное куриное мясо — просто, но безупречно вкусно!",
           category_id: 1,
+          rating: 4.2,
+          popular: 2750,
         },
         {
           name: "Пикантные колбаски",
@@ -45,6 +49,8 @@ module.exports = {
           description:
             "Острая колбаса и ароматный соус — для тех, кто любит по-настоящему яркий вкус!",
           category_id: 1,
+          rating: 4.1,
+          popular: 2100,
         },
         {
           name: "Пепперони фреш",
@@ -57,6 +63,8 @@ module.exports = {
           description:
             "Классика, которую любят все — пикантная пепперони и много сыра!",
           category_id: 1,
+          rating: 4.6,
+          popular: 3900,
         },
         {
           name: "Четыре сыра",
@@ -69,6 +77,8 @@ module.exports = {
           description:
             "Настоящий рай для сыроманов — четыре сыра в одной пицце!",
           category_id: 1,
+          rating: 4.8,
+          popular: 4600,
         },
         {
           name: "Сырная",
@@ -81,6 +91,8 @@ module.exports = {
           description:
             "Сыр, сыр и ещё раз сыр — без лишнего, но с максимальным удовольствием!",
           category_id: 1,
+          rating: 3.9,
+          popular: 1800,
         },
         {
           name: "Чоризо фреш",
@@ -93,6 +105,8 @@ module.exports = {
           description:
             "Острый и сочный вкус Испании в каждом куске — для любителей пикантного!",
           category_id: 1,
+          rating: 4.3,
+          popular: 3100,
         },
         {
           name: "Ветчина и сыр",
@@ -105,6 +119,8 @@ module.exports = {
           description:
             "Идеальное сочетание нежной ветчины и расплавленного сыра — всегда хит!",
           category_id: 1,
+          rating: 4.5,
+          popular: 3700,
         },
         {
           name: "Двойной цыпленок",
@@ -117,6 +133,8 @@ module.exports = {
           description:
             "Двойная порция курицы — для тех, кто хочет больше белка и вкуса!",
           category_id: 1,
+          rating: 4.0,
+          popular: 2400,
         },
         {
           name: "Креветка и песто",
@@ -129,6 +147,8 @@ module.exports = {
           description:
             "Итальянский шарм: морские креветки и ароматный соус песто в одной пицце!",
           category_id: 1,
+          rating: 4.9,
+          popular: 4850,
         },
         {
           name: "Чилл Грилл",
@@ -141,6 +161,8 @@ module.exports = {
           description:
             "Лёгкий гриль-вкус и хрустящие огурчики — пицца, которая не оставит равнодушным!",
           category_id: 1,
+          rating: 4.4,
+          popular: 3350,
         },
         {
           name: "Ветчина и грибы",
@@ -153,6 +175,8 @@ module.exports = {
           description:
             "Классика с лесным ароматом: ветчина и грибы в сырном объятии!",
           category_id: 1,
+          rating: 4.3,
+          popular: 3200,
         },
         {
           name: "Аррива!",
@@ -165,6 +189,8 @@ module.exports = {
           description:
             "Фейерверк вкуса: острый, сочный и яркий — для настоящих гурманов!",
           category_id: 2,
+          rating: 4.7,
+          popular: 4250,
         },
         {
           name: "Креветки со сладким чили",
@@ -177,6 +203,8 @@ module.exports = {
           description:
             "Тропический вкус и лёгкая острота — пицца, которая удивит!",
           category_id: 1,
+          rating: 4.6,
+          popular: 3950,
         },
         {
           name: "Бефстроганов",
@@ -189,6 +217,8 @@ module.exports = {
           description:
             "Русская классика в итальянском исполнении — настоящий комфорт-фуд!",
           category_id: 1,
+          rating: 4.5,
+          popular: 3800,
         },
         {
           name: "Карбонара",
@@ -201,6 +231,8 @@ module.exports = {
           description:
             "Любимый вкус пасты карбонара теперь в пицце — нежно, сытно, итальянски!",
           category_id: 2,
+          rating: 4.8,
+          popular: 4550,
         },
         {
           name: "Жюльен",
@@ -213,6 +245,8 @@ module.exports = {
           description:
             "Грибной крем-суп в форме пиццы — нежно, сытно и очень вкусно!",
           category_id: 1,
+          rating: 4.4,
+          popular: 3450,
         },
         {
           name: "Песто",
@@ -225,6 +259,8 @@ module.exports = {
           description:
             "Свежий итальянский вкус: песто, брынза и курица — лёгко, вкусно, по-домашнему!",
           category_id: 1,
+          rating: 4.7,
+          popular: 4200,
         },
         {
           name: "Мясная",
@@ -237,6 +273,8 @@ module.exports = {
           description:
             "Мясной рай: курица, ветчина, пепперони и чоризо — для настоящих мясоедов!",
           category_id: 1,
+          rating: 4.6,
+          popular: 4000,
         },
         {
           name: "Бургер-пицца",
@@ -249,6 +287,8 @@ module.exports = {
           description:
             "Всё, что вы любите в бургере — теперь в пицце! Хрустящий, сочный, сытный!",
           category_id: 1,
+          rating: 4.3,
+          popular: 3300,
         },
         {
           name: "Сырный цыпленок",
@@ -261,6 +301,8 @@ module.exports = {
           description:
             "Сырная бомба: много курицы и ещё больше сыра — для настоящих гурманов!",
           category_id: 1,
+          rating: 4.5,
+          popular: 3750,
         },
         {
           name: "Додо",
@@ -273,6 +315,8 @@ module.exports = {
           description:
             "Всё лучшее в одной пицце: мясо, овощи, сыр — настоящий праздник вкуса!",
           category_id: 1,
+          rating: 4.9,
+          popular: 4900,
         },
         {
           name: "Пепперони",
@@ -285,6 +329,8 @@ module.exports = {
           description:
             "Классика, которую знают все — пикантная пепперони и много сыра!",
           category_id: 1,
+          rating: 4.4,
+          popular: 3600,
         },
         {
           name: "Гавайская",
@@ -297,6 +343,8 @@ module.exports = {
           description:
             "Тропический вкус: курица и ананас — сладко-солёное наслаждение в каждом куске!",
           category_id: 1,
+          rating: 4.0,
+          popular: 2600,
         },
         {
           name: "Цыпленок барбекю",
@@ -309,6 +357,8 @@ module.exports = {
           description:
             "Дымный вкус гриля, сочная курица и бекон — это любовь с первого укуса!",
           category_id: 1,
+          rating: 4.7,
+          popular: 4300,
         },
         {
           name: "Цыпленок ранч",
@@ -321,6 +371,8 @@ module.exports = {
           description:
             "Нежная курица, ветчина и сливочный соус ранч — пицца, которую хочется заказывать снова!",
           category_id: 1,
+          rating: 4.6,
+          popular: 4050,
         },
         {
           name: "Маргарита",
@@ -333,6 +385,8 @@ module.exports = {
           description:
             "Итальянская классика: просто, свежо и невероятно вкусно!",
           category_id: 1,
+          rating: 4.3,
+          popular: 3150,
         },
         {
           name: "Диабло",
@@ -345,6 +399,8 @@ module.exports = {
           description:
             "Огонь в каждом куске: для тех, кто любит по-настоящему остро!",
           category_id: 1,
+          rating: 4.5,
+          popular: 3700,
         },
         {
           name: "Двойная пепперони",
@@ -357,6 +413,8 @@ module.exports = {
           description:
             "Двойная порция любимой пепперони — вдвое больше вкуса и удовольствия!",
           category_id: 1,
+          rating: 4.6,
+          popular: 3950,
         },
         {
           name: "Четыре сезона",
@@ -369,6 +427,8 @@ module.exports = {
           description:
             "Каждый кусок — новый вкус: четыре сезона, четыре эмоции!",
           category_id: 1,
+          rating: 4.7,
+          popular: 4400,
         },
         {
           name: "Овощи и грибы",
@@ -381,6 +441,8 @@ module.exports = {
           description:
             "Лёгкая, свежая и сытная — идеальный выбор для вегетарианцев и не только!",
           category_id: 1,
+          rating: 4.2,
+          popular: 2900,
         },
         {
           name: "Додо микс",
@@ -393,6 +455,8 @@ module.exports = {
           description:
             "Всё самое вкусное в одной пицце — настоящий микс наслаждений!",
           category_id: 1,
+          rating: 4.9,
+          popular: 4950,
         },
         {
           name: "Мясной микс с говядиной и колбасками",
@@ -405,6 +469,8 @@ module.exports = {
           description:
             "Мясо в мясе — настоящий праздник для настоящих мужчин и любителей мясного!",
           category_id: 1,
+          rating: 4.8,
+          popular: 4700,
         },
       ],
       { returning: true }
