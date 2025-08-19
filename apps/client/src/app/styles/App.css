@@ -96,21 +96,6 @@
   --font-size-8xl: 6rem;
   --font-size-9xl: 8rem;
 
-  /* Line Heights */
-  --line-height-xs: 1rem;
-  --line-height-sm: 1.25rem;
-  --line-height-md: 1.5rem;
-  --line-height-lg: 1.75rem;
-  --line-height-xl: 2rem;
-  --line-height-2xl: 2.5rem;
-  --line-height-3xl: 3rem;
-  --line-height-4xl: 3.5rem;
-  --line-height-5xl: 4rem;
-  --line-height-6xl: 4.5rem;
-  --line-height-7xl: 5rem;
-  --line-height-8xl: 6rem;
-  --line-height-9xl: 8rem;
-
   /* Letter Spacing */
   --letter-spacing-xs: -0.05em;
   --letter-spacing-sm: -0.025em;
@@ -119,7 +104,6 @@
   --letter-spacing-xl: 0.05em;
 
   /* Colors */
-
   /* Brand */
   --color-brand: #fe5f00; /* акцент, ссылки, кнопки */
   --color-brand-light: #ffbf9b; /* ховеры / свечение / разделители */
@@ -129,6 +113,7 @@
   --color-bg-secondary: #fafafa; /* фон секций, зебра-таблиц */
   --color-bg-tertiary: #f4f1ee; /* поля ввода, code-блоки, фон тултипов */
   --color-bg-accent: #fff7ee; /* тёплый фон для баннеров / выделений */
+  --color-bg-hover: #fffaf6; /* ховеры / свечение / разделители */
 
   /* Text */
   --color-text-primary: #000000; /* основной текст, заголовки */
@@ -139,7 +124,7 @@
 }
 
 .main {
-  background: #ffbf9b;
+  background: var(--color-brand-light);
   padding: 31px 29px;
   min-height: 100vh;
   box-shadow: 0px 14px 20px 0px #0000000d;
@@ -150,7 +135,7 @@
 }
 
 .container {
-  background-color: white;
+  background-color: var(--color-bg-primary);
   border-radius: 30px;
 }
 
