@@ -70,6 +70,74 @@
   font-display: swap;
 }
 
+:root {
+  /* Font Weights */
+  --font-weight-extra-light: 200;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+
+  /* Font Sizes */
+  --font-size-xxs: 0.625rem;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 3.75rem;
+  --font-size-7xl: 4.5rem;
+  --font-size-8xl: 6rem;
+  --font-size-9xl: 8rem;
+
+  /* Line Heights */
+  --line-height-xs: 1rem;
+  --line-height-sm: 1.25rem;
+  --line-height-md: 1.5rem;
+  --line-height-lg: 1.75rem;
+  --line-height-xl: 2rem;
+  --line-height-2xl: 2.5rem;
+  --line-height-3xl: 3rem;
+  --line-height-4xl: 3.5rem;
+  --line-height-5xl: 4rem;
+  --line-height-6xl: 4.5rem;
+  --line-height-7xl: 5rem;
+  --line-height-8xl: 6rem;
+  --line-height-9xl: 8rem;
+
+  /* Letter Spacing */
+  --letter-spacing-xs: -0.05em;
+  --letter-spacing-sm: -0.025em;
+  --letter-spacing-md: 0;
+  --letter-spacing-lg: 0.025em;
+  --letter-spacing-xl: 0.05em;
+
+  /* Colors */
+
+  /* Brand */
+  --color-brand: #fe5f00; /* акцент, ссылки, кнопки */
+  --color-brand-light: #ffbf9b; /* ховеры / свечение / разделители */
+
+  /* Backgrounds */
+  --color-bg-primary: #ffffff; /* главный фон страницы / карточек */
+  --color-bg-secondary: #fafafa; /* фон секций, зебра-таблиц */
+  --color-bg-tertiary: #f4f1ee; /* поля ввода, code-блоки, фон тултипов */
+  --color-bg-accent: #fff7ee; /* тёплый фон для баннеров / выделений */
+
+  /* Text */
+  --color-text-primary: #000000; /* основной текст, заголовки */
+  --color-text-secondary: #888888; /* подзаголовки, подписи, placeholder */
+
+  /* Border */
+  --color-border: #f4f1ee; /* мягкие разделители, обводки */
+}
+
 .main {
   background: #ffbf9b;
   padding: 31px 29px;
@@ -87,6 +155,6 @@
 }
 
 body {
-  font-family:  "Nunito", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 500;
 }

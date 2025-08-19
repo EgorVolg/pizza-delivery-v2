@@ -127,9 +127,7 @@
   background: #fe5f00;
   cursor: pointer;
 
-  @media (max-width: 1440px) {
-    width: auto;
-  }
+  
 }
 
 .filter_ingredients {
