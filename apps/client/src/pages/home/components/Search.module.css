@@ -1,20 +1,15 @@
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 12;
-}
-
 .dropdown {
   position: absolute;
   top: 120%;
   left: 0%;
   width: 100%;
+  max-height: 60vh;
+  overflow: auto;
   padding-top: 13px;
   padding-bottom: 9px;
   border-radius: 10px;
   border: 1px solid #c0c0c0;
-  background: var( --color-bg-primary);
+  background: var(--color-bg-primary);
   z-index: 30;
 }
 
@@ -67,7 +62,7 @@
   font-family: Nunito;
   font-weight: var(--font-weight-regular);
   font-style: Regular;
-   font-size: var(--font-size-md);
+  font-size: var(--font-size-md);
   line-height: 100%;
   letter-spacing: 0%;
   color: #858585;
@@ -77,7 +72,6 @@
 
 .img_container {
   width: 30px;
-  height: 30px;
 }
 
 .img {
@@ -87,8 +81,11 @@
 
 .name {
   font-family: "Nunito";
-  font-weight: var(--font-weight-bold);
-   font-size: var(--font-size-md);
+  text-wrap: nowrap;
+  width: 100%;
+  overflow: hidden;
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-md);
   line-height: 100%;
   letter-spacing: 0%;
 
@@ -97,8 +94,9 @@
 
 .price {
   font-family: "Nunito";
+  text-wrap: nowrap;
   font-weight: var(--font-weight-regular);
-   font-size: var(--font-size-sm);
+  font-size: var(--font-size-sm);
   line-height: 100%;
   letter-spacing: 0%;
   color: #858585;

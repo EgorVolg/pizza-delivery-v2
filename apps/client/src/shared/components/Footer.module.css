@@ -14,7 +14,7 @@ button {
   justify-content: start;
   align-items: center;
   gap: 30px; 
-  color: #888888;
+  color: var(--color-text-secondary);
 
   @media (max-width: 768px) {
     justify-content: center;
