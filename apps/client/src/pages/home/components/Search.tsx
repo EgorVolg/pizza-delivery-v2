@@ -4,6 +4,7 @@ import Xbtn from "../../../shared/ui/Xbtn/Xbtn";
 import { useGetPizzasQuery } from "../../../entities/pizza/model/pizza.api";
 import { Input } from "../../../shared/ui/Input/Input";
 import { useLockScroll } from "../../../shared/hooks/useLockScroll";
+import { Overlay } from "../../../shared/ui/Overlay/overlay";
 
 export const Search = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -25,7 +26,7 @@ export const Search = () => {
 
   return (
     <>
-      {focused && <div className={styles.overlay} />}
+      {focused && <Overlay onClick={() => setFocused(false)} />}
 
       <div className={styles.input_icon}>
         <svg
@@ -45,7 +46,9 @@ export const Search = () => {
         ref={inputRef}
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
-        onBlur={() => setFocused(false)}
+        onBlur={() => {
+          setFocused(false), setSearchValue("");
+        }}
         onFocus={() => setFocused(true)}
         placeholder="Поиск пиццы..."
       />
