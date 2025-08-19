@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = {
+exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('pizzas', {
       id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
@@ -8,7 +8,7 @@ module.exports = {
       imageUrl: { type: Sequelize.STRING, allowNull: false },
       price: { type: Sequelize.INTEGER, allowNull: false },
       description: { type: Sequelize.TEXT },
-      ingredients: { type: Sequelize.ARRAY(Sequelize.STRING) },
+      ingredients: { type: Sequelize.ARRAY(Sequelize.INTEGER) },
       sizes: { type: Sequelize.ARRAY(Sequelize.INTEGER) },
       types: { type: Sequelize.ARRAY(Sequelize.INTEGER) },
       category_id: {

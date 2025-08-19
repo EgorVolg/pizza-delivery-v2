@@ -22,7 +22,7 @@ Pizza.init(
     imageUrl: { type: DataTypes.STRING, allowNull: false },
     price: { type: DataTypes.INTEGER, allowNull: false },
     description: { type: DataTypes.TEXT },
-    ingredients: { type: DataTypes.ARRAY(DataTypes.STRING) },
+    ingredients: { type: DataTypes.ARRAY(DataTypes.INTEGER) },
     size: { type: DataTypes.ARRAY(DataTypes.INTEGER) },
     type: { type: DataTypes.ARRAY(DataTypes.INTEGER) },
     category_id: {

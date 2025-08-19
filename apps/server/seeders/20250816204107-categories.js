@@ -1,7 +1,13 @@
 "use strict";
+
 module.exports = {
-  up: async (queryInterface) =>
-    queryInterface
+  up: async (queryInterface) => {
+    await queryInterface.bulkDelete("categories", null, {});
+    await queryInterface.sequelize.query(
+      'ALTER SEQUENCE "categories_id_seq" RESTART WITH 1'
+    );
+
+    await queryInterface
       .bulkInsert(
         "categories",
         [
@@ -18,11 +24,10 @@ module.exports = {
           { name: "Соусы", createdAt: new Date(), updatedAt: new Date() },
         ],
         { returning: true }
-      ) // ← вернёт id
-      .then((inserted) => {
-        global.categoryIds = inserted.map((r) => r.id);
-      }),
+      ) 
+  },
 
-  down: async (queryInterface) =>
-    queryInterface.bulkDelete("categories", null, {}),
+  down: async (queryInterface) => {
+    await queryInterface.bulkDelete("categories", null, {});
+  },
 };
