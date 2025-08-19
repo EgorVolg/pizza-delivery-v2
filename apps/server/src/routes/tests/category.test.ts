@@ -1,33 +1,32 @@
-import { getCategories } from "./category.controller";
-import { Category } from "../entities/categories/model/categories.model";
+import { Category } from "../../entities/categories/model/categories.model";
 import type { Request, Response } from "express";
+import { mockDeep } from "jest-mock-extended";
+import { getCategories } from "../categories.routes";
 
-jest.mock("../entities/categories/model/categories.model", () => ({
+jest.mock("../../entities/categories/model/categories.model", () => ({
   Category: { findAll: jest.fn() },
 }));
 
+const mockReq = () => ({} as Request);
+const mockRes = () =>
+  mockDeep<Response>({ status: jest.fn().mockReturnThis() });
+
 describe("getCategories", () => {
-  const findAll = Category.findAll as jest.Mock;
+  const findAll = Category.findAll as jest.MockedFunction<
+    typeof Category.findAll
+  >;
 
   afterEach(() => jest.clearAllMocks());
-
-  const mockReq = {} as Request;
-  const mockRes = () => {
-    const res = {} as Response;
-    res.status = jest.fn().mockReturnValue(res);
-    res.json = jest.fn().mockReturnValue(res);
-    return res;
-  };
 
   it("возвращает категории без лишних полей", async () => {
     const categories = [
       { id: 1, name: "Pizza" },
       { id: 2, name: "Drinks" },
     ];
-    findAll.mockResolvedValue(categories);
+    findAll.mockResolvedValue(categories as any);
 
     const res = mockRes();
-    await getCategories(mockReq, res);
+    await getCategories(mockReq(), res);
 
     expect(findAll).toHaveBeenCalledWith({ attributes: ["id", "name"] });
     expect(res.json).toHaveBeenCalledWith(categories);
@@ -40,7 +39,7 @@ describe("getCategories", () => {
     const consoleSpy = jest.spyOn(console, "error").mockImplementation();
     const res = mockRes();
 
-    await getCategories(mockReq, res);
+    await getCategories(mockReq(), res);
 
     expect(consoleSpy).toHaveBeenCalledWith(error);
     expect(res.status).toHaveBeenCalledWith(500);
