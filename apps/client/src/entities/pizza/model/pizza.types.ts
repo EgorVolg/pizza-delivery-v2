@@ -1,11 +1,16 @@
-export interface Pizza {
-  id: number;
+export interface PizzaCard {
   name: string;
-  categoryId: number;
   imageUrl: string;
-  ingredients: string;
-  sizes: number[];
-  types: number[];
-  description: number[];
+  ingredients: number[] | string[];
+  rating: number;
+  popular: number;
   price: number;
+}
+
+export interface Pizza extends PizzaCard {
+  id: number;
+  description: string; 
+  size: number[];
+  type: number[];
+  category_id: number;
 }
