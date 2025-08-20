@@ -1,0 +1,35 @@
+import { createSlice } from "@reduxjs/toolkit";
+
+export interface FilterStateParams {
+  type?: string[];
+  isNew?: boolean;
+  price?: [minPrice: number, maxPrice: number];
+  ingredients?: number[];
+}
+
+const initialState = {
+  type: [],
+  isNew: false,
+  price: "",
+  ingredients: [],
+};
+
+export const filterParamsSlice = createSlice({
+  name: "filterParams",
+  initialState,
+  reducers: {
+    setParams: (state, action) => {
+      // return { ...state, ...action.payload };
+      state.type = action.payload.type;
+      state.isNew = action.payload.isNew;
+      state.price = action.payload.price;
+      state.ingredients = action.payload.ingredients;
+    },
+  },
+});
+
+export const { setParams } = filterParamsSlice.actions;
+
+export const selectFilterParams = (state: {
+  filterParams: FilterStateParams;
+}) => state.filterParams;

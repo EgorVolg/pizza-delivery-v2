@@ -10,6 +10,6 @@ export const store = configureStore({
     getDefault().concat(
       pizzasApi.middleware, 
       categoriesApi.middleware,
-      ingredientsApi.middleware
+      ingredientsApi.middleware,
     ),
 });
