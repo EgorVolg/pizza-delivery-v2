@@ -1,7 +1,7 @@
 export interface PizzaCard {
   name: string;
   imageUrl: string;
-  ingredients: number[] | string[];
+  ingredients: string;
   rating: number;
   popular: number;
   price: number;
