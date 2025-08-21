@@ -1,24 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FilterCheckbox from "../ui/FilterCheckbox/FilterCheckbox";
 import Button from "../ui/Button/Button";
 import styles from "./Filters.module.css";
 import { useScreenWidth } from "../hooks/useScreen";
 import Xbtn from "../ui/Xbtn/Xbtn";
 import { useLockScroll } from "../hooks/useLockScroll";
-
-const ingredients = [
-  "Грибы",
-  "Пепперони",
-  "Сыр",
-  "Оливки",
-  "Базилик",
-  "Перец",
-  "Лук",
-  "Курица",
-  "Грибы",
-  "Пепперони",
-  "Сыр",
-];
+import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
+import { useDispatch, useSelector } from "react-redux";
+import { setParams } from "../../features/search-items/state/filterParamsSlice";
 
 export const Filters = ({
   toggleMenu,
@@ -28,13 +17,15 @@ export const Filters = ({
   isOpenFilters: boolean;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [count, setCount] = useState<number[]>([]);
   const width = useScreenWidth();
   const popupRef = useRef<HTMLUListElement>(null);
+  const { data: ingredients } = useGetIngredientsQuery();
 
-  // 1. управляем overflow
+  const dispatch = useDispatch();
+
   useLockScroll(isOpenFilters);
 
-  // 2. клик вне
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -49,6 +40,14 @@ export const Filters = ({
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpenFilters, toggleMenu]);
+
+  const toggleIngredient = (id: number) => {
+    setCount((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+    );
+  };
+
+  dispatch(setParams({ ingredients: count }));
 
   return (
     <div className={styles.filter_groups}>
@@ -94,9 +93,13 @@ export const Filters = ({
           className={styles.ingredients_list}
           style={{ maxHeight: isOpen || width <= 1024 ? "none" : "225px" }}
         >
-          {ingredients.map((ingredient) => (
-            <li key={ingredient}>
-              <FilterCheckbox text={ingredient} />
+          {ingredients?.map((ingredient, index) => (
+            <li key={index} onClick={() => toggleIngredient(+ingredient.id)}>
+              <FilterCheckbox
+                text={ingredient.name}
+                checked={count.includes(+ingredient.id)}
+                onChange={() => toggleIngredient(+ingredient.id)}
+              />
             </li>
           ))}
         </ul>

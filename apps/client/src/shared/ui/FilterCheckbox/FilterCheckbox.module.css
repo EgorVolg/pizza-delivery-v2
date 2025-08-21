@@ -5,8 +5,8 @@
   margin-bottom: 15px;
 
   font-family:  "Nunito";
-  font-weight: var(--font-weight-regular); 
-   font-size: var(--font-size-md);
+  font-weight: 400; 
+  font-size: 16px;
   line-height: 100%;
   letter-spacing: 0%;
 }
@@ -40,7 +40,7 @@
   left: 9px;
   width: 5px;
   height: 10px;
-  border: solid var( --color-bg-primary);
+  border: solid white;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
@@ -51,7 +51,7 @@
   display: block;
   width: 10px;
   height: 10px;
-  background: var( --color-bg-primary);
+  background: white;
   border-radius: 50%;
   top: 50%;
   left: 50%;
@@ -64,8 +64,8 @@
 
 .checkmark {
   font-family:  "Nunito";
-  font-weight: var(--font-weight-regular); 
-   font-size: var(--font-size-md);
+  font-weight: 400; 
+  font-size: 16px;
   line-height: 100%;
   letter-spacing: 0%;
 }

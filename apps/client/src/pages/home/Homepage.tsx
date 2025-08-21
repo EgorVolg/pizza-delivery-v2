@@ -3,28 +3,30 @@ import { useState } from "react";
 import styles from "./Homepage.module.css";
 import { useScreenWidth } from "../../shared/hooks/useScreen";
 import Header from "../../widgets/Header/Header";
-import TopBar from "../../shared/components/TopBar";
+import TopBar from "./components/TopBar";
 import Container from "../../shared/ui/Container/Container";
 import { Filters } from "../../shared/components/Filters";
 import { ProductCard } from "../../widgets/ProductsGrid/ProductCard/ProductCard";
-import ProductCardSkeleton from "../../widgets/ProductsGrid/ProductCard/ProductCardSkeleton";
-import { Footer } from "../../shared/components/Footer";
 import { useGetPizzasQuery } from "../../entities/pizza/model/pizza.api";
-import type { Pizza } from "../../entities/pizza/model/pizza.types";
+
+import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
+import ProductCardSkeleton from "../../widgets/ProductsGrid/ProductCard/ProductCardSkeleton";
+
+const pizzaHalves = {
+  name: "Пицца из половинок",
+  rating: 10,
+  popular: 1000,
+  price: 300,
+  imageUrl:
+    "https://bihemgflzeaaltqlvqeh.supabase.co/storage/v1/object/public/pizza-images/Pizza halves.avif",
+};
 
 export function Homepage() {
   const [isOpenFilters, setIsOpenFilters] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(6);
   const screenWidth = useScreenWidth();
-  const { isLoading, data: pizzas } = useGetPizzasQuery({});
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentPizzas = pizzas?.slice(indexOfFirstItem, indexOfLastItem);
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
+  const { isLoading, data } = useGetPizzasQuery();
+  const { isLoading: isLoadingIngr, data: ingredients } =
+    useGetIngredientsQuery();
 
   function toggleMenu() {
     setIsOpenFilters(!isOpenFilters);
@@ -48,24 +50,42 @@ export function Homepage() {
           <Filters toggleMenu={toggleMenu} isOpenFilters={isOpenFilters} />
         </nav>
 
-        <main className={styles.main}>
+        <Container className={styles.items_container}>
           <div className={styles.items_list}>
-            {isLoading || pizzas === undefined
-              ? [...Array(6)].map((_, index) => (
-                  <ProductCardSkeleton key={index} />
-                ))
-              : currentPizzas?.map((pizza: Pizza) => (
-                  <ProductCard key={pizza.id} pizza={pizza} />
-                ))}
-          </div>
+            <section className={styles.section}>
+              {/* <h2>Пиццы</h2> */}
+              {!isLoading && (
+                <ProductCard
+                  pizza={pizzaHalves}
+                  ingredients={
+                    "В основе пиццы увеличенная порция моцареллы и фирменный томатный соус, а другие ингредиенты можно выбрать на свой вкус"
+                  }
+                />
+              )}
 
-          <Footer
-            currentPage={currentPage}
-            totalItems={pizzas?.length}
-            itemsPerPage={itemsPerPage}
-            onPageChange={handlePageChange}
-          />
-        </main>
+              {!isLoading && !isLoadingIngr
+                ? data?.map((pizza) => {
+                    const pizzaIngredients =
+                      ingredients
+                        ?.filter((ingredient) =>
+                          pizza.ingredients.includes(+ingredient.id)
+                        )
+                        .map((ing) => ing.name) || [];
+
+                    return (
+                      <ProductCard
+                        key={pizza.id}
+                        pizza={pizza}
+                        ingredients={pizzaIngredients.join(", ")}
+                      />
+                    );
+                  })
+                : [...Array(9)].map((_, index) => (
+                    <ProductCardSkeleton key={index} />
+                  ))}
+            </section>
+          </div>
+        </Container>
       </Container>
     </>
   );

@@ -151,6 +151,10 @@
   width: 200px;
   gap: 1rem;
 
+  .filter_ingredients_checkbox {
+    pointer-events: none;
+  }
+
   @media (max-width: 1440px) {
     width: auto;
   }
@@ -164,6 +168,13 @@
 .ingredients_list {
   max-height: 300px;
   overflow-y: hidden;
+
+  li {
+    cursor: pointer;
+    width: 100%;
+    height: auto;
+    text-wrap: wrap;
+  }
 
   @media (max-width: 1024px) {
     display: flex;
