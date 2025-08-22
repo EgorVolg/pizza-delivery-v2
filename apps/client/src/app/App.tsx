@@ -1,12 +1,12 @@
- 
 import { Homepage } from "../pages/home/Homepage";
 import Container from "../shared/ui/Container/Container";
-import "./styles/App.css";
+import styles from "./styles/App.module.css";
+
 function App() {
   return (
-    <div className="body">
-      <div className="main">
-        <Container className="container">
+    <div className={styles.app}>
+      <div className={styles.main}>
+        <Container className={styles.container}>
           <Homepage />
         </Container>
       </div>
