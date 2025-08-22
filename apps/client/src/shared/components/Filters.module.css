@@ -2,14 +2,6 @@
   display: flex;
   flex-direction: column;
   width: 244px;
-
-  @media (max-width: 1440px) {
-    width: auto;
-  }
-
-  @media (max-width: 1024px) {
-    width: 100%;
-  }
 }
 
 .filter_group {
@@ -18,14 +10,6 @@
   gap: 1rem;
   padding: 25px 0;
   width: 230px;
-
-  @media (max-width: 1440px) {
-    width: auto;
-  }
-
-  @media (max-width: 1024px) {
-    width: 100%;
-  }
 }
 
 .filter_group:last-child {
@@ -72,6 +56,10 @@
 
   width: max-content;
   height: 100%;
+  
+  @media (max-width: 1024px) {
+    display: none;
+  }
 }
 
 .filter_close_btn {
@@ -154,15 +142,6 @@
   .filter_ingredients_checkbox {
     pointer-events: none;
   }
-
-  @media (max-width: 1440px) {
-    width: auto;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: row;
-    width: 100%;
-  }
 }
 
 .ingredients_list {
@@ -174,13 +153,5 @@
     width: 100%;
     height: auto;
     text-wrap: wrap;
-  }
-
-  @media (max-width: 1024px) {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-    gap: 1rem;
   }
 }

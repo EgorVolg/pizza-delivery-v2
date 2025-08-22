@@ -1,46 +1,32 @@
 import { useState } from "react";
 import styles from "./ProductCard.module.css";
 import type { Pizza } from "../../../entities/pizza/model/pizza.types";
+import Button from "../../../shared/ui/Button/Button";
 
-export const ProductCard = ({ pizza }: { pizza: Pizza }) => {
+export const ProductCard = ({
+  pizza,
+  ingredients,
+}: {
+  pizza: Pizza;
+  ingredients: string;
+}) => {
   const [pizzaQuantity, setPizzaQuantity] = useState(0);
+
   return (
-    <div className={styles.card}>
-      <div className={styles.imageContainer}>
-        <img className={styles.image} src={pizza.imageUrl} alt={pizza.name} />
+    <article key={pizza.id} className={styles.card}>
+      <img src={pizza.imageUrl} alt={pizza.name} className={styles.image} />
+      <div className={styles.body}>
+        <header>
+          <h3 className={styles.title}>{pizza.name}</h3>
+          <p className={styles.description}>{ingredients}</p>
+        </header>
+        <footer className={styles.footer}>
+          <span className={styles.price}>
+            <b> от</b> {pizza.price} ₽
+          </span>
+          <Button className={styles.button}>+ Добавить</Button>
+        </footer>
       </div>
-
-      <div className={styles.content}>
-        <h3 className={styles.title}>{pizza.name}</h3>
-        <p className={styles.ingredients}>{pizza.description}</p>
-      </div>
-      <div className={styles.priceContainer}>
-        <span className={styles.price}>
-          от <b className={styles.priceBold}>{pizza.price} ₽</b>
-        </span>
-
-        {pizzaQuantity > 0 ? (
-          <div className={styles.countContainer}>
-            <button
-              className={styles.countBtn}
-              onClick={() => setPizzaQuantity(pizzaQuantity - 1)}
-            >
-              -
-            </button>
-            <span className={styles.quantity}>{pizzaQuantity}</span>
-            <button
-              className={styles.countBtn}
-              onClick={() => setPizzaQuantity(pizzaQuantity + 1)}
-            >
-              +
-            </button>
-          </div>
-        ) : (
-          <button className={styles.button} onClick={() => setPizzaQuantity(1)}>
-            + Добавить
-          </button>
-        )}
-      </div>
-    </div>
+    </article>
   );
 };

@@ -3,7 +3,7 @@
   flex-wrap: nowrap;
   overflow-x: auto;
   gap: 0.25rem;
-  background-color: var( --color-bg-secondary);
+  background-color: var(--color-bg-secondary);
   padding: 0.25rem;
   border-radius: 1rem;
   scroll-snap-type: mandatory;
@@ -39,8 +39,8 @@
     animation: shift 0.5s ease;
   }
 
-  @media (max-width: 768px) {
-    padding: 0 0.75rem;
+  @media (max-width: 425px) {
+    height: 50px;
   }
 }
 

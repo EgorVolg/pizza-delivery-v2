@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import FilterCheckbox from "../ui/FilterCheckbox/FilterCheckbox";
 import Button from "../ui/Button/Button";
 import styles from "./Filters.module.css";
-import { useScreenWidth } from "../hooks/useScreen";
 import Xbtn from "../ui/Xbtn/Xbtn";
 import { useLockScroll } from "../hooks/useLockScroll";
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
@@ -18,7 +17,6 @@ export const Filters = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [count, setCount] = useState<number[]>([]);
-  const width = useScreenWidth();
   const popupRef = useRef<HTMLUListElement>(null);
   const { data: ingredients } = useGetIngredientsQuery();
 
@@ -53,11 +51,17 @@ export const Filters = ({
     <div className={styles.filter_groups}>
       <div className={styles.filter_top}>
         <h1 className={styles.filter_title}>Фильтрация</h1>
-        {width <= 1024 && (
-          <div className={styles.filter_close}>
-            <Xbtn className={styles.filter_close_btn} onClick={toggleMenu} />
-          </div>
-        )}
+
+        <div
+          className={styles.filter_close}
+          onClick={toggleMenu}
+          style={{
+            cursor: "pointer",
+            display: "flex"
+          }}
+        >
+          <Xbtn className={styles.filter_close_btn} />
+        </div>
       </div>
 
       <div className={styles.filter_group}>
@@ -91,7 +95,7 @@ export const Filters = ({
 
         <ul
           className={styles.ingredients_list}
-          style={{ maxHeight: isOpen || width <= 1024 ? "none" : "225px" }}
+          style={{ maxHeight: isOpen ? "none" : "225px" }}
         >
           {ingredients?.map((ingredient, index) => (
             <li key={index} onClick={() => toggleIngredient(+ingredient.id)}>
@@ -103,14 +107,13 @@ export const Filters = ({
             </li>
           ))}
         </ul>
-        {width > 1024 && (
-          <button
-            className={styles.filter_ingredients_button}
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? "Скрыть" : "+ Показать всё"}
-          </button>
-        )}
+
+        <button
+          className={styles.filter_ingredients_button}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? "Скрыть" : "+ Показать всё"}
+        </button>
       </div>
       <div className={styles.filter_group}>
         <p className={styles.filter_group_title}>Тип теста:</p>

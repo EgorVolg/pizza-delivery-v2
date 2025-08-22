@@ -1,14 +1,12 @@
 import styles from "./Header.module.css";
 import logo from "../../shared/assets/logo.svg";
 import Container from "../../shared/ui/Container/Container";
-import { useScreenWidth } from "../../shared/hooks/useScreen";
 import { ProfilePopup } from "../../shared/components/ProfilePopup";
 import { useState } from "react";
 import { Search } from "../../pages/home/components/Search";
 import Button from "../../shared/ui/Button/Button";
 
 function Header() {
-  const width = useScreenWidth();
   const [isOpen, setIsOpen] = useState(false);
 
   function toggleMenu() {
@@ -20,15 +18,11 @@ function Header() {
       <Container className={styles.header_container}>
         <div className={styles.logo_container}>
           <img src={logo} alt="logo" width={35} height={35} />
-          <div>
-            {width > 320 && (
-              <>
-                <h1 className={styles.logo_title}>React Pizza</h1>
-                <div className={styles.logo_description}>
-                  ...more than just pizza
-                </div>
-              </>
-            )}
+          <div className={styles.logo_text}>
+            <h1 className={styles.logo_title}>React Pizza</h1>
+            <div className={styles.logo_description}>
+              ...more than just pizza
+            </div>
           </div>
         </div>
 
@@ -61,7 +55,7 @@ function Header() {
                 strokeLinejoin="round"
               />
             </svg>
-            {width >= 1024 && "Войти"}
+            <span className={styles.login}>Войти</span>
           </Button>
           <Button>
             <svg

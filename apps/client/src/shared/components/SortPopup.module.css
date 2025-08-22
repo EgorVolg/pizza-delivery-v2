@@ -25,17 +25,13 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  background-color: var( --color-bg-secondary);
+  background-color: var(--color-bg-secondary);
   gap: 0.5rem;
   font-weight: var(--font-weight-bold);
   height: 3rem;
   padding: 0 1.25rem;
   border-radius: 1rem;
   min-width: 320px;
-
-  @media (max-width: 768px) {
-    min-width: 10px;
-  }
 }
 
 .sort_button {
@@ -53,23 +49,8 @@
     transition: color 0.3s ease;
   }
 
-  .sort_icon {
-    @media (max-width: 768px) {
-      width: 20px;
-      height: 20px;
-    }
-  }
-
   span {
     color: var(--color-brand);
-  }
-
-  @media (min-width: 768px) {
-    &:hover {
-      .sort_icon {
-        animation: spin 0.5s ease-in-out;
-      }
-    }
   }
 }
 
@@ -79,7 +60,7 @@
   left: 0;
   width: 100%;
 
-  background-color: var( --color-bg-secondary);
+  background-color: var(--color-bg-secondary);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
   border-radius: 0.5rem;
@@ -104,24 +85,6 @@
     right: 5%;
     z-index: 10;
   }
-
-  @media (max-width: 1024px) {
-    top: 30px;
-  }
-
-  @media (max-width: 768px) {
-    position: fixed;
-    top: 35%;
-    left: 4%;
-    right: 4%;
-    width: auto;
-  }
-
-  @media (max-width: 425px) {
-    top: 40%;
-    left: 8%;
-    width: 85%;
-  }
 }
 
 .sort_option {
@@ -136,17 +99,5 @@
     color: var(--color-brand-light);
     background: var(--color-bg-hover);
     font-weight: var(--font-weight-bold);
-  }
-
-  @media (max-width: 1024px) {
-    padding: 0.7rem 0;
-  }
-
-  @media (max-width: 768px) {
-    text-align: center;
-  }
-
-  @media (max-width: 425px) {
-    padding: 0.3rem 0;
   }
 }

@@ -16,27 +16,8 @@
   padding: 40px 66px;
   flex-wrap: nowrap;
 
-  @media (max-width: 1024px) {
-    flex-wrap: wrap;
-    flex-direction: row-reverse;
-    justify-content: start;
-    padding: 20px 2rem 36px 2rem;
-  }
-
-  @media (max-width: 768px) {
-    flex-wrap: wrap;
-    justify-content: start;
-  }
-
   @media (max-width: 425px) {
-    flex-wrap: wrap;
-    gap: 1rem;
-    padding: 20px 2rem 20px 2rem;
-  }
-
-  @media (max-width: 375px) {
-    gap: 1rem;
-    padding: 1rem;
+    padding: 43px 20px;
   }
 }
 
@@ -50,7 +31,7 @@
   width: max-content;
   display: flex;
   align-items: center;
-  background-color: var( --color-bg-secondary);
+  background-color: var(--color-bg-secondary);
   border-radius: 15px;
   height: 3rem;
   padding: 0 20px;

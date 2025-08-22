@@ -4,7 +4,7 @@ const Xbtn = ({
   onClick,
   className,
 }: {
-  onClick: () => void;
+  onClick?: () => void;
   className?: string;
 }) => {
   return (

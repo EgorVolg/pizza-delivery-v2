@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./SortPopup.module.css";
-import { useScreenWidth } from "../hooks/useScreen";
 import Xbtn from "../ui/Xbtn/Xbtn";
 
 const sortOptions = ["рейтингу", "популярности", "цене", "алфавиту"];
@@ -8,8 +7,7 @@ const sortOptions = ["рейтингу", "популярности", "цене",
 function SortPopUp() {
   const [selectedOption, setSelectedOption] = useState(sortOptions[0]);
   const [openSortPopup, setOpenSortPopup] = useState(false);
-
-  const width = useScreenWidth();
+ 
 
   const toggleMenu = () => setOpenSortPopup(!openSortPopup);
 
@@ -60,23 +58,22 @@ function SortPopUp() {
             fill="black"
           />
         </svg>
-        {width >= 768 && (
-          <div>
-            Сортировать по: <span>{selectedOption}</span>
-          </div>
-        )}
+
+        <div>
+          Сортировать по: <span>{selectedOption}</span>
+        </div>
       </button>
 
       <ul
-        className={`${styles.sort_options} ${openSortPopup ? styles.visible : ""}`}
+        className={`${styles.sort_options} ${
+          openSortPopup ? styles.visible : ""
+        }`}
         ref={popupRef}
       >
-        {width <= 768 && (
-          <Xbtn
-            onClick={() => setOpenSortPopup(false)}
-            className={styles.sort_comebackbtn}
-          />
-        )}
+        <Xbtn
+          onClick={() => setOpenSortPopup(false)}
+          className={styles.sort_comebackbtn}
+        />
 
         {sortOptions.map((option, index) => (
           <li

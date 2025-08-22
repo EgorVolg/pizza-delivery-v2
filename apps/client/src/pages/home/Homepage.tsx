@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import styles from "./Homepage.module.css";
-import { useScreenWidth } from "../../shared/hooks/useScreen";
 import Header from "../../widgets/Header/Header";
 import TopBar from "./components/TopBar";
 import Container from "../../shared/ui/Container/Container";
@@ -23,7 +22,6 @@ const pizzaHalves = {
 
 export function Homepage() {
   const [isOpenFilters, setIsOpenFilters] = useState(false);
-  const screenWidth = useScreenWidth();
   const { isLoading, data } = useGetPizzasQuery();
   const { isLoading: isLoadingIngr, data: ingredients } =
     useGetIngredientsQuery();
@@ -40,11 +38,7 @@ export function Homepage() {
       <Container className={styles.main_container}>
         <nav
           className={`${styles.navbar} ${
-            isOpenFilters
-              ? isOpenFilters || screenWidth >= 1024
-                ? styles.visible
-                : ""
-              : ""
+            isOpenFilters ? (isOpenFilters ? styles.visible : "") : ""
           }`}
         >
           <Filters toggleMenu={toggleMenu} isOpenFilters={isOpenFilters} />
@@ -52,19 +46,14 @@ export function Homepage() {
 
         <Container className={styles.items_container}>
           <div className={styles.items_list}>
-            <section className={styles.section}>
-              {/* <h2>Пиццы</h2> */}
-              {!isLoading && (
-                <ProductCard
-                  pizza={pizzaHalves}
-                  ingredients={
-                    "В основе пиццы увеличенная порция моцареллы и фирменный томатный соус, а другие ингредиенты можно выбрать на свой вкус"
-                  }
-                />
-              )}
+            <section className={styles.grid}>
+              <ProductCard
+                pizza={pizzaHalves}
+                ingredients="В основе пиццы увеличенная порция моцареллы и фирменный томатный соус, а другие ингредиенты можно выбрать на свой вкус"
+              />
 
               {!isLoading && !isLoadingIngr
-                ? data?.map((pizza) => {
+                ? data?.map((pizza: any, index: number) => {
                     const pizzaIngredients =
                       ingredients
                         ?.filter((ingredient) =>
@@ -74,7 +63,7 @@ export function Homepage() {
 
                     return (
                       <ProductCard
-                        key={pizza.id}
+                        key={index}
                         pizza={pizza}
                         ingredients={pizzaIngredients.join(", ")}
                       />

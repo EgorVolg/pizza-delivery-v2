@@ -42,6 +42,7 @@ export const Search = () => {
       </div>
 
       <Input
+        className={styles.input}
         isLoading={isLoading}
         ref={inputRef}
         value={searchValue}
