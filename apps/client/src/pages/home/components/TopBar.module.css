@@ -1,10 +1,10 @@
 .topbar {
-  position: sticky;
-  top: 0;
-  width: 100%;
   background-color: rgba(255, 255, 255, 0.75);
 
   backdrop-filter: blur(20px);
+  position: sticky;
+  top: 0;
+  width: 100%;
   z-index: 10;
 }
 
@@ -16,24 +16,31 @@
   padding: 40px 66px;
   flex-wrap: nowrap;
 
+  @media (max-width: 768px) {
+    flex-wrap: wrap-reverse;
+  }
+
   @media (max-width: 425px) {
     padding: 43px 20px;
   }
 }
 
-.hamburger_icon {
-  width: 24px;
-  height: 24px;
-}
-
 .hamburger {
-  all: unset;
-  width: max-content;
-  display: flex;
-  align-items: center;
-  background-color: var(--color-bg-secondary);
-  border-radius: 15px;
-  height: 3rem;
-  padding: 0 20px;
-  cursor: pointer;
+  display: none;
+  @media (max-width: 1440px) {
+    all: unset;
+    width: max-content;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-bg-secondary);
+    border-radius: 15px;
+    height: 3rem;
+    padding: 0 20px;
+    cursor: pointer;
+
+    .hamburger_icon {
+      width: 24px;
+      height: 24px;
+    }
+  }
 }

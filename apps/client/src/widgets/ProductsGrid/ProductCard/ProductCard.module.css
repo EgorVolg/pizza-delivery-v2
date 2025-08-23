@@ -6,7 +6,13 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  max-width: 285px;  
+
+  @media (max-width: 1024px) {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid #b1b1b1;
+  }
 }
 
 /* Image */
@@ -17,14 +23,24 @@
   padding: 24px 37px;
   background-color: #fff7ee;
   margin-bottom: 15px;
+
+  @media (max-width: 1024px) {
+    max-width: 33.3%;
+  }
 }
 
 /* Body */
 .body {
   flex: 1 1 auto;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   justify-content: space-between;
+
+  @media (max-width: 1024px) {
+    font-direction: row;
+    justify-content: space-between;
+    padding: 24px 37px;
+  }
 }
 
 /* Title */

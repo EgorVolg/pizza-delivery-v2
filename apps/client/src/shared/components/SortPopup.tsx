@@ -59,7 +59,7 @@ function SortPopUp() {
           />
         </svg>
 
-        <div>
+        <div className={styles.sort_text}>
           Сортировать по: <span>{selectedOption}</span>
         </div>
       </button>

@@ -50,26 +50,29 @@
 }
 
 .filter_close {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: none;
 
-  width: max-content;
-  height: 100%;
-  
   @media (max-width: 1024px) {
-    display: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: max-content;
+    height: 100%;
   }
 }
 
 .filter_close_btn {
-  all: unset;
-  background: var(--color-bg-primary) af4;
-  border-radius: 15px;
-  color: var(--color-brand);
-  width: 50px;
-  height: 100%;
-  cursor: pointer;
+  display: none;
+  @media (max-width: 1440px) {
+    all: unset;
+    background: var(--color-bg-primary) af4;
+    border-radius: 15px;
+    color: var(--color-brand);
+    width: 50px;
+    height: 100%;
+    cursor: pointer;
+  }
 }
 
 .filter_title {

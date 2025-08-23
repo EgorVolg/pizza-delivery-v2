@@ -5,11 +5,9 @@ import styles from "./styles/App.module.css";
 function App() {
   return (
     <div className={styles.app}>
-      <div className={styles.main}>
-        <Container className={styles.container}>
-          <Homepage />
-        </Container>
-      </div>
+      <Container className={styles.container}>
+        <Homepage />
+      </Container>
     </div>
   );
 }
