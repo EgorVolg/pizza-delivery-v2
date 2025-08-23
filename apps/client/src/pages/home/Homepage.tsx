@@ -10,6 +10,7 @@ import { useGetPizzasQuery } from "../../entities/pizza/model/pizza.api";
 
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
 import ProductCardSkeleton from "../../widgets/ProductsGrid/ProductCard/ProductCardSkeleton";
+import { useSelector } from "react-redux";
 
 const pizzaHalves = {
   name: "Пицца из половинок",
@@ -26,9 +27,56 @@ export function Homepage() {
   const { isLoading: isLoadingIngr, data: ingredients } =
     useGetIngredientsQuery();
 
+  const selector = useSelector((state: any) => state.filterParams);
+
   function toggleMenu() {
     setIsOpenFilters(!isOpenFilters);
   }
+
+  const pizzas = () => {
+    if (!data) return null;
+    if (!ingredients) return null;
+
+    if (isLoading || isLoadingIngr)
+      return [...Array(6)].map((_, index) => (
+        <ProductCardSkeleton key={index} />
+      ));
+
+    return (
+      <>
+        <ProductCard
+          pizza={pizzaHalves}
+          ingredients="Собери свою пиццу из половинок"
+        />
+        {(selector.ingredients.length > 0
+          ? data.filter((pizza: any) => {
+              return pizza.ingredients.some((ingredientId: number) => {
+                return selector.ingredients.includes(ingredientId);
+              });
+            })
+          : data
+        ).map((pizza: any, index: number) => {
+          const pizzaIngredients = ingredients
+            .filter((ingredient) => pizza.ingredients.includes(+ingredient.id))
+            .map((ingredient) => ingredient.name)
+            .join(", ");
+          return (
+            <ProductCard
+              key={index}
+              pizza={{
+                name: pizza.name,
+                rating: pizza.rating,
+                popular: pizza.popular,
+                price: pizza.price,
+                imageUrl: pizza.imageUrl,
+              }}
+              ingredients={pizzaIngredients}
+            />
+          );
+        })}
+      </>
+    );
+  };
 
   return (
     <>
@@ -46,33 +94,7 @@ export function Homepage() {
 
         <Container className={styles.items_container}>
           <div className={styles.items_list}>
-            <section className={styles.grid}>
-              <ProductCard
-                pizza={pizzaHalves}
-                ingredients="В основе пиццы увеличенная порция моцареллы и фирменный томатный соус, а другие ингредиенты можно выбрать на свой вкус"
-              />
-
-              {!isLoading && !isLoadingIngr
-                ? data?.map((pizza: any, index: number) => {
-                    const pizzaIngredients =
-                      ingredients
-                        ?.filter((ingredient) =>
-                          pizza.ingredients.includes(+ingredient.id)
-                        )
-                        .map((ing) => ing.name) || [];
-
-                    return (
-                      <ProductCard
-                        key={index}
-                        pizza={pizza}
-                        ingredients={pizzaIngredients.join(", ")}
-                      />
-                    );
-                  })
-                : [...Array(9)].map((_, index) => (
-                    <ProductCardSkeleton key={index} />
-                  ))}
-            </section>
+            <section className={styles.grid}>{pizzas()}</section>
           </div>
         </Container>
       </Container>
