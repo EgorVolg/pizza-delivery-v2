@@ -46,7 +46,6 @@ export const Filters = ({
   };
 
   const handleSelect = () => {
-    toggleMenu();
     dispatch(setParams({ ingredients: count }));
   };
 
