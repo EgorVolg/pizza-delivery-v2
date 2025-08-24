@@ -70,7 +70,9 @@
 }
 
 .popup_close {
+  display: none;
   @media (max-width: 768px) {
+    display: block;
     position: absolute;
     right: 0;
     top: 0;
