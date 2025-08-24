@@ -34,8 +34,7 @@ export function Homepage() {
   }
 
   const pizzas = () => {
-    if (!data) return null;
-    if (!ingredients) return null;
+    if (!data || !ingredients) return null;
 
     if (isLoading || isLoadingIngr)
       return [...Array(6)].map((_, index) => (
@@ -48,32 +47,35 @@ export function Homepage() {
           pizza={pizzaHalves}
           ingredients="Собери свою пиццу из половинок"
         />
-        {(selector.ingredients.length > 0
-          ? data.filter((pizza: any) => {
-              return pizza.ingredients.some((ingredientId: number) => {
-                return selector.ingredients.includes(ingredientId);
-              });
-            })
-          : data
-        ).map((pizza: any, index: number) => {
-          const pizzaIngredients = ingredients
-            .filter((ingredient) => pizza.ingredients.includes(+ingredient.id))
-            .map((ingredient) => ingredient.name)
-            .join(", ");
-          return (
-            <ProductCard
-              key={index}
-              pizza={{
-                name: pizza.name,
-                rating: pizza.rating,
-                popular: pizza.popular,
-                price: pizza.price,
-                imageUrl: pizza.imageUrl,
-              }}
-              ingredients={pizzaIngredients}
-            />
-          );
-        })}
+        {data
+          .filter((pizza: any) => {
+            if (selector.ingredients.length === 0) return true;
+            return pizza.ingredients.some((ingredientId: number) => {
+              return selector.ingredients.includes(ingredientId);
+            });
+          })
+          .map((pizza: any, index: number) => {
+            const pizzaIngredients = ingredients
+              .filter((ingredient) =>
+                pizza.ingredients.includes(+ingredient.id)
+              )
+              .map((ingredient) => ingredient.name)
+              .join(", ");
+            if (!pizzaIngredients) return null;
+            return (
+              <ProductCard
+                key={index}
+                pizza={{
+                  name: pizza.name,
+                  rating: pizza.rating,
+                  popular: pizza.popular,
+                  price: pizza.price,
+                  imageUrl: pizza.imageUrl,
+                }}
+                ingredients={pizzaIngredients}
+              />
+            );
+          })}
       </>
     );
   };

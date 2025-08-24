@@ -14,7 +14,9 @@ export const ProductCard = ({
 
   return (
     <article key={pizza.id} className={styles.card}>
-      <img src={pizza.imageUrl} alt={pizza.name} className={styles.image} />
+      <div className={styles.imageContainer}>
+        <img src={pizza.imageUrl} alt={pizza.name} className={styles.image} />
+      </div>
       <div className={styles.body}>
         <header>
           <h3 className={styles.title}>{pizza.name}</h3>
