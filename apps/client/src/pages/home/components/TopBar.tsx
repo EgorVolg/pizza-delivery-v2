@@ -7,7 +7,7 @@ const TopBar = ({ toggleMenu }: { toggleMenu: () => void }) => {
   return (
     <div className={styles.topbar}>
       <Container className={styles.topbar_container}>
-        <Categories className={styles.categories} />
+        <Categories />
         <SortPopUp />
 
         <button className={styles.hamburger} onClick={toggleMenu}>
