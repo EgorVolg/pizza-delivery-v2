@@ -43,8 +43,10 @@
 
   cursor: pointer;
 
-  &:hover {
-    background: var(--color-bg-hover);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: var(--color-bg-hover);
+    }
   }
 }
 

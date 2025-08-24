@@ -43,12 +43,12 @@
   justify-content: center;
   gap: 0.5rem;
   transition: transform 0.3s ease;
-
-  &:hover {
-    color: var(--color-brand);
-    transition: color 0.3s ease;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: var(--color-brand);
+      transition: color 0.3s ease;
+    }
   }
-
   span {
     color: var(--color-brand);
   }
@@ -101,9 +101,11 @@
   gap: 0.5rem;
   z-index: 10;
 
-  &:hover {
-    color: var(--color-brand-light);
-    background: var(--color-bg-hover);
-    font-weight: var(--font-weight-bold);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: var(--color-brand-light);
+      background: var(--color-bg-hover);
+      font-weight: var(--font-weight-bold);
+    }
   }
 }

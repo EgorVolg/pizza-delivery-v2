@@ -36,9 +36,11 @@
 
   transition: transform 0.35s ease;
 
-  &:hover {
-    cursor: pointer;
-    transform: scale(1.1);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
   }
 }
 
