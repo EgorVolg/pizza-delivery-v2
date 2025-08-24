@@ -54,10 +54,6 @@
   }
 }
 
-.sort_text {
-  display: none;
-}
-
 .sort_options {
   position: absolute;
   top: 60%;
@@ -94,10 +90,6 @@
       right: 5%;
       z-index: 10;
     }
-  }
-
-  @media (max-width: 1440px) {
-    width: max-content;
   }
 }
 

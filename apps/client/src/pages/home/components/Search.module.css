@@ -11,11 +11,15 @@
   border: 1px solid #c0c0c0;
   background: var(--color-bg-primary);
   z-index: 30;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  scroll-behavior: smooth;
 }
 
 .input {
   padding-left: 55px;
-
 
   &:focus {
     outline: none;
