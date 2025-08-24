@@ -45,7 +45,10 @@ export const Filters = ({
     );
   };
 
-  dispatch(setParams({ ingredients: count }));
+  const handleSelect = () => {
+    toggleMenu();
+    dispatch(setParams({ ingredients: count }));
+  };
 
   return (
     <div className={styles.filter_groups}>
@@ -57,7 +60,7 @@ export const Filters = ({
           onClick={toggleMenu}
           style={{
             cursor: "pointer",
-            display: "flex"
+            display: "flex",
           }}
         >
           <Xbtn className={styles.filter_close_btn} />
@@ -65,8 +68,12 @@ export const Filters = ({
       </div>
 
       <div className={styles.filter_group}>
-        <FilterCheckbox text="Можно собирать" />
-        <FilterCheckbox text="Новинки" />
+        <li>
+          <FilterCheckbox text="Можно собирать" />
+        </li>
+        <li>
+          <FilterCheckbox text="Новинки" />
+        </li>
       </div>
       <div
         className={styles.filter_group}
@@ -102,7 +109,7 @@ export const Filters = ({
               <FilterCheckbox
                 text={ingredient.name}
                 checked={count.includes(+ingredient.id)}
-                onChange={() => toggleIngredient(+ingredient.id)}
+                onClick={() => toggleIngredient(+ingredient.id)}
               />
             </li>
           ))}
@@ -121,7 +128,9 @@ export const Filters = ({
         <FilterCheckbox text="Толстое" rounded />
       </div>
       <div className={styles.btn_container}>
-        <Button className={styles.filter_button}>Применить</Button>
+        <Button className={styles.filter_button} onClick={handleSelect}>
+          Применить
+        </Button>
       </div>
     </div>
   );

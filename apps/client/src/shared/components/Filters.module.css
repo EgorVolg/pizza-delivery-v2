@@ -1,3 +1,15 @@
+ul {
+  gap: 15px;
+}
+
+li {
+  list-style: none;
+  cursor: pointer;
+  width: 100%;
+  height: auto;
+  text-wrap: wrap;
+}
+
 .filter_groups {
   display: flex;
   flex-direction: column;
@@ -7,7 +19,7 @@
 .filter_group {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 16px;
   padding: 25px 0;
   width: 230px;
 }
@@ -64,6 +76,7 @@
 
 .filter_close_btn {
   display: none;
+
   @media (max-width: 1440px) {
     all: unset;
     background: var(--color-bg-primary) af4;
@@ -141,10 +154,6 @@
   flex-wrap: wrap;
   width: 200px;
   gap: 1rem;
-
-  .filter_ingredients_checkbox {
-    pointer-events: none;
-  }
 }
 
 .ingredients_list {
@@ -152,9 +161,6 @@
   overflow-y: hidden;
 
   li {
-    cursor: pointer;
-    width: 100%;
-    height: auto;
-    text-wrap: wrap;
+    margin-bottom: 15px;
   }
 }

@@ -11,6 +11,7 @@ function FilterCheckbox({
   rounded?: boolean;
   checked?: boolean;
   onChange?: () => void;
+  onClick?: () => void;
   className?: string;
 }) {
   return (
