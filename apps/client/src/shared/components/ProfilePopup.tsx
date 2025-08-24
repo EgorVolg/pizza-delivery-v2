@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import styles from "./ProfilePopup.module.css";
+import Xbtn from "../ui/Xbtn/Xbtn";
 
 export const ProfilePopup = ({
   toggleMenu,
@@ -14,7 +15,10 @@ export const ProfilePopup = ({
     if (!isOpen) return;
 
     const handleClickOutside = (event: MouseEvent) => {
-      if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
+      if (
+        popupRef.current &&
+        !popupRef.current.contains(event.target as Node)
+      ) {
         toggleMenu();
       }
     };
@@ -35,6 +39,11 @@ export const ProfilePopup = ({
       ref={popupRef}
       className={`${styles.user_menu_popup} ${isOpen ? styles.visible : ""}`}
     >
+      <Xbtn
+        onClick={toggleMenu}
+        className={styles.popup_close}
+      />
+
       <li onClick={toggleMenu}>Настройки</li>
       <li onClick={toggleMenu}>Заказы</li>
       <li onClick={toggleMenu}>Выйти</li>
