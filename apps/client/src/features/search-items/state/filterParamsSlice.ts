@@ -10,7 +10,7 @@ export interface FilterStateParams {
 const initialState = {
   type: [],
   isNew: false,
-  price: "",
+  price: [],
   ingredients: [],
 };
 
@@ -19,7 +19,6 @@ export const filterParamsSlice = createSlice({
   initialState,
   reducers: {
     setParams: (state, action) => {
-      // return { ...state, ...action.payload };
       state.type = action.payload.type;
       state.isNew = action.payload.isNew;
       state.price = action.payload.price;
@@ -29,7 +28,3 @@ export const filterParamsSlice = createSlice({
 });
 
 export const { setParams } = filterParamsSlice.actions;
-
-export const selectFilterParams = (state: {
-  filterParams: FilterStateParams;
-}) => state.filterParams;

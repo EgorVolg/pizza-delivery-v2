@@ -34,12 +34,12 @@ export function Homepage() {
   }
 
   const pizzas = () => {
-    if (!data || !ingredients) return null;
-
     if (isLoading || isLoadingIngr)
       return [...Array(6)].map((_, index) => (
         <ProductCardSkeleton key={index} />
       ));
+
+    if (!data || !ingredients) return null;
 
     return (
       <>
@@ -54,6 +54,30 @@ export function Homepage() {
               return selector.ingredients.includes(ingredientId);
             });
           })
+          .filter((pizza: any) => {
+            if (selector.price.length === 0) return true;
+
+            const [min, max] = selector.price;
+
+            return pizza.price >= min && pizza.price <= max;
+          })
+
+          .filter((pizza: any) => {
+            if (!selector.isNew) return true;
+
+            const created = new Date(pizza.createdAt);
+            const now = new Date();
+            const diffMs = now.getTime() - created.getTime();
+            const diffDays = diffMs / (1000 * 60 * 60 * 24);
+
+            return diffDays <= 3;
+          })
+          .filter((pizza: any) => {
+            console.log(selector.type);
+            
+            if (selector.type.length === 0) return true;
+            return pizza.type.includes(+selector.type);
+          })
           .map((pizza: any, index: number) => {
             const pizzaIngredients = ingredients
               .filter((ingredient) =>
@@ -61,6 +85,7 @@ export function Homepage() {
               )
               .map((ingredient) => ingredient.name)
               .join(", ");
+
             if (!pizzaIngredients) return null;
             return (
               <ProductCard
