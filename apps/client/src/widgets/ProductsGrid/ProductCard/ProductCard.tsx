@@ -1,15 +1,9 @@
 import { useState } from "react";
 import styles from "./ProductCard.module.css";
-import type { Pizza } from "../../../entities/pizza/model/pizza.types";
+import type { PizzaCard } from "../../../entities/pizza/model/pizza.types";
 import Button from "../../../shared/ui/Button/Button";
 
-export const ProductCard = ({
-  pizza,
-  ingredients,
-}: {
-  pizza: Pizza;
-  ingredients: string;
-}) => {
+export const ProductCard = ({ pizza }: { pizza: PizzaCard }) => {
   const [pizzaQuantity, setPizzaQuantity] = useState(0);
 
   return (
@@ -20,7 +14,7 @@ export const ProductCard = ({
       <div className={styles.body}>
         <header>
           <h3 className={styles.title}>{pizza.name}</h3>
-          <p className={styles.description}>{ingredients}</p>
+          <p className={styles.description}>{pizza.ingredients}</p>
         </header>
         <footer className={styles.footer}>
           <span className={styles.price}>

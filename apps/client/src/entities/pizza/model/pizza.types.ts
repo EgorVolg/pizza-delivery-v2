@@ -1,16 +1,27 @@
-export interface PizzaCard {
+export interface PizzaAPI {
+  id: number;
+  category_id: number;
+  description: string;
+  size: number[];
   name: string;
   imageUrl: string;
-  ingredients: string;
+  ingredients: number[];
   rating: number;
   popular: number;
   price: number;
+  createdAt: string;
+  updatedAt: string;
+  type: number[];
 }
 
-export interface Pizza extends PizzaCard {
+export interface PizzaCard {
   id: number;
-  description: string; 
-  size: number[];
-  type: number[];
+  imageUrl: string;
+  createdAt: string;
   category_id: number;
+  ingredients: string;
+  name: string;
+  popular: number;
+  price: number;
+  rating: number;
 }

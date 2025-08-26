@@ -1,13 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface FilterStateParams {
-  type?: string[];
-  isNew?: boolean;
-  price?: [minPrice: number, maxPrice: number];
-  ingredients?: number[];
-}
-
-const initialState = {
+export const initialFilterParamsState = {
   type: [],
   isNew: false,
   price: [],
@@ -16,7 +9,7 @@ const initialState = {
 
 export const filterParamsSlice = createSlice({
   name: "filterParams",
-  initialState,
+  initialState: initialFilterParamsState,
   reducers: {
     setParams: (state, action) => {
       state.type = action.payload.type;

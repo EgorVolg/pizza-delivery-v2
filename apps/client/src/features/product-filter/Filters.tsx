@@ -1,16 +1,22 @@
-import { useEffect, useRef, useState } from "react";
-import FilterCheckbox from "../ui/FilterCheckbox/FilterCheckbox";
-import Button from "../ui/Button/Button";
 import styles from "./Filters.module.css";
-import Xbtn from "../ui/Xbtn/Xbtn";
-import { useLockScroll } from "../hooks/useLockScroll";
+import { useEffect, useRef, useState } from "react";
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
-import { useDispatch, useSelector } from "react-redux";
-import { setParams } from "../../features/search-items/state/filterParamsSlice";
+import { useDispatch } from "react-redux";
+import { useLockScroll } from "../../shared/hooks/useLockScroll";
+import FilterCheckbox from "../../shared/ui/FilterCheckbox/FilterCheckbox";
+import Button from "../../shared/ui/Button/Button";
+import Xbtn from "../../shared/ui/Xbtn/Xbtn";
+import {
+  MAX_PRICE,
+  MIN_PRICE,
+  type Dough,
+  type FilterStateParams,
+} from "./model/filter.dto";
+import { initialFilterParamsState, setParams } from "./filterParamsSlice";
 
-const types = [
-  { id: 1, name: "тонкое" },
-  { id: 2, name: "традиционное" },
+const typesOfDough = [
+  { id: 1, name: "Тонкое" },
+  { id: 2, name: "Традиционное" },
 ];
 
 export const Filters = ({
@@ -20,23 +26,25 @@ export const Filters = ({
   toggleMenu: () => void;
   isOpenFilters: boolean;
 }) => {
-  const selector = useSelector((state: any) => state.filterParams);
   const [isOpen, setIsOpen] = useState(false);
-  const [count, setCount] = useState(selector);
+  const [count, setCount] = useState<FilterStateParams>(
+    initialFilterParamsState
+  );
   const popupRef = useRef<HTMLUListElement>(null);
   const { data: ingredients } = useGetIngredientsQuery();
   const dispatch = useDispatch();
 
-  const handleType = (index: number) => {
-    const isTypeAlreadySelected = count.type.includes(index);
+  const handleType = (id: number) => {
+    setCount((prev) => {
+      const current = prev.type ?? [];
+      const nextType = current[0] === id ? [] : [id];
 
-    setCount((prev) => ({
-      ...prev,
-      type: isTypeAlreadySelected ? [] : [index],
-    }));
+      return { ...prev, type: nextType };
+    });
   };
 
   useLockScroll(isOpenFilters);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -53,13 +61,14 @@ export const Filters = ({
   }, [isOpenFilters, toggleMenu]);
 
   const toggleIngredient = (id: number) => {
-    setCount((prev) => {
-      const { ingredients } = prev;
-      const nextIngredients = ingredients.includes(id)
-        ? ingredients.filter((i) => i !== id)
-        : [...ingredients, id];
-
-      return { ...prev, ingredients: nextIngredients };
+    setCount((prev: FilterStateParams) => {
+      const ingredients = prev.ingredients ?? [];
+      return {
+        ...prev,
+        ingredients: ingredients.includes(id)
+          ? ingredients.filter((i) => i !== id)
+          : [...ingredients, id],
+      };
     });
   };
 
@@ -74,9 +83,10 @@ export const Filters = ({
     dispatch(
       setParams({
         ...count,
-        price: [count.price?.[0] || 0, count.price?.[1] || 1000],
+        price: [count.price?.[0] || MIN_PRICE, count.price?.[1] || MAX_PRICE],
       })
     );
+    toggleMenu();
   };
 
   const handleReset = () => {
@@ -87,12 +97,31 @@ export const Filters = ({
       price: [],
       type: [],
     });
+    toggleMenu();
   };
 
-  const handlePriceChange = (index: number, value: string) => {
-    const newPrice = [...(count.price || [0, 1000])];
-    newPrice[index] = value === "" ? null : Number(value);
-    setCount((prev: any) => ({ ...prev, price: newPrice }));
+  const price = count.price ?? [];
+  const minVal = price[0] ?? MIN_PRICE;
+  const maxVal = price[1] ?? MAX_PRICE;
+
+  const handlePriceChange = (idx: 0 | 1, raw: number) => {
+    const parsed = Number(raw);
+    const val = isNaN(parsed)
+      ? MIN_PRICE
+      : Math.max(MIN_PRICE, Math.min(parsed, MAX_PRICE));
+
+    setCount((prev) => {
+      const nextPrice = [...(prev.price || [])];
+
+      if (idx === 0) {
+        nextPrice[0] = val;
+        if (nextPrice.length < 2) nextPrice[1] = maxVal;
+      } else {
+        if (nextPrice.length === 0) nextPrice[0] = MIN_PRICE;
+        nextPrice[1] = val;
+      }
+      return { ...prev, price: nextPrice.slice(0, 2) };
+    });
   };
 
   return (
@@ -101,7 +130,7 @@ export const Filters = ({
         <h1 className={styles.filter_title}>Фильтрация</h1>
         {(count.ingredients.length > 0 ||
           count.isNew === true ||
-          +count.type.length > 0 ||
+          count.type.length > 0 ||
           count.price.length > 0 ||
           count.price[1] === 0) && (
           <button onClick={handleReset} className={styles.filter_resetbtn}>
@@ -130,10 +159,7 @@ export const Filters = ({
         </div>
       </div>
 
-      <div className={styles.filter_group}>
-        <li>
-          <FilterCheckbox text="Можно собирать" />
-        </li>
+      <ul className={styles.filter_group}>
         <li onClick={() => handleIsNew(count.isNew ? false : true)}>
           <FilterCheckbox
             text="Новинки"
@@ -141,7 +167,7 @@ export const Filters = ({
             onClick={() => handleIsNew(count.isNew ? false : true)}
           />
         </li>
-      </div>
+      </ul>
       <div
         className={styles.filter_group}
         style={{
@@ -155,9 +181,9 @@ export const Filters = ({
             <input
               className={styles.price_input}
               type="number"
-              placeholder="0"
-              value={count.price?.[0] ?? ""}
-              onChange={(e) => handlePriceChange(0, e.target.value)}
+              placeholder={MIN_PRICE.toString()}
+              value={minVal === MIN_PRICE ? "" : minVal}
+              onChange={(e) => handlePriceChange(0, +e.target.value)}
             />
           </div>
 
@@ -165,9 +191,9 @@ export const Filters = ({
             <input
               className={styles.price_input}
               type="number"
-              placeholder="1000"
-              value={count.price?.[1] ?? ""}
-              onChange={(e) => handlePriceChange(1, e.target.value)}
+              placeholder={MAX_PRICE.toString()}
+              value={maxVal === MAX_PRICE ? "" : maxVal}
+              onChange={(e) => handlePriceChange(1, +e.target.value)}
             />
           </div>
         </div>
@@ -201,12 +227,12 @@ export const Filters = ({
       <ul className={styles.filter_group}>
         <p className={styles.filter_group_title}>Тип теста:</p>
 
-        {types?.map((type, index) => (
-          <li key={index} onClick={() => handleType(+type.id)}>
+        {typesOfDough.map((type: Dough, index: number) => (
+          <li key={index} onClick={() => handleType(type.id)}>
             <FilterCheckbox
               text={type.name}
-              checked={count.type.includes(+type.id)}
-              onClick={() => handleType(+type.id)}
+              checked={count.type?.includes(type.id) ?? false}
+              onClick={() => handleType(type.id)}
               rounded
             />
           </li>

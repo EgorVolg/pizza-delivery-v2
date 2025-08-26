@@ -4,13 +4,14 @@ import styles from "./Homepage.module.css";
 import Header from "../../widgets/Header/Header";
 import TopBar from "./components/TopBar";
 import Container from "../../shared/ui/Container/Container";
-import { Filters } from "../../shared/components/Filters";
 import { ProductCard } from "../../widgets/ProductsGrid/ProductCard/ProductCard";
 import { useGetPizzasQuery } from "../../entities/pizza/model/pizza.api";
-
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
 import ProductCardSkeleton from "../../widgets/ProductsGrid/ProductCard/ProductCardSkeleton";
 import { useSelector } from "react-redux";
+import { Filters } from "../../features/product-filter/Filters";
+import type { FilterStateParams } from "../../features/product-filter/model/filter.dto";
+import type { PizzaAPI } from "../../entities/pizza/model/pizza.types";
 
 const pizzaHalves = {
   name: "Пицца из половинок",
@@ -19,6 +20,10 @@ const pizzaHalves = {
   price: 300,
   imageUrl:
     "https://bihemgflzeaaltqlvqeh.supabase.co/storage/v1/object/public/pizza-images/Pizza halves.avif",
+  ingredients: "Собери свою пиццу из половинок!",
+  id: 0,
+  createdAt: "",
+  category_id: 1,
 };
 
 export function Homepage() {
@@ -27,7 +32,9 @@ export function Homepage() {
   const { isLoading: isLoadingIngr, data: ingredients } =
     useGetIngredientsQuery();
 
-  const selector = useSelector((state: any) => state.filterParams);
+  const selector = useSelector(
+    (state: { filterParams: FilterStateParams }) => state.filterParams
+  );
 
   function toggleMenu() {
     setIsOpenFilters(!isOpenFilters);
@@ -44,17 +51,17 @@ export function Homepage() {
     return (
       <>
         <ProductCard
-          pizza={pizzaHalves}
-          ingredients="Собери свою пиццу из половинок"
+          pizza={{ ...pizzaHalves, ingredients: pizzaHalves.ingredients }}
         />
         {data
-          .filter((pizza: any) => {
+          .filter((pizza: PizzaAPI) => {
             if (selector.ingredients.length === 0) return true;
             return pizza.ingredients.some((ingredientId: number) => {
               return selector.ingredients.includes(ingredientId);
             });
           })
-          .filter((pizza: any) => {
+
+          .filter((pizza: PizzaAPI) => {
             if (selector.price.length === 0) return true;
 
             const [min, max] = selector.price;
@@ -62,7 +69,7 @@ export function Homepage() {
             return pizza.price >= min && pizza.price <= max;
           })
 
-          .filter((pizza: any) => {
+          .filter((pizza: PizzaAPI) => {
             if (!selector.isNew) return true;
 
             const created = new Date(pizza.createdAt);
@@ -72,13 +79,14 @@ export function Homepage() {
 
             return diffDays <= 3;
           })
-          .filter((pizza: any) => {
-            console.log(selector.type);
-            
+
+          .filter((pizza: PizzaAPI) => {
             if (selector.type.length === 0) return true;
-            return pizza.type.includes(+selector.type);
+            const [typeId] = selector.type;
+            return pizza.type.includes(typeId);
           })
-          .map((pizza: any, index: number) => {
+
+          .map((pizza: PizzaAPI, index: number) => {
             const pizzaIngredients = ingredients
               .filter((ingredient) =>
                 pizza.ingredients.includes(+ingredient.id)
@@ -91,13 +99,9 @@ export function Homepage() {
               <ProductCard
                 key={index}
                 pizza={{
-                  name: pizza.name,
-                  rating: pizza.rating,
-                  popular: pizza.popular,
-                  price: pizza.price,
-                  imageUrl: pizza.imageUrl,
+                  ...pizza,
+                  ingredients: pizzaIngredients,
                 }}
-                ingredients={pizzaIngredients}
               />
             );
           })}
