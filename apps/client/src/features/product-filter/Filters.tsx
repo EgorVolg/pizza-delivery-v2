@@ -42,8 +42,9 @@ export const Filters = ({
       return { ...prev, type: nextType };
     });
   };
+  const width = window.innerWidth;
 
-  useLockScroll(isOpenFilters);
+  useLockScroll(width > 1440 ? false : isOpenFilters);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
