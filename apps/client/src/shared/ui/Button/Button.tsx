@@ -4,13 +4,19 @@ export default function Button({
   children,
   onClick,
   className,
+  disabled,
 }: {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
+  disabled?: boolean;
 }) {
   return (
-    <div className={`${styles.button} ${className}`} onClick={onClick}>
+    <div
+      className={`${styles.button} ${className}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </div>
   );

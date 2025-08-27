@@ -76,8 +76,9 @@ export const Filters = ({
   };
 
   const handleSelect = () => {
+    if (!priceValid) return;
     dispatch(
-      setParams({ 
+      setParams({
         isNew: isNew,
         type: selectedTypes,
         ingredients: selectedIngredients,
@@ -96,6 +97,8 @@ export const Filters = ({
     setMaxPrice(MAX_PRICE);
     toggleMenu();
   };
+  const priceValid =
+    minPrice <= maxPrice && minPrice >= MIN_PRICE && maxPrice <= MAX_PRICE;
 
   const handlePriceChange = (idx: 0 | 1, raw: number) => {
     const parsed = Number(raw);
@@ -130,7 +133,7 @@ export const Filters = ({
       <FilterPrice
         minPrice={minPrice}
         maxPrice={maxPrice}
-        onChange={handlePriceChange}
+        onChange={handlePriceChange} 
       />
 
       <FilterIngredients
@@ -145,7 +148,7 @@ export const Filters = ({
         onToggle={handleType}
       />
 
-      <FilterBottom onApply={handleSelect} />
+      <FilterBottom onApply={handleSelect} disabled={!priceValid} />
     </div>
   );
 };

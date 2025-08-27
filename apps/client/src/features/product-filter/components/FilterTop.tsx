@@ -26,7 +26,7 @@ export const FilterTop: FC<{
     )}
 
     <div className={styles.filter_close} onClick={onClose}>
-      <Xbtn />
+      <Xbtn className={styles.filter_close_btn} />
     </div>
   </div>
 );
