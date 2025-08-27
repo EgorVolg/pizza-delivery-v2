@@ -23,17 +23,24 @@ export const Filters = ({
   const [count, setCount] = useState<FilterStateParams>(
     initialFilterParamsState
   );
+
+  const [isNew, setIsNew] = useState(false);
+  const [selectedTypes, setSelectedTypes] = useState<number[]>([]);
+  const [selectedIngredients, setSelectedIngredients] = useState<number[]>([]);
+  const [minPrice, setMinPrice] = useState(MIN_PRICE);
+  const [maxPrice, setMaxPrice] = useState(MAX_PRICE);
+
   const popupRef = useRef<HTMLUListElement>(null);
   const { data: ingredients } = useGetIngredientsQuery();
   const dispatch = useDispatch();
 
   const handleType = (selectedTypeId: number) => {
-    setCount((prevState) => {
-      const currentTypeIds = prevState.type ?? [];
+    setSelectedTypes((prevSelectedTypes) => {
+      const currentTypeIds = prevSelectedTypes;
       const nextTypeIds =
         currentTypeIds[0] === selectedTypeId ? [] : [selectedTypeId];
 
-      return { ...prevState, type: nextTypeIds };
+      return nextTypeIds;
     });
   };
 
@@ -57,28 +64,24 @@ export const Filters = ({
   }, [isOpenFilters, toggleMenu]);
 
   const toggleIngredient = (id: number) => {
-    setCount((prevState) => {
-      const currentIngredients = prevState.ingredients ?? [];
-      const nextIngredients = currentIngredients.includes(id)
-        ? currentIngredients.filter((ingredientId) => ingredientId !== id)
-        : [...currentIngredients, id];
-
-      return { ...prevState, ingredients: nextIngredients };
-    });
+    setSelectedIngredients((prev) =>
+      prev.includes(id)
+        ? prev.filter((ingredientId) => ingredientId !== id)
+        : [...prev, id]
+    );
   };
 
   const handleIsNew = (value: true | false) => {
-    setCount((prev) => ({
-      ...prev,
-      isNew: value,
-    }));
+    setIsNew(value);
   };
 
   const handleSelect = () => {
     dispatch(
-      setParams({
-        ...count,
-        price: [count.price?.[0] || MIN_PRICE, count.price?.[1] || MAX_PRICE],
+      setParams({ 
+        isNew: isNew,
+        type: selectedTypes,
+        ingredients: selectedIngredients,
+        price: [minPrice || MIN_PRICE, maxPrice || MAX_PRICE],
       })
     );
     toggleMenu();
@@ -86,34 +89,31 @@ export const Filters = ({
 
   const handleReset = () => {
     dispatch(setParams(initialFilterParamsState));
-    setCount(initialFilterParamsState);
+    setIsNew(false);
+    setSelectedTypes([]);
+    setSelectedIngredients([]);
+    setMinPrice(MIN_PRICE);
+    setMaxPrice(MAX_PRICE);
     toggleMenu();
   };
 
   const handlePriceChange = (idx: 0 | 1, raw: number) => {
-    const price = count.price ?? []; 
-    const maxVal = price[1] ?? MAX_PRICE;
     const parsed = Number(raw);
-    const val = isNaN(parsed)
-      ? MIN_PRICE
-      : Math.max(MIN_PRICE, Math.min(parsed, MAX_PRICE));
+    const val = isNaN(parsed) ? MIN_PRICE : Math.max(MIN_PRICE, parsed);
 
-    setCount((prev) => {
-      const nextPrice: [number, number] = (() => {
-        const [min = MIN_PRICE, max = maxVal] = prev.price ?? [];
-        return idx === 0 ? [val, max] : [min, val];
-      })();
-
-      return { ...prev, price: nextPrice };
-    });
+    if (idx === 0) {
+      setMinPrice(val);
+    } else {
+      setMaxPrice(val);
+    }
   };
 
   const isShow =
-    count.type.length > 0 ||
-    count.price.length > 0 ||
-    count.price[1] === 0 ||
-    count.ingredients.length > 0 ||
-    count.isNew === true
+    selectedTypes.length > 0 ||
+    minPrice !== MIN_PRICE ||
+    maxPrice !== MAX_PRICE ||
+    selectedIngredients.length > 0 ||
+    isNew === true
       ? true
       : false;
 
@@ -125,19 +125,23 @@ export const Filters = ({
         showReset={isShow}
       />
 
-      <FilterNew value={count.isNew} onChange={handleIsNew} />
+      <FilterNew value={isNew} onChange={handleIsNew} />
 
-      <FilterPrice value={count.price ?? []} onChange={handlePriceChange} />
+      <FilterPrice
+        minPrice={minPrice}
+        maxPrice={maxPrice}
+        onChange={handlePriceChange}
+      />
 
       <FilterIngredients
         ingredients={ingredients ?? []}
-        selected={count.ingredients}
+        selected={selectedIngredients}
         onToggle={toggleIngredient}
       />
 
       <FilterDough
         types={typesOfDough}
-        selected={count.type ?? []}
+        selected={selectedTypes}
         onToggle={handleType}
       />
 

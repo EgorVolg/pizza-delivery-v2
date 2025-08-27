@@ -3,11 +3,10 @@ import { MAX_PRICE, MIN_PRICE } from "../model/filter.const";
 import styles from "../ui/Filters.module.css";
 
 export const FilterPrice: FC<{
-  value: number[];
+  minPrice: number;
+  maxPrice: number;
   onChange: (idx: 0 | 1, val: number) => void;
-}> = ({ value, onChange }) => {
-  const [min, max] = [value[0] ?? MIN_PRICE, value[1] ?? MAX_PRICE];
-
+}> = ({ onChange, minPrice, maxPrice }) => {
   return (
     <div
       className={styles.filter_group}
@@ -23,14 +22,14 @@ export const FilterPrice: FC<{
             className={styles.price_input}
             type="number"
             placeholder={MIN_PRICE.toString()}
-            value={min === MIN_PRICE ? "" : min}
+            value={minPrice === MIN_PRICE ? "" : minPrice}
             onChange={(e) => onChange(0, +e.target.value)}
           />
           <input
             className={styles.price_input}
             type="number"
             placeholder={MAX_PRICE.toString()}
-            value={max === MAX_PRICE ? "" : max}
+            value={maxPrice === MAX_PRICE ? "" : maxPrice}
             onChange={(e) => onChange(1, +e.target.value)}
           />
         </div>
