@@ -1,23 +1,17 @@
-import styles from "./Filters.module.css";
+import styles from "./ui/Filters.module.css";
 import { useEffect, useRef, useState } from "react";
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
 import { useDispatch } from "react-redux";
 import { useLockScroll } from "../../shared/hooks/useLockScroll";
-import FilterCheckbox from "../../shared/ui/FilterCheckbox/FilterCheckbox";
-import Button from "../../shared/ui/Button/Button";
-import Xbtn from "../../shared/ui/Xbtn/Xbtn";
-import {
-  MAX_PRICE,
-  MIN_PRICE,
-  type Dough,
-  type FilterStateParams,
-} from "./model/filter.dto";
-import { initialFilterParamsState, setParams } from "./filterParamsSlice";
-
-const typesOfDough = [
-  { id: 1, name: "Тонкое" },
-  { id: 2, name: "Традиционное" },
-];
+import { type FilterStateParams } from "./model/filter.dto";
+import { initialFilterParamsState, setParams } from "./model/filterParamsSlice";
+import { MAX_PRICE, MIN_PRICE, typesOfDough } from "./model/filter.const";
+import { FilterTop } from "./components/FilterTop";
+import { FilterNew } from "./components/FilterNew";
+import { FilterPrice } from "./components/FilterPrice";
+import { FilterDough } from "./components/FilterDough";
+import { FilterIngredients } from "./components/FilterIngredients";
+import { FilterBottom } from "./components/FilterBottom";
 
 export const Filters = ({
   toggleMenu,
@@ -26,7 +20,6 @@ export const Filters = ({
   toggleMenu: () => void;
   isOpenFilters: boolean;
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [count, setCount] = useState<FilterStateParams>(
     initialFilterParamsState
   );
@@ -34,14 +27,16 @@ export const Filters = ({
   const { data: ingredients } = useGetIngredientsQuery();
   const dispatch = useDispatch();
 
-  const handleType = (id: number) => {
-    setCount((prev) => {
-      const current = prev.type ?? [];
-      const nextType = current[0] === id ? [] : [id];
+  const handleType = (selectedTypeId: number) => {
+    setCount((prevState) => {
+      const currentTypeIds = prevState.type ?? [];
+      const nextTypeIds =
+        currentTypeIds[0] === selectedTypeId ? [] : [selectedTypeId];
 
-      return { ...prev, type: nextType };
+      return { ...prevState, type: nextTypeIds };
     });
   };
+
   const width = window.innerWidth;
 
   useLockScroll(width > 1440 ? false : isOpenFilters);
@@ -62,14 +57,13 @@ export const Filters = ({
   }, [isOpenFilters, toggleMenu]);
 
   const toggleIngredient = (id: number) => {
-    setCount((prev: FilterStateParams) => {
-      const ingredients = prev.ingredients ?? [];
-      return {
-        ...prev,
-        ingredients: ingredients.includes(id)
-          ? ingredients.filter((i) => i !== id)
-          : [...ingredients, id],
-      };
+    setCount((prevState) => {
+      const currentIngredients = prevState.ingredients ?? [];
+      const nextIngredients = currentIngredients.includes(id)
+        ? currentIngredients.filter((ingredientId) => ingredientId !== id)
+        : [...currentIngredients, id];
+
+      return { ...prevState, ingredients: nextIngredients };
     });
   };
 
@@ -91,159 +85,63 @@ export const Filters = ({
   };
 
   const handleReset = () => {
-    dispatch(setParams({ ingredients: [], isNew: false, price: [], type: [] }));
-    setCount({
-      ingredients: [],
-      isNew: false,
-      price: [],
-      type: [],
-    });
+    dispatch(setParams(initialFilterParamsState));
+    setCount(initialFilterParamsState);
     toggleMenu();
   };
 
-  const price = count.price ?? [];
-  const minVal = price[0] ?? MIN_PRICE;
-  const maxVal = price[1] ?? MAX_PRICE;
-
   const handlePriceChange = (idx: 0 | 1, raw: number) => {
+    const price = count.price ?? []; 
+    const maxVal = price[1] ?? MAX_PRICE;
     const parsed = Number(raw);
     const val = isNaN(parsed)
       ? MIN_PRICE
       : Math.max(MIN_PRICE, Math.min(parsed, MAX_PRICE));
 
     setCount((prev) => {
-      const nextPrice = [...(prev.price || [])];
+      const nextPrice: [number, number] = (() => {
+        const [min = MIN_PRICE, max = maxVal] = prev.price ?? [];
+        return idx === 0 ? [val, max] : [min, val];
+      })();
 
-      if (idx === 0) {
-        nextPrice[0] = val;
-        if (nextPrice.length < 2) nextPrice[1] = maxVal;
-      } else {
-        if (nextPrice.length === 0) nextPrice[0] = MIN_PRICE;
-        nextPrice[1] = val;
-      }
-      return { ...prev, price: nextPrice.slice(0, 2) };
+      return { ...prev, price: nextPrice };
     });
   };
 
+  const isShow =
+    count.type.length > 0 ||
+    count.price.length > 0 ||
+    count.price[1] === 0 ||
+    count.ingredients.length > 0 ||
+    count.isNew === true
+      ? true
+      : false;
+
   return (
     <div className={styles.filter_groups}>
-      <div className={styles.filter_top}>
-        <h1 className={styles.filter_title}>Фильтрация</h1>
-        {(count.ingredients.length > 0 ||
-          count.isNew === true ||
-          count.type.length > 0 ||
-          count.price.length > 0 ||
-          count.price[1] === 0) && (
-          <button onClick={handleReset} className={styles.filter_resetbtn}>
-            <svg
-              className={styles.filter_reseticon}
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 -960 960 960"
-              width="24px"
-              fill="#FE5F00"
-            >
-              <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-            </svg>
-          </button>
-        )}
+      <FilterTop
+        onReset={handleReset}
+        onClose={toggleMenu}
+        showReset={isShow}
+      />
 
-        <div
-          className={styles.filter_close}
-          onClick={toggleMenu}
-          style={{
-            cursor: "pointer",
-            display: "flex",
-          }}
-        >
-          <Xbtn className={styles.filter_close_btn} />
-        </div>
-      </div>
+      <FilterNew value={count.isNew} onChange={handleIsNew} />
 
-      <ul className={styles.filter_group}>
-        <li onClick={() => handleIsNew(count.isNew ? false : true)}>
-          <FilterCheckbox
-            text="Новинки"
-            checked={count.isNew}
-            onClick={() => handleIsNew(count.isNew ? false : true)}
-          />
-        </li>
-      </ul>
-      <div
-        className={styles.filter_group}
-        style={{
-          borderTop: "1px solid #e5e5e5",
-          borderBottom: "1px solid #e5e5e5",
-        }}
-      >
-        <p className={styles.filter_group_title}>Цена от и до:</p>
-        <div className={styles.filter_price_sorting}>
-          <div className={styles.input_container}>
-            <input
-              className={styles.price_input}
-              type="number"
-              placeholder={MIN_PRICE.toString()}
-              value={minVal === MIN_PRICE ? "" : minVal}
-              onChange={(e) => handlePriceChange(0, +e.target.value)}
-            />
-          </div>
+      <FilterPrice value={count.price ?? []} onChange={handlePriceChange} />
 
-          <div className={styles.input_container}>
-            <input
-              className={styles.price_input}
-              type="number"
-              placeholder={MAX_PRICE.toString()}
-              value={maxVal === MAX_PRICE ? "" : maxVal}
-              onChange={(e) => handlePriceChange(1, +e.target.value)}
-            />
-          </div>
-        </div>
-        {/* <input type="range" min="0" max="1000" /> */}
-      </div>
-      <div className={`${styles.filter_group} ${styles.filter_ingredients}`}>
-        <p className={styles.filter_group_title}>Ингредиенты:</p>
+      <FilterIngredients
+        ingredients={ingredients ?? []}
+        selected={count.ingredients}
+        onToggle={toggleIngredient}
+      />
 
-        <ul
-          className={styles.ingredients_list}
-          style={{ maxHeight: isOpen ? "none" : "225px" }}
-        >
-          {ingredients?.map((ingredient, index) => (
-            <li key={index} onClick={() => toggleIngredient(+ingredient.id)}>
-              <FilterCheckbox
-                text={ingredient.name}
-                checked={count.ingredients.includes(+ingredient.id)}
-                onClick={() => toggleIngredient(+ingredient.id)}
-              />
-            </li>
-          ))}
-        </ul>
+      <FilterDough
+        types={typesOfDough}
+        selected={count.type ?? []}
+        onToggle={handleType}
+      />
 
-        <button
-          className={styles.filter_ingredients_button}
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? "Скрыть" : "+ Показать всё"}
-        </button>
-      </div>
-      <ul className={styles.filter_group}>
-        <p className={styles.filter_group_title}>Тип теста:</p>
-
-        {typesOfDough.map((type: Dough, index: number) => (
-          <li key={index} onClick={() => handleType(type.id)}>
-            <FilterCheckbox
-              text={type.name}
-              checked={count.type?.includes(type.id) ?? false}
-              onClick={() => handleType(type.id)}
-              rounded
-            />
-          </li>
-        ))}
-      </ul>
-      <div className={styles.btn_container}>
-        <Button className={styles.filter_button} onClick={handleSelect}>
-          Применить
-        </Button>
-      </div>
+      <FilterBottom onApply={handleSelect} />
     </div>
   );
 };

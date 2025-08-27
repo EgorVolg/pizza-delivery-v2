@@ -9,6 +9,3 @@ export interface Dough {
   id: number;
   name: string;
 }
-
-export const MAX_PRICE = 5000;
-export const MIN_PRICE = 0;
