@@ -4,8 +4,8 @@ module.exports = {
   projects: [
     {
       displayName: 'client',
-      testMatch: ['<rootDir>/apps/client/**/*.test.(ts|tsx)'],
-      setupFilesAfterEnv: ['<rootDir>/src/shared/tests/setup.ts'],
+      testMatch: ['<rootDir>/apps/client/src/**/*.test.(ts|tsx)'],
+      setupFilesAfterEnv: ['<rootDir>/src/lib/test/setup.ts'],
     },
     {
       displayName: 'server',

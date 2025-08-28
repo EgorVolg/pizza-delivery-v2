@@ -1,9 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { MAX_PRICE, MIN_PRICE } from "./filter.const";
+import type { FilterStateParams } from "./filter.dto";
 
-export const initialFilterParamsState = {
+export const initialFilterParamsState: FilterStateParams = {
   type: [],
   isNew: false,
-  price: [],
+  price: [MIN_PRICE, MAX_PRICE],
   ingredients: [],
 };
 
@@ -11,13 +13,10 @@ export const filterParamsSlice = createSlice({
   name: "filterParams",
   initialState: initialFilterParamsState,
   reducers: {
-    setParams: (state, action) => {
-      state.type = action.payload.type;
-      state.isNew = action.payload.isNew;
-      state.price = action.payload.price;
-      state.ingredients = action.payload.ingredients;
-    },
+    setParams: (state, action: PayloadAction<FilterStateParams>) =>
+      action.payload,
   },
 });
 
 export const { setParams } = filterParamsSlice.actions;
+export default filterParamsSlice.reducer;

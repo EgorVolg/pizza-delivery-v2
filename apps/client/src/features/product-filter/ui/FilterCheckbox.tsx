@@ -5,14 +5,14 @@ function FilterCheckbox({
   rounded,
   checked,
   onChange,
-  className,
+  className, 
 }: {
   text: string;
   rounded?: boolean;
   checked?: boolean;
   onChange?: () => void;
   onClick?: () => void;
-  className?: string;
+  className?: string; 
 }) {
   return (
     <div className={`${className} ${styles.filter_checkbox}`}>

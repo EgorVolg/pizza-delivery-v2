@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { Filters } from "../../features/product-filter/Filters";
 import type { FilterStateParams } from "../../features/product-filter/model/filter.dto";
 import type { PizzaAPI } from "../../entities/pizza/model/pizza.types";
+import type { RootState } from "../../app/store";
 
 const pizzaHalves = {
   name: "Пицца из половинок",
@@ -33,7 +34,7 @@ export function Homepage() {
     useGetIngredientsQuery();
 
   const selector = useSelector(
-    (state: { filterParams: FilterStateParams }) => state.filterParams
+    (state: RootState) => state.filterParams as FilterStateParams
   );
 
   function toggleMenu() {

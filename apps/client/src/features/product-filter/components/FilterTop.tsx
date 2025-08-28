@@ -11,7 +11,7 @@ export const FilterTop: FC<{
     <h1 className={styles.filter_title}>Фильтрация</h1>
 
     {showReset && (
-      <button onClick={onReset} className={styles.filter_resetbtn}>
+      <button onClick={onReset} className={styles.filter_resetbtn} data-testid="reset-button">
         <svg
           className={styles.filter_reseticon}
           xmlns="http://www.w3.org/2000/svg"

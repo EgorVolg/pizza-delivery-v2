@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
 import { useDispatch } from "react-redux";
 import { useLockScroll } from "../../shared/hooks/useLockScroll";
-import { type FilterStateParams } from "./model/filter.dto";
 import { initialFilterParamsState, setParams } from "./model/filterParamsSlice";
 import { MAX_PRICE, MIN_PRICE, typesOfDough } from "./model/filter.const";
 import { FilterTop } from "./components/FilterTop";
@@ -20,9 +19,7 @@ export const Filters = ({
   toggleMenu: () => void;
   isOpenFilters: boolean;
 }) => {
-  const [count, setCount] = useState<FilterStateParams>(
-    initialFilterParamsState
-  );
+  const [width, setWidth] = useState(window.innerWidth);
 
   const [isNew, setIsNew] = useState(false);
   const [selectedTypes, setSelectedTypes] = useState<number[]>([]);
@@ -44,9 +41,16 @@ export const Filters = ({
     });
   };
 
-  const width = window.innerWidth;
+  useEffect(() => {
+    setWidth(window.innerWidth);
+  }, []);
 
-  useLockScroll(width > 1440 ? false : isOpenFilters);
+  useLockScroll(isOpenFilters && width <= 1440);
+  useEffect(() => {
+    const onResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -75,6 +79,9 @@ export const Filters = ({
     setIsNew(value);
   };
 
+  const priceValid =
+    minPrice <= maxPrice && minPrice >= MIN_PRICE && maxPrice <= MAX_PRICE;
+
   const handleSelect = () => {
     if (!priceValid) return;
     dispatch(
@@ -97,8 +104,6 @@ export const Filters = ({
     setMaxPrice(MAX_PRICE);
     toggleMenu();
   };
-  const priceValid =
-    minPrice <= maxPrice && minPrice >= MIN_PRICE && maxPrice <= MAX_PRICE;
 
   const handlePriceChange = (idx: 0 | 1, raw: number) => {
     const parsed = Number(raw);
@@ -116,12 +121,15 @@ export const Filters = ({
     minPrice !== MIN_PRICE ||
     maxPrice !== MAX_PRICE ||
     selectedIngredients.length > 0 ||
-    isNew === true
-      ? true
-      : false;
+    isNew;
 
   return (
-    <div className={styles.filter_groups}>
+    <div
+      className={styles.filter_groups}
+      data-testid="filters-popup"
+      ref={popupRef}
+      onClick={(e) => e.stopPropagation()}
+    >
       <FilterTop
         onReset={handleReset}
         onClose={toggleMenu}
@@ -133,7 +141,7 @@ export const Filters = ({
       <FilterPrice
         minPrice={minPrice}
         maxPrice={maxPrice}
-        onChange={handlePriceChange} 
+        onChange={handlePriceChange}
       />
 
       <FilterIngredients

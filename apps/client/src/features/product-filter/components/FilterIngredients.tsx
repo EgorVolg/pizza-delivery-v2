@@ -9,10 +9,12 @@ export const FilterIngredients: FC<{
   onToggle: (id: number) => void;
 }> = ({ ingredients, selected, onToggle }) => {
   const [open, setOpen] = useState(false);
+
   return (
     <div className={`${styles.filter_group} ${styles.filter_ingredients}`}>
       <p className={styles.filter_group_title}>Ингредиенты:</p>
       <ul
+        data-testid="filters-popup"
         style={{ maxHeight: open ? "none" : "225px" }}
         className={styles.ingredients_list}
       >

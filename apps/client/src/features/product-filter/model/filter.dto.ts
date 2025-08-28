@@ -1,7 +1,7 @@
 export interface FilterStateParams {
-  type: number[];
+  type: number[] | [];
   isNew: boolean;
-  price: number[];
+  price: [number, number] | [];
   ingredients: number[];
 }
 

@@ -8,7 +8,11 @@ export const FilterNew: FC<{
 }> = ({ value, onChange }) => (
   <ul className={styles.filter_group}>
     <li onClick={() => onChange(!value)}>
-      <FilterCheckbox text="Новинки" checked={value} />
+      <FilterCheckbox
+        text="Новинки"
+        checked={value} 
+        onChange={() => onChange(!value)}
+      />
     </li>
   </ul>
 );

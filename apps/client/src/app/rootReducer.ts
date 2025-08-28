@@ -11,5 +11,5 @@ export const rootReducer = combineReducers({
   [ingredientsApi.reducerPath]: ingredientsApi.reducer,
 
   // client reducers
-  [filterParamsSlice.reducerPath]: filterParamsSlice.reducer,
+  filterParams: filterParamsSlice.reducer,
 });
