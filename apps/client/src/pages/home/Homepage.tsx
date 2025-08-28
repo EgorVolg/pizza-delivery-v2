@@ -7,7 +7,7 @@ import Container from "../../shared/ui/Container/Container";
 import { ProductCard } from "../../widgets/ProductsGrid/ProductCard/ProductCard";
 import { useGetPizzasQuery } from "../../entities/pizza/model/pizza.api";
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
-import ProductCardSkeleton from "../../widgets/ProductsGrid/ProductCard/ProductCardSkeleton";
+import ProductCardSkeleton from "../../widgets/ProductsGrid/ProductCard/ui/ProductCard.Skeleton";
 import { useSelector } from "react-redux";
 import { Filters } from "../../features/product-filter/Filters";
 import type { FilterStateParams } from "../../features/product-filter/model/filter.dto";

@@ -1,5 +1,5 @@
 import styles from "./Input.module.css";
-import { InputSkeleton } from "./InputSkeleton";
+import { InputSkeleton } from "./ui/Input.Skeleton";
 
 type Props = {
   isLoading?: boolean;

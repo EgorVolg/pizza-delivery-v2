@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./Categories.module.css";
 import { useGetCategoriesQuery } from "../model/categories.api";
-import { CategoriesSkeleton } from "./CategoriesSkeleton";
+import { CategoriesSkeleton } from "./Categories.Skeleton";
 import type { Category } from "../model/categories.type";
 
 export default function CategoriesList() {
