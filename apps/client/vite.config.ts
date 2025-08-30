@@ -11,7 +11,7 @@ export default defineConfig({
         "**/*.config.*",
         "**/*.d.ts",
         "cypress/**",
-        "**/ui/**/*.Skeleton.tsx",
+        "**/ui/**",
       ],
     },
   },
