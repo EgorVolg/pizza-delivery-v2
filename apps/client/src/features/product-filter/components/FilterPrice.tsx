@@ -26,6 +26,7 @@ export const FilterPrice: FC<{
           <input
             className={styles.price_input}
             type="number"
+            data-testid="min-price"
             placeholder={MIN_PRICE.toString()}
             value={minPrice === MIN_PRICE ? "" : minPrice}
             onChange={(e) => onChange(0, +e.target.value)}
@@ -33,6 +34,7 @@ export const FilterPrice: FC<{
           <input
             className={styles.price_input}
             type="number"
+            data-testid="max-price"
             placeholder={MAX_PRICE.toString()}
             value={maxPrice === MAX_PRICE ? "" : maxPrice}
             onChange={(e) => onChange(1, +e.target.value)}
