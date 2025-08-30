@@ -20,6 +20,8 @@ export default defineConfig({
         "**/cypress/**",
         "**/dist/**",
         "**/ui/**/*.Skeleton.tsx",
+        "**/*.config.ts*",
+        "**/*.config.js*",
       ],
       // reportsDirectory: './coverage',
     },
