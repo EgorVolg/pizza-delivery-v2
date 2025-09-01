@@ -1,25 +1,30 @@
 // apps/client/src/features/product-filter/Filters.test.tsx
-import React from "react";
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { Provider } from "react-redux";
+import React from 'react';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+} from '@testing-library/react';
+import { Provider } from 'react-redux';
 
-import { Filters } from "./Filters";
-import { initialFilterParamsState } from "./model/filterParamsSlice";
-import { store } from "../../app/store";
+import { store } from '../../../../app/store';
+import { Filters } from '../../Filters';
+import { initialFilterParamsState } from '../../model/filterParamsSlice';
 
 vi.mock(
-  "../../entities/ingredient/model/ingredient.api",
+  '../../entities/ingredient/model/ingredient.api',
   async (importOriginal) => {
     const actual = await importOriginal<
-      typeof import("../../entities/ingredient/model/ingredient.api")
+      typeof import('../../../../entities/ingredient/model/ingredient.api')
     >();
     return {
       ...actual,
       useGetIngredientsQuery: vi.fn().mockReturnValue({
         data: [
-          { id: 1, name: "Cheese" },
-          { id: 2, name: "Mushroom" },
+          { id: 1, name: 'Cheese' },
+          { id: 2, name: 'Mushroom' },
         ],
         isLoading: false,
       }),
@@ -43,11 +48,16 @@ const getNewCheckbox = async () => {
 };
 
 const getResetBtn = () => screen.findByTestId('reset-button');
-const getApplyBtn  = () => screen.findByText(/Применить/i);
+const getApplyBtn = () => screen.findByText(/Применить/i);
 
 describe('Filters component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  afterEach(() => {
+    // make sure we start every test with a clean store
+    store.dispatch({ type: 'RESET' });
   });
 
   it('renders all filter sections', async () => {
@@ -112,5 +122,44 @@ describe('Filters component', () => {
     await screen.findByText(/Цена/i);
     fireEvent.mouseDown(document.body);
     expect(mockToggleMenu).toHaveBeenCalledOnce();
+  });
+
+  it('listens to window resize and cleans up listener on unmount', async () => {
+    const addSpy = vi.spyOn(window, 'addEventListener');
+    const removeSpy = vi.spyOn(window, 'removeEventListener');
+
+    const { unmount } = render(
+      <Provider store={store}>
+        <Filters toggleMenu={mockToggleMenu} isOpenFilters={true} />
+      </Provider>
+    );
+
+    // Ensure listener was added
+    expect(addSpy).toHaveBeenCalledWith('resize', expect.any(Function));
+
+    // Trigger resize and check nothing breaks
+    fireEvent(window, new Event('resize'));
+
+    unmount();
+
+    // Ensure listener was removed
+    expect(removeSpy).toHaveBeenCalledWith('resize', expect.any(Function));
+  });
+
+  it('cleans up click-outside listener on unmount', () => {
+    const addSpy = vi.spyOn(document, 'addEventListener');
+    const removeSpy = vi.spyOn(document, 'removeEventListener');
+
+    const { unmount } = render(
+      <Provider store={store}>
+        <Filters toggleMenu={mockToggleMenu} isOpenFilters={true} />
+      </Provider>
+    );
+
+    expect(addSpy).toHaveBeenCalledWith('mousedown', expect.any(Function));
+
+    unmount();
+
+    expect(removeSpy).toHaveBeenCalledWith('mousedown', expect.any(Function));
   });
 });
