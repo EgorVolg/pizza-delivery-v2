@@ -1,19 +1,24 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./SortPopup.module.css";
-import Xbtn from "../ui/Xbtn/Xbtn";
+import Xbtn from "../../../../shared/ui/Xbtn/Xbtn";
+import { useDispatch, useSelector } from "react-redux";
+import { sortParams } from "./sortParams.slice";
 
 const sortOptions = ["рейтингу", "популярности", "цене", "алфавиту"];
 
 function SortPopUp() {
-  const [selectedOption, setSelectedOption] = useState(sortOptions[0]);
   const [openSortPopup, setOpenSortPopup] = useState(false);
- 
 
   const toggleMenu = () => setOpenSortPopup(!openSortPopup);
 
+  const sortDispatch = useDispatch();
+  const selectedOption = useSelector(
+    (state: { sortParams: string }) => state.sortParams
+  );
+
   const selectOption = (option: string) => {
     toggleMenu();
-    setSelectedOption(option);
+    sortDispatch(sortParams(option));
   };
 
   const popupRef = useRef<HTMLUListElement>(null);

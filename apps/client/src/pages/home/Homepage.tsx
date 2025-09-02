@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import styles from "./Homepage.module.css";
-import Header from "../../widgets/Header/Header";
 import TopBar from "./components/TopBar";
 import Container from "../../shared/ui/Container/Container";
 import { ProductCard } from "../../widgets/ProductsGrid/ProductCard/ProductCard";
@@ -11,7 +10,10 @@ import ProductCardSkeleton from "../../widgets/ProductsGrid/ProductCard/ui/Produ
 import { useSelector } from "react-redux";
 import { Filters } from "../../features/product-filter/Filters";
 import type { FilterStateParams } from "../../features/product-filter/model/filter.dto";
-import type { PizzaAPI } from "../../entities/pizza/model/pizza.types";
+import type {
+  PizzaAPI,
+  PizzaCard,
+} from "../../entities/pizza/model/pizza.types";
 import type { RootState } from "../../app/store";
 
 const pizzaHalves = {
@@ -33,9 +35,11 @@ export function Homepage() {
   const { isLoading: isLoadingIngr, data: ingredients } =
     useGetIngredientsQuery();
 
-  const selector = useSelector(
+  const filterSelector = useSelector(
     (state: RootState) => state.filterParams as FilterStateParams
   );
+
+  const sortSelector = useSelector((state: RootState) => state.sortParams);
 
   function toggleMenu() {
     setIsOpenFilters(!isOpenFilters);
@@ -56,22 +60,22 @@ export function Homepage() {
         />
         {data
           .filter((pizza: PizzaAPI) => {
-            if (selector.ingredients.length === 0) return true;
+            if (filterSelector.ingredients.length === 0) return true;
             return pizza.ingredients.some((ingredientId: number) => {
-              return selector.ingredients.includes(ingredientId);
+              return filterSelector.ingredients.includes(ingredientId);
             });
           })
 
           .filter((pizza: PizzaAPI) => {
-            if (selector.price.length === 0) return true;
+            if (filterSelector.price.length === 0) return true;
 
-            const [min, max] = selector.price;
+            const [min, max] = filterSelector.price;
 
             return pizza.price >= min && pizza.price <= max;
           })
 
           .filter((pizza: PizzaAPI) => {
-            if (!selector.isNew) return true;
+            if (!filterSelector.isNew) return true;
 
             const created = new Date(pizza.createdAt);
             const now = new Date();
@@ -82,9 +86,24 @@ export function Homepage() {
           })
 
           .filter((pizza: PizzaAPI) => {
-            if (selector.type.length === 0) return true;
-            const [typeId] = selector.type;
+            if (filterSelector.type.length === 0) return true;
+            const [typeId] = filterSelector.type;
             return pizza.type.includes(typeId);
+          })
+
+          .sort((a, b) => {
+            switch (sortSelector) {
+              case "рейтингу":
+                return b.rating - a.rating;
+              case "популярности":
+                return b.popular - a.popular;
+              case "цене":
+                return a.price - b.price;
+              case "алфавиту":
+              return a.name.localeCompare(b.name, "ru"); 
+              default:
+                return 0;
+            }
           })
 
           .map((pizza: PizzaAPI, index: number) => {
@@ -112,7 +131,6 @@ export function Homepage() {
 
   return (
     <>
-      <Header />
       <TopBar toggleMenu={toggleMenu} />
 
       <Container className={styles.main_container}>
