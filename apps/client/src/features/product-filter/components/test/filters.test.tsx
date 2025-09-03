@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 
 import { store } from '../../../../app/store';
 import { Filters } from '../../Filters';
-import { initialFilterParamsState } from '../../model/filterParamsSlice';
+import { initialFilterParamsState } from '../../model/filterParams.slice';
 
 vi.mock(
   '../../entities/ingredient/model/ingredient.api',

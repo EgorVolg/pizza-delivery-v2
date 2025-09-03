@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
 import { useDispatch } from "react-redux";
 import { useLockScroll } from "../../shared/hooks/useLockScroll";
-import { initialFilterParamsState, setParams } from "./model/filterParamsSlice";
+import { initialFilterParamsState, setParams } from "./model/filterParams.slice";
 import { MAX_PRICE, MIN_PRICE, typesOfDough } from "./model/filter.const";
 import { FilterTop } from "./components/FilterTop";
 import { FilterNew } from "./components/FilterNew";
