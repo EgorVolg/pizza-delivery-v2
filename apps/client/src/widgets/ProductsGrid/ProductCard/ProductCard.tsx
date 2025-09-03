@@ -20,7 +20,30 @@ export const ProductCard = ({ pizza }: { pizza: PizzaCard }) => {
           <span className={styles.price}>
             <b> от</b> {pizza.price} ₽
           </span>
-          <Button className={styles.button}>+ Добавить</Button>
+          {pizzaQuantity > 0 ? (
+            <div className={styles.quantityControls}>
+              <Button
+                onClick={() => setPizzaQuantity(pizzaQuantity - 1)}
+                className={styles.counterButton}
+              >
+                -
+              </Button>
+              <span>{pizzaQuantity}</span>
+              <Button
+                onClick={() => setPizzaQuantity(pizzaQuantity + 1)}
+                className={styles.counterButton}
+              >
+                +
+              </Button>
+            </div>
+          ) : (
+            <Button
+              className={styles.button}
+              onClick={() => setPizzaQuantity(1)}
+            >
+              + Добавить
+            </Button>
+          )}
         </footer>
       </div>
     </article>

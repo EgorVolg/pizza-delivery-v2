@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import styles from "./Homepage.module.css";
 import TopBar from "./components/TopBar";
 import Container from "../../shared/ui/Container/Container";
@@ -7,14 +6,14 @@ import { ProductCard } from "../../widgets/ProductsGrid/ProductCard/ProductCard"
 import { useGetPizzasQuery } from "../../entities/pizza/model/pizza.api";
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
 import ProductCardSkeleton from "../../widgets/ProductsGrid/ProductCard/ui/ProductCard.Skeleton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Filters } from "../../features/product-filter/Filters";
 import type { FilterStateParams } from "../../features/product-filter/model/filter.dto";
-import type {
-  PizzaAPI,
-  PizzaCard,
-} from "../../entities/pizza/model/pizza.types";
+import type { PizzaAPI } from "../../entities/pizza/model/pizza.types";
 import type { RootState } from "../../app/store";
+import { ProductsSection } from "../../widgets/ProductsGrid/ProductsSection/ProductsSection";
+import { CartDrawer } from "../../entities/cart/CartDrawer";
+import { Overlay } from "../../shared/ui/Overlay/Overlay";
 
 const pizzaHalves = {
   name: "Пицца из половинок",
@@ -22,7 +21,7 @@ const pizzaHalves = {
   popular: 1000,
   price: 300,
   imageUrl:
-    "https://bihemgflzeaaltqlvqeh.supabase.co/storage/v1/object/public/pizza-images/Pizza halves.avif",
+    "https://bihemgflzeaaltqlvqeh.supabase.co/storage/v1/object/public/pizza-images/Pizza  halves.avif",
   ingredients: "Собери свою пиццу из половинок!",
   id: 0,
   createdAt: "",
@@ -35,117 +34,160 @@ export function Homepage() {
   const { isLoading: isLoadingIngr, data: ingredients } =
     useGetIngredientsQuery();
 
+  const closeCartDrawer = useDispatch();
+  const isCartDrawerOpen = useSelector(
+    (state: RootState) => state.closeOpenCart
+  );
+
   const filterSelector = useSelector(
     (state: RootState) => state.filterParams as FilterStateParams
   );
-
   const sortSelector = useSelector((state: RootState) => state.sortParams);
+
+  const handleCloseCartDrawer = () => {
+    closeCartDrawer({ type: "closeOpenCart/setOpenCart", payload: false });
+  };
 
   function toggleMenu() {
     setIsOpenFilters(!isOpenFilters);
   }
 
-  const pizzas = () => {
-    if (isLoading || isLoadingIngr)
-      return [...Array(6)].map((_, index) => (
-        <ProductCardSkeleton key={index} />
-      ));
-
-    if (!data || !ingredients) return null;
-
+  /* ---------- 1. Скелетоны ---------- */
+  if (isLoading || isLoadingIngr) {
     return (
       <>
-        <ProductCard
-          pizza={{ ...pizzaHalves, ingredients: pizzaHalves.ingredients }}
-        />
-        {data
-          .filter((pizza: PizzaAPI) => {
-            if (filterSelector.ingredients.length === 0) return true;
-            return pizza.ingredients.some((ingredientId: number) => {
-              return filterSelector.ingredients.includes(ingredientId);
-            });
-          })
+        <TopBar toggleMenu={toggleMenu} />
+        <Container className={styles.main_container}>
+          <nav
+            className={`${styles.navbar} ${
+              isOpenFilters ? styles.visible : ""
+            }`}
+          >
+            <Filters toggleMenu={toggleMenu} isOpenFilters={isOpenFilters} />
+          </nav>
 
-          .filter((pizza: PizzaAPI) => {
-            if (filterSelector.price.length === 0) return true;
-
-            const [min, max] = filterSelector.price;
-
-            return pizza.price >= min && pizza.price <= max;
-          })
-
-          .filter((pizza: PizzaAPI) => {
-            if (!filterSelector.isNew) return true;
-
-            const created = new Date(pizza.createdAt);
-            const now = new Date();
-            const diffMs = now.getTime() - created.getTime();
-            const diffDays = diffMs / (1000 * 60 * 60 * 24);
-
-            return diffDays <= 3;
-          })
-
-          .filter((pizza: PizzaAPI) => {
-            if (filterSelector.type.length === 0) return true;
-            const [typeId] = filterSelector.type;
-            return pizza.type.includes(typeId);
-          })
-
-          .sort((a, b) => {
-            switch (sortSelector) {
-              case "рейтингу":
-                return b.rating - a.rating;
-              case "популярности":
-                return b.popular - a.popular;
-              case "цене":
-                return a.price - b.price;
-              case "алфавиту":
-              return a.name.localeCompare(b.name, "ru"); 
-              default:
-                return 0;
-            }
-          })
-
-          .map((pizza: PizzaAPI, index: number) => {
-            const pizzaIngredients = ingredients
-              .filter((ingredient) =>
-                pizza.ingredients.includes(+ingredient.id)
-              )
-              .map((ingredient) => ingredient.name)
-              .join(", ");
-
-            if (!pizzaIngredients) return null;
-            return (
-              <ProductCard
-                key={index}
-                pizza={{
-                  ...pizza,
-                  ingredients: pizzaIngredients,
-                }}
+          <Container className={styles.items_container}>
+            <div className={styles.items_list}>
+              <ProductsSection
+                products={[...Array(6)].map((_, idx) => (
+                  <ProductCardSkeleton key={idx} />
+                ))}
               />
-            );
-          })}
+            </div>
+          </Container>
+        </Container>
       </>
     );
-  };
+  }
 
+  /* ---------- 2. Нет данных ---------- */
+  if (!data || !ingredients) return null;
+
+  /* ---------- 3. Фильтрация и сортировка ---------- */
+  const filtered = data
+    .filter(
+      (pizza) =>
+        !filterSelector.ingredients.length ||
+        pizza.ingredients.some((id) => filterSelector.ingredients.includes(id))
+    )
+    .filter(
+      (pizza) =>
+        !filterSelector.price.length ||
+        (pizza.price >= filterSelector.price[0] &&
+          pizza.price <= filterSelector.price[1])
+    )
+    .filter(
+      (pizza) =>
+        !filterSelector.isNew ||
+        (new Date().getTime() - new Date(pizza.createdAt).getTime()) /
+          (1000 * 60 * 60 * 24) <=
+          3
+    )
+    .filter(
+      (pizza) =>
+        !filterSelector.type.length ||
+        pizza.type.includes(filterSelector.type[0])
+    )
+    .sort((a, b) => {
+      switch (sortSelector) {
+        case "рейтингу":
+          return b.rating - a.rating;
+        case "популярности":
+          return b.popular - a.popular;
+        case "цене":
+          return a.price - b.price;
+        case "алфавиту":
+          return a.name.localeCompare(b.name, "ru");
+        default:
+          return 0;
+      }
+    });
+
+  /* ---------- 4. Группировка по category_id ---------- */
+  const grouped: Record<number, PizzaAPI[]> = filtered.reduce((acc, pizza) => {
+    const id = pizza.category_id ?? 0;
+    (acc[id] ||= []).push(pizza);
+    return acc;
+  }, {} as Record<number, PizzaAPI[]>);
+
+  /* ---------- 5. Рендер секций ---------- */
+  const sections = Object.entries(grouped).map(([catId, pizzasInCat]) => {
+    const cards = pizzasInCat.map((pizza) => {
+      const pizzaIngredients = ingredients
+        .filter((ing) => pizza.ingredients.includes(+ing.id))
+        .map((ing) => ing.name)
+        .join(", ");
+
+      return (
+        pizzaIngredients && (
+          <ProductCard
+            key={pizza.id}
+            pizza={{ ...pizza, ingredients: pizzaIngredients }}
+          />
+        )
+      );
+    });
+
+    /* «Половинки» в категорию 1 добавляем первой карточкой */
+    if (+catId === 1) {
+      cards.unshift(
+        <ProductCard
+          key="halves"
+          pizza={{ ...pizzaHalves, ingredients: pizzaHalves.ingredients }}
+        />
+      );
+    }
+
+    return (
+      <ProductsSection
+        key={catId}
+        titleID={+catId}
+        id={`cat-${catId}`}
+        products={cards}
+      />
+    );
+  });
+
+  /* ---------- 6. Рендер всей страницы ---------- */
   return (
     <>
       <TopBar toggleMenu={toggleMenu} />
 
+      {isCartDrawerOpen && (
+        <Overlay onClick={() => handleCloseCartDrawer()}>
+          <CartDrawer handleCloseCartDrawer={handleCloseCartDrawer} />
+        </Overlay>
+      )}
+
       <Container className={styles.main_container}>
         <nav
-          className={`${styles.navbar} ${
-            isOpenFilters ? (isOpenFilters ? styles.visible : "") : ""
-          }`}
+          className={`${styles.navbar} ${isOpenFilters ? styles.visible : ""}`}
         >
           <Filters toggleMenu={toggleMenu} isOpenFilters={isOpenFilters} />
         </nav>
 
         <Container className={styles.items_container}>
-          <div className={styles.items_list}>
-            <section className={styles.grid}>{pizzas()}</section>
-          </div>
+          <div className={styles.items_list}>{sections}</div>
         </Container>
       </Container>
     </>

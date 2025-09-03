@@ -107,16 +107,44 @@
 .button {
   cursor: pointer;
   background: #fffaf4;
-  color: var(--color-brand);
+  color: var(--color-bg-primary);
   font-size: 14px;
   font-weight: 600;
   border: none;
   border-radius: 15px;
-  padding: 10px 24px;
+  height: 42px;
+  max-width: 125px;
   transition: background 0.2s ease;
 }
 
-.button:hover {
-  color: var(--color-bg-primary);
-  background: var(--color-brand-light);
+.counterButton {
+  height: 42px;
+  width: 42px;
+  border-radius: 15px;
+  transition: all 0.2s ease;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: var(--color-brand);
+      color: var(--color-bg-primary);
+    }
+  }
+}
+
+.quantityControls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: Nunito;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+.quantityControls span {
+  font-size: 16px;
+  min-width: 20px;
+  text-align: center;
 }
