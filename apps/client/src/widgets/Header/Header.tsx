@@ -58,7 +58,7 @@ function Header() {
             </svg>
             <span className={styles.login}>Войти</span>
           </Button>
-          <CartBtn   />
+          <CartBtn />
         </div>
       </Container>
     </header>

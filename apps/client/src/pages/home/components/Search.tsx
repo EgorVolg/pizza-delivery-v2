@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import Xbtn from "../../../shared/ui/Xbtn/Xbtn";
 import { useGetPizzasQuery } from "../../../entities/pizza/model/pizza.api";
 import { Input } from "../../../shared/ui/Input/Input";
-import { useLockScroll } from "../../../shared/hooks/useLockScroll";
-import { Overlay } from "../../../shared/ui/Overlay/overlay";
+import { useLockScroll } from "../../../shared/hooks/useLockScroll"; 
+import { Overlay } from "../../../shared/ui/Overlay/Overlay";
 
 export const Search = () => {
   const [searchValue, setSearchValue] = useState("");

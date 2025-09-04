@@ -1,19 +1,25 @@
-import { useState } from "react";
 import styles from "./Categories.module.css";
 import { useGetCategoriesQuery } from "../model/categories.api";
 import { CategoriesSkeleton } from "./Categories.Skeleton";
 import type { Category } from "../model/categories.type";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function CategoriesList() {
-  const [activeCategoryId, setActiveCategoryId] = useState(0);
   const { data: categories, isLoading } = useGetCategoriesQuery();
+  const selectedCategory = useSelector(
+    (state: any) => state.setActiveId.activeId
+  );
+  const handleSelectCategoryId = useDispatch();
 
   const handleClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
     newCategoryId: number
   ) => {
     event.preventDefault();
-    setActiveCategoryId(newCategoryId);
+    handleSelectCategoryId({
+      type: "category/setActiveId",
+      payload: newCategoryId,
+    });
   };
 
   return (
@@ -25,9 +31,9 @@ export default function CategoriesList() {
               key={index}
               href="#"
               className={`${styles.category} ${
-                activeCategoryId === index ? styles.active : ""
+                selectedCategory === index + 1 ? styles.active : ""
               }`}
-              onClick={(event) => handleClick(event, index)}
+              onClick={(event) => handleClick(event, index + 1)}
             >
               {category.name}
             </a>

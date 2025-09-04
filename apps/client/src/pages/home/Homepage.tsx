@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./Homepage.module.css";
 import TopBar from "./components/TopBar";
 import Container from "../../shared/ui/Container/Container";
@@ -14,6 +14,7 @@ import type { RootState } from "../../app/store";
 import { ProductsSection } from "../../widgets/ProductsGrid/ProductsSection/ProductsSection";
 import { CartDrawer } from "../../entities/cart/CartDrawer";
 import { Overlay } from "../../shared/ui/Overlay/Overlay";
+import { setActiveId } from "../../entities/categories/model/activeCategories.slice";
 
 const pizzaHalves = {
   name: "Пицца из половинок",
@@ -21,7 +22,7 @@ const pizzaHalves = {
   popular: 1000,
   price: 300,
   imageUrl:
-    "https://bihemgflzeaaltqlvqeh.supabase.co/storage/v1/object/public/pizza-images/Pizza  halves.avif",
+    "https://bihemgflzeaaltqlvqeh.supabase.co/storage/v1/object/public/pizza-images/Pizza   halves.avif",
   ingredients: "Собери свою пиццу из половинок!",
   id: 0,
   createdAt: "",
@@ -34,7 +35,7 @@ export function Homepage() {
   const { isLoading: isLoadingIngr, data: ingredients } =
     useGetIngredientsQuery();
 
-  const closeCartDrawer = useDispatch();
+  const dispatch = useDispatch();
   const isCartDrawerOpen = useSelector(
     (state: RootState) => state.closeOpenCart
   );
@@ -45,14 +46,61 @@ export function Homepage() {
   const sortSelector = useSelector((state: RootState) => state.sortParams);
 
   const handleCloseCartDrawer = () => {
-    closeCartDrawer({ type: "closeOpenCart/setOpenCart", payload: false });
+    dispatch({ type: "closeOpenCart/setOpenCart", payload: false });
   };
 
   function toggleMenu() {
     setIsOpenFilters(!isOpenFilters);
   }
 
-  /* ---------- 1. Скелетоны ---------- */
+  const activeId = useSelector(
+    (state: RootState) => state.setActiveId.activeId
+  );
+  const ignoreObserver = useRef(false);
+  const sectionRefs = useRef<Record<number, HTMLElement | null>>({});
+
+  /* прокрутка к заголовку */
+  const scrollToSection = useCallback((catId: number) => {
+    const headerHeight = 350;
+    const node = sectionRefs.current[catId]; // ✅ без -1
+    if (!node) return;
+
+    ignoreObserver.current = true;
+    const top =
+      node.getBoundingClientRect().top + window.scrollY - headerHeight;
+    window.scrollTo({ top, behavior: "smooth" });
+    setTimeout(() => (ignoreObserver.current = false), 700);
+  }, []);
+
+  /* скролл при клике */
+  useEffect(() => {
+    scrollToSection(activeId);
+  }, [activeId, scrollToSection]);
+
+  /* observer для смены категории при скролле */
+  useEffect(() => {
+    if (!data) return;
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (ignoreObserver.current) return;
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            const id = Number(e.target.getAttribute("data-cat-id"));
+            if (!Number.isNaN(id)) dispatch(setActiveId(id));
+          }
+        });
+      },
+      { rootMargin: "0px 0px -60% 0px", threshold: 0.1 }
+    );
+
+    Object.values(sectionRefs.current).forEach((el) => {
+      if (el) obs.observe(el);
+    });
+    return () => obs.disconnect();
+  }, [dispatch, data]);
+
+  /* скелетон */
   if (isLoading || isLoadingIngr) {
     return (
       <>
@@ -80,10 +128,9 @@ export function Homepage() {
     );
   }
 
-  /* ---------- 2. Нет данных ---------- */
   if (!data || !ingredients) return null;
 
-  /* ---------- 3. Фильтрация и сортировка ---------- */
+  /* фильтрация и сортировка */
   const filtered = data
     .filter(
       (pizza) =>
@@ -123,18 +170,18 @@ export function Homepage() {
       }
     });
 
-  /* ---------- 4. Группировка по category_id ---------- */
+  /* группировка */
   const grouped: Record<number, PizzaAPI[]> = filtered.reduce((acc, pizza) => {
     const id = pizza.category_id ?? 0;
     (acc[id] ||= []).push(pizza);
     return acc;
   }, {} as Record<number, PizzaAPI[]>);
 
-  /* ---------- 5. Рендер секций ---------- */
-  const sections = Object.entries(grouped).map(([catId, pizzasInCat]) => {
-    const cards = pizzasInCat.map((pizza) => {
+  /* секции */
+  const sections = Object.entries(grouped).map(([catId, pizzas]) => {
+    const cards = pizzas.map((pizza) => {
       const pizzaIngredients = ingredients
-        .filter((ing) => pizza.ingredients.includes(+ing.id))
+        ?.filter((ing) => pizza.ingredients.includes(+ing.id))
         .map((ing) => ing.name)
         .join(", ");
 
@@ -148,7 +195,6 @@ export function Homepage() {
       );
     });
 
-    /* «Половинки» в категорию 1 добавляем первой карточкой */
     if (+catId === 1) {
       cards.unshift(
         <ProductCard
@@ -162,23 +208,20 @@ export function Homepage() {
       <ProductsSection
         key={catId}
         titleID={+catId}
-        id={`cat-${catId}`}
-        products={cards}
+        sectionRef={(el) => (sectionRefs.current[+catId] = el)} // ✅ без -1
+        products={<>{cards}</>}
       />
     );
   });
 
-  /* ---------- 6. Рендер всей страницы ---------- */
   return (
     <>
       <TopBar toggleMenu={toggleMenu} />
-
       {isCartDrawerOpen && (
         <Overlay onClick={() => handleCloseCartDrawer()}>
           <CartDrawer handleCloseCartDrawer={handleCloseCartDrawer} />
         </Overlay>
       )}
-
       <Container className={styles.main_container}>
         <nav
           className={`${styles.navbar} ${isOpenFilters ? styles.visible : ""}`}
@@ -186,9 +229,7 @@ export function Homepage() {
           <Filters toggleMenu={toggleMenu} isOpenFilters={isOpenFilters} />
         </nav>
 
-        <Container className={styles.items_container}>
-          <div className={styles.items_list}>{sections}</div>
-        </Container>
+        <main className={styles.items_list}>{sections}</main>
       </Container>
     </>
   );

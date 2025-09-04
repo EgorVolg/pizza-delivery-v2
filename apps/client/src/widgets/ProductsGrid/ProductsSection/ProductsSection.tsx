@@ -1,13 +1,15 @@
-import type { JSX } from "react";
+import { type JSX } from "react";
 import styles from "./ProductsSection.module.css";
 import { useGetCategoriesQuery } from "../../../entities/categories/model/categories.api";
 
 export const ProductsSection = ({
   products,
   titleID,
+  sectionRef,
 }: {
   products: JSX.Element;
   titleID: number;
+  sectionRef?: React.Ref<HTMLHeadingElement>;
 }) => {
   const { data: categories, isLoading } = useGetCategoriesQuery();
 
@@ -18,7 +20,15 @@ export const ProductsSection = ({
 
   return (
     <>
-      <h2 className={styles.title}>{categoryTitle}</h2>
+      <h2
+        className={styles.title}
+        id={`cat-${titleID}`}
+        data-cat-id={titleID}
+        ref={sectionRef}
+      >
+        {categoryTitle}
+      </h2>
+
       <section className={styles.grid}>{products}</section>
     </>
   );
