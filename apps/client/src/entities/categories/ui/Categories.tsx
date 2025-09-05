@@ -1,7 +1,7 @@
 import styles from "./Categories.module.css";
 import { useGetCategoriesQuery } from "../model/categories.api";
 import { CategoriesSkeleton } from "./Categories.Skeleton";
-import type { Category } from "../model/categories.type";
+import type { Category } from "../model/categories.types";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function CategoriesList() {

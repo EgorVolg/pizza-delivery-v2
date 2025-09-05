@@ -15,11 +15,10 @@ export default defineConfig({
       reporter: ["text"],
       exclude: [
         "**/*.d.ts",
-        "**/*.stories.{ts,tsx}",
         "**/node_modules/**",
         "**/cypress/**",
-        "**/dist/**",
-        "**/ui/**/*.Skeleton.tsx",
+        "**/dist/**", 
+        "**/*.types.ts",
         "**/*.config.ts*",
         "**/*.config.js*",
       ],

@@ -1,7 +1,7 @@
 import styles from "./Header.module.css";
 import logo from "../../shared/assets/logo.svg";
 import Container from "../../shared/ui/Container/Container";
-import { ProfilePopup } from "../../shared/components/ProfilePopup";
+import { ProfilePopup } from "./ProfilePopup";
 import { useState } from "react";
 import { Search } from "../../pages/home/components/Search";
 import Button from "../../shared/ui/Button/Button";
