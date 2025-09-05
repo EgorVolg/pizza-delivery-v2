@@ -1,5 +1,5 @@
-import { baseQuery } from "../../../shared/api/baseUrl";
-import { createApi } from "@reduxjs/toolkit/query/react"; 
+import { baseQuery } from "../../../../shared/api/baseUrl";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import type { Category } from "./categories.types";
 
 export const categoriesApi = createApi({
@@ -8,7 +8,7 @@ export const categoriesApi = createApi({
   tagTypes: ["Categories"],
   endpoints: (builder) => ({
     getCategories: builder.query<Category[], void>({
-      query: () => "/categories",  
+      query: () => "/categories",
       providesTags: ["Categories"],
     }),
   }),

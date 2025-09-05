@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./CartDrawer.module.css";
-import Button from "../../shared/ui/Button/Button";
+import Button from "../../../shared/ui/Button/Button";
 
 export const CartDrawer = ({
   handleCloseCartDrawer,

@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import styles from "./SortPopup.module.css";
+import styles from "./SortPopup.module.css"; 
+import { useDispatch, useSelector } from "react-redux"; 
+import { sortParams } from "../model/sortParams.slice";
 import Xbtn from "../../../../shared/ui/Xbtn/Xbtn";
-import { useDispatch, useSelector } from "react-redux";
-import { sortParams } from "./sortParams.slice";
-
-const sortOptions = ["рейтингу", "популярности", "цене", "алфавиту"];
+import { sortOptions } from "../model/sortParams.const";
 
 function SortPopUp() {
   const [openSortPopup, setOpenSortPopup] = useState(false);

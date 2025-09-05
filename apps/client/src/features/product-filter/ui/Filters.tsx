@@ -1,16 +1,19 @@
-import styles from "./ui/Filters.module.css";
 import { useEffect, useRef, useState } from "react";
-import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
+import styles from "./Filters.module.css";
+import { MAX_PRICE, MIN_PRICE } from "../model/filter.const";
+import { useGetIngredientsQuery } from "../../../entities/ingredient/model/ingredient.api";
 import { useDispatch } from "react-redux";
-import { useLockScroll } from "../../shared/hooks/useLockScroll";
-import { initialFilterParamsState, setParams } from "./model/filterParams.slice";
-import { MAX_PRICE, MIN_PRICE, typesOfDough } from "./model/filter.const";
-import { FilterTop } from "./components/FilterTop";
-import { FilterNew } from "./components/FilterNew";
-import { FilterPrice } from "./components/FilterPrice";
-import { FilterDough } from "./components/FilterDough";
-import { FilterIngredients } from "./components/FilterIngredients";
-import { FilterBottom } from "./components/FilterBottom";
+import { useLockScroll } from "../../../shared/hooks/useLockScroll";
+import {
+  initialFilterParamsState,
+  setParams,
+} from "../model/filterParams.slice";
+import { FilterTop } from "../components/FilterTop";
+import { FilterNew } from "../components/FilterNew";
+import { FilterPrice } from "../components/FilterPrice";
+import { FilterIngredients } from "../components/FilterIngredients";
+import { FilterDough } from "../components/FilterDough";
+import { FilterBottom } from "../components/FilterBottom";
 
 export const Filters = ({
   toggleMenu,
@@ -150,11 +153,7 @@ export const Filters = ({
         onToggle={toggleIngredient}
       />
 
-      <FilterDough
-        types={typesOfDough}
-        selected={selectedTypes}
-        onToggle={handleType}
-      />
+      <FilterDough selected={selectedTypes} onToggle={handleType} />
 
       <FilterBottom onApply={handleSelect} disabled={!priceValid} />
     </div>

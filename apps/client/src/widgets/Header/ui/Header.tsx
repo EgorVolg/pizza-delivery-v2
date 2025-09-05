@@ -1,11 +1,12 @@
 import styles from "./Header.module.css";
-import logo from "../../shared/assets/logo.svg";
-import Container from "../../shared/ui/Container/Container";
-import { ProfilePopup } from "./ProfilePopup";
+import Container from "../../../shared/ui/Container/Container";
+
 import { useState } from "react";
-import { Search } from "../../pages/home/components/Search";
-import Button from "../../shared/ui/Button/Button";
-import CartBtn from "../../entities/cart/ui/CartBtn";
+import Button from "../../../shared/ui/Button/Button";
+import CartBtn from "../../../entities/header/card-btn/CartBtn";
+import { Search } from "../../../pages/home/components/Search/Search";
+import { ProfilePopup } from "../../../entities/header/profile-popup/ProfilePopup";
+import { Logo } from "../../../entities/header/logo/Logo";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,15 +18,7 @@ function Header() {
   return (
     <header className={styles.header}>
       <Container className={styles.header_container}>
-        <div className={styles.logo_container}>
-          <img src={logo} alt="logo" width={35} height={35} />
-          <div className={styles.logo_text}>
-            <h1 className={styles.logo_title}>React Pizza</h1>
-            <div className={styles.logo_description}>
-              ...more than just pizza
-            </div>
-          </div>
-        </div>
+        <Logo />
 
         <Container className={styles.search_container}>
           <Search />

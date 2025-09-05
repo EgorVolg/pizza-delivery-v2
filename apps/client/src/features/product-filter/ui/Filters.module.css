@@ -28,10 +28,11 @@ li {
   padding: 0;
 }
 
-.filter_price_sorting {
+.input_container {
   display: flex;
   gap: 15px;
 }
+ 
 
 .price_input {
   width: 90px;

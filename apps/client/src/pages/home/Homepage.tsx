@@ -1,20 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./Homepage.module.css";
-import TopBar from "./components/TopBar";
+import TopBar from "../../widgets/Topbar/TopBar";
 import Container from "../../shared/ui/Container/Container";
 import { ProductCard } from "./components/ProductCard/ProductCard";
 import { useGetPizzasQuery } from "../../entities/pizza/model/pizza.api";
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
-import ProductCardSkeleton from "./components/ProductCard/ui/ProductCard.Skeleton";
+import ProductCardSkeleton from "./components/ProductCard/ProductCard.Skeleton";
 import { useDispatch, useSelector } from "react-redux";
-import { Filters } from "../../features/product-filter/Filters";
+import { Filters } from "../../features/product-filter/ui/Filters";
 import type { FilterStateParams } from "../../features/product-filter/model/filter.dto";
 import type { PizzaAPI } from "../../entities/pizza/model/pizza.types";
 import type { RootState } from "../../app/store";
 import { ProductsSection } from "./components/ProductsSection/ProductsSection";
-import { CartDrawer } from "../../entities/cart/CartDrawer";
+
 import { Overlay } from "../../shared/ui/Overlay/Overlay";
-import { setActiveId } from "../../entities/categories/model/activeCategories.slice";
+import { CartDrawer } from "../../widgets/Cart/ui/CartDrawer";
+import { setActiveId } from "../../entities/topbar/categories/model/activeCategories.slice";
 
 const pizzaHalves = {
   name: "Пицца из половинок",
@@ -22,7 +23,7 @@ const pizzaHalves = {
   popular: 1000,
   price: 300,
   imageUrl:
-    "https://bihemgflzeaaltqlvqeh.supabase.co/storage/v1/object/public/pizza-images/Pizza   halves.avif",
+    "https://bihemgflzeaaltqlvqeh.supabase.co/storage/v1/object/public/pizza-images/Pizza halves.avif",
   ingredients: "Собери свою пиццу из половинок!",
   id: 0,
   createdAt: "",
@@ -62,7 +63,7 @@ export function Homepage() {
   /* прокрутка к заголовку */
   const scrollToSection = useCallback((catId: number) => {
     const headerHeight = 350;
-    const node = sectionRefs.current[catId]; // ✅ без -1
+    const node = sectionRefs.current[catId];
     if (!node) return;
 
     ignoreObserver.current = true;
@@ -208,7 +209,7 @@ export function Homepage() {
       <ProductsSection
         key={catId}
         titleID={+catId}
-        sectionRef={(el) => (sectionRefs.current[+catId] = el)} // ✅ без -1
+        sectionRef={(el) => (sectionRefs.current[+catId] = el)}
         products={<>{cards}</>}
       />
     );

@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { rootReducer } from "./rootReducer";
-import { pizzasApi } from "../entities/pizza/model/pizza.api";
-import { categoriesApi } from "../entities/categories/model/categories.api";
+import { pizzasApi } from "../entities/pizza/model/pizza.api"; 
 import { ingredientsApi } from "../entities/ingredient/model/ingredient.api";
+import { categoriesApi } from "../entities/topbar/categories/model/categories.api";
 
 export const store = configureStore({
   reducer: rootReducer,

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import styles from "./ProfilePopup.module.css";
-import Xbtn from "../../shared/ui/Xbtn/Xbtn";
+import styles from "./ProfilePopup.module.css"; 
+import Xbtn from "../../../shared/ui/Xbtn/Xbtn";
 
 export const ProfilePopup = ({
   toggleMenu,
