@@ -2,20 +2,20 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./Homepage.module.css";
 import TopBar from "../../widgets/Topbar/TopBar";
 import Container from "../../shared/ui/Container/Container";
-import { ProductCard } from "./components/ProductCard/ProductCard";
+import { ProductCard } from "../../entities/ProductCard/ProductCard";
 import { useGetPizzasQuery } from "../../entities/pizza/model/pizza.api";
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
-import ProductCardSkeleton from "./components/ProductCard/ProductCard.Skeleton";
+import ProductCardSkeleton from "../../entities/ProductCard/ProductCard.Skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { Filters } from "../../features/product-filter/ui/Filters";
 import type { FilterStateParams } from "../../features/product-filter/model/filter.dto";
 import type { PizzaAPI } from "../../entities/pizza/model/pizza.types";
-import type { RootState } from "../../app/store";
-import { ProductsSection } from "./components/ProductsSection/ProductsSection";
+import type { RootState } from "../../app/store"; 
 
 import { Overlay } from "../../shared/ui/Overlay/Overlay";
 import { CartDrawer } from "../../widgets/Cart/ui/CartDrawer";
 import { setActiveId } from "../../entities/topbar/categories/model/activeCategories.slice";
+import { ProductsSection } from "../../entities/ProductsSection/ProductsSection";
 
 const pizzaHalves = {
   name: "Пицца из половинок",

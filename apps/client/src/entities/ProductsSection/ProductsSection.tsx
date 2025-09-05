@@ -1,6 +1,6 @@
 import { type JSX } from "react";
-import styles from "./ProductsSection.module.css";
-import { useGetCategoriesQuery } from "../../../../entities/topbar/categories/model/categories.api";
+import styles from "./ProductsSection.module.css"; 
+import { useGetCategoriesQuery } from "../topbar/categories/model/categories.api";
  
 export const ProductsSection = ({
   products,

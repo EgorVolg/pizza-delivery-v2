@@ -4,7 +4,7 @@ import Container from "../../../shared/ui/Container/Container";
 import { useState } from "react";
 import Button from "../../../shared/ui/Button/Button";
 import CartBtn from "../../../entities/header/card-btn/CartBtn";
-import { Search } from "../../../pages/home/components/Search/Search";
+import { Search } from "../../../entities/header/search-input/Search/Search";
 import { ProfilePopup } from "../../../entities/header/profile-popup/ProfilePopup";
 import { Logo } from "../../../entities/header/logo/Logo";
 
