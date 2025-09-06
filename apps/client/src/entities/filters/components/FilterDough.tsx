@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import FilterCheckbox from "../ui/FilterCheckbox";
-import styles from "../ui/Filters.module.css";
-import { typesOfDough } from "../model/filter.const";
+import styles from "../../../widgets/Filters/Filters.module.css";
+import { typesOfDough } from "../../../widgets/Filters/model/filter.const";
 
 export const FilterDough: FC<{
   selected: number[];

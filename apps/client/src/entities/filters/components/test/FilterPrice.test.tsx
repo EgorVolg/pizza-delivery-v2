@@ -2,7 +2,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react'; 
 import { FilterPrice } from '../FilterPrice';
-import { MAX_PRICE, MIN_PRICE } from '../../model/filter.const';
+import { MAX_PRICE, MIN_PRICE } from '../../../../widgets/Filters/model/filter.const';
 
 describe('FilterPrice', () => {
   const onChange = vi.fn();

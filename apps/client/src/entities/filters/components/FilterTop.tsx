@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import Xbtn from "../../../shared/ui/Xbtn/Xbtn";
-import styles from "../ui/Filters.module.css";
+import styles from "../../../widgets/Filters/Filters.module.css";
 
 export const FilterTop: FC<{
   onReset: () => void;

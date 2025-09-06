@@ -6,9 +6,9 @@ import Container from "../../../shared/ui/Container/Container";
 import TopBar from "../../../widgets/Topbar/TopBar";
 import { CartDrawer } from "../../../widgets/Cart/ui/CartDrawer";
 import { Overlay } from "../../../shared/ui/Overlay/Overlay";
-import { Filters } from "../../../entities/filters/ui/Filters";
+import { Filters } from "../../../widgets/Filters/Filters";
 
-import { ProductsList } from "./ProductsList";
+import { ProductsList } from "../../../widgets/ProductsList/ProductsList";
 
 export function Homepage() {
   const [isOpenFilters, setIsOpenFilters] = useState(false);

@@ -13,7 +13,7 @@ export default function Button({
 }) {
   return (
     <button
-      className={`${styles.button} ${className}`}
+      className={`${className} ${styles.button}`}
       onClick={onClick}
       disabled={disabled}
     >

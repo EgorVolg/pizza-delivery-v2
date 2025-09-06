@@ -1,19 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./Filters.module.css";
-import { MAX_PRICE, MIN_PRICE } from "../model/filter.const";
-import { useGetIngredientsQuery } from "../../../entities/ingredient/model/ingredient.api";
+import { MAX_PRICE, MIN_PRICE } from "./model/filter.const";
+import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
 import { useDispatch } from "react-redux";
-import { useLockScroll } from "../../../shared/hooks/useLockScroll";
+import { useLockScroll } from "../../shared/hooks/useLockScroll";
 import {
   initialFilterParamsState,
   setParams,
-} from "../model/filterParams.slice";
-import { FilterTop } from "../components/FilterTop";
-import { FilterNew } from "../components/FilterNew";
-import { FilterPrice } from "../components/FilterPrice";
-import { FilterIngredients } from "../components/FilterIngredients";
-import { FilterDough } from "../components/FilterDough";
-import { FilterBottom } from "../components/FilterBottom";
+} from "./model/filterParams.slice";
+import { FilterTop } from "../../entities/filters/components/FilterTop";
+import { FilterNew } from "../../entities/filters/components/FilterNew";
+import { FilterPrice } from "../../entities/filters/components/FilterPrice";
+import { FilterIngredients } from "../../entities/filters/components/FilterIngredients";
+import { FilterDough } from "../../entities/filters/components/FilterDough";
+import { FilterBottom } from "../../entities/filters/components/FilterBottom";
 
 export const Filters = ({
   toggleMenu,
@@ -131,7 +131,7 @@ export const Filters = ({
       className={styles.filter_groups}
       data-testid="filters-popup"
       ref={popupRef}
-      onClick={(e) => e.stopPropagation()}
+      onClick={(e) => e.stopPropagation()} 
     >
       <FilterTop
         onReset={handleReset}

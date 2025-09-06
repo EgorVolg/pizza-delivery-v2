@@ -1,6 +1,6 @@
 import type { FC } from "react";
-import { MAX_PRICE, MIN_PRICE } from "../model/filter.const";
-import styles from "../ui/Filters.module.css"; 
+import { MAX_PRICE, MIN_PRICE } from "../../../widgets/Filters/model/filter.const";
+import styles from "../../../widgets/Filters/Filters.module.css";
 
 export const FilterPrice: FC<{ 
   minPrice: number;
