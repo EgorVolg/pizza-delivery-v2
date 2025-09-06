@@ -1,7 +1,7 @@
 import { useState } from "react";
-import styles from "./ProductCard.module.css";
-import type { PizzaCard } from "../pizza/model/pizza.types";
-import Button from "../../shared/ui/Button/Button";
+import styles from "./ProductCard.module.css"; 
+import type { PizzaCard } from "../../pizza/model/pizza.types";
+import Button from "../../../shared/ui/Button/Button";
 
 export const ProductCard = ({ pizza }: { pizza: PizzaCard }) => {
   const [pizzaQuantity, setPizzaQuantity] = useState(0);

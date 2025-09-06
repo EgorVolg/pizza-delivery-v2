@@ -1,34 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./Homepage.module.css";
-import TopBar from "../../widgets/Topbar/TopBar";
-import Container from "../../shared/ui/Container/Container";
-import { ProductCard } from "../../entities/ProductCard/ProductCard";
-import { useGetPizzasQuery } from "../../entities/pizza/model/pizza.api";
-import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
-import ProductCardSkeleton from "../../entities/ProductCard/ProductCard.Skeleton";
-import { useDispatch, useSelector } from "react-redux";
-import { Filters } from "../../features/product-filter/ui/Filters";
-import type { FilterStateParams } from "../../features/product-filter/model/filter.dto";
-import type { PizzaAPI } from "../../entities/pizza/model/pizza.types";
-import type { RootState } from "../../app/store"; 
-
-import { Overlay } from "../../shared/ui/Overlay/Overlay";
-import { CartDrawer } from "../../widgets/Cart/ui/CartDrawer";
-import { setActiveId } from "../../entities/topbar/categories/model/activeCategories.slice";
-import { ProductsSection } from "../../entities/ProductsSection/ProductsSection";
-
-const pizzaHalves = {
-  name: "Пицца из половинок",
-  rating: 10,
-  popular: 1000,
-  price: 300,
-  imageUrl:
-    "https://bihemgflzeaaltqlvqeh.supabase.co/storage/v1/object/public/pizza-images/Pizza halves.avif",
-  ingredients: "Собери свою пиццу из половинок!",
-  id: 0,
-  createdAt: "",
-  category_id: 1,
-};
+import TopBar from "../../../widgets/Topbar/TopBar";
+import Container from "../../../shared/ui/Container/Container";
+import { useGetPizzasQuery } from "../../../entities/pizza/model/pizza.api";
+import { useGetIngredientsQuery } from "../../../entities/ingredient/model/ingredient.api";
+import { useDispatch, useSelector } from "react-redux"; 
+import type { PizzaAPI } from "../../../entities/pizza/model/pizza.types";
+import type { RootState } from "../../../app/store";
+import { Overlay } from "../../../shared/ui/Overlay/Overlay";
+import { CartDrawer } from "../../../widgets/Cart/ui/CartDrawer";
+import { setActiveId } from "../../../entities/topbar/categories/model/activeCategories.slice";
+import { ProductsSection } from "../../../entities/homepage/ProductsSection/ProductsSection";
+import ProductCardSkeleton from "../../../entities/homepage/ProductCard/ProductCard.Skeleton";
+import { ProductCard } from "../../../entities/homepage/ProductCard/ProductCard";
+import { pizzaHalves } from "../model/PizzaHalves.const";
+import type { FilterStateParams } from "../../../entities/filters/model/filter.dto";
+import { Filters } from "../../../entities/filters/ui/Filters";
 
 export function Homepage() {
   const [isOpenFilters, setIsOpenFilters] = useState(false);
@@ -105,25 +92,14 @@ export function Homepage() {
   if (isLoading || isLoadingIngr) {
     return (
       <>
-        <TopBar toggleMenu={toggleMenu} />
-        <Container className={styles.main_container}>
-          <nav
-            className={`${styles.navbar} ${
-              isOpenFilters ? styles.visible : ""
-            }`}
-          >
-            <Filters toggleMenu={toggleMenu} isOpenFilters={isOpenFilters} />
-          </nav>
-
-          <Container className={styles.items_container}>
-            <div className={styles.items_list}>
-              <ProductsSection
-                products={[...Array(6)].map((_, idx) => (
-                  <ProductCardSkeleton key={idx} />
-                ))}
-              />
-            </div>
-          </Container>
+        <Container className={styles.items_container}>
+          <div className={styles.items_list}>
+            <ProductsSection
+              products={[...Array(6)].map((_, idx) => (
+                <ProductCardSkeleton key={idx} />
+              ))}
+            />
+          </div>
         </Container>
       </>
     );
@@ -234,4 +210,4 @@ export function Homepage() {
       </Container>
     </>
   );
-}
+} 

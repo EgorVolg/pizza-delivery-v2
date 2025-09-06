@@ -12,12 +12,12 @@ export default function Button({
   disabled?: boolean;
 }) {
   return (
-    <div
+    <button
       className={`${styles.button} ${className}`}
       onClick={onClick}
       disabled={disabled}
     >
       {children}
-    </div>
+    </button>
   );
 }

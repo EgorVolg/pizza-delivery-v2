@@ -106,8 +106,8 @@
 
 .button {
   cursor: pointer;
-  background: #fffaf4;
-  color: var(--color-bg-primary);
+  background: #fffaf4; 
+  color: var(--color-brand);
   font-size: 14px;
   font-weight: 600;
   border: none;

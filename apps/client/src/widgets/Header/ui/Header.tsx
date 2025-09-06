@@ -3,10 +3,10 @@ import Container from "../../../shared/ui/Container/Container";
 
 import { useState } from "react";
 import Button from "../../../shared/ui/Button/Button";
-import CartBtn from "../../../entities/header/card-btn/CartBtn";
-import { Search } from "../../../entities/header/search-input/Search/Search";
+import CartBtn from "../../../entities/header/card-btn/CartBtn"; 
 import { ProfilePopup } from "../../../entities/header/profile-popup/ProfilePopup";
 import { Logo } from "../../../entities/header/logo/Logo";
+import { Search } from "../../../entities/header/search-input/Search/Search";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);

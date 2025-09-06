@@ -1,0 +1,32 @@
+.btn_container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.filter_button {
+  font-family: Nunito;
+  font-weight: var(--font-weight-bold);
+  font-style: Bold;
+  font-size: var(--font-size-md);
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+
+  border: none;
+
+  width: 300px;
+  height: 50px;
+  border-radius: 15px;
+  color: var(--color-bg-primary);
+  background-color: var(--color-brand);
+  cursor: pointer;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: #fff3e5;
+      border: none;
+      color: var(--color-brand);
+    }
+  }
+}
