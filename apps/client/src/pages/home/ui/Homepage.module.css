@@ -27,7 +27,7 @@
     transform: translateY(-10px); 
     backdrop-filter: blur(20px);
     overflow: auto;
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    transition: all .3s ease-in-out;
     transform: translateY(-10px);
   }
 
