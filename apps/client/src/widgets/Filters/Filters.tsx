@@ -31,7 +31,7 @@ export const Filters = ({
   const [maxPrice, setMaxPrice] = useState(MAX_PRICE);
 
   const popupRef = useRef<HTMLUListElement>(null);
-  const { data: ingredients } = useGetIngredientsQuery();
+  const { data: ingredients, isLoading } = useGetIngredientsQuery();
   const dispatch = useDispatch();
 
   const handleType = (selectedTypeId: number) => {
@@ -131,31 +131,37 @@ export const Filters = ({
       className={styles.filter_groups}
       data-testid="filters-popup"
       ref={popupRef}
-      onClick={(e) => e.stopPropagation()} 
+      onClick={(e) => e.stopPropagation()}
     >
-      <FilterTop
-        onReset={handleReset}
-        onClose={toggleMenu}
-        showReset={isShow}
-      />
+      {isLoading && <div className={styles.skeleton} />}
 
-      <FilterNew value={isNew} onChange={handleIsNew} />
+      {!isLoading && (
+        <>
+          <FilterTop
+            onReset={handleReset}
+            onClose={toggleMenu}
+            showReset={isShow}
+          />
 
-      <FilterPrice
-        minPrice={minPrice}
-        maxPrice={maxPrice}
-        onChange={handlePriceChange}
-      />
+          <FilterNew value={isNew} onChange={handleIsNew} />
 
-      <FilterIngredients
-        ingredients={ingredients ?? []}
-        selected={selectedIngredients}
-        onToggle={toggleIngredient}
-      />
+          <FilterPrice
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+            onChange={handlePriceChange}
+          />
 
-      <FilterDough selected={selectedTypes} onToggle={handleType} />
+          <FilterIngredients
+            ingredients={ingredients ?? []}
+            selected={selectedIngredients}
+            onToggle={toggleIngredient}
+          />
 
-      <FilterBottom onApply={handleSelect} disabled={!priceValid} />
+          <FilterDough selected={selectedTypes} onToggle={handleType} />
+
+          <FilterBottom onApply={handleSelect} disabled={!priceValid} />
+        </>
+      )}
     </div>
   );
 };

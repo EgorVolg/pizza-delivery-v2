@@ -19,7 +19,7 @@ export const ProductsSection = ({
   const categoryTitle = category?.name;
 
   return (
-    <>
+    <section>
       <h2
         className={styles.title}
         id={`cat-${titleID}`}
@@ -29,7 +29,7 @@ export const ProductsSection = ({
         {categoryTitle}
       </h2>
 
-      <section className={styles.grid}>{products}</section>
-    </>
+      <div className={styles.grid}>{products}</div>
+    </section>
   );
 };

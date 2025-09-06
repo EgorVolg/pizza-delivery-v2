@@ -10,8 +10,11 @@ import { Filters } from "../../../widgets/Filters/Filters";
 import { ProductsList } from "../../../widgets/ProductsList/ProductsList";
 import { AnimatePresence } from "framer-motion";
 import { Overlay } from "../../../shared/ui/Overlay/Overlay";
+import { useGetPizzasQuery } from "../../../entities/pizza/model/pizza.api";
+import ProductCardSkeleton from "../../../entities/homepage/ProductCard/ProductCard.Skeleton";
 
 export function Homepage() {
+  const { isLoading } = useGetPizzasQuery();
   const [isOpenFilters, setIsOpenFilters] = useState(false);
   const dispatch = useDispatch();
   const isCartDrawerOpen = useSelector((s: RootState) => s.closeOpenCart);
@@ -42,6 +45,14 @@ export function Homepage() {
         </nav>
 
         <main className={styles.items_list}>
+          {isLoading && (
+            <div className={styles.loader}>
+              {[...Array(9)] 
+                .map((_, i) => (
+                  <ProductCardSkeleton key={i} />
+                ))}
+            </div>
+          )}
           <ProductsList />
         </main>
       </Container>

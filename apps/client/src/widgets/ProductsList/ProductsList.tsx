@@ -6,13 +6,12 @@ import { useFilteredPizzas } from "../../features/homepage/model/useFilteredPizz
 import { useScrollToSection } from "../../features/homepage/model/scrollToSection";
 import { useCategoryObserver } from "../../features/homepage/model/useCategoryObserver";
 import { useSelector } from "react-redux";
-import type { RootState } from "../../app/store";
-import { ProductsSection } from "../../entities/homepage/ProductsSection/ProductsSection";
-import ProductCardSkeleton from "../../entities/homepage/ProductCard/ProductCard.Skeleton";
-import styles from "./ProductsList.module.css";
+import type { RootState } from "../../app/store"; 
 
 export const ProductsList = () => {
-  const { data: pizzas, isLoading: isLoadingPizzas } = useFilteredPizzas();
+  const { data: pizzas, isLoading } = useFilteredPizzas();
+  const { data: ingredients } = useGetIngredientsQuery();
+
   const grouped = groupByCategory(pizzas);
   const activeId = useSelector((s: RootState) => s.setActiveId.activeId);
 
@@ -26,24 +25,12 @@ export const ProductsList = () => {
   const createSectionRef = (catId: number) => (el: HTMLElement | null) => {
     sectionRefs.current[catId] = el;
   };
-  
-  const { data: ingredients, isLoading: isLoadingIngr } =
-    useGetIngredientsQuery();
 
   const sections = Sections({ grouped, createSectionRef, ingredients });
 
   return (
     <>
-      {isLoadingPizzas ||
-        (isLoadingIngr && (
-          <ProductsSection
-            products={[...Array(6)].map((_, i) => (
-              <ProductCardSkeleton key={i} />
-            ))}
-          />
-        ))}
-
-      {!isLoadingPizzas && sections.length === 0 ? (
+      {!isLoading && sections.length === 0 ? (
         <>Нет пицц по выбранным фильтрам 😕</>
       ) : (
         sections
