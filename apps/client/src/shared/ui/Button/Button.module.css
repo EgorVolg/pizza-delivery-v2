@@ -12,6 +12,14 @@
   font-size: var(--font-size-md);
   cursor: pointer;
 
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: #fff3e5;
+      border: none;
+      color: var(--color-brand);
+    }
+  }
+
   @media (max-width: 768px) {
     padding: 0 10px;
     gap: 0.25rem;
