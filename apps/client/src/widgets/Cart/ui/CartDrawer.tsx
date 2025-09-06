@@ -1,4 +1,4 @@
-import React from "react";
+import { motion } from "framer-motion";
 import styles from "./CartDrawer.module.css";
 import Button from "../../../shared/ui/Button/Button";
 
@@ -7,10 +7,40 @@ export const CartDrawer = ({
 }: {
   handleCloseCartDrawer: () => void;
 }) => {
-  const cartData = null; // Replace with actual cart data
+  const panelVariants = {
+    hidden: { x: "100%" },
+    visible: {
+      x: 0,
+      transition: { type: "spring", stiffness: 400, damping: 40 },
+    },
+    exit: {
+      x: "100%",
+      transition: { type: "spring", stiffness: 700, damping: 50 },
+    },
+  };
+
+  const innerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { delay: 0.15 } },
+    exit: { opacity: 0, transition: { duration: 0.1 } },
+  };
+
+  const cartData = null;
   return (
-    <div className={styles.cartDrawer}>
-      <div className={styles.cartDrawerContent}>
+    <motion.div
+      className={styles.cartDrawer}
+      variants={panelVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
+      <motion.div
+        variants={innerVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className={styles.cartDrawerContent}
+      >
         {cartData ? (
           <div>
             <h2>Корзина</h2>
@@ -26,8 +56,8 @@ export const CartDrawer = ({
               height="120"
               viewBox="0 0 120 120"
               fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
+              xmlns="http://www.w3.org/2000/svg "
+              xmlnsXlink="http://www.w3.org/1999/xlink "
             >
               <rect width="120" height="120" fill="url(#pattern0_45136_2639)" />
               <defs>
@@ -61,7 +91,7 @@ export const CartDrawer = ({
               onClick={() => handleCloseCartDrawer()}
             >
               <svg
-                xmlns="http://www.w3.org/2000/svg"
+                xmlns="http://www.w3.org/2000/svg "
                 height="24px"
                 viewBox="0 -960 960 960"
                 width="24px"
@@ -73,7 +103,7 @@ export const CartDrawer = ({
             </Button>
           </div>
         )}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };

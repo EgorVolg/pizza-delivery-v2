@@ -5,10 +5,11 @@ import type { RootState } from "../../../app/store";
 import Container from "../../../shared/ui/Container/Container";
 import TopBar from "../../../widgets/Topbar/TopBar";
 import { CartDrawer } from "../../../widgets/Cart/ui/CartDrawer";
-import { Overlay } from "../../../shared/ui/Overlay/Overlay";
 import { Filters } from "../../../widgets/Filters/Filters";
 
 import { ProductsList } from "../../../widgets/ProductsList/ProductsList";
+import { AnimatePresence } from "framer-motion";
+import { Overlay } from "../../../shared/ui/Overlay/Overlay";
 
 export function Homepage() {
   const [isOpenFilters, setIsOpenFilters] = useState(false);
@@ -24,12 +25,14 @@ export function Homepage() {
     <>
       <TopBar toggleMenu={toggleMenu} />
 
-      {isCartDrawerOpen && (
-        <>
-          <Overlay />
-          <CartDrawer handleCloseCartDrawer={handleCloseCart} />
-        </>
-      )}
+      <AnimatePresence mode="sync">
+        {isCartDrawerOpen && (
+          <>
+            <Overlay onClick={handleCloseCart} />
+            <CartDrawer handleCloseCartDrawer={handleCloseCart} />
+          </>
+        )}
+      </AnimatePresence>
 
       <Container className={styles.main_container}>
         <nav
