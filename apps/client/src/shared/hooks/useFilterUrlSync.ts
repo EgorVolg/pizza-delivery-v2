@@ -3,16 +3,22 @@ import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../app/store';
 import { setParams } from '../../widgets/Filters/model/filterParams.slice';
+import { setActiveId } from '../../entities/topbar/categories/model/activeCategories.slice';
 import { MAX_PRICE, MIN_PRICE } from '../../widgets/Filters/model/filter.const';
 
 export const useFilterUrlSync = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
   const filterParams = useSelector((state: RootState) => state.filterParams);
+  const activeCategoryId = useSelector((state: RootState) => state.setActiveId.activeId);
 
-  // Function to serialize filter params to URL
-  const serializeFilters = (params: typeof filterParams) => {
+  // Function to serialize filter params and category to URL
+  const serializeFilters = (params: typeof filterParams, categoryId: number) => {
     const newParams = new URLSearchParams();
+
+    if (categoryId !== 1) { // Assuming 1 is the default category
+      newParams.set('category', categoryId.toString());
+    }
 
     if (params.type.length > 0) {
       newParams.set('type', params.type.join(','));
@@ -54,16 +60,25 @@ export const useFilterUrlSync = () => {
   useEffect(() => {
     const urlFilters = deserializeFilters(searchParams);
     dispatch(setParams(urlFilters));
+
+    // Handle category
+    const categoryStr = searchParams.get('category');
+    if (categoryStr) {
+      const categoryId = Number(categoryStr);
+      if (!isNaN(categoryId) && categoryId > 0) {
+        dispatch(setActiveId(categoryId));
+      }
+    }
   }, [searchParams, dispatch]);
 
   // Sync state to URL on state change
   useEffect(() => {
-    const newParams = serializeFilters(filterParams);
+    const newParams = serializeFilters(filterParams, activeCategoryId);
     const currentParams = new URLSearchParams(searchParams);
 
     // Check if params have changed to avoid infinite loop
     if (newParams.toString() !== currentParams.toString()) {
       setSearchParams(newParams, { replace: true });
     }
-  }, [filterParams, searchParams, setSearchParams]);
+  }, [filterParams, activeCategoryId, searchParams, setSearchParams]);
 };
