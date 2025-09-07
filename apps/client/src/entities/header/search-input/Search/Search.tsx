@@ -1,4 +1,5 @@
 import styles from "./Search.module.css";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Xbtn from "../../../../shared/ui/Xbtn/Xbtn";
 import { useGetPizzasQuery } from "../../../pizza/model/pizza.api";
@@ -63,26 +64,35 @@ export const Search = () => {
           )}
 
           {focused && (
-            <ul className={styles.dropdown}>
-              {searchVariants?.length === 0 ? (
-                <span className={styles.not_found}>Ничего не найдено</span>
-              ) : (
-                searchVariants?.map((p) => (
-                  <li key={p.id} className={styles.item}>
-                    <div className={styles.img_container}>
-                      <img
-                        src={p.imageUrl}
-                        alt={p.name}
-                        className={styles.img}
-                      />
-                    </div>
-
-                    <span className={styles.name}>{p.name}</span>
-                    <b className={styles.price}>{p.price} ₽</b>
-                  </li>
-                ))
+            <AnimatePresence>
+              {focused && (
+                <motion.ul
+                  className={styles.dropdown}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                >
+                  {searchVariants?.length === 0 ? (
+                    <span className={styles.not_found}>Ничего не найдено</span>
+                  ) : (
+                    searchVariants?.map((p) => (
+                      <li key={p.id} className={styles.item}>
+                        <div className={styles.img_container}>
+                          <img
+                            src={p.imageUrl}
+                            alt={p.name}
+                            className={styles.img}
+                          />
+                        </div>
+                        <span className={styles.name}>{p.name}</span>
+                        <b className={styles.price}>{p.price} ₽</b>
+                      </li>
+                    ))
+                  )}
+                </motion.ul>
               )}
-            </ul>
+            </AnimatePresence>
           )}
         </>
       )}

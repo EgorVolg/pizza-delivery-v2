@@ -2,12 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./Filters.module.css";
 import { MAX_PRICE, MIN_PRICE } from "./model/filter.const";
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLockScroll } from "../../shared/hooks/useLockScroll";
-import {
-  initialFilterParamsState,
-  setParams,
-} from "./model/filterParams.slice";
+import { resetParams, setParams } from "./model/filterParams.slice";
+import type { RootState } from "../../app/store";
 import { FilterTop } from "../../entities/filters/components/FilterTop";
 import { FilterNew } from "../../entities/filters/components/FilterNew";
 import { FilterPrice } from "../../entities/filters/components/FilterPrice";
@@ -23,26 +21,16 @@ export const Filters = ({
   isOpenFilters: boolean;
 }) => {
   const [width, setWidth] = useState(window.innerWidth);
-
+  const [types, setTypes] = useState<number[]>([]);
+  const [ingredients, setIngredients] = useState<number[]>([]);
+  const [minPrice, setMinPrice] = useState<number>(MIN_PRICE);
+  const [maxPrice, setMaxPrice] = useState<number>(MAX_PRICE);
   const [isNew, setIsNew] = useState(false);
-  const [selectedTypes, setSelectedTypes] = useState<number[]>([]);
-  const [selectedIngredients, setSelectedIngredients] = useState<number[]>([]);
-  const [minPrice, setMinPrice] = useState(MIN_PRICE);
-  const [maxPrice, setMaxPrice] = useState(MAX_PRICE);
 
-  const popupRef = useRef<HTMLUListElement>(null);
-  const { data: ingredients, isLoading } = useGetIngredientsQuery();
+  const popupRef = useRef<HTMLDivElement>(null);
+  const { data, isLoading } = useGetIngredientsQuery();
   const dispatch = useDispatch();
-
-  const handleType = (selectedTypeId: number) => {
-    setSelectedTypes((prevSelectedTypes) => {
-      const currentTypeIds = prevSelectedTypes;
-      const nextTypeIds =
-        currentTypeIds[0] === selectedTypeId ? [] : [selectedTypeId];
-
-      return nextTypeIds;
-    });
-  };
+  const filterParams = useSelector((state: RootState) => state.filterParams);
 
   useEffect(() => {
     setWidth(window.innerWidth);
@@ -70,39 +58,43 @@ export const Filters = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpenFilters, toggleMenu]);
 
+  useEffect(() => {
+    setIsNew(filterParams.isNew);
+    setTypes(filterParams.type);
+    setIngredients(filterParams.ingredients);
+    setMinPrice(filterParams.price[0] || MIN_PRICE);
+    setMaxPrice(filterParams.price[1] || MAX_PRICE);
+  }, [filterParams]);
+
   const toggleIngredient = (id: number) => {
-    setSelectedIngredients((prev) =>
+    setIngredients((prev) =>
       prev.includes(id)
         ? prev.filter((ingredientId) => ingredientId !== id)
         : [...prev, id]
     );
   };
 
-  const handleIsNew = (value: true | false) => {
+  const handleIsNew = (value: boolean) => {
     setIsNew(value);
   };
 
-  const priceValid =
-    minPrice <= maxPrice && minPrice >= MIN_PRICE && maxPrice <= MAX_PRICE;
-
   const handleSelect = () => {
-    if (!priceValid) return;
     dispatch(
       setParams({
-        isNew: isNew,
-        type: selectedTypes,
-        ingredients: selectedIngredients,
-        price: [minPrice || MIN_PRICE, maxPrice || MAX_PRICE],
+        isNew,
+        type: types,
+        ingredients,
+        price: [minPrice, maxPrice],
       })
     );
     toggleMenu();
   };
 
   const handleReset = () => {
-    dispatch(setParams(initialFilterParamsState));
+    dispatch(resetParams());
     setIsNew(false);
-    setSelectedTypes([]);
-    setSelectedIngredients([]);
+    setTypes([]);
+    setIngredients([]);
     setMinPrice(MIN_PRICE);
     setMaxPrice(MAX_PRICE);
     toggleMenu();
@@ -119,12 +111,15 @@ export const Filters = ({
     }
   };
 
-  const isShow =
-    selectedTypes.length > 0 ||
-    minPrice !== MIN_PRICE ||
-    maxPrice !== MAX_PRICE ||
-    selectedIngredients.length > 0 ||
-    isNew;
+  const handleType = (selectedTypeId: number) => {
+    setTypes((prevSelectedTypes) => {
+      const currentTypeIds = prevSelectedTypes;
+      const nextTypeIds =
+        currentTypeIds[0] === selectedTypeId ? [] : [selectedTypeId];
+
+      return nextTypeIds;
+    });
+  };
 
   return (
     <div
@@ -140,7 +135,13 @@ export const Filters = ({
           <FilterTop
             onReset={handleReset}
             onClose={toggleMenu}
-            showReset={isShow}
+            showReset={
+              types.length > 0 ||
+              minPrice !== MIN_PRICE ||
+              maxPrice !== MAX_PRICE ||
+              ingredients.length > 0 ||
+              isNew
+            }
           />
 
           <FilterNew value={isNew} onChange={handleIsNew} />
@@ -152,14 +153,14 @@ export const Filters = ({
           />
 
           <FilterIngredients
-            ingredients={ingredients ?? []}
-            selected={selectedIngredients}
+            ingredients={data ?? []}
+            selected={ingredients}
             onToggle={toggleIngredient}
           />
 
-          <FilterDough selected={selectedTypes} onToggle={handleType} />
+          <FilterDough selected={types} onToggle={handleType} />
 
-          <FilterBottom onApply={handleSelect} disabled={!priceValid} />
+          <FilterBottom onApply={handleSelect} disabled={minPrice > maxPrice} />
         </>
       )}
     </div>

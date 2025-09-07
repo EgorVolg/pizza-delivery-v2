@@ -47,13 +47,14 @@ export function Homepage() {
         <main className={styles.items_list}>
           {isLoading && (
             <div className={styles.loader}>
-              {[...Array(9)] 
-                .map((_, i) => (
-                  <ProductCardSkeleton key={i} />
-                ))}
+              {[...Array(9)].map((_, i) => (
+                <ProductCardSkeleton key={i} />
+              ))}
             </div>
           )}
-          <ProductsList />
+          {/* <Container> */}
+            <ProductsList />
+          {/* </Container> */}
         </main>
       </Container>
     </>

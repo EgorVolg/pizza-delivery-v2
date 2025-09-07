@@ -1,0 +1,61 @@
+.resultsNotFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: translateX(-50%, -50%);
+  margin: 0;
+  margin-top: 30px;
+  max-height: 800px;
+
+  .text {
+    margin-bottom: 50px;
+  }
+
+  @media (max-width: 1440px) {
+    align-items: center;
+  }
+
+  h1 {
+    font-family: Nunito;
+    font-weight: 800;
+    font-style: ExtraBold;
+    font-size: 40px;
+    line-height: 100%;
+    text-wrap: nowrap;
+  }
+
+  p {
+    color: #999999;
+  }
+
+  img {
+    width: 340px;
+    height: auto;
+  }
+}
+
+.buttonsGroup {
+  display: flex;
+  gap: 20px;
+}
+
+.buttonReset {
+  transition: all 0.3s ease;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: var(--color-bg-primary);
+      border: 1px solid var(--color-brand);
+      background: var(--color-brand);
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+  }
+}
+
+.buttonReload {
+  width: 130px;
+  height: 50px;
+  color: #898989;
+  border-radius: 15px;
+
+  border: 1px solid #c7c7c7;
+}
