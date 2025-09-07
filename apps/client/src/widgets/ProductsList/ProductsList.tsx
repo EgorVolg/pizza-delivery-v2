@@ -11,7 +11,7 @@ import type { RootState } from "../../app/store";
 import img from "../../shared/assets/character_no_bg.png";
 import Container from "../../shared/ui/Container/Container";
 import Button from "../../shared/ui/Button/Button";
-import { resetParams, setParams } from "../Filters/model/filterParams.slice";
+import { resetParams } from "../Filters/model/filterParams.slice";
 
 export const ProductsList = () => {
   const { data: pizzas, isLoading } = useFilteredPizzas();
@@ -40,7 +40,7 @@ export const ProductsList = () => {
         <Container className={styles.resultsNotFound}>
           <div className={styles.text}>
             <h1>Пиццы не найдены</h1>
-            <p>Попробуйте изменить параметры поиска</p>{" "}
+            <p>Попробуйте изменить параметры поиска</p>
             <div className={styles.imageContainer}>
               <img src={img} alt="resultsNotFound" />
             </div>
