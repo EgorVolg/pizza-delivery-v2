@@ -3,10 +3,11 @@ import Container from "../../../shared/ui/Container/Container";
 
 import { useState } from "react";
 import Button from "../../../shared/ui/Button/Button";
-import CartBtn from "../../../entities/header/card-btn/CartBtn"; 
+import CartBtn from "../../../entities/header/card-btn/CartBtn";
 import { ProfilePopup } from "../../../entities/header/profile-popup/ProfilePopup";
 import { Logo } from "../../../entities/header/logo/Logo";
 import { Search } from "../../../entities/header/search-input/Search/Search";
+import { Link } from "react-router-dom";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +19,9 @@ function Header() {
   return (
     <header className={styles.header}>
       <Container className={styles.header_container}>
-        <Logo />
+        <Link to="/main" className={styles.logo_link}>
+          <Logo />
+        </Link>
 
         <Container className={styles.search_container}>
           <Search />
@@ -51,7 +54,7 @@ function Header() {
             </svg>
             <span className={styles.login}>Войти</span>
           </Button>
-          
+
           <CartBtn />
         </div>
       </Container>

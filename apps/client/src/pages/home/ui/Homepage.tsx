@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./Homepage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../../app/store";
@@ -11,7 +11,7 @@ import { ProductsList } from "../../../widgets/ProductsList/ProductsList";
 import { AnimatePresence } from "framer-motion";
 import { Overlay } from "../../../shared/ui/Overlay/Overlay";
 import { useGetPizzasQuery } from "../../../entities/pizza/model/pizza.api";
-import ProductCardSkeleton from "../../../entities/homepage/ProductCard/ProductCard.Skeleton";
+import ProductCardSkeleton from "../../../entities/homepage/ProductCard/ProductCard.Skeleton"; 
 
 export function Homepage() {
   const { isLoading } = useGetPizzasQuery();
@@ -52,9 +52,7 @@ export function Homepage() {
               ))}
             </div>
           )}
-          {/* <Container> */}
-            <ProductsList />
-          {/* </Container> */}
+          <ProductsList />
         </main>
       </Container>
     </>
