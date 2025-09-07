@@ -1,3 +1,4 @@
+ 
 .categories {
   display: inline-flex;
   flex-wrap: nowrap;
@@ -11,7 +12,7 @@
   }
 
   @media (max-width: 1200px) {
-    display: flex; 
+    display: flex;
     max-width: max-content;
     overflow-x: visible;
     overflow-y: hidden;
@@ -36,11 +37,4 @@
   padding: 0 1.25rem;
 
   margin: 5px 0;
-
-  &.active {
-    background-color: #fff;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    color: #fe5f00;
-  }
 }
