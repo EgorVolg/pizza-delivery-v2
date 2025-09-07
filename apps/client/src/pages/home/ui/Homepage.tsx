@@ -11,13 +11,17 @@ import { ProductsList } from "../../../widgets/ProductsList/ProductsList";
 import { AnimatePresence } from "framer-motion";
 import { Overlay } from "../../../shared/ui/Overlay/Overlay";
 import { useGetPizzasQuery } from "../../../entities/pizza/model/pizza.api";
-import ProductCardSkeleton from "../../../entities/homepage/ProductCard/ProductCard.Skeleton"; 
+import ProductCardSkeleton from "../../../entities/homepage/ProductCard/ProductCard.Skeleton";
+import { useFilterUrlSync } from "../../../shared/hooks/useFilterUrlSync";
 
 export function Homepage() {
   const { isLoading } = useGetPizzasQuery();
   const [isOpenFilters, setIsOpenFilters] = useState(false);
   const dispatch = useDispatch();
   const isCartDrawerOpen = useSelector((s: RootState) => s.closeOpenCart);
+
+  // Sync filters with URL
+  useFilterUrlSync();
 
   const handleCloseCart = () =>
     dispatch({ type: "closeOpenCart/setOpenCart", payload: false });
