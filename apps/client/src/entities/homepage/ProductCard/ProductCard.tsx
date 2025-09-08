@@ -1,16 +1,19 @@
 import { useState } from "react";
-import styles from "./ProductCard.module.css"; 
+import styles from "./ProductCard.module.css";
 import type { PizzaCard } from "../../pizza/model/pizza.types";
 import Button from "../../../shared/ui/Button/Button";
+import { Link } from "react-router-dom";
 
 export const ProductCard = ({ pizza }: { pizza: PizzaCard }) => {
   const [pizzaQuantity, setPizzaQuantity] = useState(0);
 
   return (
     <article key={pizza.id} className={styles.card}>
-      <div className={styles.imageContainer}>
-        <img src={pizza.imageUrl} alt={pizza.name} className={styles.image} />
-      </div>
+      <Link to={`/pizza/${pizza.id}`}>
+        <div className={styles.imageContainer}>
+          <img src={pizza.imageUrl} alt={pizza.name} className={styles.image} />
+        </div>
+      </Link>
       <div className={styles.body}>
         <header>
           <h3 className={styles.title}>{pizza.name}</h3>
