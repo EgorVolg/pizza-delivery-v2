@@ -7,6 +7,7 @@ import { Input } from "../../../../shared/ui/Input/Input";
 import { useLockScroll } from "../../../../shared/hooks/useLockScroll";
 import { Overlay } from "../../../../shared/ui/Overlay/Overlay";
 import { InputSkeleton } from "../../../../shared/ui/Input/ui/Input.Skeleton";
+import { Link } from "react-router-dom";
 
 export const Search = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -77,17 +78,22 @@ export const Search = () => {
                     <span className={styles.not_found}>Ничего не найдено</span>
                   ) : (
                     searchVariants?.map((p) => (
-                      <li key={p.id} className={styles.item}>
-                        <div className={styles.img_container}>
-                          <img
-                            src={p.imageUrl}
-                            alt={p.name}
-                            className={styles.img}
-                          />
-                        </div>
-                        <span className={styles.name}>{p.name}</span>
-                        <b className={styles.price}>{p.price} ₽</b>
-                      </li>
+                      <Link
+                        to={`/pizza/${p.id}`}
+                        onClick={() => setSearchValue("")}
+                      >
+                        <li key={p.id} className={styles.item}>
+                          <div className={styles.img_container}>
+                            <img
+                              src={p.imageUrl}
+                              alt={p.name}
+                              className={styles.img}
+                            />
+                          </div>
+                          <span className={styles.name}>{p.name}</span>
+                          <b className={styles.price}>{p.price} ₽</b>
+                        </li>
+                      </Link>
                     ))
                   )}
                 </motion.ul>

@@ -55,7 +55,7 @@
   position: absolute;
   color: #adadad;
   left: 22px;
-  z-index: 20;
+  z-index: 52;
 
   @media (max-width: 1024px) {
     left: 16px;
