@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import styles from "./SortPopup.module.css"; 
-import { useDispatch, useSelector } from "react-redux"; 
+import styles from "./SortPopup.module.css";
+import { useDispatch, useSelector } from "react-redux";
 import { sortParams } from "../model/sortParams.slice";
 import Xbtn from "../../../../shared/ui/Xbtn/Xbtn";
 import { sortOptions } from "../model/sortParams.const";
@@ -44,7 +44,10 @@ function SortPopUp() {
   }, [openSortPopup, toggleMenu]);
 
   return (
-    <div className={styles.sort}>
+    <div
+      className={styles.sort}
+      onClick={() => setOpenSortPopup(!openSortPopup)}
+    >
       <button
         className={styles.sort_button}
         onClick={() => setOpenSortPopup(!openSortPopup)}

@@ -79,7 +79,7 @@
   color: #adadad;
   border: none;
   cursor: pointer;
-  z-index: 30;
+  z-index: 60;
 }
 
 .not_found {
