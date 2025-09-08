@@ -41,16 +41,15 @@ export const ProfilePopup = ({
       className={`${styles.user_menu_popup} ${isOpen ? styles.visible : ""}`}
     >
       <Xbtn onClick={toggleMenu} className={styles.popup_close} />
-
-      <li onClick={toggleMenu}>
-        <Link to={"/settings"}>Настройки</Link>
-      </li>
-      <li onClick={toggleMenu}>
-        <Link to={"/orders"}>Заказы</Link>
-      </li>
-      <li onClick={toggleMenu}>
-        <Link to={"/logout"}>Выйти</Link>
-      </li>
+      <Link to={"/settings"}>
+        <li onClick={toggleMenu}>Настройки</li>
+      </Link>
+      <Link to={"/orders"}>
+        <li onClick={toggleMenu}>Заказы</li>
+      </Link>
+      <Link to={"/logout"}>
+        <li onClick={toggleMenu}>Выйти</li>
+      </Link>
     </ul>
   );
 };
