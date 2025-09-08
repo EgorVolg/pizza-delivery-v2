@@ -6,6 +6,9 @@ import { setParams } from '../../widgets/Filters/model/filterParams.slice';
 import { setActiveId } from '../../entities/topbar/categories/model/activeCategories.slice';
 import { MAX_PRICE, MIN_PRICE } from '../../widgets/Filters/model/filter.const';
 
+const FILTERS_STORAGE_KEY = 'pizza-filters';
+const CATEGORY_STORAGE_KEY = 'pizza-active-category';
+
 export const useFilterUrlSync = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
@@ -56,20 +59,61 @@ export const useFilterUrlSync = () => {
     return { type, isNew, price, ingredients };
   };
 
+  // Function to check if URL has any filter params
+  const hasFilterParams = (params: URLSearchParams) => {
+    return params.has('type') || params.has('isNew') || params.has('price') || params.has('ingredients') || params.has('category');
+  };
+
   // Sync URL to state on mount and URL change
   useEffect(() => {
-    const urlFilters = deserializeFilters(searchParams);
-    dispatch(setParams(urlFilters));
+    let urlFilters = deserializeFilters(searchParams);
+    let categoryId = 1; // default
 
-    // Handle category
     const categoryStr = searchParams.get('category');
     if (categoryStr) {
-      const categoryId = Number(categoryStr);
+      categoryId = Number(categoryStr);
       if (!isNaN(categoryId) && categoryId > 0) {
-        dispatch(setActiveId(categoryId));
+        // category from URL
+      } else {
+        categoryId = 1;
       }
     }
+
+    // If URL has no filter params, try to load from localStorage
+    if (!hasFilterParams(searchParams)) {
+      const savedFilters = localStorage.getItem(FILTERS_STORAGE_KEY);
+      if (savedFilters) {
+        try {
+          urlFilters = JSON.parse(savedFilters);
+        } catch (e) {
+          console.warn('Failed to parse saved filters from localStorage');
+        }
+      }
+
+      const savedCategory = localStorage.getItem(CATEGORY_STORAGE_KEY);
+      if (savedCategory) {
+        const parsedCategory = Number(savedCategory);
+        if (!isNaN(parsedCategory) && parsedCategory > 0) {
+          categoryId = parsedCategory;
+        }
+      }
+    }
+
+    dispatch(setParams(urlFilters));
+    if (categoryId !== 1) {
+      dispatch(setActiveId(categoryId));
+    }
   }, [searchParams, dispatch]);
+
+  // Save filters to localStorage on state change
+  useEffect(() => {
+    localStorage.setItem(FILTERS_STORAGE_KEY, JSON.stringify(filterParams));
+  }, [filterParams]);
+
+  // Save active category to localStorage on state change
+  useEffect(() => {
+    localStorage.setItem(CATEGORY_STORAGE_KEY, activeCategoryId.toString());
+  }, [activeCategoryId]);
 
   // Sync state to URL on state change
   useEffect(() => {

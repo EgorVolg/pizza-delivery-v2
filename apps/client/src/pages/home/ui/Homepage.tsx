@@ -21,7 +21,7 @@ export function Homepage() {
   const isCartDrawerOpen = useSelector((s: RootState) => s.closeOpenCart);
 
   // Sync filters with URL
-  useFilterUrlSync();
+  useFilterUrlSync()
 
   const handleCloseCart = () =>
     dispatch({ type: "closeOpenCart/setOpenCart", payload: false });
