@@ -1,6 +1,6 @@
 import styles from "./Categories.module.css";
 import { motion } from "framer-motion";
-import { memo, useCallback, useMemo } from "react";
+import { memo, useCallback, useMemo, useRef, useEffect } from "react";
 import { useGetCategoriesQuery } from "../model/categories.api";
 import { CategoriesSkeleton } from "./Categories.Skeleton";
 import type { Category } from "../model/categories.types";
@@ -13,6 +13,20 @@ function CategoriesList() {
     (state: any) => state.setActiveId.activeId
   );
   const selectCategoryId = useDispatch();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (selectedCategory && containerRef.current) {
+      const activeElement = containerRef.current.querySelector(
+        `[data-index="${selectedCategory - 1}"]`
+      );
+      activeElement?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  }, [selectedCategory]);
 
   const handleClick = useCallback(
     (event: React.MouseEvent, index: number) => {
@@ -37,6 +51,7 @@ function CategoriesList() {
           key={index}
           href="#"
           className={styles.category}
+          data-index={index}
           onClick={(event) => handleClick(event, index + 1)}
           animate={{
             backgroundColor: isActive ? "#fff" : "transparent",
@@ -56,6 +71,7 @@ function CategoriesList() {
 
   return (
     <div
+      ref={containerRef}
       className={styles.categories}
       style={isLoading ? { backgroundColor: "#F5F5F5" } : {}}
     >
