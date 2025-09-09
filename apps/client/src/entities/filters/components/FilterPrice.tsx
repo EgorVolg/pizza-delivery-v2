@@ -1,11 +1,14 @@
 import type { FC } from "react";
-import { MAX_PRICE, MIN_PRICE } from "../../../widgets/Filters/model/filter.const";
+import {
+  MAX_PRICE,
+  MIN_PRICE,
+} from "../../../widgets/Filters/model/filter.const";
 import styles from "../../../widgets/Filters/Filters.module.css";
 
-export const FilterPrice: FC<{ 
+export const FilterPrice: FC<{
   minPrice: number;
   maxPrice: number;
-  onChange: (idx: 0 | 1, val: number) => void; 
+  onChange: (idx: 0 | 1, val: number) => void;
 }> = ({ onChange, minPrice, maxPrice }) => {
   const bad =
     minPrice < MIN_PRICE || maxPrice > MAX_PRICE || minPrice >= maxPrice;
@@ -23,22 +26,29 @@ export const FilterPrice: FC<{
 
       <div className={styles.filter_price_sorting}>
         <div className={styles.input_container}>
-          <input
-            className={styles.price_input}
-            type="number"
-            data-testid="min-price"
-            placeholder={MIN_PRICE.toString()}
-            value={minPrice === MIN_PRICE ? "" : minPrice}
-            onChange={(e) => onChange(0, +e.target.value)}
-          />
-          <input
-            className={styles.price_input}
-            type="number"
-            data-testid="max-price"
-            placeholder={MAX_PRICE.toString()}
-            value={maxPrice === MAX_PRICE ? "" : maxPrice}
-            onChange={(e) => onChange(1, +e.target.value)}
-          />
+          <div className={styles.price_input_container}>
+            <input
+              className={styles.price_input}
+              type="number"
+              data-testid="min-price"
+              placeholder={MIN_PRICE.toString()}
+              value={minPrice === MIN_PRICE ? "" : minPrice}
+              onChange={(e) => onChange(0, +e.target.value)}
+            />
+            <b>₽</b>
+          </div>
+
+          <div className={styles.price_input_container}>
+            <input
+              className={styles.price_input}
+              type="number"
+              data-testid="max-price"
+              placeholder={MAX_PRICE.toString()}
+              value={maxPrice === MAX_PRICE ? "" : maxPrice}
+              onChange={(e) => onChange(1, +e.target.value)}
+            />
+            <b>₽</b>
+          </div>
         </div>
       </div>
 
@@ -48,7 +58,7 @@ export const FilterPrice: FC<{
             margin: 0,
             marginTop: 4,
             fontSize: 12,
-            color: "tomato", 
+            color: "tomato",
             position: "absolute",
             top: "80%",
             zIndex: 10,

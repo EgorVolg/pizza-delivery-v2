@@ -1,14 +1,17 @@
 import styles from "./TopBar.module.css";
-import Container from "../../shared/ui/Container/Container"; 
+import Container from "../../shared/ui/Container/Container";
 import CategoriesList from "../../entities/topbar/categories/ui/Categories";
 import SortPopUp from "../../entities/topbar/sort-popup/ui/SortPopup";
+import { useGetCategoriesQuery } from "../../entities/topbar/categories/model/categories.api";
 
 const TopBar = ({ toggleMenu }: { toggleMenu: () => void }) => {
+  const { isLoading } = useGetCategoriesQuery();
   return (
     <div className={styles.topbar}>
       <Container className={styles.topbar_container}>
         <CategoriesList />
-        <SortPopUp />
+
+        {isLoading ? <div className={styles.loader} /> : <SortPopUp />}
 
         <button className={styles.hamburger} onClick={toggleMenu}>
           <svg

@@ -45,12 +45,33 @@ li {
   gap: 15px;
 }
 
+.price_input_container {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  b {
+    position: absolute;
+    right: 15px;
+    color: #bbbbbb;
+    pointer-events: none;
+
+    font-family: Nunito;
+    font-weight: 600;
+    font-style: SemiBold;
+    font-size: 14px; 
+    line-height: 100%;
+    letter-spacing: 0%;
+  }
+}
+
 .price_input {
   width: 90px;
   height: 40px;
   border: 1px solid #f0f0f0;
   border-radius: 10px;
   padding-left: 15px;
+  padding-right: 25px;
 
   @media (max-width: 1440px) {
     min-width: none;
@@ -64,6 +85,15 @@ li {
   &:focus {
     outline: none;
   }
+
+  /* Remove number input arrows */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  -moz-appearance: textfield;
 }
 
 .filter_top {
