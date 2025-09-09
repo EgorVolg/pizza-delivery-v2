@@ -121,6 +121,13 @@
   width: 42px;
   border-radius: 15px;
   transition: all 0.2s ease;
+  border: 1px solid #fe5f00 !important;
+}
+
+.counterButton:hover {
+  background: #fff3e5 !important;
+  border: 1px solid transparent !important;
+  color: var(--color-brand) !important;
 }
 
 .quantityControls {
