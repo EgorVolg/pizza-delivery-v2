@@ -66,6 +66,17 @@ export const Search = () => {
 
   useLockScroll(focused);
 
+  const highlightMatch = (text: string, query: string) => {
+    if (!query.trim()) return text;
+    const regex = new RegExp(`(${query.trim()})`, "gi");
+    const parts = text.split(regex);
+    return parts.map((part, index) => (
+      <span key={index} className={index % 2 === 1 ? styles.highlightSpan : ""}>
+        {part}
+      </span>
+    ));
+  };
+
   const searchVariants = pizzas?.filter((p) =>
     p.name.toLowerCase().trim().includes(searchValue.toLowerCase().trim())
   );
@@ -157,7 +168,7 @@ export const Search = () => {
                             />
                           </div>
                           <span className={styles.info}>
-                            {p.name}
+                            {highlightMatch(p.name, searchValue)}
 
                             <b className={styles.price}>{p.price} ₽</b>
                           </span>
