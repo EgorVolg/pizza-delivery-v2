@@ -61,15 +61,15 @@
 
 .hamburger {
   display: none;
-  
+
   @media (max-width: 1440px) {
     all: unset;
     width: max-content;
     display: flex;
+    height: 55px;
     align-items: center;
     background-color: var(--color-bg-secondary);
     border-radius: 15px;
-    height: 3rem;
     padding: 0 20px;
     cursor: pointer;
 
