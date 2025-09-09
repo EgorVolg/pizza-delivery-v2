@@ -17,13 +17,6 @@ function CategoriesList() {
   const handleClick = useCallback((event: React.MouseEvent, index: number) => {
     event.preventDefault();
     selectCategoryId(setActiveId(index));
-
-    const target = event.currentTarget as HTMLAnchorElement;
-    target.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "center",
-    });
   }, [selectCategoryId]);
 
   const categoryElements = useMemo(() => {

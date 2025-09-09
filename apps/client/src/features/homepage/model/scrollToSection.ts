@@ -9,6 +9,6 @@ export const useScrollToSection = () => {
     ignoreObserver.current = true;
     const top = node.getBoundingClientRect().top + window.scrollY - headerHeight;
     window.scrollTo({ top, behavior: "smooth" });
-    setTimeout(() => (ignoreObserver.current = false), 700);
+    setTimeout(() => (ignoreObserver.current = false), 1000);
   }, []);
 };
