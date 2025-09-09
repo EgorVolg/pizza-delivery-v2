@@ -1,6 +1,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(1fr, 430px));
   gap: 50px;
   max-width: 1200px;
   margin: 0 auto;
@@ -11,6 +12,7 @@
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
   }
 }
 

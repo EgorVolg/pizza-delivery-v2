@@ -14,14 +14,19 @@ function CategoriesList() {
   );
   const selectCategoryId = useDispatch();
 
-  const handleClick = useCallback((event: React.MouseEvent, index: number) => {
-    event.preventDefault();
-    selectCategoryId(setActiveId(index));
-  }, [selectCategoryId]);
+  const handleClick = useCallback(
+    (event: React.MouseEvent, index: number) => {
+      event.preventDefault();
+      selectCategoryId(setActiveId(index));
+    },
+    [selectCategoryId]
+  );
 
   const categoryElements = useMemo(() => {
     if (isLoading) {
-      return [...Array(6)].map((_, index) => <CategoriesSkeleton key={index} />);
+      return [...Array(6)].map((_, index) => (
+        <CategoriesSkeleton key={index} />
+      ));
     }
 
     return categories?.map((category: Category, index: number) => {
@@ -50,7 +55,10 @@ function CategoriesList() {
   }, [categories, selectedCategory, isLoading, handleClick]);
 
   return (
-    <div className={styles.categories}>
+    <div
+      className={styles.categories}
+      style={isLoading ? { backgroundColor: "#F5F5F5" } : {}}
+    >
       {categoryElements}
     </div>
   );
