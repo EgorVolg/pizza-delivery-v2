@@ -24,6 +24,16 @@
   @media (max-width: 768px) {
     display: flex;
   }
+
+  @media (max-width: 480px) {
+    background-color: transparent;
+    flex-wrap: wrap; 
+    height: auto;
+    max-height: none;
+    overflow-x: hidden;
+    scroll-behavior: none;
+    scroll-snap-type: none;
+  }
 }
 
 .category {

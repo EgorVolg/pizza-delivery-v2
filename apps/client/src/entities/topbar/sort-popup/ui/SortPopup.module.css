@@ -10,6 +10,13 @@
   padding: 0 1.25rem;
   border-radius: 1rem;
   min-width: fit-content;
+
+  @media (max-width: 375px) {
+    .sort {
+      height: auto;
+      padding: 0 0.5rem;
+    }
+  }
 }
 
 .sort_button {
@@ -28,8 +35,15 @@
       transition: color 0.3s ease;
     }
   }
+
   span {
     color: var(--color-brand);
+  }
+
+  @media (max-width: 375px) {
+    .sort_text {
+      display: none;
+    }
   }
 }
 
@@ -56,19 +70,23 @@
     transform: translateY(0);
   }
 
-  .sort_comebackbtn {
-    display: none;
+  @media (max-width: 375px) {
+       width: 70vw;
+  }
+}
 
-    @media (max-width: 768px) {
-      display: block;
+.sort_comebackbtn {
+  display: none;
 
-      all: unset;
-      cursor: pointer;
-      position: absolute;
-      top: 5%;
-      right: 5%;
-      z-index: 10;
-    }
+  @media (max-width: 768px) {
+    display: block;
+
+    all: unset;
+    cursor: pointer;
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    z-index: 10;
   }
 }
 

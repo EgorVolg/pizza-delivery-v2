@@ -8,6 +8,7 @@ import { Input } from "../../../../shared/ui/Input/Input";
 import { Link } from "react-router-dom";
 import Xbtn from "../../../../shared/ui/Xbtn/Xbtn";
 import { Overlay } from "../../../../shared/ui/Overlay/Overlay";
+import Container from "../../../../shared/ui/Container/Container";
 
 // Enhanced dropdown animation variants
 const dropdownVariants = {
@@ -82,7 +83,7 @@ export const Search = () => {
   );
 
   return (
-    <>
+    <Container className={styles.search_container}>
       {focused && <Overlay onClick={() => setFocused(false)} />}
 
       <motion.div
@@ -182,6 +183,6 @@ export const Search = () => {
           </AnimatePresence>
         </>
       )}
-    </>
+    </Container>
   );
 };

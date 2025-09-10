@@ -56,12 +56,11 @@
   height: 50px;
   color: #898989;
   border-radius: 15px;
+  border: 1px solid #c7c7c7;
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       color: #898989;
     }
   }
-
-  border: 1px solid #c7c7c7;
 }

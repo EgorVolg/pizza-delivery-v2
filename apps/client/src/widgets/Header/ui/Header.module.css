@@ -8,6 +8,15 @@
   justify-content: space-between;
   padding: 43px 66px;
   gap: 2rem;
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+    padding: 43px 30px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 20px 40px;
+  }
 }
 
 .buttons_group {
@@ -29,6 +38,12 @@
     }
   }
 
+  .login {
+    @media (max-width: 520px) {
+      display: none;
+    }
+  }
+
   Button {
     height: 50px;
     transition: all 0.5s ease;
@@ -45,58 +60,6 @@
           }
         }
       }
-    }
-  }
-}
-
-.search_container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  border-radius: 15px;
-  transition: width 0.4s ease;
-  background-color: #f9fafb;
-
-  @media (max-width: 1024px) {
-    width: 50px;
-    height: 50px;
-  }
-
-  &:focus-within {
-    input {
-      opacity: 1;
-      z-index: 50;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    border: none;
-
-    width: 50px;
-
-    &:focus-within {
-      border: none;
-      position: absolute;
-
-      width: 90%;
-      left: 5%;
-    }
-  }
-
-  @media (max-width: 425px) {
-    background: transparent;
-
-    &:focus-within {
-      width: auto;
-      left: 10%;
-      right: 10%;
-    }
-  }
-
-  @media (max-width: 375px) {
-    &:focus-within {
-      top: 30px;
     }
   }
 }

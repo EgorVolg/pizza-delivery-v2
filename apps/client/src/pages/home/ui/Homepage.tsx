@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styles from "./Homepage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../../app/store";

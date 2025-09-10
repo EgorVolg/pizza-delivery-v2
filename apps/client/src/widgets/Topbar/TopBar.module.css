@@ -54,8 +54,12 @@
     gap: 1rem;
   }
 
+  @media (max-width: 768px) {
+    padding: 40px 30px;
+  }
+
   @media (max-width: 425px) {
-    padding: 43px 20px;
+    padding: 10px 20px;
   }
 }
 

@@ -23,9 +23,7 @@ function Header() {
           <Logo />
         </Link>
 
-        <Container className={styles.search_container}>
-          <Search />
-        </Container>
+        <Search />
 
         <div className={styles.buttons_group}>
           <ProfilePopup toggleMenu={toggleMenu} isOpen={isOpen} />
