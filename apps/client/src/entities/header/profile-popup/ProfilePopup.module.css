@@ -25,10 +25,20 @@
 
   @media (max-width: 768px) {
     width: 86%;
-    top: 27%;
+
     right: 6.8%;
     height: max-content;
     padding: 20px 0;
+  }
+
+  @media (max-width: 480px) {
+    top: 25%; 
+  }
+
+  @media (max-width: 425px) {
+    top: 27%;
+    width: 80%;
+    right: 10%;
   }
 
   li {
@@ -49,7 +59,7 @@
     padding-bottom: 10px;
     opacity: 0.5;
     transition: opacity 0.2s ease;
-    
+
     @media (hover: hover) and (pointer: fine) {
       &:hover {
         color: var(--color-brand);
@@ -64,15 +74,17 @@
 
     @media (max-width: 768px) {
       justify-content: center;
-      font-size: 16px;
-      padding: 0;
-      height: 20px;
+
+      &:last-child {
+        border-top: none;
+      }
     }
   }
 }
 
 .popup_close {
   display: none;
+
   @media (max-width: 768px) {
     display: block;
     position: absolute;

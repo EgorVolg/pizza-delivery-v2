@@ -102,8 +102,7 @@ li {
   height: 50px;
 }
 
-.filter_close {
-  display: none;
+.filter_close { 
 
   @media (max-width: 1024px) {
     display: flex;

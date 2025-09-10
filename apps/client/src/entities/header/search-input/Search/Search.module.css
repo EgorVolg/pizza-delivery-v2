@@ -79,7 +79,7 @@
 
   @media (max-width: 375px) {
     &:focus-within {
-      top: 30px;
+      top: 50px;
     }
   }
 }

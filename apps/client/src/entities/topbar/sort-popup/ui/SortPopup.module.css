@@ -10,13 +10,6 @@
   padding: 0 1.25rem;
   border-radius: 1rem;
   min-width: fit-content;
-
-  @media (max-width: 375px) {
-    .sort {
-      height: auto;
-      padding: 0 0.5rem;
-    }
-  }
 }
 
 .sort_button {
@@ -40,7 +33,7 @@
     color: var(--color-brand);
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: 480px) {
     .sort_text {
       display: none;
     }
@@ -70,8 +63,8 @@
     transform: translateY(0);
   }
 
-  @media (max-width: 375px) {
-       width: 70vw;
+  @media (max-width: 480px) {
+    width: 70vw;
   }
 }
 
