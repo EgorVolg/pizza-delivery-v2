@@ -1,4 +1,4 @@
-import styles from "./T opBar.module.css";
+import styles from "./TopBar.module.css";
 import Container from "../../shared/ui/Container/Container";
 import CategoriesList from "../../entities/topbar/categories/ui/Categories";
 import SortPopUp from "../../entities/topbar/sort-popup/ui/SortPopup";
