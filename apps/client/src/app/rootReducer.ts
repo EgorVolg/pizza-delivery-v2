@@ -7,6 +7,7 @@ import { sortParamsSlice } from "../entities/topbar/sort-popup/model/sortParams.
 import { activeCategorySlice } from "../entities/topbar/categories/model/activeCategories.slice";
 import { closeOpenCartSlice } from "../widgets/Cart/model/closeOpenCart.slice";
 import { filterParamsSlice } from "../widgets/Filters/model/filterParams.slice";
+import { closeOpenPizzaModal } from "../features/add-pizza/closeOpenPizzaModal.slice";
 
 export const rootReducer = combineReducers({
   //api reducers
@@ -19,4 +20,5 @@ export const rootReducer = combineReducers({
   sortParams: sortParamsSlice.reducer,
   closeOpenCart: closeOpenCartSlice.reducer,
   setActiveId: activeCategorySlice.reducer,
+  openClose: closeOpenPizzaModal.reducer,
 });

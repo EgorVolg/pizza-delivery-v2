@@ -19,9 +19,10 @@ export interface PizzaCard {
   imageUrl: string;
   createdAt: string;
   category_id: number;
-  ingredients: string;
+  ingredients: string | number[];
   name: string;
   popular: number;
   price: number;
   rating: number;
+  type: string[];
 }

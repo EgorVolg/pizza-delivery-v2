@@ -1,0 +1,229 @@
+.modal {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 25vh auto;
+  background-color: var(--color-bg-primary);
+  border-radius: 16px;
+  padding: 20px;
+
+  max-width: 1000px;
+  height: 580px;
+  padding: 37px 40px;
+
+  z-index: 60;
+}
+
+.close {
+  all: unset;
+  position: absolute;
+
+  right: -60px;
+  cursor: pointer;
+}
+
+.imageContainer {
+  max-width: 450px;
+  max-height: 580px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.body {
+  overflow-y: auto;
+  padding-right: 20px;
+  margin-bottom: 30px;
+
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #d9d9d99e;
+    border-radius: 15px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    cursor: pointer;
+    background: rgba(57, 57, 57, 0.3);
+  }
+}
+
+.header {
+  display: flexbox;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  display: flex;
+  font-family: Nunito;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  padding-bottom: 10px;
+}
+
+.description {
+  font-family: Nunito;
+  font-weight: 400;
+  font-size: 14px;
+  color: #777777;
+  line-height: 100%;
+  letter-spacing: 0%;
+  padding-bottom: 5px;
+}
+
+.ingredients {
+  font-family: Nunito;
+  font-weight: 400;
+  font-size: 14px;
+  color: #777777;
+  line-height: 100%;
+  letter-spacing: 0%;
+  padding-bottom: 20px;
+}
+
+.params {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.selectors {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 35px;
+  gap: 1px;
+  border-radius: 30px;
+  background: #ececec;
+  padding: 2px;
+}
+
+.selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &.active {
+    background: #fff;
+    color: black;
+  }
+}
+
+.toppingsSection {
+  margin-top: 30px;
+}
+
+.toppingsTitle {
+  font-family: Nunito;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-bottom: 16px;
+}
+
+.toppings {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  height: 420px;
+}
+
+.topping {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  max-width: 130px;
+  max-height: 193px;
+  height: 100%;
+  padding: 12px 10px;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &.active {
+    border-radius: 15px;
+    border: 2px solid var(--color-brand);
+  }
+}
+
+.toppingCheck {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 16px;
+  height: 16px;
+
+  border: 1.5px solid var(--color-brand);
+  border-radius: 50%;
+
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.toppingImg {
+  max-width: 110px;
+  max-height: 110px;
+  width: 100%;
+  object-fit: contain;
+}
+
+.toppingName {
+  font-family: Nunito;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  padding-bottom: 21px;
+}
+
+.toppingPrice {
+  font-family: Nunito;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+}
+
+.bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+}
+
+.bottomBtn {
+  color: var(--color-bg-primary);
+  background-color: var(--color-brand);
+  width: 100%;
+  height: 50px;
+}

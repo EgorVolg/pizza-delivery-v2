@@ -3,9 +3,20 @@ import styles from "./ProductCard.module.css";
 import type { PizzaCard } from "../../pizza/model/pizza.types";
 import Button from "../../../shared/ui/Button/Button";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux"; 
 
 export const ProductCard = ({ pizza }: { pizza: PizzaCard }) => {
   const [pizzaQuantity, setPizzaQuantity] = useState(0);
+
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    setPizzaQuantity(pizzaQuantity + 1);
+    dispatch({
+      type: "pizzaModal/setOpenClose",
+      payload: { open: true, id: pizza.id },
+    });
+  };
 
   return (
     <article key={pizza.id} className={styles.card}>
@@ -40,10 +51,7 @@ export const ProductCard = ({ pizza }: { pizza: PizzaCard }) => {
               </Button>
             </div>
           ) : (
-            <Button
-              className={styles.button}
-              onClick={() => setPizzaQuantity(1)}
-            >
+            <Button className={styles.button} onClick={handleAddToCart}>
               + Добавить
             </Button>
           )}

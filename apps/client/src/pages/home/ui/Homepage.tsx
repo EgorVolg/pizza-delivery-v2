@@ -13,23 +13,38 @@ import { Overlay } from "../../../shared/ui/Overlay/Overlay";
 import { useGetPizzasQuery } from "../../../entities/pizza/model/pizza.api";
 import ProductCardSkeleton from "../../../entities/homepage/ProductCard/ProductCard.Skeleton";
 import { useFilterUrlSync } from "../../../shared/hooks/useFilterUrlSync";
+import { PizzaModalWindow } from "../../../features/add-pizza/PizzaModalWindow";
 
 export function Homepage() {
   const { isLoading } = useGetPizzasQuery();
   const [isOpenFilters, setIsOpenFilters] = useState(false);
+
   const dispatch = useDispatch();
+  const pizzaModelSelector = useSelector(
+    (state: RootState) => state.openClose.open
+  );
+
   const isCartDrawerOpen = useSelector((s: RootState) => s.closeOpenCart);
-
-  // Sync filters with URL
-  useFilterUrlSync()
-
   const handleCloseCart = () =>
     dispatch({ type: "closeOpenCart/setOpenCart", payload: false });
 
   const toggleMenu = () => setIsOpenFilters((v) => !v);
 
+  useFilterUrlSync();
+  // Sync filters with URL
+
   return (
     <>
+      {pizzaModelSelector && (
+        <>
+          <Overlay>
+            <Container className={styles.modal_container}>
+              <PizzaModalWindow />
+            </Container>
+          </Overlay>
+        </>
+      )}
+
       <TopBar toggleMenu={toggleMenu} />
 
       <AnimatePresence mode="sync">

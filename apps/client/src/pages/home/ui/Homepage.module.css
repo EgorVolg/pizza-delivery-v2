@@ -16,6 +16,10 @@
   }
 }
 
+.modal_container {
+  padding: 0 66px 80px 66px;
+}
+
 .loader {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
