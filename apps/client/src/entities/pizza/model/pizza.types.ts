@@ -27,7 +27,7 @@ export interface PizzaCard {
   type: string[];
 }
 
-export interface PizzaToppings {
+export interface PizzaTopping {
   id: number;
   name: string;
   image: string;

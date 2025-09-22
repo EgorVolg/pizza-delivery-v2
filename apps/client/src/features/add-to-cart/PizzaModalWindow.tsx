@@ -2,14 +2,18 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./PizzaModalWindow.module.css";
 import { useProcessedPizzas } from "../homepage/model/useProcessedPizzas";
 import Button from "../../shared/ui/Button/Button";
-import type { PizzaAPI } from "../../entities/pizza/model/pizza.types";
+import type {
+  PizzaAPI,
+  PizzaTopping,
+} from "../../entities/pizza/model/pizza.types";
 import { useState, useEffect } from "react";
 import { useGetPizzaToppingsQuery } from "../../entities/pizza/model/pizzatoppings.api";
+import { s } from "framer-motion/client";
 
 export const PizzaModalWindow = () => {
   const { data: toppings } = useGetPizzaToppingsQuery();
 
-  const [activeTopping, setActiveTopping] = useState([] as number[]);
+  const [activeTopping, setActiveTopping] = useState([] as PizzaTopping[]);
 
   const dispatch = useDispatch();
   const selector = useSelector((state: any) => state.openClose);
@@ -40,22 +44,34 @@ export const PizzaModalWindow = () => {
     dispatch({ type: "pizzaModal/setOpenClose", payload: { open: false } });
   };
 
-  const handleChooseTopping = (id: number) => {
-    if (activeTopping.includes(id)) {
-      setActiveTopping(activeTopping.filter((i) => i !== id));
+  const handleChooseTopping = (topping: PizzaTopping) => {
+    const ids = activeTopping.map((t) => t.id);
+    if (ids.includes(topping.id)) {
+      setActiveTopping(activeTopping.filter((i) => i.id !== topping.id));
     } else {
-      setActiveTopping([...activeTopping, id]);
+      setActiveTopping([...activeTopping, topping]);
     }
   };
 
   if (!toppings) return null;
   const calcPrice = () => {
     const basePrice = pizza.price;
-    const toppingsPrice = activeTopping.reduce(
-      (sum, index) => sum + toppings[index].price,
-      0
-    );
+
+    const toppingsPrice = activeTopping.reduce((acc, i) => acc + i.price, 0);
+
     return basePrice + toppingsPrice;
+  };
+
+  const selectedToppings = activeTopping.map((t) => t.name).join(", ");
+
+  const pizzaParams = {
+    name: pizza.name,
+    imageUrl: pizza.imageUrl,
+    price: calcPrice(),
+    ingredients: pizza.ingredients,
+    toppings: selectedToppings,
+    type: choosePizzaParams.type,
+    size: choosePizzaParams.size,
   };
 
   return (
@@ -115,11 +131,12 @@ export const PizzaModalWindow = () => {
                 <li
                   key={index}
                   className={`${styles.topping} ${
-                    activeTopping.includes(index) && styles.active
+                    activeTopping.some((t) => t.id === topping.id) &&
+                    styles.active
                   }`}
-                  onClick={() => handleChooseTopping(index)}
+                  onClick={() => handleChooseTopping(topping)}
                 >
-                  {activeTopping.includes(index) && (
+                  {activeTopping.some((t) => t.id === topping.id) && (
                     <div className={styles.toppingCheck}>
                       <svg
                         width="7"

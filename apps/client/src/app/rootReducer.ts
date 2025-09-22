@@ -7,7 +7,7 @@ import { sortParamsSlice } from "../entities/topbar/sort-popup/model/sortParams.
 import { activeCategorySlice } from "../entities/topbar/categories/model/activeCategories.slice";
 import { closeOpenCartSlice } from "../widgets/Cart/model/closeOpenCart.slice";
 import { filterParamsSlice } from "../widgets/Filters/model/filterParams.slice";
-import { closeOpenPizzaModal } from "../features/add-pizza/closeOpenPizzaModal.slice";
+import { closeOpenPizzaModal } from "../features/add-to-cart/closeOpenPizzaModal.slice";
 import { pizzaToppingsApi } from "../entities/pizza/model/pizzatoppings.api";
 
 export const rootReducer = combineReducers({

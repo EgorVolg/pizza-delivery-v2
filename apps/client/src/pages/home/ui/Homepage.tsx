@@ -13,7 +13,7 @@ import { Overlay } from "../../../shared/ui/Overlay/Overlay";
 import { useGetPizzasQuery } from "../../../entities/pizza/model/pizza.api";
 import ProductCardSkeleton from "../../../entities/homepage/ProductCard/ProductCard.Skeleton";
 import { useFilterUrlSync } from "../../../shared/hooks/useFilterUrlSync";
-import { PizzaModalWindow } from "../../../features/add-pizza/PizzaModalWindow";
+import { PizzaModalWindow } from "../../../features/add-to-cart/PizzaModalWindow";
 
 export function Homepage() {
   const { isLoading } = useGetPizzasQuery();
