@@ -1,17 +1,15 @@
 import type { FilterStateParams } from "../../../widgets/Filters/model/filter.dto";
-import type { PizzaAPI } from "../../../entities/pizza/model/pizza.types";
-
- 
+import type { PizzaCard } from "../../../entities/pizza/model/pizza.types";
 
 export function filterPizzas(
-  list: PizzaAPI[],
+  list: PizzaCard[],
   filter: FilterStateParams
-): PizzaAPI[] {
+): PizzaCard[] {
   return list
     .filter(
       (p) =>
         !filter.ingredients.length ||
-        p.ingredients.some((id) => filter.ingredients.includes(id))
+        p.ingredientsIds.some((id) => filter.ingredients.includes(id))
     )
     .filter(
       (p) =>
@@ -25,10 +23,10 @@ export function filterPizzas(
           (1000 * 60 * 60 * 24) <=
           3
     )
-    .filter((p) => !filter.type.length || p.type.includes(filter.type[0]));
+    .filter((p) => !filter.type.length || filter.type.some(ft => p.type.includes(ft === 1 ? "Тонкое" : "традиционное")));
 }
 
-export function sortPizzas(list: PizzaAPI[], sort: string): PizzaAPI[] {
+export function sortPizzas(list: PizzaCard[], sort: string): PizzaCard[] {
   const copy = [...list];
   switch (sort) {
     case "рейтингу":

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import styles from "./ProductsList.module.css";
 import { groupByCategory } from "../../features/homepage/model/groupByCategory";
-import { Sections } from "../../features/homepage/model/useSectionGroup";
+import { getProcessedSections } from "../../features/homepage/model/useSectionGroup";
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
 import { useFilteredPizzas } from "../../features/homepage/model/useFilteredPizza";
 import { useScrollToSection } from "../../features/homepage/model/scrollToSection";
@@ -12,6 +12,8 @@ import img from "../../shared/assets/character_no_bg.png";
 import Container from "../../shared/ui/Container/Container";
 import Button from "../../shared/ui/Button/Button";
 import { resetParams } from "../Filters/model/filterParams.slice";
+import { ProductCard } from "../../entities/homepage/ProductCard/ProductCard";
+import { ProductsSection } from "../../entities/homepage/ProductsSection/ProductsSection";
 
 export const ProductsList = () => {
   const { data: pizzas, isLoading } = useFilteredPizzas();
@@ -32,7 +34,22 @@ export const ProductsList = () => {
     sectionRefs.current[catId] = el;
   };
 
-  const sections = Sections({ grouped, createSectionRef, ingredients });
+  const processedSections = getProcessedSections(grouped, ingredients);
+
+  const sections = processedSections.map(({ catId, pizzas }) => (
+    <ProductsSection
+      key={catId}
+      titleID={catId}
+      sectionRef={createSectionRef(catId)}
+      products={
+        <>
+          {pizzas.map((pizza) => (
+            <ProductCard key={pizza.id === 0 ? "halves" : pizza.id} pizza={pizza} />
+          ))}
+        </>
+      }
+    />
+  ));
 
   return (
     <>

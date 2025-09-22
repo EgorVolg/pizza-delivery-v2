@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
-import { useDispatch } from "react-redux"; 
-import type { PizzaAPI } from "../../../entities/pizza/model/pizza.types";
+import { useDispatch } from "react-redux";
+import type { PizzaCard } from "../../../entities/pizza/model/pizza.types";
 import { setActiveId } from "../../../entities/topbar/categories/model/activeCategories.slice";
 
 type Props = {
-  data: PizzaAPI[] | undefined;
+  data: PizzaCard[] | undefined;
   sectionRefs: React.RefObject<Record<number, HTMLElement | null>>;
 };
 
