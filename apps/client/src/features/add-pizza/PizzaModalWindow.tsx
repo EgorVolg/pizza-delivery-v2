@@ -14,6 +14,25 @@ const mockToppings = [
   { id: 4, name: "Pepperoni", image: mockImage, price: 100 },
   { id: 5, name: "Bacon", image: mockImage, price: 40 },
   { id: 6, name: "Olives", image: mockImage, price: 35 },
+  { id: 7, name: "Spinach", image: mockImage, price: 20 },
+  { id: 8, name: "Pineapple", image: mockImage, price: 50 },
+  { id: 9, name: "Jalapeno", image: mockImage, price: 30 },
+  { id: 10, name: "Onion", image: mockImage, price: 20 },
+  { id: 11, name: "Olives", image: mockImage, price: 35 },
+  { id: 12, name: "Spinach", image: mockImage, price: 20 },
+  { id: 13, name: "Pineapple", image: mockImage, price: 50 },
+  { id: 14, name: "Jalapeno", image: mockImage, price: 30 },
+  { id: 15, name: "Onion", image: mockImage, price: 20 },
+  { id: 16, name: "Olives", image: mockImage, price: 35 },
+  { id: 17, name: "Spinach", image: mockImage, price: 20 },
+  { id: 18, name: "Pineapple", image: mockImage, price: 50 },
+  { id: 19, name: "Jalapeno", image: mockImage, price: 30 },
+  { id: 20, name: "Onion", image: mockImage, price: 20 },
+  { id: 21, name: "Olives", image: mockImage, price: 35 },
+  { id: 22, name: "Spinach", image: mockImage, price: 20 },
+  { id: 23, name: "Pineapple", image: mockImage, price: 50 },
+  { id: 24, name: "Jalapeno", image: mockImage, price: 30 },
+  { id: 25, name: "Onion", image: mockImage, price: 20 },
 ];
 
 export const PizzaModalWindow = () => {
@@ -46,8 +65,6 @@ export const PizzaModalWindow = () => {
     }
   };
 
-  console.log(choosePizzaParams);
-
   const calcPrice = () => {
     let price = pizza.price;
 
@@ -61,6 +78,7 @@ export const PizzaModalWindow = () => {
   return (
     <>
       <div className={styles.modal}>
+        
         <div className={styles.imageContainer}>
           <img src={pizza.imageUrl} alt="" />
         </div>
