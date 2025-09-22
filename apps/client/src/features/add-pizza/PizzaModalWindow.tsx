@@ -8,9 +8,9 @@ import { useGetPizzaToppingsQuery } from "../../entities/pizza/model/pizzatoppin
 
 export const PizzaModalWindow = () => {
   const { data: toppings } = useGetPizzaToppingsQuery();
-  if (!toppings) return null;
 
   const [activeTopping, setActiveTopping] = useState([] as number[]);
+
   const dispatch = useDispatch();
   const selector = useSelector((state: any) => state.openClose);
 
@@ -48,9 +48,13 @@ export const PizzaModalWindow = () => {
     }
   };
 
+  if (!toppings) return null;
   const calcPrice = () => {
     const basePrice = pizza.price;
-    const toppingsPrice = activeTopping.reduce((sum, index) => sum + toppings[index].price, 0);
+    const toppingsPrice = activeTopping.reduce(
+      (sum, index) => sum + toppings[index].price,
+      0
+    );
     return basePrice + toppingsPrice;
   };
 
