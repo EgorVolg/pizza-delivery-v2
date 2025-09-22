@@ -8,12 +8,14 @@ import { activeCategorySlice } from "../entities/topbar/categories/model/activeC
 import { closeOpenCartSlice } from "../widgets/Cart/model/closeOpenCart.slice";
 import { filterParamsSlice } from "../widgets/Filters/model/filterParams.slice";
 import { closeOpenPizzaModal } from "../features/add-pizza/closeOpenPizzaModal.slice";
+import { pizzaToppingsApi } from "../entities/pizza/model/pizzatoppings.api";
 
 export const rootReducer = combineReducers({
   //api reducers
   [pizzasApi.reducerPath]: pizzasApi.reducer,
   [categoriesApi.reducerPath]: categoriesApi.reducer,
   [ingredientsApi.reducerPath]: ingredientsApi.reducer,
+  [pizzaToppingsApi.reducerPath]: pizzaToppingsApi.reducer,
 
   // client reducers
   filterParams: filterParamsSlice.reducer,

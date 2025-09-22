@@ -3,39 +3,13 @@ import styles from "./PizzaModalWindow.module.css";
 import { useProcessedPizzas } from "../homepage/model/useProcessedPizzas";
 import Button from "../../shared/ui/Button/Button";
 import type { PizzaAPI } from "../../entities/pizza/model/pizza.types";
-import { useState } from "react";
-
-import mockImage from "../../shared/assets/bacon.png";
-
-const mockToppings = [
-  { id: 1, name: "Cheese", image: mockImage, price: 30 },
-  { id: 2, name: "Mushroom", image: mockImage, price: 20 },
-  { id: 3, name: "Tomato", image: mockImage, price: 50 },
-  { id: 4, name: "Pepperoni", image: mockImage, price: 100 },
-  { id: 5, name: "Bacon", image: mockImage, price: 40 },
-  { id: 6, name: "Olives", image: mockImage, price: 35 },
-  { id: 7, name: "Spinach", image: mockImage, price: 20 },
-  { id: 8, name: "Pineapple", image: mockImage, price: 50 },
-  { id: 9, name: "Jalapeno", image: mockImage, price: 30 },
-  { id: 10, name: "Onion", image: mockImage, price: 20 },
-  { id: 11, name: "Olives", image: mockImage, price: 35 },
-  { id: 12, name: "Spinach", image: mockImage, price: 20 },
-  { id: 13, name: "Pineapple", image: mockImage, price: 50 },
-  { id: 14, name: "Jalapeno", image: mockImage, price: 30 },
-  { id: 15, name: "Onion", image: mockImage, price: 20 },
-  { id: 16, name: "Olives", image: mockImage, price: 35 },
-  { id: 17, name: "Spinach", image: mockImage, price: 20 },
-  { id: 18, name: "Pineapple", image: mockImage, price: 50 },
-  { id: 19, name: "Jalapeno", image: mockImage, price: 30 },
-  { id: 20, name: "Onion", image: mockImage, price: 20 },
-  { id: 21, name: "Olives", image: mockImage, price: 35 },
-  { id: 22, name: "Spinach", image: mockImage, price: 20 },
-  { id: 23, name: "Pineapple", image: mockImage, price: 50 },
-  { id: 24, name: "Jalapeno", image: mockImage, price: 30 },
-  { id: 25, name: "Onion", image: mockImage, price: 20 },
-];
+import { useState, useEffect } from "react";
+import { useGetPizzaToppingsQuery } from "../../entities/pizza/model/pizzatoppings.api";
 
 export const PizzaModalWindow = () => {
+  const { data: toppings } = useGetPizzaToppingsQuery();
+  if (!toppings) return null;
+
   const [activeTopping, setActiveTopping] = useState([] as number[]);
   const dispatch = useDispatch();
   const selector = useSelector((state: any) => state.openClose);
@@ -46,12 +20,21 @@ export const PizzaModalWindow = () => {
     | PizzaAPI
     | undefined;
 
-  if (!pizza) return null;
-
   const [choosePizzaParams, setChoosePizzaParams] = useState({
-    type: pizza.type[0],
-    size: pizza.size[0],
+    type: 1,
+    size: 20,
   });
+
+  useEffect(() => {
+    if (pizza) {
+      setChoosePizzaParams({
+        type: pizza.type[0],
+        size: pizza.size[0],
+      });
+    }
+  }, [pizza]);
+
+  if (!pizza) return null;
 
   const handleOpen = () => {
     dispatch({ type: "pizzaModal/setOpenClose", payload: { open: false } });
@@ -66,19 +49,14 @@ export const PizzaModalWindow = () => {
   };
 
   const calcPrice = () => {
-    let price = pizza.price;
-
-    activeTopping.forEach((id) => {
-      price += mockToppings.find((t) => t.id === id + 1)?.price || 0;
-    });
-
-    return price;
+    const basePrice = pizza.price;
+    const toppingsPrice = activeTopping.reduce((sum, index) => sum + toppings[index].price, 0);
+    return basePrice + toppingsPrice;
   };
 
   return (
     <>
       <div className={styles.modal}>
-        
         <div className={styles.imageContainer}>
           <img src={pizza.imageUrl} alt="" />
         </div>
@@ -129,7 +107,7 @@ export const PizzaModalWindow = () => {
             <h3 className={styles.toppingsTitle}>Добавить по вкусу</h3>
 
             <ul className={styles.toppings}>
-              {mockToppings.map((topping, index) => (
+              {toppings.map((topping, index) => (
                 <li
                   key={index}
                   className={`${styles.topping} ${

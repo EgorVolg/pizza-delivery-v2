@@ -26,3 +26,10 @@ export interface PizzaCard {
   rating: number;
   type: string[];
 }
+
+export interface PizzaToppings {
+  id: number;
+  name: string;
+  image: string;
+  price: number;
+}
