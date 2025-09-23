@@ -3,6 +3,8 @@ import categoryRoutes from "../routes/categories.routes";
 import pizzasRoutes from "../routes/pizzas.routes";
 import ingredientRoutes from "../routes/ingredients.routes";
 import pizzaToppingsRoutes from "../routes/pizzatoppings.routes";
+import cartRoutes from "../routes/cart.routes";
+
 import "dotenv/config";
 import cors from "cors";
 import helmet from "helmet";
@@ -20,6 +22,7 @@ app.use("/api", pizzasRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", ingredientRoutes);
 app.use("/api", pizzaToppingsRoutes);
+app.use("/api", cartRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server listening on port ${PORT}`);
