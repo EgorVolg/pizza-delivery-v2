@@ -8,10 +8,14 @@ import type {
 } from "../../entities/pizza/model/pizza.types";
 import { useState, useEffect } from "react";
 import { useGetPizzaToppingsQuery } from "../../entities/pizza/model/pizzatoppings.api";
-import { s } from "framer-motion/client";
+import {
+  useAddCartItemMutation,
+  useGetCartItemsQuery,
+} from "../../entities/cart/model/cart.api";
 
 export const PizzaModalWindow = () => {
   const { data: toppings } = useGetPizzaToppingsQuery();
+  const [addCartItem] = useAddCartItemMutation();
 
   const [activeTopping, setActiveTopping] = useState([] as PizzaTopping[]);
 
@@ -64,14 +68,19 @@ export const PizzaModalWindow = () => {
 
   const selectedToppings = activeTopping.map((t) => t.name).join(", ");
 
-  const pizzaParams = {
-    name: pizza.name,
-    imageUrl: pizza.imageUrl,
-    price: calcPrice(),
-    ingredients: pizza.ingredients,
-    toppings: selectedToppings,
-    type: choosePizzaParams.type,
-    size: choosePizzaParams.size,
+  const handleAddToCart = () => {
+    const pizzaParams = {
+      name: pizza.name,
+      imageUrl: pizza.imageUrl,
+      price: calcPrice(),
+      ingredients: pizza.ingredients,
+      toppings: selectedToppings,
+      type: choosePizzaParams.type,
+      size: choosePizzaParams.size,
+    };
+
+    addCartItem(pizzaParams);
+    handleOpen();
   };
 
   return (
@@ -169,7 +178,7 @@ export const PizzaModalWindow = () => {
         </section>
         <div />
         <div className={styles.bottom}>
-          <Button className={styles.bottomBtn}>
+          <Button className={styles.bottomBtn} onClick={handleAddToCart}>
             В корзину за {calcPrice()} ₽
           </Button>
         </div>

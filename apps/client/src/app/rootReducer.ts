@@ -2,6 +2,7 @@ import { combineReducers } from "@reduxjs/toolkit";
 import { pizzasApi } from "../entities/pizza/model/pizza.api";
 import { categoriesApi } from "../entities/topbar/categories/model/categories.api";
 import { ingredientsApi } from "../entities/ingredient/model/ingredient.api";
+import { cartApi } from "../entities/cart/model/cart.api";
 
 import { sortParamsSlice } from "../entities/topbar/sort-popup/model/sortParams.slice";
 import { activeCategorySlice } from "../entities/topbar/categories/model/activeCategories.slice";
@@ -16,6 +17,7 @@ export const rootReducer = combineReducers({
   [categoriesApi.reducerPath]: categoriesApi.reducer,
   [ingredientsApi.reducerPath]: ingredientsApi.reducer,
   [pizzaToppingsApi.reducerPath]: pizzaToppingsApi.reducer,
+  [cartApi.reducerPath]: cartApi.reducer,
 
   // client reducers
   filterParams: filterParamsSlice.reducer,
