@@ -8,7 +8,7 @@ const Xbtn = ({
   className?: string;
 }) => {
   return (
-    <button className={`${styles.xbtn} ${className}`} onClick={onClick}>
+    <button className={`${styles.Xbtn} ${className}`} onClick={onClick}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="30"

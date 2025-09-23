@@ -3,7 +3,7 @@ import styles from "./ProductCard.module.css";
 import type { PizzaCard } from "../../pizza/model/pizza.types";
 import Button from "../../../shared/ui/Button/Button";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux"; 
+import { useDispatch } from "react-redux";
 
 export const ProductCard = ({ pizza }: { pizza: PizzaCard }) => {
   const [pizzaQuantity, setPizzaQuantity] = useState(0);
@@ -12,6 +12,7 @@ export const ProductCard = ({ pizza }: { pizza: PizzaCard }) => {
 
   const handleAddToCart = () => {
     setPizzaQuantity(pizzaQuantity + 1);
+
     dispatch({
       type: "pizzaModal/setOpenClose",
       payload: { open: true, id: pizza.id },
@@ -44,7 +45,7 @@ export const ProductCard = ({ pizza }: { pizza: PizzaCard }) => {
               </Button>
               <span>{pizzaQuantity}</span>
               <Button
-                onClick={() => setPizzaQuantity(pizzaQuantity + 1)}
+                onClick={handleAddToCart}
                 className={styles.counterButton}
               >
                 +
