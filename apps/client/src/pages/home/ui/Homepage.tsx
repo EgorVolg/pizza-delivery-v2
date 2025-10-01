@@ -3,8 +3,7 @@ import styles from "./Homepage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../../app/store";
 import Container from "../../../shared/ui/Container/Container";
-import TopBar from "../../../widgets/Topbar/TopBar";
-import { CartDrawer } from "../../../widgets/Cart/ui/CartDrawer";
+import TopBar from "../../../widgets/Topbar/TopBar"; 
 import { Filters } from "../../../widgets/Filters/Filters";
 
 import { ProductsList } from "../../../widgets/ProductsList/ProductsList";
@@ -14,6 +13,7 @@ import { useGetPizzasQuery } from "../../../entities/pizza/model/pizza.api";
 import ProductCardSkeleton from "../../../entities/homepage/ProductCard/ProductCard.Skeleton";
 import { useFilterUrlSync } from "../../../shared/hooks/useFilterUrlSync";
 import { PizzaModalWindow } from "../../../features/add-to-cart/PizzaModalWindow";
+import { CartDrawer } from "../../../widgets/Cart/ui/CartDrawer";
 
 export function Homepage() {
   const { isLoading } = useGetPizzasQuery();
@@ -51,7 +51,7 @@ export function Homepage() {
         {isCartDrawerOpen && (
           <>
             <Overlay onClick={handleCloseCart} />
-            <CartDrawer handleCloseCartDrawer={handleCloseCart} />
+            <CartDrawer handleCloseCart={handleCloseCart}  />
           </>
         )}
       </AnimatePresence>
