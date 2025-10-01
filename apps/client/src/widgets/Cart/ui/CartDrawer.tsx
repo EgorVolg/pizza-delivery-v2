@@ -10,8 +10,8 @@ export const CartDrawer = ({
   handleCloseCartDrawer: () => void;
 }) => {
   const { data: cartData, isLoading } = useGetCartItemsQuery();
-  if (cartData === undefined) return null;
-  
+  if (cartData === undefined) return null; 
+
   const totalPrice = cartData.reduce((acc, item) => acc + item.price, 0);
 
   const panelVariants = {

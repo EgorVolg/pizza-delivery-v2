@@ -1,9 +1,15 @@
-import React from "react";
 import styles from "./CartItem.module.css";
 import { type CartItem as CartItemType } from "../../../entities/cart/model/cart.types";
 import Button from "../../../shared/ui/Button/Button";
+import { useDeleteCartItemMutation } from "../../../entities/cart/model/cart.api";
 
 export const CartItem = ({ item }: { item: CartItemType }) => {
+  const [deleteCartItem] = useDeleteCartItemMutation();
+
+  const deleteItem = (id: number) => {
+    deleteCartItem(id);
+  };
+
   return (
     <li className={styles.cartItem}>
       <div className={styles.cartItem__image_container}>
@@ -25,7 +31,12 @@ export const CartItem = ({ item }: { item: CartItemType }) => {
 
         <div className={styles.cartItem__price_container}>
           <div className={styles.cartItem__counter}>
-            <Button className={styles.counter__Btn}>-</Button>
+            <Button
+              className={styles.counter__Btn}
+              onClick={() => deleteItem(item.id)}
+            >
+              -
+            </Button>
             <span>2</span>
             <Button className={styles.counter__Btn}>+</Button>
           </div>

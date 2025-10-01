@@ -1,5 +1,5 @@
 import { baseQuery } from "../../../shared/api/baseUrl";
-import { createApi } from "@reduxjs/toolkit/query/react"; 
+import { createApi } from "@reduxjs/toolkit/query/react";
 import type { CartItem } from "./cart.types";
 
 export const cartApi = createApi({
@@ -20,7 +20,15 @@ export const cartApi = createApi({
       }),
       invalidatesTags: ["Cart"],
     }),
+
+    deleteCartItem: builder.mutation<{ message: string }, number>({
+      query: (id: number) => ({
+        url: `/cart/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Cart"],
+    }),
   }),
 });
 
-export const { useGetCartItemsQuery, useAddCartItemMutation } = cartApi;
+export const { useGetCartItemsQuery, useAddCartItemMutation, useDeleteCartItemMutation } = cartApi;
