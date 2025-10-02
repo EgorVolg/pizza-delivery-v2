@@ -24,7 +24,26 @@ export const getCartItems = async (_req: Request, res: Response) => {
 
 export const addCartItem = async (req: Request, res: Response) => {
   try {
-    const newItem = await Cart.create(req.body);
+    const existingItem = await Cart.findOne({
+      where: {
+        name: req.body.name,
+        toppings: req.body.toppings,
+        type: req.body.type,
+        size: req.body.size
+      }
+    });
+
+    if (existingItem) {
+      existingItem.quantity += req.body.quantity || 1;
+      await existingItem.save();
+      res.json(existingItem);
+      return;
+    }
+
+    const newItem = await Cart.create({
+      ...req.body,
+      quantity: req.body.quantity || 1
+    });
     res.status(201).json(newItem);
   } catch (err) {
     console.error("Ошибка при добавлении в корзину:", err);

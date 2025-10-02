@@ -6,8 +6,8 @@ export class Cart extends Model {
   declare name: string;
   declare imageUrl: string;
   declare price: number;
-  declare ingredients: string | null; // у тебя хранится строка
-  declare toppings: string | null; // тоже строка
+  declare ingredients: string | null;
+  declare toppings: string | null;
   declare type: string;
   declare size: number;
   declare quantity: number;
@@ -68,6 +68,6 @@ Cart.init(
   {
     sequelize,
     tableName: "cart",
-    timestamps: true, // createdAt + updatedAt будут автоматически
+    timestamps: true,
   }
 );
