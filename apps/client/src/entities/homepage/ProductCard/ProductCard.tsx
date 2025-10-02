@@ -1,23 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./ProductCard.module.css";
 import type { PizzaCard } from "../../pizza/model/pizza.types";
 import Button from "../../../shared/ui/Button/Button";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useGetCartItemsQuery } from "../../cart/model/cart.api";
 
 export const ProductCard = ({ pizza }: { pizza: PizzaCard }) => {
-  const [pizzaQuantity, setPizzaQuantity] = useState(0);
-
   const dispatch = useDispatch();
+  const { data: cartData } = useGetCartItemsQuery();
+  if (cartData === undefined) return null;
+
+  const [productQuantity, setProductQuantity] = useState(0);
+  useEffect(() => {
+    const cartItem = cartData.data.filter((item) => item.name === pizza.name);
+    const cartItemQuantity = cartItem
+      .map((item) => item.quantity)
+      .reduce((a, b) => a + b, 0);
+
+    return setProductQuantity(cartItemQuantity);
+  }, [cartData]);
 
   const handleAddToCart = () => {
-    setPizzaQuantity(pizzaQuantity + 1);
+    setProductQuantity(productQuantity + 1);
 
     dispatch({
       type: "pizzaModal/setOpenClose",
       payload: { open: true, id: pizza.id },
     });
   };
+
+  const handleRemoveFromCart = () => null; // To be implemented
 
   return (
     <article key={pizza.id} className={styles.card}>
@@ -35,15 +48,15 @@ export const ProductCard = ({ pizza }: { pizza: PizzaCard }) => {
           <span className={styles.price}>
             <b> от</b> {pizza.price} ₽
           </span>
-          {pizzaQuantity > 0 ? (
+          {productQuantity > 0 ? (
             <div className={styles.quantityControls}>
               <Button
-                onClick={() => setPizzaQuantity(pizzaQuantity - 1)}
+                onClick={handleRemoveFromCart}
                 className={styles.counterButton}
               >
                 -
               </Button>
-              <span>{pizzaQuantity}</span>
+              <span>{productQuantity}</span>
               <Button
                 onClick={handleAddToCart}
                 className={styles.counterButton}

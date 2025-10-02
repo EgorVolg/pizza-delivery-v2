@@ -3,18 +3,18 @@
   width: 100%;
   gap: 24px;
   padding: 20px 26px;
-  height: 139px;
+  min-height: 139px;
   background-color: var(--color-bg-primary);
 }
 
-.cartItem__image_container { 
+.cartItem__image_container {
   min-width: 65px;
   min-height: 65px;
 }
 
 .cartItem__image {
   width: 100%;
-  height: 100%;
+  max-height: 100px;
   object-fit: contain;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .cartItem__description {
-  display: flex;
+  display: flexbox;
   color: #a1a1a1;
 
   font-family: Nunito;

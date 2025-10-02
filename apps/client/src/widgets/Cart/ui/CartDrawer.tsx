@@ -2,8 +2,9 @@ import { motion } from "framer-motion";
 import styles from "./CartDrawer.module.css";
 import Button from "../../../shared/ui/Button/Button";
 import { useGetCartItemsQuery } from "../../../entities/cart/model/cart.api";
-import { CartItem } from "./CartItem";
 import { EmptyCart } from "./EmptyCart";
+import type { TCartItem } from "../../../entities/cart/model/cart.types";
+import { CartItem } from "./CartItem";
 
 export const CartDrawer = ({
   handleCloseCart,
@@ -12,8 +13,6 @@ export const CartDrawer = ({
 }) => {
   const { data: cartData, isLoading } = useGetCartItemsQuery();
   if (cartData === undefined) return null;
-
-  const totalPrice = cartData.reduce((acc, item) => acc + item.price, 0);
 
   const panelVariants = {
     hidden: { x: "100%" },
@@ -32,6 +31,7 @@ export const CartDrawer = ({
     visible: { opacity: 1, transition: { delay: 0.15 } },
     exit: { opacity: 0, transition: { duration: 0.1 } },
   };
+console.log(cartData, 'cartData');
 
   return (
     <motion.div
@@ -41,10 +41,10 @@ export const CartDrawer = ({
       animate="visible"
       exit="exit"
     >
-      {cartData.length > 0 && (
+      {cartData.quantity > 0 && (
         <div className={styles.cartDrawerHeader}>
           <p>
-            В корзине <b>{cartData?.length} товаров</b>
+            В корзине <b>{cartData.quantity} товаров</b>
           </p>
 
           <button onClick={handleCloseCart} className={styles.closeBtn}>
@@ -72,28 +72,28 @@ export const CartDrawer = ({
         exit="exit"
         className={styles.cartDrawerContent}
       >
-        {cartData.length === 0 && !isLoading ? (
+        {cartData.quantity === 0 && !isLoading ? (
           <EmptyCart handleCloseCart={handleCloseCart} />
         ) : (
           <ul className={styles.cartList}>
-            {cartData.map((item) => (
+            {cartData.data.map((item: TCartItem) => (
               <CartItem key={item.id} item={item} />
             ))}
           </ul>
         )}
 
-        {cartData.length > 0 && (
+        {cartData.quantity > 0 && (
           <footer className={styles.cartFooter}>
             <div className={styles.cartFooter__info}>
               <div className={styles.info__string}>
                 <span>Итого:</span>
                 <div className={styles.dashedline} />
-                <b>{totalPrice} ₽</b>
+                <b>{cartData.totalPrice} ₽</b>
               </div>
               <div className={styles.info__string}>
                 <span>Налог 5%:</span>
                 <div className={styles.dashedline} />
-                <b>{Math.round(totalPrice * 0.05)} ₽</b>
+                <b>{Math.round(cartData.totalPrice * 0.05)} ₽</b>
               </div>
             </div>
             <Button className={styles.cartFooter__button}>

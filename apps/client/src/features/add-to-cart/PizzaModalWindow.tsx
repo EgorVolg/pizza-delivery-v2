@@ -8,10 +8,7 @@ import type {
 } from "../../entities/pizza/model/pizza.types";
 import { useState, useEffect } from "react";
 import { useGetPizzaToppingsQuery } from "../../entities/pizza/model/pizzatoppings.api";
-import {
-  useAddCartItemMutation,
-  useGetCartItemsQuery,
-} from "../../entities/cart/model/cart.api";
+import { useAddCartItemMutation } from "../../entities/cart/model/cart.api";
 
 export const PizzaModalWindow = () => {
   const { data: toppings } = useGetPizzaToppingsQuery();
@@ -77,7 +74,10 @@ export const PizzaModalWindow = () => {
       toppings: selectedToppings,
       type: choosePizzaParams.type,
       size: choosePizzaParams.size,
+      quantity: 1,
     };
+
+    console.log([pizzaParams], "pizzaParams");
 
     addCartItem(pizzaParams);
     handleOpen();

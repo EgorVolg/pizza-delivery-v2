@@ -49,13 +49,13 @@
 }
 
 .cartList {
-  overflow-y: auto;
-  scroll-behavior: smooth;
-
-  gap: 10px;
-  max-height: 90vh;
   display: flex;
   flex-direction: column;
+  gap: 10px;
+
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  max-height: calc(100vh - 250px);
 }
 
 .cartFooter {

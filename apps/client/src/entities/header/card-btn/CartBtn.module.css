@@ -1,0 +1,61 @@
+.active {
+  font-family: Nunito;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  gap: 13px;
+  transition: all 0.5s ease;
+
+  width: auto;
+  max-width: 150px;
+
+  background-color: var(--color-brand);
+  color: var(--color-bg-primary);
+
+  svg {
+    path {
+      stroke: var(--color-bg-primary);
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: #fff3e5 !important;
+      color: var(--color-brand) !important;
+      border: 1px solid #fff3e5 !important;
+
+      .line {
+        background-color: var(--color-brand) !important;
+      }
+
+      svg {
+        path {
+          stroke: var(--color-brand) !important;
+        }
+      }
+    }
+  }
+}
+
+.line {
+  width: 1px;
+  min-width: 1px;
+  height: 100%;
+  background-color: var(--color-bg-secondary);
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: var(--color-bg-secondary);
+    }
+  }
+}
+
+.icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
