@@ -1,19 +1,19 @@
 import { baseQuery } from "../../../shared/api/baseUrl";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import type { CartItem } from "./cart.types";
+import type { TCartItem, CartResponse } from "./cart.types";
 
 export const cartApi = createApi({
   reducerPath: "cartApi",
   baseQuery,
   tagTypes: ["Cart"],
   endpoints: (builder) => ({
-    getCartItems: builder.query<CartItem[], void>({
+    getCartItems: builder.query<CartResponse, void>({
       query: () => "/cart",
       providesTags: ["Cart"],
     }),
 
-    addCartItem: builder.mutation<CartItem, CartItem>({
-      query: (cartItem: CartItem) => ({
+    addCartItem: builder.mutation<TCartItem, TCartItem>({
+      query: (cartItem: TCartItem) => ({
         url: "/cart",
         method: "POST",
         body: cartItem,
@@ -28,7 +28,21 @@ export const cartApi = createApi({
       }),
       invalidatesTags: ["Cart"],
     }),
+
+    updateCartItem: builder.mutation<TCartItem, TCartItem>({
+      query: (cartItem: TCartItem) => ({
+        url: `/cart/${cartItem.id}`,
+        method: "PUT",
+        body: cartItem,
+      }),
+      invalidatesTags: ["Cart"],
+    }),
   }),
 });
 
-export const { useGetCartItemsQuery, useAddCartItemMutation, useDeleteCartItemMutation } = cartApi;
+export const {
+  useGetCartItemsQuery,
+  useAddCartItemMutation,
+  useDeleteCartItemMutation,
+  useUpdateCartItemMutation,
+} = cartApi;
