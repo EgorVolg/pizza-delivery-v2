@@ -4,11 +4,11 @@ export const closeOpenCartSlice = createSlice({
   name: "closeOpenCart",
   initialState: false,
   reducers: {
-    setOpenCart: (state, action: PayloadAction<boolean>) => {
+    setCloseOpenCart: (state, action: PayloadAction<boolean>) => {
       return action.payload;
     },
   },
 });
 
-export const { setOpenCart } = closeOpenCartSlice.actions;
+export const { setCloseOpenCart } = closeOpenCartSlice.actions;
 export default closeOpenCartSlice.reducer;

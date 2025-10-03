@@ -21,7 +21,7 @@ export const cartApi = createApi({
       invalidatesTags: ["Cart"],
     }),
 
-    deleteCartItem: builder.mutation<{ message: string }, number>({
+    deleteCartItem: builder.mutation<string, number>({
       query: (id: number) => ({
         url: `/cart/${id}`,
         method: "DELETE",
@@ -43,6 +43,6 @@ export const cartApi = createApi({
 export const {
   useGetCartItemsQuery,
   useAddCartItemMutation,
-  useDeleteCartItemMutation,
+  useDeleteCartItemMutation, 
   useUpdateCartItemMutation,
 } = cartApi;

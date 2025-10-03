@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const closeOpenPizzaModal = createSlice({
+export const closeOpenPizzaModalSlice = createSlice({
   name: "pizzaModal",
   initialState: {
     id: 0,
@@ -8,11 +8,11 @@ export const closeOpenPizzaModal = createSlice({
   },
 
   reducers: {
-    setOpenClose: (state, action) => {
+    setOpenClosePizzaModal: (state, action) => {
       state.id = action.payload.id;
       state.open = action.payload.open;
     },
   },
 });
 
-export const { setOpenClose } = closeOpenPizzaModal.actions;
+export const { setOpenClosePizzaModal } = closeOpenPizzaModalSlice.actions;

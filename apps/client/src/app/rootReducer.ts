@@ -8,7 +8,7 @@ import { sortParamsSlice } from "../entities/topbar/sort-popup/model/sortParams.
 import { activeCategorySlice } from "../entities/topbar/categories/model/activeCategories.slice";
 import { closeOpenCartSlice } from "../widgets/Cart/model/closeOpenCart.slice";
 import { filterParamsSlice } from "../widgets/Filters/model/filterParams.slice";
-import { closeOpenPizzaModal } from "../features/add-to-cart/closeOpenPizzaModal.slice";
+import { closeOpenPizzaModalSlice } from "../features/add-to-cart/closeOpenPizzaModal.slice";
 import { pizzaToppingsApi } from "../entities/pizza/model/pizzatoppings.api";
 
 export const rootReducer = combineReducers({
@@ -23,6 +23,6 @@ export const rootReducer = combineReducers({
   filterParams: filterParamsSlice.reducer,
   sortParams: sortParamsSlice.reducer,
   closeOpenCart: closeOpenCartSlice.reducer,
-  setActiveId: activeCategorySlice.reducer,
-  openClose: closeOpenPizzaModal.reducer,
+  activeId: activeCategorySlice.reducer,
+  pizzaModal: closeOpenPizzaModalSlice.reducer,
 });
