@@ -29,8 +29,8 @@ export const addCartItem = async (req: Request, res: Response) => {
         name: req.body.name,
         toppings: req.body.toppings,
         type: req.body.type,
-        size: req.body.size
-      }
+        size: req.body.size,
+      },
     });
 
     if (existingItem) {
@@ -42,7 +42,7 @@ export const addCartItem = async (req: Request, res: Response) => {
 
     const newItem = await Cart.create({
       ...req.body,
-      quantity: req.body.quantity || 1
+      quantity: req.body.quantity || 1,
     });
     res.status(201).json(newItem);
   } catch (err) {
