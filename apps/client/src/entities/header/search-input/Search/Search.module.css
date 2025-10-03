@@ -10,7 +10,7 @@
   border-radius: 10px;
   border: 1px solid #c0c0c0;
   background: var(--color-bg-primary);
-  z-index: 50;
+  z-index: 55;
 
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -58,7 +58,11 @@
 
       input {
         opacity: 1;
-        z-index: 50;
+        z-index: 52;
+      }
+
+      .input_icon {
+        z-index: 56;
       }
     }
   }
