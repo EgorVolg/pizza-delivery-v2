@@ -3,7 +3,7 @@ import styles from "./Homepage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../../app/store";
 import Container from "../../../shared/ui/Container/Container";
-import TopBar from "../../../widgets/Topbar/TopBar";
+import {TopBar} from "../../../widgets/Topbar/TopBar";
 import { Filters } from "../../../widgets/Filters/Filters";
 
 import { ProductsList } from "../../../widgets/ProductsList/ProductsList";

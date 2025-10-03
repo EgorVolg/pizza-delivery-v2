@@ -1,21 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import styles from "./SortPopup.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { sortParams } from "../model/sortParams.slice";
 import Xbtn from "../../../../shared/ui/Xbtn/Xbtn";
-import { sortOptions } from "../model/sortParams.const"; 
+import { sortOptions } from "../model/sortParams.const";
 import type { RootState } from "../../../../app/store";
 
-export const SortPopUp = () => {
-  const [openSortPopup, setOpenSortPopup] = useState(false);
-
-  const toggleMenu = () => setOpenSortPopup(!openSortPopup);
-
+export const SortPopUp = ({
+  toggleSortPopup, 
+  openSortPopup,
+}: {
+  toggleSortPopup: () => void; 
+  openSortPopup: boolean;
+}) => {
   const sortDispatch = useDispatch();
   const selectedOption = useSelector((state: RootState) => state.sortParams);
 
   const selectOption = (option: string) => {
-    toggleMenu();
+    toggleSortPopup();
     sortDispatch(sortParams(option));
   };
 
@@ -29,28 +31,22 @@ export const SortPopUp = () => {
         popupRef.current &&
         !popupRef.current.contains(event.target as Node)
       ) {
-        toggleMenu();
+        toggleSortPopup();
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    window.addEventListener("scroll", toggleMenu, { passive: true });
+    window.addEventListener("scroll", toggleSortPopup, { passive: true });
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
-      window.removeEventListener("scroll", toggleMenu);
+      window.removeEventListener("scroll", toggleSortPopup);
     };
-  }, [openSortPopup, toggleMenu]);
+  }, [openSortPopup, toggleSortPopup]);
 
   return (
-    <div
-      className={styles.sort}
-      onClick={() => setOpenSortPopup(!openSortPopup)}
-    >
-      <button
-        className={styles.sort_button}
-        onClick={() => setOpenSortPopup(!openSortPopup)}
-      >
+    <div className={styles.sort} onClick={toggleSortPopup}>
+      <button className={styles.sort_button} onClick={toggleSortPopup}>
         <svg
           className={styles.sort_icon}
           width="14"
@@ -65,7 +61,7 @@ export const SortPopUp = () => {
           />
         </svg>
 
-        <div className={styles.sort_text}>
+        <div className={styles.sort_text} onClick={toggleSortPopup}>
           Сортировать по: <span>{selectedOption}</span>
         </div>
       </button>
@@ -76,10 +72,7 @@ export const SortPopUp = () => {
         }`}
         ref={popupRef}
       >
-        <Xbtn
-          onClick={() => setOpenSortPopup(false)}
-          className={styles.sort_comebackbtn}
-        />
+        <Xbtn onClick={toggleSortPopup} className={styles.sort_comebackbtn} />
 
         {sortOptions.map((option, index) => (
           <li

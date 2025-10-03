@@ -21,10 +21,6 @@
     scroll-snap-type: mandatory;
   }
 
-  @media (max-width: 768px) {
-    display: flex;
-  }
-
   @media (max-width: 480px) {
     background-color: transparent;
     flex-wrap: wrap;
