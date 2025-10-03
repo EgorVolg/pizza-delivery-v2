@@ -55,7 +55,7 @@
 
   overflow-y: auto;
   scroll-behavior: smooth;
-  max-height: calc(100vh - 250px);
+  height: 90vh;
 }
 
 .cartFooter {

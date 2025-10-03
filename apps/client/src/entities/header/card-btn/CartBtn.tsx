@@ -4,26 +4,26 @@ import styles from "./CartBtn.module.css";
 import { useGetCartItemsQuery } from "../../cart/model/cart.api";
 
 export const CartBtn = () => {
-  const openCartDriwerDispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  const { data: cartData, isLoading } = useGetCartItemsQuery();
+  const { data: cartData } = useGetCartItemsQuery();
   if (cartData === undefined) return null;
 
-  return ( 
+  return (
     <Button
       className={`${cartData.quantity > 0 && styles.active}`}
       onClick={() =>
-        openCartDriwerDispatch({
-          type: "closeOpenCart/setOpenCart",
+        dispatch({
+          type: "closeOpenCart/setCloseOpenCart",
           payload: true,
         })
       }
     >
       {cartData.quantity > 0 && (
-        <>
+        <div className={styles.info}>
           <span className={styles.quantity}>{cartData.totalPrice} ₽</span>
           <div className={styles.line} />
-        </>
+        </div>
       )}
       <div className={styles.icon}>
         <svg

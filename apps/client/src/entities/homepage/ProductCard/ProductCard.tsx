@@ -1,36 +1,37 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import styles from "./ProductCard.module.css";
-import type { PizzaCard } from "../../pizza/model/pizza.types";
+import type { Pizza } from "../../pizza/model/pizza.types";
 import Button from "../../../shared/ui/Button/Button";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useGetCartItemsQuery } from "../../cart/model/cart.api";
 
-export const ProductCard = ({ pizza }: { pizza: PizzaCard }) => {
+export const ProductCard = ({ pizza }: { pizza: Pizza }) => {
   const dispatch = useDispatch();
   const { data: cartData } = useGetCartItemsQuery();
+
   if (cartData === undefined) return null;
 
-  const [productQuantity, setProductQuantity] = useState(0);
-  useEffect(() => {
-    const cartItem = cartData.data.filter((item) => item.name === pizza.name);
-    const cartItemQuantity = cartItem
-      .map((item) => item.quantity)
-      .reduce((a, b) => a + b, 0);
+  const productQuantity = useMemo(() => {
+    if (!cartData?.data) return 0;
 
-    return setProductQuantity(cartItemQuantity);
-  }, [cartData]);
+    const cartItem = cartData.data.filter((item) => item.name === pizza.name);
+    return cartItem.map((item) => item.quantity).reduce((a, b) => a + b, 0);
+  }, [cartData, pizza.name]);
 
   const handleAddToCart = () => {
-    setProductQuantity(productQuantity + 1);
-
     dispatch({
-      type: "pizzaModal/setOpenClose",
+      type: "pizzaModal/setOpenClosePizzaModal",
       payload: { open: true, id: pizza.id },
     });
   };
 
-  const handleRemoveFromCart = () => null; // To be implemented
+  const handleRemoveFromCart = () => {
+    dispatch({
+      type: "cart/removeFromCart",
+      payload: true,
+    });
+  };
 
   return (
     <article key={pizza.id} className={styles.card}>

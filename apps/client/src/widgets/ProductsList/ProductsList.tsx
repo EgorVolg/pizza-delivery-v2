@@ -29,7 +29,7 @@ export const ProductsList = () => {
   }, [processedPizzas, filter, sort]);
 
   const grouped = groupByCategory(filteredAndSortedPizzas);
-  const activeId = useSelector((s: RootState) => s.setActiveId.activeId);
+  const activeId = useSelector((s: RootState) => s.activeId.activeId);
 
   const sectionRefs = useRef<Record<number, HTMLElement | null>>({});
   const { ignoreObserver } = useCategoryObserver({

@@ -9,15 +9,16 @@ import type {
 import { useState, useEffect } from "react";
 import { useGetPizzaToppingsQuery } from "../../entities/pizza/model/pizzatoppings.api";
 import { useAddCartItemMutation } from "../../entities/cart/model/cart.api";
+import type { RootState } from "../../app/store";
 
 export const PizzaModalWindow = () => {
+  const dispatch = useDispatch();
   const { data: toppings } = useGetPizzaToppingsQuery();
   const [addCartItem] = useAddCartItemMutation();
 
   const [activeTopping, setActiveTopping] = useState([] as PizzaTopping[]);
 
-  const dispatch = useDispatch();
-  const selector = useSelector((state: any) => state.openClose);
+  const selector = useSelector((s: RootState) => s.pizzaModal);
 
   const pizzas = useProcessedPizzas();
   const activeId = selector.id;
@@ -41,8 +42,8 @@ export const PizzaModalWindow = () => {
 
   if (!pizza) return null;
 
-  const handleOpen = () => {
-    dispatch({ type: "pizzaModal/setOpenClose", payload: { open: false } });
+  const handleClose = () => {
+    dispatch({ type: "pizzaModal/setOpenClosePizzaModal", payload: { open: false } });
   };
 
   const handleChooseTopping = (topping: PizzaTopping) => {
@@ -77,10 +78,8 @@ export const PizzaModalWindow = () => {
       quantity: 1,
     };
 
-    console.log([pizzaParams], "pizzaParams");
-
     addCartItem(pizzaParams);
-    handleOpen();
+    handleClose();
   };
 
   return (
@@ -183,7 +182,7 @@ export const PizzaModalWindow = () => {
           </Button>
         </div>
 
-        <button className={styles.close} onClick={handleOpen}>
+        <button className={styles.close} onClick={handleClose}>
           <svg
             width="30"
             height="30"

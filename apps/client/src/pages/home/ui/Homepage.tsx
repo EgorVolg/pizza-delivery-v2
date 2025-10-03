@@ -3,7 +3,7 @@ import styles from "./Homepage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../../app/store";
 import Container from "../../../shared/ui/Container/Container";
-import TopBar from "../../../widgets/Topbar/TopBar"; 
+import TopBar from "../../../widgets/Topbar/TopBar";
 import { Filters } from "../../../widgets/Filters/Filters";
 
 import { ProductsList } from "../../../widgets/ProductsList/ProductsList";
@@ -16,33 +16,32 @@ import { PizzaModalWindow } from "../../../features/add-to-cart/PizzaModalWindow
 import { CartDrawer } from "../../../widgets/Cart/ui/CartDrawer";
 
 export function Homepage() {
+  const dispatch = useDispatch();
   const { isLoading } = useGetPizzasQuery();
   const [isOpenFilters, setIsOpenFilters] = useState(false);
 
-  const dispatch = useDispatch();
-  const pizzaModelSelector = useSelector(
-    (state: RootState) => state.openClose.open
-  );
-
+  const pizzaModalSelector = useSelector((s: RootState) => s.pizzaModal);
   const isCartDrawerOpen = useSelector((s: RootState) => s.closeOpenCart);
+
   const handleCloseCart = () =>
-    dispatch({ type: "closeOpenCart/setOpenCart", payload: false });
+    dispatch({
+      type: "closeOpenCart/setCloseOpenCart",
+      payload: false,
+    });
 
   const toggleMenu = () => setIsOpenFilters((v) => !v);
 
-  useFilterUrlSync();
   // Sync filters with URL
+  useFilterUrlSync();
 
   return (
     <>
-      {pizzaModelSelector && (
-        <>
-          <Overlay>
-            <Container className={styles.modal_container}>
-              <PizzaModalWindow />
-            </Container>
-          </Overlay>
-        </>
+      {pizzaModalSelector.open && (
+        <Overlay>
+          <Container className={styles.modal_container}>
+            <PizzaModalWindow />
+          </Container>
+        </Overlay>
       )}
 
       <TopBar toggleMenu={toggleMenu} />
@@ -51,7 +50,7 @@ export function Homepage() {
         {isCartDrawerOpen && (
           <>
             <Overlay onClick={handleCloseCart} />
-            <CartDrawer handleCloseCart={handleCloseCart}  />
+            <CartDrawer handleCloseCart={handleCloseCart} />
           </>
         )}
       </AnimatePresence>

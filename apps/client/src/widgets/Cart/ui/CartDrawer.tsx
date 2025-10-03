@@ -31,7 +31,6 @@ export const CartDrawer = ({
     visible: { opacity: 1, transition: { delay: 0.15 } },
     exit: { opacity: 0, transition: { duration: 0.1 } },
   };
-console.log(cartData, 'cartData');
 
   return (
     <motion.div

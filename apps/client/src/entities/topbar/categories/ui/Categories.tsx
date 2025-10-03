@@ -6,11 +6,12 @@ import { CategoriesSkeleton } from "./Categories.Skeleton";
 import type { Category } from "../model/categories.types";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveId } from "../model/activeCategories.slice";
+import type { RootState } from "../../../../app/store";
 
 function CategoriesList() {
   const { data: categories, isLoading } = useGetCategoriesQuery();
   const selectedCategory = useSelector(
-    (state: any) => state.setActiveId.activeId
+    (state: RootState) => state.activeId.activeId
   );
   const selectCategoryId = useDispatch();
   const containerRef = useRef<HTMLDivElement>(null);

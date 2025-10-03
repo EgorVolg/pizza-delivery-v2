@@ -9,7 +9,7 @@
   transition: all 0.5s ease;
 
   width: auto;
-  max-width: 150px;
+  max-width: none;
 
   background-color: var(--color-brand);
   color: var(--color-bg-primary);
@@ -37,6 +37,17 @@
       }
     }
   }
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    padding: 10px 15px;
+  }
+}
+
+.info {
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .line {
@@ -58,4 +69,11 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
+}
+
+.quantity { 
+  @media (max-width: 375px) {
+    display: none;
+    
+  }
 }

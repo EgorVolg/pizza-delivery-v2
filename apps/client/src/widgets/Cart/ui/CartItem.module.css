@@ -2,8 +2,8 @@
   display: flex;
   width: 100%;
   gap: 24px;
-  padding: 20px 26px;
-  min-height: 139px;
+  padding: 20px 26px; 
+  max-height: max-content;
   background-color: var(--color-bg-primary);
 }
 

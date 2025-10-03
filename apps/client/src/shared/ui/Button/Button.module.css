@@ -15,7 +15,7 @@
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       background: #fff3e5;
-      border: none;
+      border: 1px solid #fff3e5;
       color: var(--color-brand);
     }
   }

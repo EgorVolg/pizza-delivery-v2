@@ -22,6 +22,13 @@
   }
 }
 
+.logo_image {
+  @media (max-width: 768px) {
+    min-width: 35px;
+    min-height: 35px;
+  }
+}
+
 .logo_title {
   font-size: var(--font-size-2xl) rem;
   line-height: 2rem;
@@ -48,6 +55,11 @@
   color: rgb(156, 163, 175);
   line-height: 0.75rem;
   text-wrap: nowrap;
+
+  @media (max-width: 768px) {
+    text-wrap: wrap;
+    text-align: right;
+  }
 
   @media (max-width: 520px) {
     font-size: 12px;

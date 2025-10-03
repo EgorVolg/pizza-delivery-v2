@@ -3,17 +3,16 @@ import styles from "./SortPopup.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { sortParams } from "../model/sortParams.slice";
 import Xbtn from "../../../../shared/ui/Xbtn/Xbtn";
-import { sortOptions } from "../model/sortParams.const";
+import { sortOptions } from "../model/sortParams.const"; 
+import type { RootState } from "../../../../app/store";
 
-function SortPopUp() {
+export const SortPopUp = () => {
   const [openSortPopup, setOpenSortPopup] = useState(false);
 
   const toggleMenu = () => setOpenSortPopup(!openSortPopup);
 
   const sortDispatch = useDispatch();
-  const selectedOption = useSelector(
-    (state: { sortParams: string }) => state.sortParams
-  );
+  const selectedOption = useSelector((state: RootState) => state.sortParams);
 
   const selectOption = (option: string) => {
     toggleMenu();
@@ -94,6 +93,4 @@ function SortPopUp() {
       </ul>
     </div>
   );
-}
-
-export default SortPopUp;
+};

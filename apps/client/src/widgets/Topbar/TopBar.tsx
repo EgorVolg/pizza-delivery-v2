@@ -1,7 +1,7 @@
 import styles from "./TopBar.module.css";
 import Container from "../../shared/ui/Container/Container";
 import CategoriesList from "../../entities/topbar/categories/ui/Categories";
-import SortPopUp from "../../entities/topbar/sort-popup/ui/SortPopup";
+import {SortPopUp} from "../../entities/topbar/sort-popup/ui/SortPopup";
 import { useGetCategoriesQuery } from "../../entities/topbar/categories/model/categories.api";
 
 const TopBar = ({ toggleMenu }: { toggleMenu: () => void }) => {
