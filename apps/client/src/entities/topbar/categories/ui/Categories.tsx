@@ -8,13 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setActiveId } from "../model/activeCategories.slice";
 import type { RootState } from "../../../../app/store";
 
-function CategoriesList({
-  showCategories,
-  isWide,
-}: {
-  showCategories: boolean;
-  isWide: boolean;
-}) {
+function CategoriesList() {
   const { data: categories, isLoading } = useGetCategoriesQuery();
   const selectedCategory = useSelector(
     (state: RootState) => state.activeId.activeId
@@ -78,22 +72,20 @@ function CategoriesList({
 
   return (
     <AnimatePresence initial={false}>
-      {(isWide || showCategories) && (
-        <motion.div
-          ref={containerRef}
-          className={`${styles.categories} ${styles.visible}`}
-          style={{
-            originY: 0,
-            ...(isLoading ? { backgroundColor: "#F5F5F5" } : {}),
-          }}
-          initial={{ opacity: 0, scaleY: 0 }}
-          animate={{ opacity: 1, scaleY: 1 }}
-          exit={{ opacity: 0, scaleY: 0 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-        >
-          {categoryElements}
-        </motion.div>
-      )}
+      <motion.div
+        ref={containerRef}
+        className={`${styles.categories} ${styles.visible}`}
+        style={{
+          originY: 0,
+          ...(isLoading ? { backgroundColor: "#F5F5F5" } : {}),
+        }}
+        initial={{ opacity: 0, scaleY: 0 }}
+        animate={{ opacity: 1, scaleY: 1 }}
+        exit={{ opacity: 0, scaleY: 0 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+      >
+        {categoryElements}
+      </motion.div>
     </AnimatePresence>
   );
 }

@@ -28,7 +28,7 @@ export const ProductCard = ({ pizza }: { pizza: Pizza }) => {
 
   const handleRemoveFromCart = () => {
     dispatch({
-      type: "cart/removeFromCart",
+      type: "closeOpenCart/setCloseOpenCart",
       payload: true,
     });
   };

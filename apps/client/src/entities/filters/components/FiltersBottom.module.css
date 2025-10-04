@@ -21,4 +21,8 @@
   color: var(--color-bg-primary);
   background-color: var(--color-brand);
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    border: 1px solid var(--color-brand) !important; 
+  }
 }

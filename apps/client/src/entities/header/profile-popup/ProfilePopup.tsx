@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 
 export const ProfilePopup = ({
   toggleMenu,
-  isOpen,
+  isOpen, 
 }: {
   toggleMenu: () => void;
-  isOpen: boolean;
+  isOpen: boolean; 
 }) => {
   const popupRef = useRef<HTMLUListElement>(null);
 

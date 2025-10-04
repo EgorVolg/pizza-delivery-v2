@@ -8,7 +8,7 @@
   width: 130px;
   background: var(--color-bg-primary);
   border-radius: 10px;
-  z-index: 50;
+  z-index: 80;
   padding-bottom: 9px;
   padding-top: 23px;
   box-shadow: 0px 10px 20px 0px #0000000d;
@@ -31,12 +31,7 @@
     padding: 20px 0;
   }
 
-  @media (max-width: 480px) {
-    top: 25%; 
-  }
-
   @media (max-width: 425px) {
-    top: 27%;
     width: 80%;
     right: 10%;
   }

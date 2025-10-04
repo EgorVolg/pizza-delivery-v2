@@ -5,6 +5,25 @@ import { useGetCartItemsQuery } from "../../../entities/cart/model/cart.api";
 import { EmptyCart } from "./EmptyCart";
 import type { TCartItem } from "../../../entities/cart/model/cart.types";
 import { CartItem } from "./CartItem";
+import { useMemo } from "react";
+
+const panelVariants = {
+  hidden: { x: "100%" },
+  visible: {
+    x: 0,
+    transition: { type: "spring", stiffness: 400, damping: 40 },
+  },
+  exit: {
+    x: "100%",
+    transition: { type: "spring", stiffness: 700, damping: 50 },
+  },
+};
+
+const innerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { delay: 0.15 } },
+  exit: { opacity: 0, transition: { duration: 0.1 } },
+};
 
 export const CartDrawer = ({
   handleCloseCart,
@@ -14,23 +33,12 @@ export const CartDrawer = ({
   const { data: cartData, isLoading } = useGetCartItemsQuery();
   if (cartData === undefined) return null;
 
-  const panelVariants = {
-    hidden: { x: "100%" },
-    visible: {
-      x: 0,
-      transition: { type: "spring", stiffness: 400, damping: 40 },
-    },
-    exit: {
-      x: "100%",
-      transition: { type: "spring", stiffness: 700, damping: 50 },
-    },
-  };
-
-  const innerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { delay: 0.15 } },
-    exit: { opacity: 0, transition: { duration: 0.1 } },
-  };
+  const cartItems = useMemo(() => {
+    return [...(cartData?.data ?? [])].sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    );
+  }, [cartData?.data]);
 
   return (
     <motion.div
@@ -75,7 +83,7 @@ export const CartDrawer = ({
           <EmptyCart handleCloseCart={handleCloseCart} />
         ) : (
           <ul className={styles.cartList}>
-            {cartData.data.map((item: TCartItem) => (
+            {cartItems.map((item: TCartItem) => (
               <CartItem key={item.id} item={item} />
             ))}
           </ul>

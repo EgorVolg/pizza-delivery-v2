@@ -3,7 +3,7 @@ import styles from "./Homepage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../../app/store";
 import Container from "../../../shared/ui/Container/Container";
-import {TopBar} from "../../../widgets/Topbar/TopBar";
+import { TopBar } from "../../../widgets/Topbar/TopBar";
 import { Filters } from "../../../widgets/Filters/Filters";
 
 import { ProductsList } from "../../../widgets/ProductsList/ProductsList";
@@ -15,7 +15,7 @@ import { useFilterUrlSync } from "../../../shared/hooks/useFilterUrlSync";
 import { PizzaModalWindow } from "../../../features/add-to-cart/PizzaModalWindow";
 import { CartDrawer } from "../../../widgets/Cart/ui/CartDrawer";
 
-export function Homepage() {
+export const Homepage = () => {
   const dispatch = useDispatch();
   const { isLoading } = useGetPizzasQuery();
   const [isOpenFilters, setIsOpenFilters] = useState(false);
@@ -44,8 +44,6 @@ export function Homepage() {
         </Overlay>
       )}
 
-      <TopBar toggleMenu={toggleMenu} />
-
       <AnimatePresence mode="sync">
         {isCartDrawerOpen && (
           <>
@@ -55,6 +53,7 @@ export function Homepage() {
         )}
       </AnimatePresence>
 
+      <TopBar toggleMenu={toggleMenu} />
       <Container className={styles.main_container}>
         <nav
           className={`${styles.navbar} ${isOpenFilters ? styles.visible : ""}`}
@@ -75,4 +74,4 @@ export function Homepage() {
       </Container>
     </>
   );
-}
+};
