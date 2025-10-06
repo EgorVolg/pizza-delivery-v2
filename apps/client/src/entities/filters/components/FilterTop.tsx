@@ -1,17 +1,20 @@
-import type { FC } from "react";
-import Xbtn from "../../../shared/ui/Xbtn/Xbtn";
+import type { FC } from "react"; 
 import styles from "../../../widgets/Filters/Filters.module.css";
 
 export const FilterTop: FC<{
   onReset: () => void;
-  onClose: () => void;
+
   showReset: boolean;
-}> = ({ onReset, onClose, showReset }) => (
+}> = ({ onReset, showReset }) => (
   <div className={styles.filter_top}>
     <h1 className={styles.filter_title}>Фильтрация</h1>
 
     {showReset && (
-      <button onClick={onReset} className={styles.filter_resetbtn} data-testid="reset-button">
+      <button
+        onClick={onReset}
+        className={styles.filter_resetbtn}
+        data-testid="reset-button"
+      >
         <svg
           className={styles.filter_reseticon}
           xmlns="http://www.w3.org/2000/svg"
@@ -24,9 +27,5 @@ export const FilterTop: FC<{
         </svg>
       </button>
     )}
-
-    <div className={styles.filter_close} onClick={onClose}>
-      <Xbtn className={styles.filter_close_btn} />
-    </div>
   </div>
 );

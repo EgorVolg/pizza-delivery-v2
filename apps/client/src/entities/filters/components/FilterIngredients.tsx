@@ -1,6 +1,6 @@
 import { useState, type FC } from "react";
 import type { Ingredient } from "../../../entities/ingredient/model/ingredient.types";
-import FilterCheckbox from "../ui/FilterCheckbox";
+import {FilterCheckbox} from "../ui/FilterCheckbox";
 import styles from "../../../widgets/Filters/Filters.module.css";
 
 export const FilterIngredients: FC<{

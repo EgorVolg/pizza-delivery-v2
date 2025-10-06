@@ -1,30 +1,28 @@
 import styles from "./FilterCheckbox.module.css";
 
-function FilterCheckbox({
+export const FilterCheckbox = ({
   text,
   rounded,
   checked,
   onChange,
-  className, 
+  className,
 }: {
   text: string;
   rounded?: boolean;
   checked?: boolean;
-  onChange?: () => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClick?: () => void;
-  className?: string; 
-}) {
+  className?: string;
+}) => {
   return (
     <div className={`${className} ${styles.filter_checkbox}`}>
       <input
         className={`${styles.checkbox_input} ${rounded && styles.rounded}`}
         type="checkbox"
-        checked={checked}
+        defaultChecked={checked}
         onChange={onChange}
       />
       <span className={styles.checkmark}>{text}</span>
     </div>
   );
-}
-
-export default FilterCheckbox;
+};
