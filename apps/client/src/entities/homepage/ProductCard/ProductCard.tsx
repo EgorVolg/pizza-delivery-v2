@@ -10,14 +10,14 @@ export const ProductCard = ({ pizza }: { pizza: Pizza }) => {
   const dispatch = useDispatch();
   const { data: cartData } = useGetCartItemsQuery();
 
-  if (cartData === undefined) return null;
-
   const productQuantity = useMemo(() => {
     if (!cartData?.data) return 0;
 
     const cartItem = cartData.data.filter((item) => item.name === pizza.name);
     return cartItem.map((item) => item.quantity).reduce((a, b) => a + b, 0);
   }, [cartData, pizza.name]);
+
+  if (cartData === undefined) return null;
 
   const handleAddToCart = () => {
     dispatch({
