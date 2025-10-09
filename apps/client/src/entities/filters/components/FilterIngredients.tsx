@@ -14,9 +14,8 @@ export const FilterIngredients: FC<{
     <div className={`${styles.filter_group} ${styles.filter_ingredients}`}>
       <p className={styles.filter_group_title}>Ингредиенты:</p>
       <ul
-        data-testid="filters-popup"
-        style={{ maxHeight: open ? "none" : "225px" }}
-        className={styles.ingredients_list}
+        data-testid="filters-popup" 
+        className={`${styles.ingredients_list} ${open ? styles.open : styles.closed}`}
       >
         {ingredients.map((i) => (
           <li key={i.id} onClick={() => onToggle(+i.id)}>

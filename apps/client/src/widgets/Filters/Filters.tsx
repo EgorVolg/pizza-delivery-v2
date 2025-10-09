@@ -97,9 +97,6 @@ export const Filters = ({
     setIngredients([]);
     setMinPrice(MIN_PRICE);
     setMaxPrice(MAX_PRICE);
-    // Clear localStorage
-    localStorage.removeItem('pizza-filters');
-    localStorage.removeItem('pizza-active-category');
     toggleMenu();
   };
 
@@ -137,7 +134,6 @@ export const Filters = ({
         <>
           <FilterTop
             onReset={handleReset}
-            onClose={toggleMenu}
             showReset={
               types.length > 0 ||
               minPrice !== MIN_PRICE ||

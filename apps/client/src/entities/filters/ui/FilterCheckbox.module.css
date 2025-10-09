@@ -1,7 +1,7 @@
 .filter_checkbox {
   display: flex;
   align-items: center;
-  gap: 12px; 
+  gap: 12px;
 
   font-family: "Nunito";
   font-weight: 400;
@@ -35,7 +35,7 @@
   content: "";
   position: absolute;
   display: block;
-  top: 4px;
+  top: 6px;
   left: 9px;
   width: 5px;
   height: 10px;
@@ -67,4 +67,8 @@
   font-size: 16px;
   line-height: 100%;
   letter-spacing: 0%;
+
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
 }
