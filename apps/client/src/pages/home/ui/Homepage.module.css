@@ -58,7 +58,7 @@
 
     border-radius: 30px;
 
-    position: absolute;
+    position: fixed;
 
     top: 50%;
     left: 20%;
@@ -106,6 +106,7 @@
     overflow: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    scroll-snap-type: mandatory;
   }
 }
 
@@ -131,7 +132,7 @@
     display: flex;
     position: absolute;
     top: 15px;
-    left: 50%; 
+    left: 50%;
     translate: -50% 0;
 
     z-index: 110;
