@@ -87,11 +87,11 @@
 
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    padding: 40px 30px;
+    padding: 60px 30px 40px 30px;
   }
 
   @media (max-width: 425px) {
-    padding: 30px 30px 10px 30px;
+    padding: 40px 30px 40px 30px;
     left: 30px;
     right: 30px;
   }
@@ -129,12 +129,12 @@
 
 .line {
   @media (max-width: 768px) {
-    display: flex;
+    display: inline-block;
     position: absolute;
     top: 15px;
     left: 50%;
     translate: -50% 0;
-
+    pointer-events: none;
     z-index: 110;
 
     background: #d9d9d9;

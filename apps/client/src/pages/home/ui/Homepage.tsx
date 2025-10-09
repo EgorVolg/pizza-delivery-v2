@@ -115,22 +115,8 @@ export const Homepage = () => {
           drag="y"
           dragConstraints={{ top: 0, bottom: 400 }}
           dragElastic={0.1}
-          onDrag={(_, info) => {
-            // ограничиваем движение только вниз
-            y.set(Math.max(info.offset.y, 0));
-          }}
-          onDragEnd={(_, info) => {
-            const threshold = window.innerHeight * 0.33;
-            if (info.offset.y > threshold) {
-              setIsOpenFilters(false);
-            } else {
-              animate(y, 0, {
-                type: "spring",
-                stiffness: 300,
-                damping: 30,
-              });
-            }
-          }}
+          onDrag={handleDrag}
+          onDragEnd={handleDragEnd}
         >
           {isOpenFilters && (
             <>
