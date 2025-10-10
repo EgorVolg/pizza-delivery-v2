@@ -2,26 +2,26 @@ import { useEffect, useRef } from "react";
 import styles from "./SortPopup.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { sortParams } from "../model/sortParams.slice";
-import Xbtn from "../../../../shared/ui/Xbtn/Xbtn";
 import { sortOptions } from "../model/sortParams.const";
 import type { RootState } from "../../../../app/store";
 
 export const SortPopUp = ({
-  toggleSortPopup, 
+  toggleSortPopup,
   openSortPopup,
 }: {
-  toggleSortPopup: () => void; 
+  toggleSortPopup: () => void;
   openSortPopup: boolean;
 }) => {
   const sortDispatch = useDispatch();
   const selectedOption = useSelector((state: RootState) => state.sortParams);
 
-  const selectOption = (option: string) => {
-    toggleSortPopup();
-    sortDispatch(sortParams(option));
-  };
+  // ref на корневой контейнер (включает и кнопку, и список)
+  const popupRef = useRef<HTMLDivElement | null>(null);
 
-  const popupRef = useRef<HTMLUListElement>(null);
+  const selectOption = (option: string) => {
+    sortDispatch(sortParams(option));
+    toggleSortPopup(); // закрываем после выбора
+  };
 
   useEffect(() => {
     if (!openSortPopup) return;
@@ -45,8 +45,15 @@ export const SortPopUp = ({
   }, [openSortPopup, toggleSortPopup]);
 
   return (
-    <div className={styles.sort} onClick={toggleSortPopup}>
-      <button className={styles.sort_button} onClick={toggleSortPopup}>
+    // ВАЖНО: ref на весь контейнер
+    <div className={styles.sort} ref={popupRef}>
+      <button
+        className={styles.sort_button}
+        onClick={(e) => {
+          e.stopPropagation(); 
+          toggleSortPopup();
+        }}
+      >
         <svg
           className={styles.sort_icon}
           width="14"
@@ -61,7 +68,7 @@ export const SortPopUp = ({
           />
         </svg>
 
-        <div className={styles.sort_text} onClick={toggleSortPopup}>
+        <div className={styles.sort_text}>
           Сортировать по: <span>{selectedOption}</span>
         </div>
       </button>
@@ -70,14 +77,13 @@ export const SortPopUp = ({
         className={`${styles.sort_options} ${
           openSortPopup ? styles.visible : ""
         }`}
-        ref={popupRef}
       >
-        <Xbtn onClick={toggleSortPopup} className={styles.sort_comebackbtn} />
-
         {sortOptions.map((option, index) => (
           <li
             key={index}
-            className={styles.sort_option}
+            className={`${styles.sort_option} ${
+              selectedOption === option ? styles.selected : ""
+            }`}
             onClick={() => selectOption(option)}
           >
             {option}

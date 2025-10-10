@@ -14,7 +14,9 @@ export const TopBar = ({ toggleMenu }: { toggleMenu: () => void }) => {
   const [isArrowRotated, setIsArrowRotated] = useState(false);
   const [openSortPopup, setOpenSortPopup] = useState(false);
 
-  const toggleSortPopup = () => setOpenSortPopup(!openSortPopup);
+  const toggleSortPopup = () => {
+    setOpenSortPopup((prev) => !prev);
+  };
 
   const toggleCategories = () => {
     setShowCategories(!showCategories);
