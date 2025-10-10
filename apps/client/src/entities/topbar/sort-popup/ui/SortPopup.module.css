@@ -72,25 +72,6 @@
   }
 }
 
-.sort_comebackbtn {
-  display: none;
-
-  @media (max-width: 768px) {
-    display: block;
-
-    all: unset;
-    cursor: pointer;
-    position: absolute;
-    top: 5%;
-    right: 5%;
-    z-index: 10;
-
-    path {
-      fill: black;
-    }
-  }
-}
-
 .sort_option {
   font-family: Nunito;
   font-weight: 800;
@@ -107,7 +88,7 @@
   z-index: 10;
 
   &.selected {
-    color: var(--color-brand); 
+    color: var(--color-brand);
     font-weight: var(--font-weight-bold);
   }
 
