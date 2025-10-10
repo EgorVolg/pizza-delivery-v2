@@ -1,24 +1,45 @@
+import { useState, useRef, useEffect, useCallback } from "react";
 import styles from "./LoginBtn.module.css";
-import { useState } from "react";
 import Button from "../../../shared/ui/Button/Button";
 import { ProfilePopup } from "../profile-popup/ProfilePopup";
 
-const LoginBtn = () => {
+export const LoginBtn = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-  function toggleMenu() {
-    setIsOpen(!isOpen);
-  }
+  const toggleMenu = useCallback(() => setIsOpen((s) => !s), []);
+  const closeMenu = useCallback(() => setIsOpen(false), []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handlePointerDown = (e: PointerEvent | MouseEvent) => {
+      const target = e.target as Node;
+      if (wrapperRef.current && !wrapperRef.current.contains(target)) {
+        setIsOpen(false);
+      }
+    };
+
+    const handleScroll = () => setIsOpen(false);
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isOpen]);
+
   return (
-    <>
-      <ProfilePopup toggleMenu={toggleMenu} isOpen={isOpen} />
-      <Button onClick={toggleMenu}>
+    <div className={styles.profile_wrapper} ref={wrapperRef}>
+      <Button onClick={toggleMenu} aria-haspopup="menu" aria-expanded={isOpen}>
         <svg
           width="13"
           height="15"
           viewBox="0 0 13 15"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg SVG namespace SVG namespace   SVG namespace SVG namespace  "
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M11.5706 14.2087V12.8198C11.5706 12.0831 11.2921 11.3765 10.7966 10.8556C10.301 10.3347 9.6288 10.042 8.92793 10.042H3.64264C2.94177 10.042 2.2696 10.3347 1.77401 10.8556C1.27842 11.3765 1 12.0831 1 12.8198V14.2087"
@@ -37,8 +58,9 @@ const LoginBtn = () => {
         </svg>
         <span className={styles.login}>Войти</span>
       </Button>
-    </>
+
+      {/* ProfilePopup получает isOpen и функцию закрытия */}
+      <ProfilePopup isOpen={isOpen} onClose={closeMenu} />
+    </div>
   );
 };
-
-export default LoginBtn;

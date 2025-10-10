@@ -1,55 +1,44 @@
-import { useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import styles from "./ProfilePopup.module.css";
 import Xbtn from "../../../shared/ui/Xbtn/Xbtn";
 import { Link } from "react-router-dom";
 
 export const ProfilePopup = ({
-  toggleMenu,
-  isOpen, 
+  isOpen,
+  onClose,
 }: {
-  toggleMenu: () => void;
-  isOpen: boolean; 
+  isOpen: boolean;
+  onClose: () => void;
 }) => {
-  const popupRef = useRef<HTMLUListElement>(null);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        popupRef.current &&
-        !popupRef.current.contains(event.target as Node)
-      ) {
-        toggleMenu();
-      }
-    };
-
-    const handleScroll = () => toggleMenu();
-
-    document.addEventListener("mousedown", handleClickOutside);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [isOpen, toggleMenu]);
-
   return (
-    <ul
-      ref={popupRef}
-      className={`${styles.user_menu_popup} ${isOpen ? styles.visible : ""}`}
-    >
-      <Xbtn onClick={toggleMenu} className={styles.popup_close} />
-      <Link to={"/settings"}>
-        <li onClick={toggleMenu}>Настройки</li>
-      </Link>
-      <Link to={"/orders"}>
-        <li onClick={toggleMenu}>Заказы</li>
-      </Link>
-      <Link to={"/logout"}>
-        <li onClick={toggleMenu}>Выйти</li>
-      </Link>
-    </ul>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.ul
+          key="profile-popup"
+          className={styles.user_menu_popup}
+          role="menu"
+          aria-hidden={!isOpen}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{
+            duration: 0.25,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
+          <Xbtn onClick={onClose} className={styles.popup_close} />
+
+          <Link to="/settings" onClick={onClose}>
+            <li role="menuitem">Настройки</li>
+          </Link>
+          <Link to="/orders" onClick={onClose}>
+            <li role="menuitem">Заказы</li>
+          </Link>
+          <Link to="/logout" onClick={onClose}>
+            <li role="menuitem">Выйти</li>
+          </Link>
+        </motion.ul>
+      )}
+    </AnimatePresence>
   );
 };

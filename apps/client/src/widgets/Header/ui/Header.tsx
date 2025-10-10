@@ -5,7 +5,7 @@ import { CartBtn } from "../../../entities/header/card-btn/CartBtn";
 import { Logo } from "../../../entities/header/logo/Logo";
 import { Search } from "../../../entities/header/search-input/Search/Search";
 import { Link } from "react-router-dom";
-import LoginBtn from "../../../entities/header/login-btn/LoginBtn";
+import { LoginBtn } from "../../../entities/header/login-btn/LoginBtn";
 
 function Header() {
   return (
