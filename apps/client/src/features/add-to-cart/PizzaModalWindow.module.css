@@ -18,52 +18,80 @@
   background: rgba(57, 57, 57, 0.3);
 }
 
+.modalWindow {
+  position: fixed;
+
+  top: 50%;
+  /* left: 20%;
+  right: 20%; */
+  left: 5%;
+  right: 5%;
+  translate: 0 -50%;
+
+  /* max-width: 1000px;
+  min-width: 320px;
+  width: 90vw; */
+
+  @media (min-width: 1024px) {
+    /* width: 70vw;
+    min-width: 700px; */
+  }
+
+  @media (max-width: 768px) {
+    /* min-width: none; */
+
+    left: 5%;
+    right: 5%;
+    translate: unset;
+    top: unset;
+    bottom: 0;
+  }
+
+  @media (max-width: 425px) {
+    left: 30px;
+    right: 30px;
+  }
+}
+
 .modal {
-  position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin: 25vh auto;
-  background-color: var(--color-bg-primary);
-  border-radius: 16px;
-
-  max-width: 1000px;
-  height: 580px;
   padding: 37px 40px;
 
-  z-index: 60;
+  height: 580px;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     overflow-y: auto;
     scroll-behavior: smooth;
-    padding: 37px 40px 0px 40px;
-    margin: 15vh auto;
-    height: 800px;
+    padding: 0 40px 0px 40px;
+    min-width: none;
+    height: 80vh;
+  }
+
+  @media (max-height: 1000px) {
+    height: 93vh;
   }
 
   @media (max-width: 480px) {
-    margin: 8vh auto;
-    padding: 37px 20px 0px 20px;
+    padding: 0 20px 0px 20px;
   }
 }
 
-.close {
-  all: unset;
-  position: absolute;
-
-  right: -50px;
-  cursor: pointer;
+.dragLine {
+  display: none;
 
   @media (max-width: 768px) {
-    position: fixed;
-    top: 10%;
-    right: 10%;
-  }
+    display: block;
 
-  @media (max-width: 480px) {
-    position: fixed;
-    top: 3%;
-    right: 5%;
+    position: absolute;
+    top: 20px;
+
+    left: 50%;
+    translate: -50% 0;
+
+    pointer-events: none;
+    z-index: 110;
   }
 }
 
@@ -82,9 +110,7 @@
   }
 
   @media (max-width: 768px) {
-    max-width: 100%;
-    max-height: 300px;
-    padding-bottom: 30px;
+    margin: 0 auto;
   }
 }
 
@@ -109,7 +135,7 @@
 
 .title {
   display: flex;
-  font-family: Nunito;
+  font-family: "Nunito";
   font-weight: 700;
   font-style: Bold;
   font-size: 24px;
@@ -119,7 +145,7 @@
 }
 
 .description {
-  font-family: Nunito;
+  font-family: "Nunito";
   font-weight: 400;
   font-size: 14px;
   color: #777777;
@@ -129,7 +155,7 @@
 }
 
 .ingredients {
-  font-family: Nunito;
+  font-family: "Nunito";
   font-weight: 400;
   font-size: 14px;
   color: #777777;
@@ -156,7 +182,7 @@
 }
 
 .selector {
-  font-family: Nunito;
+  font-family: "Nunito";
   font-weight: 400;
   font-size: 14px;
   line-height: 100%;
@@ -177,10 +203,6 @@
     background: #fff;
     color: black;
   }
-
-  @media (max-width: 425px) {
-    font-size: 10px;
-  }
 }
 
 .toppingsSection {
@@ -188,7 +210,7 @@
 }
 
 .toppingsTitle {
-  font-family: Nunito;
+  font-family: "Nunito";
   font-weight: 600;
   font-size: 18px;
   line-height: 100%;
@@ -198,16 +220,21 @@
 
 .toppings {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-columns: repeat(2, minmax(125px, 1fr));
   place-items: center;
-  gap: 14px;
+  gap: 10px;
   height: 420px;
 
+  @media (max-width: 1024px) {
+    gap: 5px;
+  }
+
   @media (max-width: 768px) {
+    grid-template-columns: repeat(3, minmax(125px, 1fr));
     height: 100%;
   }
 
-  @media (max-width: 320px) {
+  @media (max-width: 520px) {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   }
 }
@@ -266,10 +293,21 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
+  @media (max-width: 768px) {
+    right: 5px;
+    top: 5px;
+    width: 25px;
+    height: 25px;
+
+    svg {
+      width: 10px;
+      height: 10px;
+    }
+  }
 }
 
 .toppingImg {
-  max-width: 110px;
   max-height: 110px;
   width: 100%;
   object-fit: contain;
@@ -277,7 +315,7 @@
 }
 
 .toppingName {
-  font-family: Nunito;
+  font-family: "Nunito";
   font-weight: 400;
   font-size: 12px;
   line-height: 100%;
@@ -288,7 +326,7 @@
 }
 
 .toppingPrice {
-  font-family: Nunito;
+  font-family: "Nunito";
   font-weight: 600;
   font-size: 14px;
   line-height: 100%;
@@ -307,13 +345,8 @@
   @media (max-width: 768px) {
     position: sticky;
     padding: 30px 0;
-
-    z-index: 60;
     bottom: 0;
-  }
-
-  @media (max-width: 480px) {
-    padding: 15px 0;
+    z-index: 60;
   }
 }
 

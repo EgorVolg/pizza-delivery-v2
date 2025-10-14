@@ -16,14 +16,6 @@
   }
 }
 
-.modal_container {
-  padding: 0 66px 80px 66px;
-
-  @media (max-width: 520px) {
-    padding: 0 30px 30px 30px;
-  }
-}
-
 .loader {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
