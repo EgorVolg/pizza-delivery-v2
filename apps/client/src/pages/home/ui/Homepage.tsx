@@ -52,7 +52,7 @@ export const Homepage = () => {
 
   // Определение мобильного режима
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 1440);
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -78,13 +78,23 @@ export const Homepage = () => {
     [y]
   );
 
+  const handleCloseModal = useCallback(() => {
+    dispatch({
+      type: "pizzaModal/setOpenClosePizzaModal",
+      payload: false,
+    });
+  }, [dispatch]);
+
   return (
     <>
       {/* === Модальное окно пиццы === */}
       {pizzaModalSelector.open && (
         <AnimatePresence mode="sync">
-          <Overlay>
-            <PizzaModalWindow />
+          <Overlay onClick={handleCloseModal}>
+            <PizzaModalWindow
+              handleCloseModal={handleCloseModal}
+              isMobile={isMobile}
+            />
           </Overlay>
         </AnimatePresence>
       )}

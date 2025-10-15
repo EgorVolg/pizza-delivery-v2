@@ -20,28 +20,32 @@
 
 .modalWindow {
   position: fixed;
-
+  max-width: 1000px;
   top: 50%;
-  /* left: 20%;
-  right: 20%; */
-  left: 5%;
-  right: 5%;
-  translate: 0 -50%;
+  left: 50%;
+  translate: -50% -50%;
 
-  /* max-width: 1000px;
-  min-width: 320px;
-  width: 90vw; */
+  @media (min-width: 1200px) {
+    width: 1200px;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+  }
 
-  @media (min-width: 1024px) {
-    /* width: 70vw;
-    min-width: 700px; */
+  @media (max-width: 1200px) {
+    min-width: 700px;
+  }
+
+  @media (max-width: 1024px) {
+    top: 50%;
+    left: 29px;
+    right: 29px;
+    translate: 0 -50%;
   }
 
   @media (max-width: 768px) {
-    /* min-width: none; */
+    min-width: 100px;
 
-    left: 5%;
-    right: 5%;
     translate: unset;
     top: unset;
     bottom: 0;
@@ -50,6 +54,27 @@
   @media (max-width: 425px) {
     left: 30px;
     right: 30px;
+  }
+}
+
+.xbtnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: -60px;
+  background: var(--color-bg-primary);
+  border-radius: 50%;
+
+  border: none;
+  width: 50px;
+  height: 50px;
+  padding: 15px;
+
+  @media (max-width: 1024px) {
+    right: 0;
+    top: 15px;
+    left: 15px;
   }
 }
 
@@ -225,7 +250,17 @@
   gap: 10px;
   height: 420px;
 
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
+    gap: 10px 0;
+  }
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+  }
+
   @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
     gap: 5px;
   }
 
