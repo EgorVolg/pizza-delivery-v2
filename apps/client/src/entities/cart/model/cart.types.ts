@@ -14,5 +14,7 @@ export interface TCartItem {
   toppings: string;
   type: string;
   size: number;
+  createdAt: string;
+  updatedAt: string;
 }
  
