@@ -46,9 +46,4 @@
   padding: 10px 16px;
 
   margin: 5px 0;
-
-  @media (max-width: 480px) {
-    padding: 5px 8px;
-    border-radius: 0.5rem;
-  }
 }
