@@ -13,7 +13,7 @@ export const useFilterUrlSync = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
   const filterParams = useSelector((state: RootState) => state.filterParams);
-  const activeCategoryId = useSelector((state: RootState) => state.setActiveId.activeId);
+  const activeCategoryId = useSelector((state: RootState) => state.activeId.activeId);
 
   // Function to serialize filter params and category to URL
   const serializeFilters = (params: typeof filterParams, categoryId: number) => {
