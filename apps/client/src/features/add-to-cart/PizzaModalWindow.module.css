@@ -6,18 +6,6 @@
   }
 }
 
-::-webkit-scrollbar-track {
-  background: #ffffff;
-}
-::-webkit-scrollbar-thumb {
-  background: #d9d9d99e;
-  border-radius: 15px;
-}
-::-webkit-scrollbar-thumb:hover {
-  cursor: pointer;
-  background: rgba(57, 57, 57, 0.3);
-}
-
 .modalWindow {
   position: fixed;
   max-width: 1000px;
@@ -88,7 +76,6 @@
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     overflow-y: auto;
-    scroll-behavior: smooth;
     padding: 0 40px 0px 40px;
     min-width: none;
     height: 80vh;

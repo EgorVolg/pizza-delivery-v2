@@ -5,10 +5,14 @@
 
   @media (max-width: 1440px) {
     position: sticky;
+    bottom: 0;
     z-index: 100;
     padding: 40px 0;
-    bottom: -20px; 
     background-color: var(--color-bg-primary);
+  }
+
+  @media (max-width: 768px) {
+    bottom: 0;
   }
 
   @media (max-width: 425px) {
