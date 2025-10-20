@@ -1,5 +1,4 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import { pizzasApi } from "../entities/pizza/model/pizza.api";
+import { combineReducers } from "@reduxjs/toolkit"; 
 import { categoriesApi } from "../entities/topbar/categories/model/categories.api";
 import { ingredientsApi } from "../entities/ingredient/model/ingredient.api";
 import { cartApi } from "../entities/cart/model/cart.api";
@@ -10,10 +9,11 @@ import { closeOpenCartSlice } from "../widgets/Cart/model/closeOpenCart.slice";
 import { filterParamsSlice } from "../widgets/Filters/model/filterParams.slice";
 import { closeOpenPizzaModalSlice } from "../features/add-to-cart/closeOpenPizzaModal.slice";
 import { pizzaToppingsApi } from "../entities/pizza/model/pizzatoppings.api";
+import { productsApi } from "../entities/pizza/model/products.api";
 
 export const rootReducer = combineReducers({
   //api reducers
-  [pizzasApi.reducerPath]: pizzasApi.reducer,
+  [productsApi.reducerPath]: productsApi.reducer,
   [categoriesApi.reducerPath]: categoriesApi.reducer,
   [ingredientsApi.reducerPath]: ingredientsApi.reducer,
   [pizzaToppingsApi.reducerPath]: pizzaToppingsApi.reducer,
