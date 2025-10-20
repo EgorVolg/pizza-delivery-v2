@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import styles from "./PizzaModalWindow.module.css";
-import { useProcessedPizzas } from "../homepage/model/useProcessedPizzas";
 import Button from "../../shared/ui/Button/Button";
 import type {
   PizzaAPI,
@@ -11,6 +10,8 @@ import { useGetPizzaToppingsQuery } from "../../entities/pizza/model/pizzatoppin
 import { useAddCartItemMutation } from "../../entities/cart/model/cart.api";
 import type { RootState } from "../../app/store";
 import { ModalWindow } from "../../shared/ui/ModalWindow/ModalWindow";
+import { useGetProductByIdQuery } from "../../entities/pizza/model/products.api";
+import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
 
 export const PizzaModalWindow = ({
   handleCloseModal,
@@ -21,16 +22,13 @@ export const PizzaModalWindow = ({
 }) => {
   const { data: toppings } = useGetPizzaToppingsQuery();
   const [addCartItem] = useAddCartItemMutation();
-
   const [activeTopping, setActiveTopping] = useState([] as PizzaTopping[]);
-
   const selector = useSelector((s: RootState) => s.pizzaModal);
+  const pizzaQuery = useGetProductByIdQuery(selector.id);
+  const ingredientsQuery = useGetIngredientsQuery();
 
-  const pizzas = useProcessedPizzas();
-  const activeId = selector.id;
-  const pizza = pizzas.data.find((p) => p.id === activeId) as
-    | PizzaAPI
-    | undefined;
+  const pizza = pizzaQuery.data;
+  const ingredients = ingredientsQuery.data;
 
   const [choosePizzaParams, setChoosePizzaParams] = useState({
     type: 1,
@@ -46,7 +44,12 @@ export const PizzaModalWindow = ({
     }
   }, [pizza]);
 
-  if (!pizza) return null;
+  if (!pizza || !ingredients || !toppings) return null;
+
+  const ingredientsNames = ingredients
+    .filter((ing) => pizza.ingredients.includes(ing.id))
+    .map((i) => i.name)
+    .join(", ");
 
   const handleChooseTopping = (topping: PizzaTopping) => {
     const ids = activeTopping.map((t) => t.id);
@@ -57,25 +60,24 @@ export const PizzaModalWindow = ({
     }
   };
 
-  if (!toppings) return null;
   const calcPrice = () => {
     const basePrice = pizza.price;
-
     const toppingsPrice = activeTopping.reduce((acc, i) => acc + i.price, 0);
 
     return basePrice + toppingsPrice;
   };
 
   const selectedToppings = activeTopping.map((t) => t.name).join(", ");
+  const typeTitle = choosePizzaParams.type === 1 ? "Традиционное" : "Тонкое";
 
   const handleAddToCart = () => {
     const pizzaParams = {
       name: pizza.name,
       imageUrl: pizza.imageUrl,
       price: calcPrice(),
-      ingredients: pizza.ingredients,
+      ingredients: ingredientsNames,
       toppings: selectedToppings,
-      type: choosePizzaParams.type,
+      type: typeTitle,
       size: choosePizzaParams.size,
       quantity: 1,
     };
@@ -118,8 +120,8 @@ export const PizzaModalWindow = ({
             <h2 className={styles.title}>{pizza.name}</h2>
             <p
               className={styles.description}
-            >{`${choosePizzaParams.type} тесто, ${choosePizzaParams.size} см.`}</p>
-            <p className={styles.ingredients}>{pizza.ingredients}</p>
+            >{`${typeTitle} тесто, ${choosePizzaParams.size} см.`}</p>
+            <p className={styles.ingredients}>{ingredientsNames}</p>
           </header>
 
           <section className={styles.params}>
@@ -150,7 +152,7 @@ export const PizzaModalWindow = ({
                     choosePizzaParams.type === type && styles.active
                   }`}
                 >
-                  {type}
+                  {type === 1 ? "Традиционное" : "Тонкое"}
                 </div>
               ))}
             </div>
