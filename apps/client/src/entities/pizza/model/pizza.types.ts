@@ -52,3 +52,11 @@ export interface PizzaTopping {
   image: string;
   price: number;
 }
+
+export interface ProductFilters {
+  priceFrom?: number;
+  priceTo?: number;
+  isNew?: boolean;
+  type?: number[];
+  ingredients?: number[];
+}

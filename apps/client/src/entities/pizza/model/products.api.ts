@@ -1,14 +1,25 @@
 import { baseQuery } from "../../../shared/api/baseUrl";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import type { PizzaAPI } from "./pizza.types";
+import type { PizzaAPI, ProductFilters } from "./pizza.types";
 
 export const productsApi = createApi({
   reducerPath: "productsApi",
   baseQuery,
   tagTypes: ["Products"],
   endpoints: (builder) => ({
-    getProducts: builder.query<PizzaAPI[], void>({
-      query: () => "/products", // GET /api/pizzas
+    getProducts: builder.query<PizzaAPI[], ProductFilters | void>({
+      query: (filters) => {
+        const params = new URLSearchParams();
+
+        if (!filters) return "products";
+
+        Object.entries(filters).forEach(([key, value]) => {
+          if (value !== undefined && value !== null && value !== "")
+            params.append(key, String(value));
+        });
+
+        return `products?${params.toString()}`;
+      },
       providesTags: ["Products"],
     }),
 

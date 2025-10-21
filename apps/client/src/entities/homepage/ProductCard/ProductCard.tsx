@@ -1,14 +1,16 @@
 import { useMemo } from "react";
 import styles from "./ProductCard.module.css";
-import type { Pizza } from "../../pizza/model/pizza.types";
+import type { PizzaAPI } from "../../pizza/model/pizza.types";
 import Button from "../../../shared/ui/Button/Button";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useGetCartItemsQuery } from "../../cart/model/cart.api";
+import { useGetIngredientsQuery } from "../../ingredient/model/ingredient.api";
 
-export const ProductCard = ({ pizza }: { pizza: Pizza }) => {
+export const ProductCard = ({ pizza }: { pizza: PizzaAPI }) => {
   const dispatch = useDispatch();
   const { data: cartData } = useGetCartItemsQuery();
+  const { data: ingredients } = useGetIngredientsQuery();
 
   const productQuantity = useMemo(() => {
     if (!cartData?.data) return 0;
@@ -17,7 +19,16 @@ export const ProductCard = ({ pizza }: { pizza: Pizza }) => {
     return cartItem.map((item) => item.quantity).reduce((a, b) => a + b, 0);
   }, [cartData, pizza.name]);
 
-  if (cartData === undefined) return null;
+  if (!cartData || !ingredients) return null;
+
+  const pizzaIngredients = useMemo(() => {
+    const ingr = pizza.ingredients
+      .map((id) => ingredients.find((item) => item.id === id))
+      .map((item) => item?.name)
+      .join(", ");
+
+    return ingr;
+  }, [pizza, ingredients]);
 
   const handleAddToCart = () => {
     dispatch({
@@ -43,7 +54,7 @@ export const ProductCard = ({ pizza }: { pizza: Pizza }) => {
       <div className={styles.body}>
         <header>
           <h3 className={styles.title}>{pizza.name}</h3>
-          <p className={styles.description}>{pizza.ingredients}</p>
+          <p className={styles.description}>{pizzaIngredients}</p>
         </header>
         <footer className={styles.footer}>
           <span className={styles.price}>

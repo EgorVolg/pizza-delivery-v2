@@ -5,8 +5,7 @@ import { Op } from "sequelize";
 
 export const getProducts = async (req: Request, res: Response) => {
   try {
-    const { isNew, priceFrom, priceTo, type } = req.query;
-
+    const { isNew, priceFrom, priceTo, type, ingredients } = req.query;
     const where: any = {};
 
     if (isNew === "true") {
@@ -23,6 +22,17 @@ export const getProducts = async (req: Request, res: Response) => {
     if (type) {
       const typeNum = Number(type);
       where.type = { [Op.contains]: [typeNum] };
+    }
+
+    if (ingredients) {
+      const ingredientIds = (ingredients as string)
+        .split(",")
+        .map(Number)
+        .filter(Boolean);
+
+      if (ingredientIds.length > 0) {
+        where.ingredients = { [Op.contains]: ingredientIds };
+      }
     }
 
     const products = await Pizza.findAll({
