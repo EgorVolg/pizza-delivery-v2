@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { Pizza } from "../../entities/pizzas/model/pizza.model";
-import { getPizzas } from "../pizzas.routes";
+import { getPizzas } from "../products.routes";
 
 jest.mock("../../entities/pizzas/model/pizza.model", () => ({
   Pizza: { findAll: jest.fn() },
