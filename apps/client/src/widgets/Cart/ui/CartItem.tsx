@@ -3,9 +3,7 @@ import { type TCartItem } from "../../../entities/cart/model/cart.types";
 import Button from "../../../shared/ui/Button/Button";
 import {
   useDeleteCartItemMutation,
-
   useDeleteCartItemsMutation,
-
   useUpdateCartItemMutation,
 } from "../../../entities/cart/model/cart.api";
 
@@ -19,7 +17,7 @@ export const CartItem = ({ item }: { item: TCartItem }) => {
   };
 
   const handleDeleteItems = (id: number) => {
-    deleteCartItemsGroup(item.id);
+    deleteCartItemsGroup(id);
   };
 
   const updateItemQuantity = (item: TCartItem, countAction?: string) => {

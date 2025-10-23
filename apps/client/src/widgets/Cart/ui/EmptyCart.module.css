@@ -1,3 +1,23 @@
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(2px);
+  }
+  40% {
+    transform: translateX(-2px);
+  }
+  60% {
+    transform: translateX(2px);
+  }
+  80% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
 
 .emptyCart {
   display: flex;
@@ -37,8 +57,21 @@
   color: var(--color-bg-primary) !important;
   background-color: var(--color-brand) !important;
   height: 55px;
+  transition: all 0.3s ease;
 
   @media (max-width: 480px) {
     width: 100%;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: #fff3e5 !important;
+      color: var(--color-brand) !important;
+
+      svg {
+        fill: var(--color-brand) !important;
+        animation: shake 0.5s linear;
+      }
+    }
   }
 }

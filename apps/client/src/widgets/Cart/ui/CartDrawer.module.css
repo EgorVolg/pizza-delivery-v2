@@ -114,13 +114,20 @@
   background: var(--color-brand) !important;
   color: var(--color-bg-primary) !important;
   min-height: 55px;
-
   transition: all 0.3s ease;
+
+  svg {
+    transform: rotate(180deg);
+  }
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       background-color: #fff3e5 !important;
       color: var(--color-brand) !important;
+
+      svg {
+        fill: var(--color-brand) !important;
+      }
     }
   }
 }
