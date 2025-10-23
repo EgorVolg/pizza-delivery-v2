@@ -3,20 +3,22 @@ import { type TCartItem } from "../../../entities/cart/model/cart.types";
 import Button from "../../../shared/ui/Button/Button";
 import {
   useDeleteCartItemMutation,
-  useDeleteCartItemsMuation,
+
+  useDeleteCartItemsMutation,
+
   useUpdateCartItemMutation,
 } from "../../../entities/cart/model/cart.api";
 
 export const CartItem = ({ item }: { item: TCartItem }) => {
   const [deleteCartItem] = useDeleteCartItemMutation();
   const [updateCartItem] = useUpdateCartItemMutation();
-  const [deleteCartItemsGroup] = useDeleteCartItemsMuation();
+  const [deleteCartItemsGroup] = useDeleteCartItemsMutation();
 
   const deleteItem = (id: number) => {
     deleteCartItem(id);
   };
 
-  const handleDeleteItems = () => {
+  const handleDeleteItems = (id: number) => {
     deleteCartItemsGroup(item.id);
   };
 
@@ -45,7 +47,10 @@ export const CartItem = ({ item }: { item: TCartItem }) => {
       <div className={styles.cartItem__info}>
         <h3 className={styles.cartItem__name}>{item.name}</h3>
 
-        <button className={styles.closeBtn} onClick={handleDeleteItems}>
+        <button
+          className={styles.closeBtn}
+          onClick={() => handleDeleteItems(item.id)}
+        >
           <svg
             width="20"
             height="20"
