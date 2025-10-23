@@ -29,7 +29,7 @@ export const cartApi = createApi({
       invalidatesTags: ["Cart"],
     }),
 
-    deleteCartItem: builder.mutation<TCartItem, TCartItem>({
+    deleteCartItem: builder.mutation<string, number>({
       query: (cartItem: TCartItem) => ({
         url: `/cart/${cartItem.id}`,
         method: "DELETE",
