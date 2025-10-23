@@ -1,6 +1,5 @@
 import { useEffect, useRef, useMemo } from "react";
 import type { PizzaCard } from "../../entities/pizza/model/pizza.types";
-import { ProductCard } from "../../entities/homepage/ProductCard/ProductCard";
 import { ProductsSection } from "../../entities/homepage/ProductsSection/ProductsSection";
 import Container from "../../shared/ui/Container/Container";
 import Button from "../../shared/ui/Button/Button";
@@ -15,7 +14,13 @@ import {
 } from "../../features/homepage/useCategoryObserver";
 import { pizzaHalves } from "../../features/homepage/dto/PizzaHalves.const";
 
-export const ProductsList = ({ products, isLoading = false }: any) => {
+export const ProductsList = ({
+  products,
+  isLoading = false,
+}: {
+  products: PizzaCard[];
+  isLoading?: boolean;
+}) => {
   const activeId = useSelector((s: RootState) => s.activeId.activeId);
   const dispatch = useDispatch();
 

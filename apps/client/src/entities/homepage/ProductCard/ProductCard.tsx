@@ -19,8 +19,6 @@ export const ProductCard = ({ pizza }: { pizza: PizzaAPI }) => {
     return cartItem.map((item) => item.quantity).reduce((a, b) => a + b, 0);
   }, [cartData, pizza.name]);
 
-  if (!cartData || !ingredients) return null;
-
   const pizzaIngredients = useMemo(() => {
     if (!Array.isArray(pizza.ingredients) || !ingredients) return "";
 
@@ -46,6 +44,8 @@ export const ProductCard = ({ pizza }: { pizza: PizzaAPI }) => {
     });
   };
 
+  if (!cartData || !ingredients) return null;
+  
   return (
     <article key={pizza.id} className={styles.card}>
       <Link to={`/pizza/${pizza.id}`}>

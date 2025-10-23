@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export const useLockScroll = (params: any) => {
+export const useLockScroll = (params: boolean) => {
   useEffect(() => {
     if (params) {
       document.body.style.overflow = "hidden";

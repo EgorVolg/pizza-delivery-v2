@@ -14,7 +14,7 @@ export const useModalDrag = ({ onClose }: UseModalDragProps) => {
     dragConstraints: { top: 0, bottom: 300 },
     style: { y },
     dragElastic: 0.2,
-    onDragEnd: (_: any, info: PanInfo) => {
+    onDragEnd: (info: PanInfo) => {
       if (info.offset.y > 120) onClose?.();
     },
   };
