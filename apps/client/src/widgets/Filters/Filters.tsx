@@ -13,6 +13,13 @@ import { FilterIngredients } from "../../entities/filters/components/FilterIngre
 import { FilterDough } from "../../entities/filters/components/FilterDough";
 import { FilterBottom } from "../../entities/filters/components/FilterBottom";
 
+type FilterState = {
+  isNew: boolean;
+  type: number[];
+  ingredients: number[];
+  price: [number, number];
+};
+
 export const Filters = ({
   toggleMenu,
   isOpenFilters,
@@ -21,92 +28,78 @@ export const Filters = ({
   isOpenFilters: boolean;
 }) => {
   const [width, setWidth] = useState(window.innerWidth);
-
-  const [types, setTypes] = useState<number[]>([]);
-  const [ingredients, setIngredients] = useState<number[]>([]);
-  const [minPrice, setMinPrice] = useState<number>(MIN_PRICE);
-  const [maxPrice, setMaxPrice] = useState<number>(MAX_PRICE);
-  const [isNew, setIsNew] = useState(false);
+  const [filters, setFilters] = useState<FilterState>({
+    isNew: false,
+    type: [],
+    ingredients: [],
+    price: [MIN_PRICE, MAX_PRICE],
+  });
 
   const { data, isLoading } = useGetIngredientsQuery();
   const dispatch = useDispatch();
   const filterParams = useSelector((state: RootState) => state.filterParams);
 
+  // Синхронизация с глобальным состоянием фильтров
   useEffect(() => {
-    setWidth(window.innerWidth);
-  }, []);
+    const [paramMin, paramMax] = filterParams.price;
+    
+    setFilters({
+      isNew: filterParams.isNew,
+      type: filterParams.type,
+      ingredients: filterParams.ingredients,
+      price: [paramMin ?? MIN_PRICE, paramMax ?? MAX_PRICE],
+    });
+  }, [filterParams]);
 
-  useLockScroll(isOpenFilters && width <= 1440);
+  // Отслеживание ресайза
   useEffect(() => {
     const onResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
+  useLockScroll(isOpenFilters && width <= 1440);
 
+  // Изменение отдельных параметров
+  const setIsNew = (value: boolean) =>
+    setFilters((f) => ({ ...f, isNew: value }));
 
-  useEffect(() => {
-    setIsNew(filterParams.isNew);
-    setTypes(filterParams.type);
-    setIngredients(filterParams.ingredients);
-    setMinPrice(filterParams.price[0] || MIN_PRICE);
-    setMaxPrice(filterParams.price[1] || MAX_PRICE);
-  }, [filterParams]);
+  const toggleIngredient = (id: number) =>
+    setFilters((f) => ({
+      ...f,
+      ingredients: f.ingredients.includes(id)
+        ? f.ingredients.filter((i) => i !== id)
+        : [...f.ingredients, id],
+    }));
 
-  const toggleIngredient = (id: number) => {
-    setIngredients((prev) =>
-      prev.includes(id)
-        ? prev.filter((ingredientId) => ingredientId !== id)
-        : [...prev, id]
-    );
-  };
+  const handleType = (id: number) =>
+    setFilters((f) => ({ ...f, type: f.type[0] === id ? [] : [id] }));
 
-  const handleIsNew = (value: boolean) => {
-    setIsNew(value);
-  };
-
-  const handleSelect = () => {
-    dispatch(
-      setParams({
-        isNew: isNew,
-        type: types,
-        ingredients,
-        price: [minPrice, maxPrice],
-      })
-    );
-    toggleMenu();
-  };
+  const handlePriceChange = (idx: 0 | 1, value: number) =>
+    setFilters((f) => {
+      const val = Math.max(MIN_PRICE, Number(value) || MIN_PRICE);
+      const price: [number, number] = [...f.price] as [number, number];
+      price[idx] = val;
+      return { ...f, price };
+    });
 
   const handleReset = () => {
     dispatch(resetParams());
-    setIsNew(false);
-    setTypes([]);
-    setIngredients([]);
-    setMinPrice(MIN_PRICE);
-    setMaxPrice(MAX_PRICE);
+    setFilters({
+      isNew: false,
+      type: [],
+      ingredients: [],
+      price: [MIN_PRICE, MAX_PRICE],
+    });
     toggleMenu();
   };
 
-  const handlePriceChange = (idx: 0 | 1, raw: number) => {
-    const parsed = Number(raw);
-    const val = isNaN(parsed) ? MIN_PRICE : Math.max(MIN_PRICE, parsed);
-
-    if (idx === 0) {
-      setMinPrice(val);
-    } else {
-      setMaxPrice(val);
-    }
+  const handleApply = () => {
+    dispatch(setParams(filters));
+    toggleMenu();
   };
 
-  const handleType = (selectedTypeId: number) => {
-    setTypes((prevSelectedTypes) => {
-      const currentTypeIds = prevSelectedTypes;
-      const nextTypeIds =
-        currentTypeIds[0] === selectedTypeId ? [] : [selectedTypeId];
-
-      return nextTypeIds;
-    });
-  };
+  const { isNew, type, ingredients, price } = filters;
 
   return (
     <div
@@ -115,37 +108,31 @@ export const Filters = ({
       onClick={(e) => e.stopPropagation()}
     >
       {isLoading && <div className={styles.skeleton} />}
-
       {!isLoading && (
         <>
           <FilterTop
             onReset={handleReset}
             showReset={
-              types.length > 0 ||
-              minPrice !== MIN_PRICE ||
-              maxPrice !== MAX_PRICE ||
+              type.length > 0 ||
               ingredients.length > 0 ||
-              isNew === true
+              isNew ||
+              price[0] !== MIN_PRICE ||
+              price[1] !== MAX_PRICE
             }
           />
-
-          <FilterNew value={isNew} onChange={handleIsNew} />
-
+          <FilterNew value={isNew} onChange={setIsNew} />
           <FilterPrice
-            minPrice={minPrice}
-            maxPrice={maxPrice}
+            minPrice={price[0]}
+            maxPrice={price[1]}
             onChange={handlePriceChange}
           />
-
           <FilterIngredients
             ingredients={data ?? []}
             selected={ingredients}
             onToggle={toggleIngredient}
           />
-
-          <FilterDough selected={types} onToggle={handleType} />
-
-          <FilterBottom onApply={handleSelect} disabled={minPrice > maxPrice} />
+          <FilterDough selected={type} onToggle={handleType} />
+          <FilterBottom onApply={handleApply} disabled={price[0] > price[1]} />
         </>
       )}
     </div>
