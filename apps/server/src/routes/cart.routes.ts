@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import { Cart } from "../entities/cart/model/cart.model";
+import { Pizza } from "../entities/pizzas/model/pizza.model";
 
 export const getCartItems = async (_req: Request, res: Response) => {
   try {
@@ -66,6 +67,34 @@ export const deleteCartItem = async (req: Request, res: Response) => {
     }
   } catch (err) {
     console.error("Ошибка при удалении из корзины:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+export const deleteCartItems = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const pizza = await Pizza.findOne({
+      where: { id: parseInt(id) },
+    });
+
+    if (!pizza) {
+      res.status(404).json({ error: "Пицца не найдена" });
+      return;
+    }
+
+    const deleted = await Cart.destroy({
+      where: { name: pizza.name },
+    });
+
+    if (deleted > 0) {
+      res.json({ message: "Товары удалёны из корзины" });
+    } else {
+      res.status(404).json({ error: "Товары не найдены в корзине" });
+    }
+  } catch (error) {
+    console.error("Ошибка при удалении из корзины:", error);
     res.status(500).json({ error: "Server error" });
   }
 };
