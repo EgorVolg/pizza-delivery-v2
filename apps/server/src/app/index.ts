@@ -4,6 +4,7 @@ import ingredientRoutes from "../routes/ingredients.routes";
 import pizzaToppingsRoutes from "../routes/pizzatoppings.routes";
 import productsRoutes from "../routes/products.routes";
 import cartRoutes from "../routes/cart.routes";
+import appetizersRoutes from "../routes/appetizer.routes";
 
 import "dotenv/config";
 import cors from "cors";
@@ -22,6 +23,7 @@ app.use("/api", productsRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", ingredientRoutes);
 app.use("/api", pizzaToppingsRoutes);
+app.use("/api", appetizersRoutes);
 app.use("/api", cartRoutes);
 
 app.listen(PORT, () => {
