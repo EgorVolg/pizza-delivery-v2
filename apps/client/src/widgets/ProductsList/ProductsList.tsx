@@ -1,68 +1,61 @@
 import { useEffect, useRef, useMemo } from "react";
-import styles from "./ProductsList.module.css";
-import { groupByCategory } from "../../features/homepage/model/groupByCategory";
-import { getProcessedSections } from "../../features/homepage/model/useSectionGroup";
-import { useProcessedPizzas } from "../../features/homepage/model/useProcessedPizzas";
-import {
-  filterPizzas,
-  sortPizzas,
-} from "../../features/homepage/model/filterSort";
-import { useScrollToSection } from "../../features/homepage/model/scrollToSection";
-import { useCategoryObserver } from "../../features/homepage/model/useCategoryObserver";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../../app/store";
-import img from "../../shared/assets/character_no_bg.png";
-import Container from "../../shared/ui/Container/Container";
-import Button from "../../shared/ui/Button/Button";
-import { resetParams } from "../Filters/model/filterParams.slice";
+import type { PizzaCard } from "../../entities/pizza/model/pizza.types";
 import { ProductCard } from "../../entities/homepage/ProductCard/ProductCard";
 import { ProductsSection } from "../../entities/homepage/ProductsSection/ProductsSection";
+import Container from "../../shared/ui/Container/Container";
+import Button from "../../shared/ui/Button/Button";
+import img from "../../shared/assets/character_no_bg.png";
+import { resetParams } from "../Filters/model/filterParams.slice";
+import styles from "./ProductsList.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../../app/store";
+import {
+  useCategoryObserver,
+  useScrollToSection,
+} from "../../features/homepage/useCategoryObserver";
+import { pizzaHalves } from "../../features/homepage/dto/PizzaHalves.const";
 
-export const ProductsList = () => {
-  const { data: processedPizzas, isLoading } = useProcessedPizzas();
-  const filter = useSelector((s: RootState) => s.filterParams);
-  const sort = useSelector((s: RootState) => s.sortParams);
-
-  const filteredAndSortedPizzas = useMemo(() => {
-    const filtered = filterPizzas(processedPizzas, filter);
-    return sortPizzas(filtered, sort);
-  }, [processedPizzas, filter, sort]);
-
-  const grouped = groupByCategory(filteredAndSortedPizzas);
+export const ProductsList = ({ products, isLoading = false }: any) => {
   const activeId = useSelector((s: RootState) => s.activeId.activeId);
+  const dispatch = useDispatch();
 
   const sectionRefs = useRef<Record<number, HTMLElement | null>>({});
   const { ignoreObserver } = useCategoryObserver({
-    data: filteredAndSortedPizzas,
+    data: products,
     sectionRefs,
   });
+
   const scrollToSection = useScrollToSection();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     scrollToSection(activeId, sectionRefs, ignoreObserver);
   }, [activeId, scrollToSection]);
+
   const createSectionRef = (catId: number) => (el: HTMLElement | null) => {
     sectionRefs.current[catId] = el;
   };
 
-  const processedSections = getProcessedSections(grouped);
+  // Группировка и подготовка секций
+  const processedSections = useMemo(() => {
+    const grouped: Record<number, PizzaCard[]> = {};
+    products.forEach((p) => {
+      const id = p.category_id ?? 0;
+      if (!grouped[id]) grouped[id] = [];
+      grouped[id].push(p);
+    });
+
+    return Object.entries(grouped).map(([catId, list]) => ({
+      catId: +catId,
+      pizzas: +catId === 1 ? [pizzaHalves, ...list] : list,
+    }));
+  }, [products]);
 
   const sections = processedSections.map(({ catId, pizzas }) => (
     <ProductsSection
       key={catId}
       titleID={catId}
       sectionRef={createSectionRef(catId)}
-      products={
-        <>
-          {pizzas.map((pizza) => (
-            <ProductCard
-              key={pizza.id === 0 ? "halves" : pizza.id}
-              pizza={pizza}
-            />
-          ))}
-        </>
-      }
+      products={pizzas}
     />
   ));
 

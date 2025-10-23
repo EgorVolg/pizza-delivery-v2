@@ -115,11 +115,11 @@ li {
 .price_input {
   width: 90px;
   height: 40px;
+  padding: 0 20px;
   border: 1px solid #f0f0f0;
   border-radius: 10px;
 
   &::placeholder {
-    padding: 11px 10px;
     color: #bbbbbb;
   }
 
@@ -262,7 +262,6 @@ li {
   line-height: 100%;
   letter-spacing: 0%;
 
-  padding-top: 20px;
   color: var(--color-brand);
   cursor: pointer;
 

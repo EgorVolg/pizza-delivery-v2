@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../../app/store";
@@ -15,6 +15,9 @@ import { CartDrawer } from "../../../widgets/Cart/ui/CartDrawer";
 import { ModalWindow } from "../../../shared/ui/ModalWindow/ModalWindow";
 import { useGetProductsQuery } from "../../../entities/pizza/model/products.api";
 import { ProductCard } from "../../../entities/homepage/ProductCard/ProductCard";
+import { ProductsSection } from "../../../entities/homepage/ProductsSection/ProductsSection";
+import type { PizzaCard } from "../../../entities/pizza/model/pizza.types";
+import { ProductsList } from "../../../widgets/ProductsList/ProductsList";
 
 export const Homepage = () => {
   const dispatch = useDispatch();
@@ -42,9 +45,7 @@ export const Homepage = () => {
     });
   }, [dispatch]);
 
-  const toggleMenu = useCallback((e: MouseEvent = new MouseEvent("click")) => {
-    e.stopPropagation();
-
+  const toggleMenu = useCallback(() => {
     if (window.innerWidth <= 1440) {
       setIsOpenFilters((prev) => !prev);
     }
@@ -160,13 +161,7 @@ export const Homepage = () => {
               ))}
             </div>
           ) : (
-            // <ProductsList />
-            list.map((pizza) => (
-              <ProductCard
-                key={pizza.id === 0 ? "halves" : pizza.id}
-                pizza={pizza}
-              />
-            ))
+            <ProductsList products={list} isLoading={isLoading} />
           )}
         </main>
       </Container>

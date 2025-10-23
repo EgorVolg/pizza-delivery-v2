@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Filters.module.css";
 import { MAX_PRICE, MIN_PRICE } from "./model/filter.const";
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
@@ -21,13 +21,13 @@ export const Filters = ({
   isOpenFilters: boolean;
 }) => {
   const [width, setWidth] = useState(window.innerWidth);
+
   const [types, setTypes] = useState<number[]>([]);
   const [ingredients, setIngredients] = useState<number[]>([]);
   const [minPrice, setMinPrice] = useState<number>(MIN_PRICE);
   const [maxPrice, setMaxPrice] = useState<number>(MAX_PRICE);
   const [isNew, setIsNew] = useState(false);
 
-  const popupRef = useRef<HTMLDivElement>(null);
   const { data, isLoading } = useGetIngredientsQuery();
   const dispatch = useDispatch();
   const filterParams = useSelector((state: RootState) => state.filterParams);
@@ -43,20 +43,7 @@ export const Filters = ({
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        isOpenFilters &&
-        popupRef.current &&
-        !popupRef.current.contains(event.target as Node)
-      ) {
-        toggleMenu();
-      }
-    };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpenFilters, toggleMenu]);
 
   useEffect(() => {
     setIsNew(filterParams.isNew);
@@ -81,7 +68,7 @@ export const Filters = ({
   const handleSelect = () => {
     dispatch(
       setParams({
-        isNew,
+        isNew: isNew,
         type: types,
         ingredients,
         price: [minPrice, maxPrice],
@@ -125,7 +112,6 @@ export const Filters = ({
     <div
       className={styles.filter_groups}
       data-testid="filters-popup"
-      ref={popupRef}
       onClick={(e) => e.stopPropagation()}
     >
       {isLoading && <div className={styles.skeleton} />}
@@ -139,7 +125,7 @@ export const Filters = ({
               minPrice !== MIN_PRICE ||
               maxPrice !== MAX_PRICE ||
               ingredients.length > 0 ||
-              isNew
+              isNew === true
             }
           />
 

@@ -10,7 +10,7 @@ export const FilterNew: FC<{
     <li onClick={() => onChange(!value)}>
       <FilterCheckbox
         text="Новинки"
-        checked={value} 
+        checked={value}
         onChange={() => onChange(!value)}
       />
     </li>

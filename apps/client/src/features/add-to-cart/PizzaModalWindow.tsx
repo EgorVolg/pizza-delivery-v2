@@ -1,10 +1,7 @@
 import { useSelector } from "react-redux";
 import styles from "./PizzaModalWindow.module.css";
 import Button from "../../shared/ui/Button/Button";
-import type {
-  PizzaAPI,
-  PizzaTopping,
-} from "../../entities/pizza/model/pizza.types";
+import type { PizzaTopping } from "../../entities/pizza/model/pizza.types";
 import { useState, useEffect } from "react";
 import { useGetPizzaToppingsQuery } from "../../entities/pizza/model/pizzatoppings.api";
 import { useAddCartItemMutation } from "../../entities/cart/model/cart.api";
@@ -93,9 +90,8 @@ export const PizzaModalWindow = ({
       isOpen={selector.open}
     >
       {!isMobile && (
-        <button className={styles.xbtnContainer}>
+        <button className={styles.xbtnContainer} onClick={handleCloseModal}>
           <svg
-            onClick={handleCloseModal}
             className={styles.xbtn}
             width="30"
             height="30"

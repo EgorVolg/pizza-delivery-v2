@@ -22,13 +22,15 @@ export const ProductCard = ({ pizza }: { pizza: PizzaAPI }) => {
   if (!cartData || !ingredients) return null;
 
   const pizzaIngredients = useMemo(() => {
-    const ingr = pizza.ingredients
-      .map((id) => ingredients.find((item) => item.id === id))
-      .map((item) => item?.name)
-      .join(", ");
+    if (!Array.isArray(pizza.ingredients) || !ingredients) return "";
 
-    return ingr;
-  }, [pizza, ingredients]);
+    const ingredientMap = new Map(ingredients.map((i) => [i.id, i.name]));
+
+    return pizza.ingredients
+      .map((id) => ingredientMap.get(id))
+      .filter(Boolean)
+      .join(", ");
+  }, [pizza.ingredients, ingredients]);
 
   const handleAddToCart = () => {
     dispatch({

@@ -23,5 +23,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "src/features/homepage/model/useCategoryObserver.ts"]
+  "include": ["src", "src/features/homepage/useCategoryObserver.ts"]
 }
