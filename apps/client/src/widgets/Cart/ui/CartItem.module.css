@@ -23,7 +23,22 @@
 }
 
 .cartItem__info {
+  position: relative;
   width: 100%;
+}
+
+.closeBtn {
+  all: unset;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  cursor: pointer;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 .cartItem__name {

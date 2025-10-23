@@ -76,6 +76,7 @@
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     overflow-y: auto;
+    scroll-snap-type: mandatory;
     padding: 0 40px 0px 40px;
     min-width: none;
     height: 80vh;

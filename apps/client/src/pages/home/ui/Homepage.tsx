@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../../app/store";
@@ -14,9 +14,6 @@ import { PizzaModalWindow } from "../../../features/add-to-cart/PizzaModalWindow
 import { CartDrawer } from "../../../widgets/Cart/ui/CartDrawer";
 import { ModalWindow } from "../../../shared/ui/ModalWindow/ModalWindow";
 import { useGetProductsQuery } from "../../../entities/pizza/model/products.api";
-import { ProductCard } from "../../../entities/homepage/ProductCard/ProductCard";
-import { ProductsSection } from "../../../entities/homepage/ProductsSection/ProductsSection";
-import type { PizzaCard } from "../../../entities/pizza/model/pizza.types";
 import { ProductsList } from "../../../widgets/ProductsList/ProductsList";
 
 export const Homepage = () => {
