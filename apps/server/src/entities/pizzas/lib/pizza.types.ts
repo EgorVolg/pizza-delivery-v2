@@ -1,15 +1,17 @@
-export interface Pizza {
+export interface PizzaResponse {
   id: number;
   name: string;
-  imageUrl: string;
   price: number;
+  imageUrl: string;
   description: string;
-  ingredients: number[];
-  popular: number;
-  rating: number;
-  size: number[];
-  type: number[];
   category_id: number;
-  createdAt: Date;
-  updatedAt: Date;
+  rating: number;
+  size: string[];
+  popular: number;
+  type: number[];
+  ingredients: number[];
+  quantity: (number | null)[];
+  weight: (number | null)[];
+  createdAt: string;
+  updatedAt: string;
 }

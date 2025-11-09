@@ -23,6 +23,8 @@ module.exports = {
           category_id: 1,
           rating: 4.7,
           popular: 4380,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Чесночный цыпленок",
@@ -37,6 +39,8 @@ module.exports = {
           category_id: 1,
           rating: 4.2,
           popular: 2750,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Пикантные колбаски",
@@ -51,6 +55,8 @@ module.exports = {
           category_id: 1,
           rating: 4.1,
           popular: 2100,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Пепперони фреш",
@@ -65,6 +71,8 @@ module.exports = {
           category_id: 1,
           rating: 4.6,
           popular: 3900,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Четыре сыра",
@@ -79,6 +87,8 @@ module.exports = {
           category_id: 1,
           rating: 4.8,
           popular: 4600,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Сырная",
@@ -93,6 +103,8 @@ module.exports = {
           category_id: 1,
           rating: 3.9,
           popular: 1800,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Чоризо фреш",
@@ -107,6 +119,8 @@ module.exports = {
           category_id: 1,
           rating: 4.3,
           popular: 3100,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Ветчина и сыр",
@@ -121,6 +135,8 @@ module.exports = {
           category_id: 1,
           rating: 4.5,
           popular: 3700,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Двойной цыпленок",
@@ -135,6 +151,8 @@ module.exports = {
           category_id: 1,
           rating: 4.0,
           popular: 2400,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Креветка и песто",
@@ -149,6 +167,8 @@ module.exports = {
           category_id: 1,
           rating: 4.9,
           popular: 4850,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Чилл Грилл",
@@ -163,6 +183,8 @@ module.exports = {
           category_id: 1,
           rating: 4.4,
           popular: 3350,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Ветчина и грибы",
@@ -177,21 +199,10 @@ module.exports = {
           category_id: 1,
           rating: 4.3,
           popular: 3200,
+          weight: null,
+          quantity: null,
         },
-        {
-          name: "Аррива!",
-          ingredients: [10, 13, 25, 7, 6, 4, 1, 27, 5],
-          price: 439,
-          imageUrl:
-            "https://bihemgflzeaaltqlvqeh.supabase.co/storage/v1/object/public/pizza-images/RomanArriva.avif",
-          type: [2],
-          size: [30, 40],
-          description:
-            "Фейерверк вкуса: острый, сочный и яркий — для настоящих гурманов!",
-          category_id: 2,
-          rating: 4.7,
-          popular: 4250,
-        },
+
         {
           name: "Креветки со сладким чили",
           ingredients: [20, 14, 29, 7, 1, 3],
@@ -205,6 +216,8 @@ module.exports = {
           category_id: 1,
           rating: 4.6,
           popular: 3950,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Бефстроганов",
@@ -219,21 +232,10 @@ module.exports = {
           category_id: 1,
           rating: 4.5,
           popular: 3800,
+          weight: null,
+          quantity: null,
         },
-        {
-          name: "Карбонара",
-          ingredients: [8, 17, 18, 1, 4, 6, 5, 3, 23],
-          price: 449,
-          imageUrl:
-            "https://bihemgflzeaaltqlvqeh.supabase.co/storage/v1/object/public/pizza-images/RomanCarbonara.avif",
-          type: [1, 2],
-          size: [20, 30],
-          description:
-            "Любимый вкус пасты карбонара теперь в пицце — нежно, сытно, итальянски!",
-          category_id: 2,
-          rating: 4.8,
-          popular: 4550,
-        },
+
         {
           name: "Жюльен",
           ingredients: [10, 9, 22, 6, 5, 1, 17, 18, 3],
@@ -247,6 +249,8 @@ module.exports = {
           category_id: 1,
           rating: 4.4,
           popular: 3450,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Песто",
@@ -261,6 +265,8 @@ module.exports = {
           category_id: 1,
           rating: 4.7,
           popular: 4200,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Мясная",
@@ -275,6 +281,8 @@ module.exports = {
           category_id: 1,
           rating: 4.6,
           popular: 4000,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Бургер-пицца",
@@ -289,6 +297,8 @@ module.exports = {
           category_id: 1,
           rating: 4.3,
           popular: 3300,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Сырный цыпленок",
@@ -303,6 +313,8 @@ module.exports = {
           category_id: 1,
           rating: 4.5,
           popular: 3750,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Додо",
@@ -317,6 +329,8 @@ module.exports = {
           category_id: 1,
           rating: 4.9,
           popular: 4900,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Пепперони",
@@ -331,6 +345,8 @@ module.exports = {
           category_id: 1,
           rating: 4.4,
           popular: 3600,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Гавайская",
@@ -345,6 +361,8 @@ module.exports = {
           category_id: 1,
           rating: 4.0,
           popular: 2600,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Цыпленок барбекю",
@@ -359,6 +377,8 @@ module.exports = {
           category_id: 1,
           rating: 4.7,
           popular: 4300,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Цыпленок ранч",
@@ -373,6 +393,8 @@ module.exports = {
           category_id: 1,
           rating: 4.6,
           popular: 4050,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Маргарита",
@@ -387,6 +409,8 @@ module.exports = {
           category_id: 1,
           rating: 4.3,
           popular: 3150,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Диабло",
@@ -401,6 +425,8 @@ module.exports = {
           category_id: 1,
           rating: 4.5,
           popular: 3700,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Двойная пепперони",
@@ -415,6 +441,8 @@ module.exports = {
           category_id: 1,
           rating: 4.6,
           popular: 3950,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Четыре сезона",
@@ -429,6 +457,8 @@ module.exports = {
           category_id: 1,
           rating: 4.7,
           popular: 4400,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Овощи и грибы",
@@ -443,6 +473,8 @@ module.exports = {
           category_id: 1,
           rating: 4.2,
           popular: 2900,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Додо микс",
@@ -457,6 +489,8 @@ module.exports = {
           category_id: 1,
           rating: 4.9,
           popular: 4950,
+          weight: null,
+          quantity: null,
         },
         {
           name: "Мясной микс с говядиной и колбасками",
@@ -471,9 +505,11 @@ module.exports = {
           category_id: 1,
           rating: 4.8,
           popular: 4700,
+          weight: null,
+          quantity: null,
         },
       ],
-      { returning: true }
+      {}
     );
   },
 

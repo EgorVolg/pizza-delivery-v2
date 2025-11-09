@@ -2,6 +2,8 @@ import express from "express";
 import { Pizza } from "../entities/pizzas/model/pizza.model";
 import { Request, Response } from "express";
 import { Op } from "sequelize";
+import { RomanPizzas } from "../entities/romanpizzas/modal/romanpizzas.model";
+import { Appetizers } from "../entities/appetizers/model/appetizers.model";
 
 export const getProducts = async (req: Request, res: Response) => {
   try {
@@ -49,8 +51,37 @@ export const getProducts = async (req: Request, res: Response) => {
 
 export const getProductById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const product = await Pizza.findByPk(id);
+    const { id, categoryId } = req.params;
+
+    if (!id || !categoryId) {
+      return res.status(400).json({ error: "Missing id or categoryId" });
+    }
+
+    const categoryNum = Number(categoryId);
+    const productId = Number(id);
+
+    // === Определяем таблицу по категории ===
+    let Model;
+    switch (categoryNum) {
+      case 1:
+        Model = Pizza;
+        break;
+      case 2:
+        Model = RomanPizzas;
+        break;
+      case 3:
+        Model = Appetizers;
+        break;
+      default:
+        return res.status(400).json({ error: "Unknown categoryId" });
+    }
+
+    // === Выполняем запрос ===
+    const product = await Model.findOne({
+      where: { id: productId },
+      raw: true,
+    });
+
     if (product) {
       res.json(product);
     } else {
@@ -64,6 +95,6 @@ export const getProductById = async (req: Request, res: Response) => {
 
 const router = express.Router();
 router.get("/products", getProducts);
-router.get("/products/:id", getProductById);
+router.get("/products/:categoryId/:id", getProductById);
 
 export default router;

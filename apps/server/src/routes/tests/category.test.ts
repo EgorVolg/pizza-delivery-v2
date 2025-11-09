@@ -23,7 +23,7 @@ describe("getCategories", () => {
       { id: 1, name: "Pizza" },
       { id: 2, name: "Drinks" },
     ];
-    findAll.mockResolvedValue(categories as any);
+    findAll.mockResolvedValue(categories as Category[]);
 
     const res = mockRes();
     await getCategories(mockReq(), res);

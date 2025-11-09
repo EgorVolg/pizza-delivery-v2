@@ -1,4 +1,4 @@
-export interface Appetizers {
+export interface RomanPizzas {
   id: number;
   name: string;
   price: number;

@@ -5,6 +5,10 @@ import pizzaToppingsRoutes from "../routes/pizzatoppings.routes";
 import productsRoutes from "../routes/products.routes";
 import cartRoutes from "../routes/cart.routes";
 import appetizersRoutes from "../routes/appetizer.routes";
+import romanPizzasRoutes from "../routes/romanpizzas.routes";
+
+// Import models to ensure they are registered
+import "../entities/cart/model/cart.model";
 
 import "dotenv/config";
 import cors from "cors";
@@ -24,6 +28,7 @@ app.use("/api", categoryRoutes);
 app.use("/api", ingredientRoutes);
 app.use("/api", pizzaToppingsRoutes);
 app.use("/api", appetizersRoutes);
+app.use("/api", romanPizzasRoutes);
 app.use("/api", cartRoutes);
 
 app.listen(PORT, () => {

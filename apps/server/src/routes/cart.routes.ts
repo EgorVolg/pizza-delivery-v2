@@ -1,14 +1,14 @@
 import express, { Request, Response } from "express";
-import { Cart } from "../entities/cart/model/cart.model";
+import { Cart_items } from "../entities/cart/model/cart.model";
 import { Pizza } from "../entities/pizzas/model/pizza.model";
 
 export const getCartItems = async (_req: Request, res: Response) => {
   try {
-    const items = await Cart.findAll();
+    const items = await Cart_items.findAll();
 
     const quantity = items.reduce((total, item) => total + item.quantity, 0);
     const totalPrice = items.reduce(
-      (total, item) => total + item.price * item.quantity,
+      (total, item) => total + (item.price || 0) * item.quantity,
       0
     );
 
@@ -25,12 +25,16 @@ export const getCartItems = async (_req: Request, res: Response) => {
 
 export const addCartItem = async (req: Request, res: Response) => {
   try {
-    const existingItem = await Cart.findOne({
+    const existingItem = await Cart_items.findOne({
       where: {
+        product_id: req.body.id,
+        cart_id: req.body.cart_id || "550e8400-e29b-41d4-a716-446655440000", // Default cart_id if not provided
         name: req.body.name,
-        toppings: req.body.toppings,
         type: req.body.type,
         size: req.body.size,
+        ingredients: req.body.ingredients,
+        productQuantity: req.body.productQuantity,
+        toppings: req.body.toppings,
       },
     });
 
@@ -41,10 +45,21 @@ export const addCartItem = async (req: Request, res: Response) => {
       return;
     }
 
-    const newItem = await Cart.create({
-      ...req.body,
-      quantity: req.body.quantity || 1,
+    const newItem = await Cart_items.create({
+      product_id: req.body.id,
+      cart_id: req.body.cart_id || "550e8400-e29b-41d4-a716-446655440000", // Default cart_id if not provided
+      name: req.body.name,
+      imageUrl: req.body.imageUrl,
+      price: req.body.price,
+      type: req.body.type,
+      size: req.body.size,
+      weight: req.body.weight,
+      quantity: req.body.quantity,
+      productQuantity: req.body.productQuantity,
+      ingredients: req.body.ingredients,
+      toppings: req.body.toppings,
     });
+
     res.status(201).json(newItem);
   } catch (err) {
     console.error("Ошибка при добавлении в корзину:", err);
@@ -56,7 +71,7 @@ export const deleteCartItem = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const deleted = await Cart.destroy({
+    const deleted = await Cart_items.destroy({
       where: { id },
     });
 
@@ -84,7 +99,7 @@ export const deleteCartItems = async (req: Request, res: Response) => {
       return;
     }
 
-    const deleted = await Cart.destroy({
+    const deleted = await Cart_items.destroy({
       where: { name: pizza.name },
     });
 
@@ -102,7 +117,7 @@ export const deleteCartItems = async (req: Request, res: Response) => {
 export const updateCartItem = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const [updated] = await Cart.update(req.body, {
+    const [updated] = await Cart_items.update(req.body, {
       where: { id },
     });
 

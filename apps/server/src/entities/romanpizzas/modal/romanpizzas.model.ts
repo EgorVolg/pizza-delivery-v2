@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../../../shared/db/sequelize";
 
-export class Pizza extends Model {
+export class RomanPizzas extends Model {
   declare id: number;
   declare name: string;
   declare imageUrl: string;
@@ -19,20 +19,20 @@ export class Pizza extends Model {
   declare updatedAt: Date;
 }
 
-Pizza.init(
+RomanPizzas.init(
   {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: DataTypes.STRING, allowNull: false },
     imageUrl: { type: DataTypes.STRING, allowNull: false },
     price: { type: DataTypes.INTEGER, allowNull: false },
     description: { type: DataTypes.TEXT },
+    quantity: { type: DataTypes.ARRAY(DataTypes.INTEGER) },
+    weight: { type: DataTypes.ARRAY(DataTypes.INTEGER) },
     rating: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
     popular: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
     ingredients: { type: DataTypes.ARRAY(DataTypes.INTEGER) },
-    size: { type: DataTypes.ARRAY(DataTypes.INTEGER) },
     type: { type: DataTypes.ARRAY(DataTypes.INTEGER) },
-    weight: { type: DataTypes.INTEGER, allowNull: true },
-    quantity: { type: DataTypes.INTEGER, allowNull: true },
+    size: { type: DataTypes.INTEGER },
     category_id: {
       type: DataTypes.INTEGER,
       references: { model: "categories", key: "id" },
@@ -43,7 +43,7 @@ Pizza.init(
   },
   {
     sequelize,
-    tableName: "pizzas",
+    tableName: "romanpizzas",
     timestamps: false,
   }
 );
