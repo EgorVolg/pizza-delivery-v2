@@ -66,8 +66,6 @@ export const Homepage = () => {
   }, [dispatch]);
 
   const toggleMenu = useCallback(() => {
-    setIsOpenFilters(false);
-
     if (window.innerWidth <= 1440) {
       setIsOpenFilters((prev) => !prev);
     }
@@ -111,13 +109,13 @@ export const Homepage = () => {
 
         {/* === Фильтры === */}
         {isOpenFilters && (
-          <Overlay onClick={toggleMenu}>
+          <Overlay onClick={() => setIsOpenFilters(false)}>
             <ModalWindow
               isOpen={isOpenFilters}
               setIsOpen={setIsOpenFilters}
               className={styles.modal_window}
             >
-              <button className={styles.xbtn} onClick={toggleMenu}>
+              <button className={styles.xbtn} onClick={() => setIsOpenFilters(false)}>
                 <svg
                   width="30"
                   height="30"
