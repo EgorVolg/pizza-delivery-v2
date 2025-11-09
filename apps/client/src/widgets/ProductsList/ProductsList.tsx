@@ -1,5 +1,5 @@
 import { useEffect, useRef, useMemo } from "react";
-import type { PizzaCard } from "../../entities/pizza/model/pizza.types";
+import type { PizzaCard, PizzaResponse } from "../../entities/pizza/model/pizza.types";
 import { ProductsSection } from "../../entities/homepage/ProductsSection/ProductsSection";
 import Container from "../../shared/ui/Container/Container";
 import Button from "../../shared/ui/Button/Button";
@@ -18,7 +18,7 @@ export const ProductsList = ({
   products,
   isLoading = false,
 }: {
-  products: PizzaCard[];
+  products: PizzaResponse[];
   isLoading?: boolean;
 }) => {
   const activeId = useSelector((s: RootState) => s.activeId.activeId);
@@ -42,7 +42,7 @@ export const ProductsList = ({
 
   // Группировка и подготовка секций
   const processedSections = useMemo(() => {
-    const grouped: Record<number, PizzaCard[]> = {};
+    const grouped: Record<number, PizzaResponse[]> = {};
     products.forEach((p) => {
       const id = p.category_id ?? 0;
       if (!grouped[id]) grouped[id] = [];

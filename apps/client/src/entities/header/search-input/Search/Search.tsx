@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"; 
+import { useEffect, useRef, useState } from "react";
 import { useLockScroll } from "../../../../shared/hooks/useLockScroll";
 import styles from "./Search.module.css";
 import { AnimatePresence, motion } from "framer-motion";
@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import Xbtn from "../../../../shared/ui/Xbtn/Xbtn";
 import { Overlay } from "../../../../shared/ui/Overlay/Overlay";
 import Container from "../../../../shared/ui/Container/Container";
-import { useGetProductsQuery } from "../../../pizza/model/products.api";
+import { useGetAllProductsQuery } from "../../../pizza/model/products.api";
 
 // Enhanced dropdown animation variants
 const dropdownVariants = {
@@ -55,7 +55,7 @@ const iconVariants = {
 
 export const Search = () => {
   const [searchValue, setSearchValue] = useState("");
-  const { data: pizzas, isLoading } = useGetProductsQuery();
+  const { data: searchList, isLoading } = useGetAllProductsQuery();
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -78,7 +78,9 @@ export const Search = () => {
     ));
   };
 
-  const searchVariants = pizzas?.filter((p) =>
+  if (!searchList) return null;
+
+  const searchVariants = searchList.filter((p) =>
     p.name.toLowerCase().trim().includes(searchValue.toLowerCase().trim())
   );
 

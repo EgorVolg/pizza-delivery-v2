@@ -1,14 +1,14 @@
-import { type JSX } from "react";
 import styles from "./ProductsSection.module.css";
 import { useGetCategoriesQuery } from "../../topbar/categories/model/categories.api";
 import { ProductCard } from "../ProductCard/ProductCard";
+import type { PizzaResponse } from "../../pizza/model/pizza.types";
 
 export const ProductsSection = ({
   products,
   titleID,
   sectionRef,
 }: {
-  products: JSX.Element[];
+  products: PizzaResponse[];
   titleID: number;
   sectionRef?: React.Ref<HTMLHeadingElement>;
 }) => {
@@ -32,10 +32,7 @@ export const ProductsSection = ({
 
       <div className={styles.grid}>
         {products.map((pizza, index) => (
-          <ProductCard
-            key={index}
-            pizza={pizza}
-          />
+          <ProductCard key={index} pizza={pizza} />
         ))}
       </div>
     </section>

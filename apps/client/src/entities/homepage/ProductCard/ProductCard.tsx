@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 import styles from "./ProductCard.module.css";
-import type { PizzaAPI } from "../../pizza/model/pizza.types";
 import Button from "../../../shared/ui/Button/Button";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useGetCartItemsQuery } from "../../cart/model/cart.api";
 import { useGetIngredientsQuery } from "../../ingredient/model/ingredient.api";
+import type { PizzaResponse } from "../../pizza/model/pizza.types";
 
-export const ProductCard = ({ pizza }: { pizza: PizzaAPI }) => {
+export const ProductCard = ({ pizza }: { pizza: PizzaResponse }) => {
   const dispatch = useDispatch();
   const { data: cartData } = useGetCartItemsQuery();
   const { data: ingredients } = useGetIngredientsQuery();
@@ -19,21 +19,10 @@ export const ProductCard = ({ pizza }: { pizza: PizzaAPI }) => {
     return cartItem.map((item) => item.quantity).reduce((a, b) => a + b, 0);
   }, [cartData, pizza.name]);
 
-  const pizzaIngredients = useMemo(() => {
-    if (!Array.isArray(pizza.ingredients) || !ingredients) return "";
-
-    const ingredientMap = new Map(ingredients.map((i) => [i.id, i.name]));
-
-    return pizza.ingredients
-      .map((id) => ingredientMap.get(id))
-      .filter(Boolean)
-      .join(", ");
-  }, [pizza.ingredients, ingredients]);
-
   const handleAddToCart = () => {
     dispatch({
       type: "pizzaModal/setOpenClosePizzaModal",
-      payload: { open: true, id: pizza.id },
+      payload: { open: true, id: pizza.id, categoryId: pizza.category_id },
     });
   };
 
@@ -45,7 +34,7 @@ export const ProductCard = ({ pizza }: { pizza: PizzaAPI }) => {
   };
 
   if (!cartData || !ingredients) return null;
-  
+
   return (
     <article key={pizza.id} className={styles.card}>
       <Link to={`/pizza/${pizza.id}`}>
@@ -56,7 +45,7 @@ export const ProductCard = ({ pizza }: { pizza: PizzaAPI }) => {
       <div className={styles.body}>
         <header>
           <h3 className={styles.title}>{pizza.name}</h3>
-          <p className={styles.description}>{pizzaIngredients}</p>
+          <p className={styles.description}>{pizza.description}</p>
         </header>
         <footer className={styles.footer}>
           <span className={styles.price}>

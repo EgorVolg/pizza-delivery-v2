@@ -113,7 +113,7 @@ export const CartDrawer = ({
                 fill="#fff"
               >
                 <path d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z" />
-              </svg> 
+              </svg>
             </Button>
           </footer>
         )}

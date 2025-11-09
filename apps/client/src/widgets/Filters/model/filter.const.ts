@@ -1,6 +1,7 @@
 export const typesOfDough = [
   { id: 1, name: "Тонкое" },
   { id: 2, name: "Традиционное" },
+  { id: 3, name: "Римское" },
 ];
 
 export const MAX_PRICE = 5000;

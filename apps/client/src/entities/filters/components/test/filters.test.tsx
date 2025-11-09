@@ -1,30 +1,25 @@
 // apps/client/src/features/product-filter/Filters.test.tsx
-import React from 'react';
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-} from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { Provider } from "react-redux";
 
-import { store } from '../../../../app/store';
-import { Filters } from '../../Filters';
-import { initialFilterParamsState } from '../../../../widgets/Filters/model/filterParams.slice';
+import { store } from "../../../../app/store";
+
+import { initialFilterParamsState } from "../../../../widgets/Filters/model/filterParams.slice";
+import { Filters } from "../../../../widgets/Filters/Filters";
 
 vi.mock(
-  '../../entities/ingredient/model/ingredient.api',
+  "../../entities/ingredient/model/ingredient.api",
   async (importOriginal) => {
     const actual = await importOriginal<
-      typeof import('../../../../entities/ingredient/model/ingredient.api')
+      typeof import("../../../../entities/ingredient/model/ingredient.api")
     >();
     return {
       ...actual,
       useGetIngredientsQuery: vi.fn().mockReturnValue({
         data: [
-          { id: 1, name: 'Cheese' },
-          { id: 2, name: 'Mushroom' },
+          { id: 1, name: "Cheese" },
+          { id: 2, name: "Mushroom" },
         ],
         isLoading: false,
       }),
@@ -32,35 +27,35 @@ vi.mock(
   }
 );
 
-vi.mock('../../shared/hooks/useLockScroll', () => ({
+vi.mock("../../shared/hooks/useLockScroll", () => ({
   useLockScroll: vi.fn(),
 }));
 
 const mockToggleMenu = vi.fn();
 
 const getNewCheckbox = async () => {
-  const all = await screen.findAllByRole('checkbox');
+  const all = await screen.findAllByRole("checkbox");
   for (const cb of all) {
-    const label = cb.closest('label, li')?.textContent ?? '';
+    const label = cb.closest("label, li")?.textContent ?? "";
     if (/Новинки/i.test(label)) return cb;
   }
   throw new Error('checkbox "Новинки" not found');
 };
 
-const getResetBtn = () => screen.findByTestId('reset-button');
+const getResetBtn = () => screen.findByTestId("reset-button");
 const getApplyBtn = () => screen.findByText(/Применить/i);
 
-describe('Filters component', () => {
+describe("Filters component", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   afterEach(() => {
     // make sure we start every test with a clean store
-    store.dispatch({ type: 'RESET' });
+    store.dispatch({ type: "RESET" });
   });
 
-  it('renders all filter sections', async () => {
+  it("renders all filter sections", async () => {
     render(
       <Provider store={store}>
         <Filters toggleMenu={mockToggleMenu} isOpenFilters={true} />
@@ -72,7 +67,7 @@ describe('Filters component', () => {
     expect(screen.getByText(/Тип теста/i)).toBeInTheDocument();
   });
 
-  it('shows reset button when filter changes', async () => {
+  it("shows reset button when filter changes", async () => {
     render(
       <Provider store={store}>
         <Filters toggleMenu={mockToggleMenu} isOpenFilters={true} />
@@ -83,7 +78,7 @@ describe('Filters component', () => {
     expect(await getResetBtn()).toBeInTheDocument();
   });
 
-  it('resets filters and closes modal', async () => {
+  it("resets filters and closes modal", async () => {
     render(
       <Provider store={store}>
         <Filters toggleMenu={mockToggleMenu} isOpenFilters={true} />
@@ -98,7 +93,7 @@ describe('Filters component', () => {
     });
   });
 
-  it('applies filters and closes modal', async () => {
+  it("applies filters and closes modal", async () => {
     render(
       <Provider store={store}>
         <Filters toggleMenu={mockToggleMenu} isOpenFilters={true} />
@@ -113,7 +108,7 @@ describe('Filters component', () => {
     });
   });
 
-  it('closes on click outside', async () => {
+  it("closes on click outside", async () => {
     render(
       <Provider store={store}>
         <Filters toggleMenu={mockToggleMenu} isOpenFilters={true} />
@@ -124,9 +119,9 @@ describe('Filters component', () => {
     expect(mockToggleMenu).toHaveBeenCalledOnce();
   });
 
-  it('listens to window resize and cleans up listener on unmount', async () => {
-    const addSpy = vi.spyOn(window, 'addEventListener');
-    const removeSpy = vi.spyOn(window, 'removeEventListener');
+  it("listens to window resize and cleans up listener on unmount", async () => {
+    const addSpy = vi.spyOn(window, "addEventListener");
+    const removeSpy = vi.spyOn(window, "removeEventListener");
 
     const { unmount } = render(
       <Provider store={store}>
@@ -135,20 +130,20 @@ describe('Filters component', () => {
     );
 
     // Ensure listener was added
-    expect(addSpy).toHaveBeenCalledWith('resize', expect.any(Function));
+    expect(addSpy).toHaveBeenCalledWith("resize", expect.any(Function));
 
     // Trigger resize and check nothing breaks
-    fireEvent(window, new Event('resize'));
+    fireEvent(window, new Event("resize"));
 
     unmount();
 
     // Ensure listener was removed
-    expect(removeSpy).toHaveBeenCalledWith('resize', expect.any(Function));
+    expect(removeSpy).toHaveBeenCalledWith("resize", expect.any(Function));
   });
 
-  it('cleans up click-outside listener on unmount', () => {
-    const addSpy = vi.spyOn(document, 'addEventListener');
-    const removeSpy = vi.spyOn(document, 'removeEventListener');
+  it("cleans up click-outside listener on unmount", () => {
+    const addSpy = vi.spyOn(document, "addEventListener");
+    const removeSpy = vi.spyOn(document, "removeEventListener");
 
     const { unmount } = render(
       <Provider store={store}>
@@ -156,10 +151,10 @@ describe('Filters component', () => {
       </Provider>
     );
 
-    expect(addSpy).toHaveBeenCalledWith('mousedown', expect.any(Function));
+    expect(addSpy).toHaveBeenCalledWith("mousedown", expect.any(Function));
 
     unmount();
 
-    expect(removeSpy).toHaveBeenCalledWith('mousedown', expect.any(Function));
+    expect(removeSpy).toHaveBeenCalledWith("mousedown", expect.any(Function));
   });
 });

@@ -9,6 +9,14 @@ import type { RootState } from "../../app/store";
 import { ModalWindow } from "../../shared/ui/ModalWindow/ModalWindow";
 import { useGetProductByIdQuery } from "../../entities/pizza/model/products.api";
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
+import { typesOfDough } from "../../widgets/Filters/model/filter.const";
+
+interface ChoosePizzaParams {
+  type: number | string | null;
+  size: number | string | null;
+  weight?: number | null;
+  quantity?: number | null;
+}
 
 export const PizzaModalWindow = ({
   handleCloseModal,
@@ -21,32 +29,36 @@ export const PizzaModalWindow = ({
   const [addCartItem] = useAddCartItemMutation();
   const [activeTopping, setActiveTopping] = useState([] as PizzaTopping[]);
   const selector = useSelector((s: RootState) => s.pizzaModal);
-  const pizzaQuery = useGetProductByIdQuery(selector.id);
-  const ingredientsQuery = useGetIngredientsQuery();
+  const queryParams = { id: selector.id, categoryId: selector.categoryId };
 
-  const pizza = pizzaQuery.data;
+  const { data: pizza } = useGetProductByIdQuery(queryParams);
+
+  const ingredientsQuery = useGetIngredientsQuery();
   const ingredients = ingredientsQuery.data;
 
-  const [choosePizzaParams, setChoosePizzaParams] = useState({
-    type: 1,
-    size: 20,
-  });
+  const [choosePizzaParams, setChoosePizzaParams] = useState<ChoosePizzaParams>(
+    { type: null, size: null, weight: null, quantity: null }
+  );
 
   useEffect(() => {
-    if (pizza) {
-      setChoosePizzaParams({
-        type: pizza.type[0],
-        size: pizza.size[0],
-      });
-    }
+    if (!pizza) return;
+
+    setChoosePizzaParams({
+      type: pizza.type !== null ? pizza.type[0] : null,
+      size: pizza.size !== null ? pizza.size[0] : null,
+      weight: pizza.weight !== null ? pizza.weight[0].toString() : null,
+      quantity: pizza.quantity !== null ? +pizza.quantity[0] : null,
+    });
   }, [pizza]);
 
   if (!pizza || !ingredients || !toppings) return null;
 
-  const ingredientsNames = ingredients
-    .filter((ing) => pizza.ingredients.includes(ing.id))
-    .map((i) => i.name)
-    .join(", ");
+  const ingredientsNames =
+    pizza.ingredients &&
+    ingredients
+      .filter((ing) => pizza.ingredients.includes(ing.id))
+      .map((i) => i.name)
+      .join(", ");
 
   const handleChooseTopping = (topping: PizzaTopping) => {
     const ids = activeTopping.map((t) => t.id);
@@ -65,16 +77,22 @@ export const PizzaModalWindow = ({
   };
 
   const selectedToppings = activeTopping.map((t) => t.name).join(", ");
-  const typeTitle = choosePizzaParams.type === 1 ? "Традиционное" : "Тонкое";
+  const typeTitle = pizza.type
+    ? typesOfDough.find((t) => t.id === choosePizzaParams.type)?.name
+    : null;
 
   const handleAddToCart = () => {
     const pizzaParams = {
+      id: pizza.id,
+      cart_id: "550e8400-e29b-41d4-a716-446655440000",
       name: pizza.name,
       imageUrl: pizza.imageUrl,
       price: calcPrice(),
       ingredients: ingredientsNames,
       toppings: selectedToppings,
+      productQuantity: choosePizzaParams.quantity || 1,
       type: typeTitle,
+      weight: choosePizzaParams.weight,
       size: choosePizzaParams.size,
       quantity: 1,
     };
@@ -114,89 +132,153 @@ export const PizzaModalWindow = ({
         <section className={styles.body}>
           <header className={styles.header}>
             <h2 className={styles.title}>{pizza.name}</h2>
-            <p
-              className={styles.description}
-            >{`${typeTitle} тесто, ${choosePizzaParams.size} см.`}</p>
-            <p className={styles.ingredients}>{ingredientsNames}</p>
+            <div>
+              {choosePizzaParams.type !== null && `${typeTitle + " тесто, "}`}
+
+              {choosePizzaParams.size !== null &&
+                choosePizzaParams.size +
+                  `${
+                    pizza.category_id === 2 || pizza.category_id === 1
+                      ? " см "
+                      : ", "
+                  }`}
+
+              {choosePizzaParams.quantity !== null &&
+                `${
+                  choosePizzaParams.quantity !== null &&
+                  choosePizzaParams.quantity + "шт., "
+                }`}
+
+              {pizza.weight !== null &&
+                `${
+                  choosePizzaParams.weight !== null &&
+                  choosePizzaParams.weight + "гр."
+                }
+              `}
+              <div className={styles.params} style={{ padding: "10px 0" }}>
+                {choosePizzaParams.quantity !== null && (
+                  <div className={styles.selectors}>
+                    {pizza.quantity !== null &&
+                      pizza.quantity.map((item, index) => (
+                        <div
+                          key={index}
+                          onClick={() =>
+                            setChoosePizzaParams({
+                              ...choosePizzaParams,
+                              quantity: item,
+                              weight: pizza.weight && pizza.weight[index],
+                            })
+                          }
+                          className={`${styles.selector} ${
+                            +choosePizzaParams.quantity === +item &&
+                            styles.active
+                          }`}
+                        >
+                          {item} шт.
+                        </div>
+                      ))}
+                  </div>
+                )}
+              </div>
+            </div>
+            <p className={styles.ingredients}>
+              {ingredientsNames ? ingredientsNames : pizza.description}
+            </p>
           </header>
 
           <section className={styles.params}>
-            <div className={styles.selectors}>
-              {pizza.size.map((size, index) => (
-                <div
-                  key={index}
-                  className={`${styles.selector} ${
-                    choosePizzaParams.size === size && styles.active
-                  }`}
-                  onClick={() =>
-                    setChoosePizzaParams({ ...choosePizzaParams, size: size })
-                  }
-                >
-                  {size} см
-                </div>
-              ))}
-            </div>
+            {pizza.size !== null && (
+              <div className={styles.selectors}>
+                {pizza.size.map((size, index) => (
+                  <div
+                    key={index}
+                    className={`${styles.selector} ${
+                      choosePizzaParams.size === size && styles.active
+                    }`}
+                    onClick={() =>
+                      setChoosePizzaParams({
+                        ...choosePizzaParams,
+                        size: size,
+                      })
+                    }
+                  >
+                    {`${size}
+                    ${
+                      pizza.category_id === 2 ||
+                      (pizza.category_id === 1 ? " см " : "")
+                    }`}
+                  </div>
+                ))}
+              </div>
+            )}
 
-            <div className={styles.selectors}>
-              {pizza.type.map((type, index) => (
-                <div
-                  key={index}
-                  onClick={() =>
-                    setChoosePizzaParams({ ...choosePizzaParams, type: type })
-                  }
-                  className={`${styles.selector} ${
-                    choosePizzaParams.type === type && styles.active
-                  }`}
-                >
-                  {type === 1 ? "Традиционное" : "Тонкое"}
-                </div>
-              ))}
-            </div>
+            {choosePizzaParams.type !== null && (
+              <div className={styles.selectors}>
+                {pizza.type.map((type, index) => (
+                  <div
+                    key={index}
+                    onClick={() =>
+                      setChoosePizzaParams({
+                        ...choosePizzaParams,
+                        type: type,
+                      })
+                    }
+                    className={`${styles.selector} ${
+                      choosePizzaParams.type === type && styles.active
+                    }`}
+                  >
+                    {typesOfDough.find((t) => t.id === type)?.name}
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
 
-          <section className={styles.toppingsSection}>
-            <h3 className={styles.toppingsTitle}>Добавить по вкусу</h3>
+          {pizza.ingredients && (
+            <section className={styles.toppingsSection}>
+              <h3 className={styles.toppingsTitle}>Добавить по вкусу</h3>
 
-            <ul className={styles.toppings}>
-              {toppings.map((topping, index) => (
-                <li
-                  key={index}
-                  className={`${styles.topping} ${
-                    activeTopping.some((t) => t.id === topping.id) &&
-                    styles.active
-                  }`}
-                  onClick={() => handleChooseTopping(topping)}
-                >
-                  {activeTopping.some((t) => t.id === topping.id) && (
-                    <div className={styles.toppingCheck}>
-                      <svg
-                        width="7"
-                        height="5"
-                        viewBox="0 0 9 8"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M0.800011 4.0001L3.20001 6.4001L8.00001 1.6001"
-                          stroke="#FE5F00"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </div>
-                  )}
-                  <img
-                    className={styles.toppingImg}
-                    src={topping.image}
-                    alt="topping"
-                  />
-                  <p className={styles.toppingName}>{topping.name}</p>
-                  <div className={styles.toppingPrice}>{topping.price} ₽</div>
-                </li>
-              ))}
-            </ul>
-          </section>
+              <ul className={styles.toppings}>
+                {toppings.map((topping, index) => (
+                  <li
+                    key={index}
+                    className={`${styles.topping} ${
+                      activeTopping.some((t) => t.id === topping.id) &&
+                      styles.active
+                    }`}
+                    onClick={() => handleChooseTopping(topping)}
+                  >
+                    {activeTopping.some((t) => t.id === topping.id) && (
+                      <div className={styles.toppingCheck}>
+                        <svg
+                          width="7"
+                          height="5"
+                          viewBox="0 0 9 8"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0.800011 4.0001L3.20001 6.4001L8.00001 1.6001"
+                            stroke="#FE5F00"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </div>
+                    )}
+                    <img
+                      className={styles.toppingImg}
+                      src={topping.image}
+                      alt="topping"
+                    />
+                    <p className={styles.toppingName}>{topping.name}</p>
+                    <div className={styles.toppingPrice}>{topping.price} ₽</div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
         </section>
         <div />
         <div className={styles.bottom}>

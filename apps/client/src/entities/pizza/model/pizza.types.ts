@@ -1,18 +1,20 @@
 // Данные, получаемые с API
-export interface PizzaAPI {
+export interface PizzaResponse {
   id: number;
-  category_id: number;
-  description: string;
-  size: number[];
   name: string;
-  imageUrl: string;
-  ingredients: number[];
-  rating: number;
-  popular: number;
   price: number;
+  imageUrl: string;
+  description: string;
+  category_id: number;
+  rating: number;
+  size: string[];
+  popular: number;
+  type: number[];
+  ingredients: number[];
+  quantity: number[] | null;
+  weight: number[] | null;
   createdAt: string;
   updatedAt: string;
-  type: number[];
 }
 
 // Данные, используемые в карточке товара
@@ -54,6 +56,7 @@ export interface PizzaTopping {
 }
 
 export interface ProductFilters {
+  category?: string;
   priceFrom?: number;
   priceTo?: number;
   isNew?: boolean;

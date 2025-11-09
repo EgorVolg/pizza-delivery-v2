@@ -65,8 +65,12 @@ export const CartItem = ({ item }: { item: TCartItem }) => {
         </button>
 
         <p className={styles.cartItem__description}>
-          {`${item.size} см, ${item.type} тесто `} <br />
-          {item.toppings ? `+ ${item.toppings.toLowerCase()}` : ""}
+          {item.productQuantity && ` ${item.productQuantity} шт., `}
+          {item.weight && ` ${item.weight} гр., `}
+          {item.size && `${item.size} см, `}
+          {item.type && `${item.type} тесто, `}
+          <br />
+          {item.toppings && `+ ${item.toppings.toLowerCase()}`}
         </p>
 
         <div className={styles.line} />

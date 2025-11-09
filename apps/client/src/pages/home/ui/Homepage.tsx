@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../../app/store";
@@ -13,14 +13,24 @@ import { useFilterUrlSync } from "../../../shared/hooks/useFilterUrlSync";
 import { PizzaModalWindow } from "../../../features/add-to-cart/PizzaModalWindow";
 import { CartDrawer } from "../../../widgets/Cart/ui/CartDrawer";
 import { ModalWindow } from "../../../shared/ui/ModalWindow/ModalWindow";
-import { useGetProductsQuery } from "../../../entities/pizza/model/products.api";
+import { useGetAllProductsQuery } from "../../../entities/pizza/model/products.api";
 import { ProductsList } from "../../../widgets/ProductsList/ProductsList";
 
 export const Homepage = () => {
   const dispatch = useDispatch();
   const filters = useSelector((s: RootState) => s.filterParams);
+  const pizzaModalSelector = useSelector((s: RootState) => s.pizzaModal);
+  const isCartDrawerOpen = useSelector((s: RootState) => s.closeOpenCart);
+  const sort = useSelector((s: RootState) => s.sortParams);
 
-  const { isLoading, data } = useGetProductsQuery({
+  const [isOpenFilters, setIsOpenFilters] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Синхронизация фильтров с URL
+  useFilterUrlSync();
+
+  // --- Загрузка данных из всех категорий ---
+  const { data: allProducts, isLoading } = useGetAllProductsQuery({
     isNew: filters.isNew,
     priceFrom: filters.price[0],
     priceTo: filters.price[1],
@@ -28,13 +38,26 @@ export const Homepage = () => {
     ingredients: filters.ingredients,
   });
 
-  const [isOpenFilters, setIsOpenFilters] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  // --- Обработка фильтров и сортировки ---
+  const sortedList = useMemo(() => {
+    if (!allProducts) return [];
 
-  const pizzaModalSelector = useSelector((s: RootState) => s.pizzaModal);
-  const isCartDrawerOpen = useSelector((s: RootState) => s.closeOpenCart);
-  const sort = useSelector((s: RootState) => s.sortParams);
+    const items = [...allProducts];
+    switch (sort) {
+      case "рейтингу":
+        return items.sort((a, b) => b.rating - a.rating);
+      case "популярности":
+        return items.sort((a, b) => b.popular - a.popular);
+      case "цене":
+        return items.sort((a, b) => a.price - b.price);
+      case "алфавиту":
+        return items.sort((a, b) => a.name.localeCompare(b.name, "ru"));
+      default:
+        return items;
+    }
+  }, [allProducts, sort]);
 
+  // --- Логика интерфейса ---
   const handleCloseCart = useCallback(() => {
     dispatch({
       type: "closeOpenCart/setCloseOpenCart",
@@ -43,19 +66,11 @@ export const Homepage = () => {
   }, [dispatch]);
 
   const toggleMenu = useCallback(() => {
+    setIsOpenFilters(false);
+
     if (window.innerWidth <= 1440) {
       setIsOpenFilters((prev) => !prev);
     }
-  }, []);
-
-  useFilterUrlSync();
-
-  // Определение мобильного режима
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleCloseModal = useCallback(() => {
@@ -65,26 +80,13 @@ export const Homepage = () => {
     });
   }, [dispatch]);
 
-  function sortPizzas() {
-    if (!data) return [];
-
-    const pizzas = [...data];
-
-    switch (sort) {
-      case "рейтингу":
-        return pizzas.sort((a, b) => b.rating - a.rating);
-      case "популярности":
-        return pizzas.sort((a, b) => b.popular - a.popular);
-      case "цене":
-        return pizzas.sort((a, b) => a.price - b.price);
-      case "алфавиту":
-        return pizzas.sort((a, b) => a.name.localeCompare(b.name, "ru"));
-      default:
-        return pizzas;
-    }
-  }
-
-  const list = sortPizzas();
+  // Определение мобильного режима
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <>
@@ -108,7 +110,6 @@ export const Homepage = () => {
         )}
 
         {/* === Фильтры === */}
-
         {isOpenFilters && (
           <Overlay onClick={toggleMenu}>
             <ModalWindow
@@ -158,7 +159,7 @@ export const Homepage = () => {
               ))}
             </div>
           ) : (
-            <ProductsList products={list} isLoading={isLoading} />
+            <ProductsList products={sortedList} isLoading={isLoading} />
           )}
         </main>
       </Container>

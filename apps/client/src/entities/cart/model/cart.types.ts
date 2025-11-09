@@ -5,16 +5,34 @@ export interface CartResponse {
 }
 
 export interface TCartItem {
-  name: string;
   id: number;
-  quantity: number;
-  imageUrl: string;
+  product_id: number;
+  name: string;
   price: number;
-  ingredients: string;
-  toppings: string;
+  imageUrl: string;
+  category_id: number;
+  size: string;
   type: string;
-  size: number;
+  toppings: string;
+  weight: string; 
+  productQuantity: number;
+  ingredients: string;
+  quantity: number;
+  cartQuantity: number;
   createdAt: string;
   updatedAt: string;
 }
- 
+
+export interface AddCartItemRequest {
+  id: number;
+  cart_id: string;
+  name: string;
+  imageUrl: string;
+  price: number;
+  type: string | undefined;
+  size: string | number | null;
+  ingredients: string;
+  toppings: string;
+  productQuantity: number | number[];
+  quantity: number;
+}

@@ -1,6 +1,6 @@
 import { baseQuery } from "../../../shared/api/baseUrl";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import type { TCartItem, CartResponse } from "./cart.types";
+import type { TCartItem, CartResponse, AddCartItemRequest } from "./cart.types";
 
 export const cartApi = createApi({
   reducerPath: "cartApi",
@@ -12,8 +12,8 @@ export const cartApi = createApi({
       providesTags: ["Cart"],
     }),
 
-    addCartItem: builder.mutation<TCartItem, TCartItem>({
-      query: (cartItem: TCartItem) => ({
+    addCartItem: builder.mutation<TCartItem, AddCartItemRequest>({
+      query: (cartItem: AddCartItemRequest) => ({
         url: "/cart",
         method: "POST",
         body: cartItem,
@@ -30,8 +30,8 @@ export const cartApi = createApi({
     }),
 
     deleteCartItem: builder.mutation<string, number>({
-      query: (cartItem: TCartItem) => ({
-        url: `/cart/${cartItem.id}`,
+      query: (id: number) => ({
+        url: `/cart/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Cart"],

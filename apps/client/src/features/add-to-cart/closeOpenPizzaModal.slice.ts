@@ -5,12 +5,14 @@ export const closeOpenPizzaModalSlice = createSlice({
   initialState: {
     id: 0,
     open: false,
+    categoryId: 0,
   },
 
   reducers: {
     setOpenClosePizzaModal: (state, action) => {
       state.id = action.payload.id;
       state.open = action.payload.open;
+      state.categoryId = action.payload.categoryId;
     },
   },
 });
