@@ -9,6 +9,7 @@ import romanPizzasRoutes from "../routes/romanpizzas.routes";
 import coffeesRoutes from "../routes/coffees.routes";
 import Coffeetoppings from "../routes/coffeetoppings.routes";
 import cocktailsRoutes from "../routes/cocktails.routes";
+import drinksRoutes from "../routes/drinks.routes";
 import "../entities/cart/model/cart.model";
 
 import "dotenv/config";
@@ -34,6 +35,7 @@ app.use("/api", cartRoutes);
 app.use("/api", coffeesRoutes);
 app.use("/api", Coffeetoppings);
 app.use("/api", cocktailsRoutes);
+app.use("/api", drinksRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server listening on port ${PORT}`);

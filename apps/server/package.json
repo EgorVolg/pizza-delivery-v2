@@ -14,7 +14,6 @@
     "db:migrate": "sequelize-cli db:migrate",
     "db:migrate:undo": "sequelize-cli db:migrate:undo",
     "db:migrate:undo:all": "sequelize-cli db:migrate:undo:all"
-
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",
