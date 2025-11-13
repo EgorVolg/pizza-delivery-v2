@@ -25,7 +25,16 @@ export const productsApi = createApi({
         const query = buildQueryString(filters);
 
         // Все эндпоинты, которые надо объединить
-        const endpoints = ["/products", "/appetizers", "/romanPizzas", "/coffees"];
+        const endpoints = [
+          "/products",
+          "/appetizers",
+          "/romanPizzas",
+          "/cocktails",
+          "/coffees",
+          "/desserts",
+          "/drinks",
+          "/sauces",
+        ];
 
         try {
           // параллельная загрузка
@@ -67,6 +76,21 @@ export const productsApi = createApi({
       providesTags: ["Products"],
     }),
 
+    getCocktails: builder.query<PizzaResponse[], ProductFilters | void>({
+      query: (filters) => `/cocktails${buildQueryString(filters)}`,
+      providesTags: ["Products"],
+    }),
+
+    getDrinks: builder.query<PizzaResponse[], ProductFilters | void>({
+      query: (filters) => `/drinks${buildQueryString(filters)}`,
+      providesTags: ["Products"],
+    }),
+
+    getDesserts: builder.query<PizzaResponse[], ProductFilters | void>({
+      query: (filters) => `/desserts${buildQueryString(filters)}`,
+      providesTags: ["Products"],
+    }),
+
     // ---------- Запросы по ID ----------
     getProductById: builder.query<
       PizzaResponse,
@@ -87,6 +111,9 @@ export const {
   useGetAppetizersQuery,
   useGetRomanPizzasQuery,
   useGetCoffeesQuery,
+  useGetCocktailsQuery,
+  useGetDrinksQuery,
+  useGetDessertsQuery,
 
   // по id
   useGetProductByIdQuery,

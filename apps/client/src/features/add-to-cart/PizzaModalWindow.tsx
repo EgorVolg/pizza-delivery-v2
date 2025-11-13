@@ -100,7 +100,7 @@ export const PizzaModalWindow = ({
           `${
             pizza.category_id === 4 ||
             pizza.category_id === 5 ||
-            pizza.category_id === 6
+            pizza.category_id === 7
               ? " л."
               : " гр."
           }`,
@@ -166,7 +166,7 @@ export const PizzaModalWindow = ({
               {choosePizzaParams.weight !== null &&
                 (pizza.category_id === 5 ||
                 pizza.category_id === 4 ||
-                pizza.category_id === 6
+                pizza.category_id === 7
                   ? `${choosePizzaParams.weight + "л."} `
                   : `${choosePizzaParams.weight + "гр."} `)}
 
@@ -198,7 +198,7 @@ export const PizzaModalWindow = ({
                 {choosePizzaParams.weight !== null &&
                   (pizza.category_id === 5 ||
                     pizza.category_id === 4 ||
-                    pizza.category_id === 6) && (
+                    pizza.category_id === 7) && (
                     <div className={styles.selectors}>
                       {pizza.weight !== null &&
                         pizza.weight.map((item, index) => (
