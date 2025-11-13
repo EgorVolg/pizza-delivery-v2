@@ -5,6 +5,7 @@ import { Op } from "sequelize";
 import { RomanPizzas } from "../entities/romanpizzas/modal/romanpizzas.model";
 import { Appetizers } from "../entities/appetizers/model/appetizers.model";
 import { Coffees } from "../entities/coffees/modal/coffees.model";
+import { Cocktails } from "../entities/cocktails/modal/cocktails.model";
 
 export const getProducts = async (req: Request, res: Response) => {
   try {
@@ -73,9 +74,9 @@ export const getProductById = async (req: Request, res: Response) => {
       case 3:
         Model = Appetizers;
         break;
-      // case 4:
-      //   Model = Сocktails;
-      //   break;
+      case 4:
+        Model = Cocktails;
+        break;
       case 5:
         Model = Coffees;
         break;
