@@ -1,4 +1,4 @@
-import { combineReducers } from "@reduxjs/toolkit"; 
+import { combineReducers } from "@reduxjs/toolkit";
 import { categoriesApi } from "../entities/topbar/categories/model/categories.api";
 import { ingredientsApi } from "../entities/ingredient/model/ingredient.api";
 import { cartApi } from "../entities/cart/model/cart.api";
@@ -8,8 +8,9 @@ import { activeCategorySlice } from "../entities/topbar/categories/model/activeC
 import { closeOpenCartSlice } from "../widgets/Cart/model/closeOpenCart.slice";
 import { filterParamsSlice } from "../widgets/Filters/model/filterParams.slice";
 import { closeOpenPizzaModalSlice } from "../features/add-to-cart/closeOpenPizzaModal.slice";
-import { pizzaToppingsApi } from "../entities/pizza/model/pizzatoppings.api";
-import { productsApi } from "../entities/pizza/model/products.api";
+import { pizzaToppingsApi } from "../entities/products/model/pizzatoppings.api";
+import { productsApi } from "../entities/products/model/products.api";
+import { coffeeToppingsApi } from "../entities/products/model/coffeetoppings.api";
 
 export const rootReducer = combineReducers({
   //api reducers
@@ -17,6 +18,7 @@ export const rootReducer = combineReducers({
   [categoriesApi.reducerPath]: categoriesApi.reducer,
   [ingredientsApi.reducerPath]: ingredientsApi.reducer,
   [pizzaToppingsApi.reducerPath]: pizzaToppingsApi.reducer,
+  [coffeeToppingsApi.reducerPath]: coffeeToppingsApi.reducer,
   [cartApi.reducerPath]: cartApi.reducer,
 
   // client reducers

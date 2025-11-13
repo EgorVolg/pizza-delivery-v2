@@ -48,10 +48,10 @@ export interface Pizza {
   type: string[];
 }
 
-export interface PizzaTopping {
+export interface Topping {
   id: number;
   name: string;
-  image: string;
+  imageUrl: string;
   price: number;
 }
 

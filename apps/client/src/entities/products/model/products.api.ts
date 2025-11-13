@@ -25,7 +25,7 @@ export const productsApi = createApi({
         const query = buildQueryString(filters);
 
         // Все эндпоинты, которые надо объединить
-        const endpoints = ["/products", "/appetizers", "/romanPizzas"];
+        const endpoints = ["/products", "/appetizers", "/romanPizzas", "/coffees"];
 
         try {
           // параллельная загрузка
@@ -52,34 +52,29 @@ export const productsApi = createApi({
       providesTags: ["Products"],
     }),
 
-    getAppetizers: builder.query<PizzaResponse[], ProductFilters | void>({
-      query: (filters) => `/appetizers${buildQueryString(filters)}`,
-      providesTags: ["Products"],
-    }),
-
     getRomanPizzas: builder.query<PizzaResponse[], ProductFilters | void>({
       query: (filters) => `/romanPizzas${buildQueryString(filters)}`,
       providesTags: ["Products"],
     }),
 
+    getAppetizers: builder.query<PizzaResponse[], ProductFilters | void>({
+      query: (filters) => `/appetizers${buildQueryString(filters)}`,
+      providesTags: ["Products"],
+    }),
+
+    getCoffees: builder.query<PizzaResponse[], ProductFilters | void>({
+      query: (filters) => `/coffees${buildQueryString(filters)}`,
+      providesTags: ["Products"],
+    }),
+
     // ---------- Запросы по ID ----------
-    getProductById: builder.query<PizzaResponse, { categoryId: number; id: number }>(
-      {
-        query: ({ categoryId, id }) =>
-          `/products/${categoryId}/${id}`,
-        providesTags: ["Products"],
-      }
-    ),
-
-    // getAppetizerById: builder.query<PizzaResponse, number>({
-    //   query: (id) => `/appetizers/${id}`,
-    //   providesTags: ["Products"],
-    // }),
-
-    // getRomanPizzaById: builder.query<PizzaResponse, number>({
-    //   query: (id) => `/romanPizzas/${id}`,
-    //   providesTags: ["Products"],
-    // }),
+    getProductById: builder.query<
+      PizzaResponse,
+      { categoryId: number; id: number }
+    >({
+      query: ({ categoryId, id }) => `/products/${categoryId}/${id}`,
+      providesTags: ["Products"],
+    }),
   }),
 });
 
@@ -91,9 +86,8 @@ export const {
   useGetProductsQuery,
   useGetAppetizersQuery,
   useGetRomanPizzasQuery,
+  useGetCoffeesQuery,
 
   // по id
   useGetProductByIdQuery,
-  // useGetAppetizerByIdQuery,
-  // useGetRomanPizzaByIdQuery,
 } = productsApi;
