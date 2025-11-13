@@ -8,6 +8,7 @@ import { Coffees } from "../entities/coffees/modal/coffees.model";
 import { Cocktails } from "../entities/cocktails/modal/cocktails.model";
 import { Drinks } from "../entities/drinks/model/drinks.modal";
 import { Desserts } from "../entities/desserts/modal/desserts.model";
+import { Sauces } from "../entities/sauces/model/sauces.model";
 
 export const getProducts = async (req: Request, res: Response) => {
   try {
@@ -88,7 +89,9 @@ export const getProductById = async (req: Request, res: Response) => {
       case 7:
         Model = Drinks;
         break;
-
+      case 8:
+        Model = Sauces;
+        break;
       default:
         return res.status(400).json({ error: "Unknown categoryId" });
     }
