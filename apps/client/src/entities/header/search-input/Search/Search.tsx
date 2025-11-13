@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import Xbtn from "../../../../shared/ui/Xbtn/Xbtn";
 import { Overlay } from "../../../../shared/ui/Overlay/Overlay";
 import Container from "../../../../shared/ui/Container/Container";
-import { useGetAllProductsQuery } from "../../../pizza/model/products.api";
+import { useGetAllProductsQuery } from "../../../products/model/products.api";
 
 // Enhanced dropdown animation variants
 const dropdownVariants = {

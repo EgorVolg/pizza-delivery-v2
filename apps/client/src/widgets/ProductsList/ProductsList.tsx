@@ -1,5 +1,5 @@
 import { useEffect, useRef, useMemo } from "react";
-import type { PizzaCard, PizzaResponse } from "../../entities/pizza/model/pizza.types";
+import type { PizzaResponse } from "../../entities/products/model/pizza.types";
 import { ProductsSection } from "../../entities/homepage/ProductsSection/ProductsSection";
 import Container from "../../shared/ui/Container/Container";
 import Button from "../../shared/ui/Button/Button";

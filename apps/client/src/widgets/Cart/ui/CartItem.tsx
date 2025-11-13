@@ -65,8 +65,8 @@ export const CartItem = ({ item }: { item: TCartItem }) => {
         </button>
 
         <p className={styles.cartItem__description}>
-          {item.productQuantity && ` ${item.productQuantity} шт., `}
-          {item.weight && ` ${item.weight} гр., `}
+          {item.productQuantity + `${isNaN(+item.productQuantity) ? ", " : "шт.," } `}
+          {item.weight && ` ${item.weight} `}
           {item.size && `${item.size} см, `}
           {item.type && `${item.type} тесто, `}
           <br />

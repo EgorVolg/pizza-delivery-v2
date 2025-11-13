@@ -1,15 +1,16 @@
 import { useSelector } from "react-redux";
 import styles from "./PizzaModalWindow.module.css";
 import Button from "../../shared/ui/Button/Button";
-import type { PizzaTopping } from "../../entities/pizza/model/pizza.types";
+import type { Topping } from "../../entities/products/model/pizza.types";
 import { useState, useEffect } from "react";
-import { useGetPizzaToppingsQuery } from "../../entities/pizza/model/pizzatoppings.api";
+import { useGetPizzaToppingsQuery } from "../../entities/products/model/pizzatoppings.api";
 import { useAddCartItemMutation } from "../../entities/cart/model/cart.api";
 import type { RootState } from "../../app/store";
 import { ModalWindow } from "../../shared/ui/ModalWindow/ModalWindow";
-import { useGetProductByIdQuery } from "../../entities/pizza/model/products.api";
+import { useGetProductByIdQuery } from "../../entities/products/model/products.api";
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
 import { typesOfDough } from "../../widgets/Filters/model/filter.const";
+import { useGetCoffeeToppingsQuery } from "../../entities/products/model/coffeetoppings.api";
 
 interface ChoosePizzaParams {
   type: number | string | null;
@@ -25,9 +26,10 @@ export const PizzaModalWindow = ({
   handleCloseModal: () => void;
   isMobile: boolean;
 }) => {
-  const { data: toppings } = useGetPizzaToppingsQuery();
+  const { data: pizzaToppings } = useGetPizzaToppingsQuery();
+  const { data: coffeeToppings } = useGetCoffeeToppingsQuery();
   const [addCartItem] = useAddCartItemMutation();
-  const [activeTopping, setActiveTopping] = useState([] as PizzaTopping[]);
+  const [activeTopping, setActiveTopping] = useState([] as Topping[]);
   const selector = useSelector((s: RootState) => s.pizzaModal);
   const queryParams = { id: selector.id, categoryId: selector.categoryId };
 
@@ -47,11 +49,11 @@ export const PizzaModalWindow = ({
       type: pizza.type !== null ? pizza.type[0] : null,
       size: pizza.size !== null ? pizza.size[0] : null,
       weight: pizza.weight !== null ? pizza.weight[0].toString() : null,
-      quantity: pizza.quantity !== null ? +pizza.quantity[0] : null,
+      quantity: pizza.quantity !== null ? pizza.quantity[0] : null,
     });
   }, [pizza]);
 
-  if (!pizza || !ingredients || !toppings) return null;
+  if (!pizza || !ingredients) return null;
 
   const ingredientsNames =
     pizza.ingredients &&
@@ -60,7 +62,7 @@ export const PizzaModalWindow = ({
       .map((i) => i.name)
       .join(", ");
 
-  const handleChooseTopping = (topping: PizzaTopping) => {
+  const handleChooseTopping = (topping: Topping) => {
     const ids = activeTopping.map((t) => t.id);
     if (ids.includes(topping.id)) {
       setActiveTopping(activeTopping.filter((i) => i.id !== topping.id));
@@ -90,9 +92,18 @@ export const PizzaModalWindow = ({
       price: calcPrice(),
       ingredients: ingredientsNames,
       toppings: selectedToppings,
-      productQuantity: choosePizzaParams.quantity || 1,
+      productQuantity: (choosePizzaParams.quantity || 1).toString(),
       type: typeTitle,
-      weight: choosePizzaParams.weight,
+      weight:
+        choosePizzaParams.weight &&
+        choosePizzaParams.weight.toString() +
+          `${
+            pizza.category_id === 4 ||
+            pizza.category_id === 5 ||
+            pizza.category_id === 6
+              ? " л."
+              : " гр."
+          }`,
       size: choosePizzaParams.size,
       quantity: 1,
     };
@@ -100,6 +111,16 @@ export const PizzaModalWindow = ({
     addCartItem(pizzaParams);
     handleCloseModal();
   };
+
+  if (!pizzaToppings || !coffeeToppings) return null;
+  const categoryId = Number(pizza.category_id);
+
+  const toppings =
+    categoryId === 1 || categoryId === 2
+      ? pizzaToppings
+      : categoryId === 5
+      ? coffeeToppings
+      : null;
 
   return (
     <ModalWindow
@@ -136,25 +157,19 @@ export const PizzaModalWindow = ({
               {choosePizzaParams.type !== null && `${typeTitle + " тесто, "}`}
 
               {choosePizzaParams.size !== null &&
-                choosePizzaParams.size +
-                  `${
-                    pizza.category_id === 2 || pizza.category_id === 1
-                      ? " см "
-                      : ", "
-                  }`}
+                `${choosePizzaParams.size + " см "}`}
 
-              {choosePizzaParams.quantity !== null &&
-                `${
-                  choosePizzaParams.quantity !== null &&
-                  choosePizzaParams.quantity + "шт., "
-                }`}
+              {pizza.quantity !== null &&
+                choosePizzaParams.quantity +
+                  `${isNaN(+choosePizzaParams.quantity) ? ", " : "шт.,"}  `}
 
-              {pizza.weight !== null &&
-                `${
-                  choosePizzaParams.weight !== null &&
-                  choosePizzaParams.weight + "гр."
-                }
-              `}
+              {choosePizzaParams.weight !== null &&
+                (pizza.category_id === 5 ||
+                pizza.category_id === 4 ||
+                pizza.category_id === 6
+                  ? `${choosePizzaParams.weight + "л."} `
+                  : `${choosePizzaParams.weight + "гр."} `)}
+
               <div className={styles.params} style={{ padding: "10px 0" }}>
                 {choosePizzaParams.quantity !== null && (
                   <div className={styles.selectors}>
@@ -170,15 +185,41 @@ export const PizzaModalWindow = ({
                             })
                           }
                           className={`${styles.selector} ${
-                            +choosePizzaParams.quantity === +item &&
-                            styles.active
+                            choosePizzaParams.quantity === item && styles.active
                           }`}
                         >
-                          {item} шт.
+                          {item}
+                          {isNaN(+choosePizzaParams.quantity) ? " " : "шт."}
                         </div>
                       ))}
                   </div>
                 )}
+
+                {choosePizzaParams.weight !== null &&
+                  (pizza.category_id === 5 ||
+                    pizza.category_id === 4 ||
+                    pizza.category_id === 6) && (
+                    <div className={styles.selectors}>
+                      {pizza.weight !== null &&
+                        pizza.weight.map((item, index) => (
+                          <div
+                            key={index}
+                            onClick={() =>
+                              setChoosePizzaParams({
+                                ...choosePizzaParams,
+                                weight: pizza.weight && pizza.weight[index],
+                              })
+                            }
+                            className={`${styles.selector} ${
+                              +choosePizzaParams.weight === +item &&
+                              styles.active
+                            }`}
+                          >
+                            {item} л.
+                          </div>
+                        ))}
+                    </div>
+                  )}
               </div>
             </div>
             <p className={styles.ingredients}>
@@ -202,11 +243,7 @@ export const PizzaModalWindow = ({
                       })
                     }
                   >
-                    {`${size}
-                    ${
-                      pizza.category_id === 2 ||
-                      (pizza.category_id === 1 ? " см " : "")
-                    }`}
+                    {size} см
                   </div>
                 ))}
               </div>
@@ -234,7 +271,7 @@ export const PizzaModalWindow = ({
             )}
           </section>
 
-          {pizza.ingredients && (
+          {toppings && (
             <section className={styles.toppingsSection}>
               <h3 className={styles.toppingsTitle}>Добавить по вкусу</h3>
 
@@ -269,7 +306,7 @@ export const PizzaModalWindow = ({
                     )}
                     <img
                       className={styles.toppingImg}
-                      src={topping.image}
+                      src={topping.imageUrl}
                       alt="topping"
                     />
                     <p className={styles.toppingName}>{topping.name}</p>

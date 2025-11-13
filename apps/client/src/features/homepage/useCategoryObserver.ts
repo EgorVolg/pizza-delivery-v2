@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import type { PizzaCard } from "../../entities/pizza/model/pizza.types";
+import type { PizzaCard } from "../../entities/products/model/pizza.types";
 import { setActiveId } from "../../entities/topbar/categories/model/activeCategories.slice";
 
 type Props = {

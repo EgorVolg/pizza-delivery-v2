@@ -1,7 +1,7 @@
 import styles from "./ProductsSection.module.css";
 import { useGetCategoriesQuery } from "../../topbar/categories/model/categories.api";
 import { ProductCard } from "../ProductCard/ProductCard";
-import type { PizzaResponse } from "../../pizza/model/pizza.types";
+import type { PizzaResponse } from "../../products/model/pizza.types";
 
 export const ProductsSection = ({
   products,

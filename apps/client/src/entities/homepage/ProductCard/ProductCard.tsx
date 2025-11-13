@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useGetCartItemsQuery } from "../../cart/model/cart.api";
 import { useGetIngredientsQuery } from "../../ingredient/model/ingredient.api";
-import type { PizzaResponse } from "../../pizza/model/pizza.types";
+import type { PizzaResponse } from "../../products/model/pizza.types";
 
 export const ProductCard = ({ pizza }: { pizza: PizzaResponse }) => {
   const dispatch = useDispatch();

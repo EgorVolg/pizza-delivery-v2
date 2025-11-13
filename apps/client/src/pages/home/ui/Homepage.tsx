@@ -13,7 +13,7 @@ import { useFilterUrlSync } from "../../../shared/hooks/useFilterUrlSync";
 import { PizzaModalWindow } from "../../../features/add-to-cart/PizzaModalWindow";
 import { CartDrawer } from "../../../widgets/Cart/ui/CartDrawer";
 import { ModalWindow } from "../../../shared/ui/ModalWindow/ModalWindow";
-import { useGetAllProductsQuery } from "../../../entities/pizza/model/products.api";
+import { useGetAllProductsQuery } from "../../../entities/products/model/products.api";
 import { ProductsList } from "../../../widgets/ProductsList/ProductsList";
 
 export const Homepage = () => {
