@@ -17,7 +17,12 @@ module.exports = {
       },
       imageUrl: Sequelize.STRING,
       description: Sequelize.TEXT,
-      category_id: Sequelize.INTEGER,
+      category_id: {
+        type: Sequelize.INTEGER,
+        references: { model: "categories", key: "id" },
+         onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      },
       rating: {
         type: Sequelize.INTEGER,
         defaultValue: 0,

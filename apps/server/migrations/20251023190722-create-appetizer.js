@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) { 
     await queryInterface.createTable("Appetizers", {
       id: {
         allowNull: false,
@@ -23,6 +23,9 @@ module.exports = {
       },
       category_id: {
         type: Sequelize.INTEGER,
+        references: { model: "categories", key: "id" },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       },
       rating: {
         type: Sequelize.INTEGER,

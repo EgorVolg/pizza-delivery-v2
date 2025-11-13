@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../../../shared/db/sequelize";
 
-export class Coffee extends Model {
+export class Coffees extends Model {
   declare id: number;
   declare name: string;
   declare imageUrl: string;
@@ -19,7 +19,7 @@ export class Coffee extends Model {
   declare updatedAt: Date;
 }
 
-Coffee.init(
+Coffees.init(
   {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: DataTypes.STRING, allowNull: false },
@@ -31,7 +31,7 @@ Coffee.init(
     ingredients: { type: DataTypes.ARRAY(DataTypes.INTEGER) },
     size: { type: DataTypes.ARRAY(DataTypes.INTEGER) },
     type: { type: DataTypes.ARRAY(DataTypes.INTEGER) },
-    weight: { type: DataTypes.INTEGER, allowNull: true },
+    weight: { type: DataTypes.ARRAY(DataTypes.TEXT), allowNull: true },
     quantity: { type: DataTypes.INTEGER, allowNull: true },
     category_id: {
       type: DataTypes.INTEGER,
@@ -43,7 +43,7 @@ Coffee.init(
   },
   {
     sequelize,
-    tableName: "coffee",
+    tableName: "coffees",
     timestamps: false,
   }
 );

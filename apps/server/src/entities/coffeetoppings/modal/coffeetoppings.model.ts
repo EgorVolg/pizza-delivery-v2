@@ -1,14 +1,14 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../../../shared/db/sequelize";
 
-export class PizzaToppings extends Model {
+export class Coffeetoppings extends Model {
   declare id: number;
   declare name: string;
   declare price: number;
   declare imageUrl: string;
 }
 
-PizzaToppings.init(
+Coffeetoppings.init(
   {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: DataTypes.STRING, allowNull: false },
@@ -17,7 +17,7 @@ PizzaToppings.init(
   },
   {
     sequelize,
-    tableName: "pizzatoppings",
+    tableName: "coffeetoppings",
     timestamps: false,
   }
 );

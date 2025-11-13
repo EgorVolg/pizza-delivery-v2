@@ -3,12 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable("coffees", {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER,
-      },
+      id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
       name: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -39,13 +34,9 @@ module.exports = {
       },
       category_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: "categories",
-          key: "id",
-        },
+        references: { model: "categories", key: "id" },
+        onDelete: "CASCADE",
         onUpdate: "CASCADE",
-        onDelete: "SET NULL",
       },
       rating: {
         type: Sequelize.FLOAT,
@@ -56,7 +47,7 @@ module.exports = {
         allowNull: true,
       },
       weight: {
-        type: Sequelize.STRING,
+        type: Sequelize.ARRAY(Sequelize.STRING),
         allowNull: true,
       },
       quantity: {

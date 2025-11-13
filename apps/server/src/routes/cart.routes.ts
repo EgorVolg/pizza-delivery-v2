@@ -30,8 +30,9 @@ export const addCartItem = async (req: Request, res: Response) => {
         product_id: req.body.id,
         cart_id: req.body.cart_id || "550e8400-e29b-41d4-a716-446655440000", // Default cart_id if not provided
         name: req.body.name,
+        weight: req.body.weight,
         type: req.body.type,
-        size: req.body.size,
+        size: req.body.size, 
         ingredients: req.body.ingredients,
         productQuantity: req.body.productQuantity,
         toppings: req.body.toppings,

@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 import { Op } from "sequelize";
 import { RomanPizzas } from "../entities/romanpizzas/modal/romanpizzas.model";
 import { Appetizers } from "../entities/appetizers/model/appetizers.model";
-import { Coffee } from "../entities/coffee/modal/coffee.model";
+import { Coffees } from "../entities/coffees/modal/coffees.model";
 
 export const getProducts = async (req: Request, res: Response) => {
   try {
@@ -73,8 +73,11 @@ export const getProductById = async (req: Request, res: Response) => {
       case 3:
         Model = Appetizers;
         break;
-      case 4:
-        Model = Coffee;
+      // case 4:
+      //   Model = Сocktails;
+      //   break;
+      case 5:
+        Model = Coffees;
         break;
       default:
         return res.status(400).json({ error: "Unknown categoryId" });

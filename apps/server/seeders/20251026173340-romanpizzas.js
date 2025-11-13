@@ -3,6 +3,9 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkDelete("romanpizzas", null, {});
+    await queryInterface.sequelize.query(
+      'ALTER SEQUENCE "romanpizzas_id_seq" RESTART WITH 1'
+    );
     await queryInterface.bulkInsert(
       "romanpizzas",
       [
