@@ -29,7 +29,7 @@ module.exports = {
             "https://bihemgflzeaaltqlvqeh.supabase.co/storage/v1/object/public/coffeetoppings/coconut.png",
         },
         {
-          name: `${"Сироп" + "Темный лес"}`,
+          name: `Сироп "${"Темный лес"}"`,
           price: 50,
           imageUrl:
             "https://bihemgflzeaaltqlvqeh.supabase.co/storage/v1/object/public/coffeetoppings/darkforest.png",

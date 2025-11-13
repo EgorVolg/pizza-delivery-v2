@@ -20,7 +20,7 @@ module.exports = {
           size: null,
           description:
             "Освежающий напиток с сочным арбузом и лёгкой кислинкой лайма.",
-          category_id: 6,
+          category_id: 7,
           rating: 9,
           popular: 1,
           weight: ["0.5"],
@@ -36,7 +36,7 @@ module.exports = {
           size: null,
           description:
             "Напиток с насыщенным ягодным вкусом чёрной смородины и лёгким ароматом лета.",
-          category_id: 6,
+          category_id: 7,
           rating: 8,
           popular: 0,
           weight: ["0.5"],
@@ -52,7 +52,7 @@ module.exports = {
           size: null,
           description:
             "Классический холодный чёрный чай с мягким вкусом и освежающим послевкусием.",
-          category_id: 6,
+          category_id: 7,
           rating: 9,
           popular: 1,
           weight: ["0.5"],
@@ -68,7 +68,7 @@ module.exports = {
           size: null,
           description:
             "Натуральный яблочный сок с лёгкой кислинкой и приятной сладостью.",
-          category_id: 6,
+          category_id: 7,
           rating: 8,
           popular: 0,
           weight: ["1"],
@@ -84,7 +84,7 @@ module.exports = {
           size: null,
           description:
             "Классическая газированная кола со знакомым вкусом и бодрящим эффектом.",
-          category_id: 6,
+          category_id: 7,
           rating: 9,
           popular: 1,
           weight: ["0.5"],
@@ -100,7 +100,7 @@ module.exports = {
           size: null,
           description:
             "Освежающий зелёный чай с мягким вкусом и лёгкими цветочными нотками.",
-          category_id: 6,
+          category_id: 7,
           rating: 8,
           popular: 0,
           weight: ["0.5"],
@@ -116,7 +116,7 @@ module.exports = {
           size: null,
           description:
             "Яркий напиток с экзотическим вкусом зелёного манго и лёгкой кислинкой.",
-          category_id: 6,
+          category_id: 7,
           rating: 10,
           popular: 1,
           weight: ["0.5"],
@@ -132,7 +132,7 @@ module.exports = {
           size: null,
           description:
             "Прохладный лимонный напиток с лёгкой свежестью и цитрусовым ароматом.",
-          category_id: 6,
+          category_id: 7,
           rating: 9,
           popular: 1,
           weight: ["0.5"],
@@ -148,7 +148,7 @@ module.exports = {
           size: null,
           description:
             "Горячее какао с насыщенным вкусом шоколада и мягкой сливочной текстурой.",
-          category_id: 6,
+          category_id: 7,
           rating: 10,
           popular: 1,
           weight: ["0.5"],
@@ -164,7 +164,7 @@ module.exports = {
           size: null,
           description:
             "Фруктовый напиток с сочным вкусом киви и сладкими нотками винограда.",
-          category_id: 6,
+          category_id: 7,
           rating: 8,
           popular: 0,
           weight: ["0.5"],
@@ -179,7 +179,7 @@ module.exports = {
           type: null,
           size: null,
           description: "Газированный напиток с бодрящим вкусом лимона и лайма.",
-          category_id: 6,
+          category_id: 7,
           rating: 9,
           popular: 1,
           weight: ["0.5"],
@@ -195,7 +195,7 @@ module.exports = {
           size: null,
           description:
             "Традиционный клюквенный морс с натуральной кислинкой и лёгкой сладостью.",
-          category_id: 6,
+          category_id: 7,
           rating: 9,
           popular: 1,
           weight: ["0.45"],
@@ -211,7 +211,7 @@ module.exports = {
           size: null,
           description:
             "Освежающий морс из спелой вишни с насыщенным ягодным вкусом.",
-          category_id: 6,
+          category_id: 7,
           rating: 8,
           popular: 0,
           weight: ["0.45"],
@@ -227,7 +227,7 @@ module.exports = {
           size: null,
           description:
             "Фруктовый нектар с экзотическим сочетанием тропических плодов.",
-          category_id: 6,
+          category_id: 7,
           rating: 9,
           popular: 1,
           weight: ["1"],
@@ -243,7 +243,7 @@ module.exports = {
           size: null,
           description:
             "Натуральный апельсиновый нектар с приятной кисло-сладкой нотой.",
-          category_id: 6,
+          category_id: 7,
           rating: 9,
           popular: 0,
           weight: ["1"],
@@ -259,7 +259,7 @@ module.exports = {
           size: null,
           description:
             "Яркий цитрусовый напиток с освежающим апельсиновым вкусом.",
-          category_id: 6,
+          category_id: 7,
           rating: 8,
           popular: 0,
           weight: ["0.5"],
@@ -275,7 +275,7 @@ module.exports = {
           size: null,
           description:
             "Апельсиновый напиток с мякотью, насыщенным вкусом и натуральной текстурой.",
-          category_id: 6,
+          category_id: 7,
           rating: 9,
           popular: 1,
           weight: ["0.5"],
@@ -291,7 +291,7 @@ module.exports = {
           size: null,
           description:
             "Зеленый листовой чай с листьями мяты и лепестками василька.",
-          category_id: 6,
+          category_id: 7,
           rating: 9,
           popular: 0,
           weight: null,
@@ -307,7 +307,7 @@ module.exports = {
           size: null,
           description:
             "Чистая питьевая вода Bonaqua для освежающего утоления жажды.",
-          category_id: 6,
+          category_id: 7,
           rating: 8,
           popular: 0,
           weight: ["0.5"],
@@ -323,7 +323,7 @@ module.exports = {
           size: null,
           description:
             "Безкалорийная версия классической колы с тем же насыщенным вкусом.",
-          category_id: 6,
+          category_id: 7,
           rating: 9,
           popular: 1,
           weight: ["0.5"],
