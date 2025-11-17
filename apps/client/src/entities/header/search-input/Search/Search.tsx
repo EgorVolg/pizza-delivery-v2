@@ -152,7 +152,7 @@ export const Search = () => {
                 ) : (
                   searchVariants?.map((p) => (
                     <motion.div
-                      key={p.id}
+                      key={`${p.category_id}-${p.id}`}
                       variants={itemVariants}
                       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
                       whileHover={{ scale: 1.01 }}
