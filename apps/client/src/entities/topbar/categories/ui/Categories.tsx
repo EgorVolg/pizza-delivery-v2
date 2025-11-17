@@ -13,29 +13,48 @@ function CategoriesList() {
   const selectedCategory = useSelector(
     (state: RootState) => state.activeId.activeId
   );
-  const selectCategoryId = useDispatch();
+  const dispatch = useDispatch();
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (selectedCategory && containerRef.current) {
-      const activeElement = containerRef.current.querySelector(
-        `[data-index="${selectedCategory - 1}"]`
-      );
-      activeElement?.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "center",
-      });
-    }
-  }, [selectedCategory]);
-
+  const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const handleClick = useCallback(
     (event: React.MouseEvent, index: number) => {
       event.preventDefault();
-      selectCategoryId(setActiveId(index));
+      if (clickTimeoutRef.current) return;
+
+      dispatch(setActiveId(index));
+
+      clickTimeoutRef.current = setTimeout(() => {
+        clickTimeoutRef.current = null;
+      }, 350);
     },
-    [selectCategoryId]
+    [dispatch]
   );
+
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const scrollToActive = useCallback((index: number) => {
+    if (scrollTimeoutRef.current) return;
+
+    scrollTimeoutRef.current = setTimeout(() => {
+      if (containerRef.current) {
+        const activeElement = containerRef.current.querySelector(
+          `[data-index="${index}"]`
+        ) as HTMLElement | null;
+        activeElement?.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "center",
+        });
+      }
+      scrollTimeoutRef.current = null;
+    }, 100);
+  }, []);
+
+  useEffect(() => {
+    if (selectedCategory) {
+      scrollToActive(selectedCategory - 1);
+    }
+  }, [selectedCategory, scrollToActive]);
 
   const categoryElements = useMemo(() => {
     if (isLoading) {

@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../../app/store";
 
@@ -15,6 +15,9 @@ import { CartDrawer } from "../../../widgets/Cart/ui/CartDrawer";
 import { ModalWindow } from "../../../shared/ui/ModalWindow/ModalWindow";
 import { useGetAllProductsQuery } from "../../../entities/products/model/products.api";
 import { ProductsList } from "../../../widgets/ProductsList/ProductsList";
+import Button from "../../../shared/ui/Button/Button";
+import { setActiveId } from "../../../entities/topbar/categories/model/activeCategories.slice";
+import { useScrollDirectionUp } from "./useScrollToTop";
 
 export const Homepage = () => {
   const dispatch = useDispatch();
@@ -25,11 +28,10 @@ export const Homepage = () => {
 
   const [isOpenFilters, setIsOpenFilters] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const isScrollingUp = useScrollDirectionUp(150);
 
-  // Синхронизация фильтров с URL
   useFilterUrlSync();
 
-  // --- Загрузка данных из всех категорий ---
   const { data: allProducts, isLoading } = useGetAllProductsQuery({
     isNew: filters.isNew,
     priceFrom: filters.price[0],
@@ -38,7 +40,6 @@ export const Homepage = () => {
     ingredients: filters.ingredients,
   });
 
-  // --- Обработка фильтров и сортировки ---
   const sortedList = useMemo(() => {
     if (!allProducts) return [];
 
@@ -57,7 +58,6 @@ export const Homepage = () => {
     }
   }, [allProducts, sort]);
 
-  // --- Логика интерфейса ---
   const handleCloseCart = useCallback(() => {
     dispatch({
       type: "closeOpenCart/setCloseOpenCart",
@@ -86,6 +86,11 @@ export const Homepage = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleScrollToTop = () => {
+    dispatch(setActiveId(1));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <>
       <AnimatePresence mode="sync">
@@ -107,6 +112,30 @@ export const Homepage = () => {
           </>
         )}
 
+        {isScrollingUp ||
+          (window.scrollY > 300 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.1, ease: "easeInOut" }}
+            >
+              <Button className={styles.to_top} onClick={handleScrollToTop}>
+                <div className={styles.toTop_icon}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg "
+                    height="24px"
+                    viewBox="0 -960 960 960"
+                    width="24px"
+                    fill="#fff"
+                  >
+                    <path d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z" />
+                  </svg>
+                </div>
+              </Button>
+            </motion.div>
+          ))}
+
         {/* === Фильтры === */}
         {isOpenFilters && (
           <Overlay onClick={() => setIsOpenFilters(false)}>
@@ -115,7 +144,10 @@ export const Homepage = () => {
               setIsOpen={setIsOpenFilters}
               className={styles.modal_window}
             >
-              <button className={styles.xbtn} onClick={() => setIsOpenFilters(false)}>
+              <button
+                className={styles.xbtn}
+                onClick={() => setIsOpenFilters(false)}
+              >
                 <svg
                   width="30"
                   height="30"

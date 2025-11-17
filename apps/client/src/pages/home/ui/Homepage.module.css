@@ -16,6 +16,26 @@
   }
 }
 
+.to_top {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-brand) !important;
+  color: var(--color-bg-primary) !important;
+  border-radius: 50% !important;
+  width: 55px !important;
+  height: 55px !important;
+  z-index: 50;
+
+  .toTop_icon {
+    transform: rotate(90deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 .loader {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));

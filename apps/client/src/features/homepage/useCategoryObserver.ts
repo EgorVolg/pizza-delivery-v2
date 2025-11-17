@@ -12,8 +12,8 @@ export const useScrollToSection = () => {
   return useCallback(
     (
       catId: number,
-      sectionRefs: React.MutableRefObject<Record<number, HTMLElement | null>>,
-      ignoreObserver: React.MutableRefObject<boolean>
+      sectionRefs: React.RefObject<Record<number, HTMLElement | null>>,
+      ignoreObserver: React.RefObject<boolean>
     ) => {
       const headerHeight = 350;
       const node = sectionRefs.current[catId];
