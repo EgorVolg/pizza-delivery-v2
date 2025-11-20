@@ -37,7 +37,7 @@ export const ProductCard = ({ pizza }: { pizza: PizzaResponse }) => {
 
   return (
     <article key={pizza.id} className={styles.card}>
-      <Link to={`/pizza/${pizza.id}`}>
+      <Link to={`/pizza/category/${pizza.category_id}/product/${pizza.id}`}>
         <div className={styles.imageContainer}>
           <img src={pizza.imageUrl} alt={pizza.name} className={styles.image} />
         </div>
