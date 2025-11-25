@@ -5,6 +5,10 @@
   width: 100%;
   padding: 20px 0;
   gap: 15px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .navButton {
@@ -18,12 +22,10 @@
   border: 1px solid var(--color-brand-light);
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: "Nunito", sans-serif;
-  font-weight: 600;
 }
 
 .navButton {
-  background-color: var(--color-brand-light);
+  background-color: var(--color-brand);
   transform: scale(1.1);
 }
 

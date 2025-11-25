@@ -1,8 +1,8 @@
 import styles from "./SwiperButtons.module.css";
 
-export const SwiperButtons = () => {
+export const SwiperButtons = ({ style }: { style?: React.CSSProperties }) => {
   return (
-    <div className={styles.buttons_group}>
+    <div className={styles.buttons_group} style={style}>
       <button className={`${styles.navButton} ${styles.prev} custom-prev`}>
         <svg viewBox="0 0 24 24">
           <path
