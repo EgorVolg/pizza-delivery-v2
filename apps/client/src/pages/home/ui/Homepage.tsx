@@ -10,8 +10,6 @@ import { Filters } from "../../../widgets/Filters/Filters";
 import { Overlay } from "../../../shared/ui/Overlay/Overlay";
 import ProductCardSkeleton from "../../../entities/homepage/ProductCard/ProductCard.Skeleton";
 import { useFilterUrlSync } from "../../../shared/hooks/useFilterUrlSync";
-import { PizzaModalWindow } from "../../../features/add-to-cart/PizzaModalWindow";
-import { CartDrawer } from "../../../widgets/Cart/ui/CartDrawer";
 import { ModalWindow } from "../../../shared/ui/ModalWindow/ModalWindow";
 import { useGetAllProductsQuery } from "../../../entities/products/model/products.api";
 import { ProductsList } from "../../../widgets/ProductsList/ProductsList";
@@ -19,15 +17,14 @@ import Button from "../../../shared/ui/Button/Button";
 import { setActiveId } from "../../../entities/topbar/categories/model/activeCategories.slice";
 import { useScrollDirectionUp } from "./useScrollToTop";
 
-export const Homepage = () => {
+export const HomePage = () => {
   const dispatch = useDispatch();
   const filters = useSelector((s: RootState) => s.filterParams);
-  const pizzaModalSelector = useSelector((s: RootState) => s.pizzaModal);
-  const isCartDrawerOpen = useSelector((s: RootState) => s.closeOpenCart);
+
   const sort = useSelector((s: RootState) => s.sortParams);
 
   const [isOpenFilters, setIsOpenFilters] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+
   const isScrollingUp = useScrollDirectionUp(150);
 
   useFilterUrlSync();
@@ -58,32 +55,10 @@ export const Homepage = () => {
     }
   }, [allProducts, sort]);
 
-  const handleCloseCart = useCallback(() => {
-    dispatch({
-      type: "closeOpenCart/setCloseOpenCart",
-      payload: false,
-    });
-  }, [dispatch]);
-
   const toggleMenu = useCallback(() => {
     if (window.innerWidth <= 1440) {
       setIsOpenFilters((prev) => !prev);
     }
-  }, []);
-
-  const handleCloseModal = useCallback(() => {
-    dispatch({
-      type: "pizzaModal/setOpenClosePizzaModal",
-      payload: false,
-    });
-  }, [dispatch]);
-
-  // Определение мобильного режима
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleScrollToTop = () => {
@@ -94,24 +69,6 @@ export const Homepage = () => {
   return (
     <>
       <AnimatePresence mode="sync">
-        {/* === Модальное окно пиццы === */}
-        {pizzaModalSelector.open && (
-          <Overlay onClick={handleCloseModal}>
-            <PizzaModalWindow
-              handleCloseModal={handleCloseModal}
-              isMobile={isMobile}
-            />
-          </Overlay>
-        )}
-
-        {/* === Корзина === */}
-        {isCartDrawerOpen && (
-          <>
-            <Overlay onClick={handleCloseCart} />
-            <CartDrawer handleCloseCart={handleCloseCart} />
-          </>
-        )}
-
         {isScrollingUp ||
           (window.scrollY > 300 && (
             <motion.div

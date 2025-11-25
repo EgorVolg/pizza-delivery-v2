@@ -1,0 +1,384 @@
+::-webkit-scrollbar {
+  width: 12px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.container {
+  padding: 0 66px 80px 66px;
+
+  @media (max-width: 768px) {
+    padding: 30px 0;
+    overflow-y: auto;
+    scroll-snap-type: mandatory;
+  }
+}
+
+.path {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 41px;
+  color: black;
+
+  span {
+    font-family: "Nunito";
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0%;
+
+    text-wrap: nowrap;
+  }
+
+  p {
+    font-family: "Nunito";
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0%;
+    color: #37373799;
+  }
+
+  @media (max-width: 768px) {
+    margin: 15px;
+    padding: 0 40px;
+  }
+
+  @media (max-width: 480px) {
+    margin: 0;
+    padding: 0 20px 20px 20px;
+  }
+}
+
+.modal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 37px 0;
+  margin-bottom: 85px;
+  gap: 46px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: 0 40px 0px 40px;
+    min-width: none;
+    margin-bottom: 45px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 20px 0px 20px;
+  }
+}
+
+.dragLine {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+
+    position: absolute;
+    top: 20px;
+
+    left: 50%;
+    translate: -50% 0;
+
+    pointer-events: none;
+    z-index: 110;
+  }
+}
+
+.productImg {
+  width: 100%;
+  height: 100%;
+  max-width: 570px;
+  object-fit: contain;
+  padding: 35px;
+  background-color: #fff7ee;
+  border-radius: 20px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+
+  max-height: 570px;
+
+  @media (max-width: 768px) {
+    max-height: none;
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.header {
+  display: flexbox;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  display: flex;
+  font-family: "Nunito";
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  padding-bottom: 10px;
+}
+
+.description {
+  font-family: "Nunito";
+  font-weight: 400;
+  font-size: 14px;
+  color: #777777;
+  line-height: 100%;
+  letter-spacing: 0%;
+  padding-bottom: 5px;
+}
+
+.ingredients {
+  font-family: "Nunito";
+  font-weight: 400;
+  font-size: 14px;
+  color: #777777;
+  line-height: 100%;
+  letter-spacing: 0%;
+  padding-bottom: 20px;
+}
+
+.params {
+  display: flex;
+  flex-direction: column;
+  gap: 20px 0;
+}
+
+.selectors {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 35px;
+  gap: 1px;
+  border-radius: 30px;
+  background: #ececec;
+  padding: 2px;
+}
+
+.selector {
+  font-family: "Nunito";
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &.active {
+    background: #fff;
+    color: black;
+  }
+}
+
+.toppingsSection {
+  margin-top: 30px;
+}
+
+.toppingsTitle {
+  font-family: "Nunito";
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-bottom: 16px;
+}
+
+.toppings {
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  padding-right: 20px;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(125px, 1fr));
+  place-items: center;
+  gap: 10px;
+  height: 230px;
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
+    gap: 10px 0;
+  }
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+    gap: 5px;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(3, minmax(125px, 1fr));
+    height: 380px;
+  }
+
+  @media (max-width: 520px) {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+}
+
+.topping {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 130px;
+  height: 100%;
+  padding: 12px 10px;
+  border-radius: 15px;
+  border: 2px solid transparent;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      border: 2px solid var(--color-brand);
+
+      .toppingName {
+        color: var(--color-brand);
+      }
+
+      .toppingPrice {
+        color: var(--color-brand);
+      }
+
+      .toppingImg {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  &.active {
+    border: 2px solid var(--color-brand);
+  }
+}
+
+.toppingCheck {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 16px;
+  height: 16px;
+
+  border: 1.5px solid var(--color-brand);
+  border-radius: 50%;
+
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  @media (max-width: 768px) {
+    right: 5px;
+    top: 5px;
+    width: 25px;
+    height: 25px;
+
+    svg {
+      width: 10px;
+      height: 10px;
+    }
+  }
+}
+
+.toppingImg {
+  max-height: 110px;
+  width: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.toppingName {
+  font-family: "Nunito";
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+
+  transition: color 0.3s ease;
+}
+
+.toppingPrice {
+  font-family: "Nunito";
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.bottom {
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+
+  bottom: 0;
+  z-index: 30;
+
+  @media (max-width: 1200px) {
+    padding-top: 20px;
+  }
+}
+
+.bottomBtn {
+  color: var(--color-bg-primary);
+  background-color: var(--color-brand);
+  width: 100%;
+  height: 50px;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: var(--color-bg-primary);
+    }
+  }
+}
+
+.recommendationsContainer {
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: 0 40px 0px 40px;
+    min-width: none;
+  }
+
+  @media (max-height: 1000px) {
+    height: 93vh;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 20px 0px 20px;
+  }
+}

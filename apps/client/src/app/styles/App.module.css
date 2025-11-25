@@ -150,3 +150,7 @@
   min-height: 100vh;
   border-radius: 30px;
 }
+
+:global(.swiper-slide) {
+  margin-top: 0 !important;
+}

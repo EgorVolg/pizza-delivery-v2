@@ -7,7 +7,13 @@ import { useGetCartItemsQuery } from "../../cart/model/cart.api";
 import { useGetIngredientsQuery } from "../../ingredient/model/ingredient.api";
 import type { PizzaResponse } from "../../products/model/pizza.types";
 
-export const ProductCard = ({ pizza }: { pizza: PizzaResponse }) => {
+export const ProductCard = ({
+  pizza,
+  className,
+}: {
+  pizza: PizzaResponse;
+  className?: string;
+}) => {
   const dispatch = useDispatch();
   const { data: cartData } = useGetCartItemsQuery();
   const { data: ingredients } = useGetIngredientsQuery();
@@ -36,8 +42,8 @@ export const ProductCard = ({ pizza }: { pizza: PizzaResponse }) => {
   if (!cartData || !ingredients) return null;
 
   return (
-    <article key={pizza.id} className={styles.card}>
-      <Link to={`/pizza/category/${pizza.category_id}/product/${pizza.id}`}>
+    <article key={pizza.id} className={`${styles.card} ${className}`}>
+      <Link to={`/products/category/${pizza.category_id}/product/${pizza.id}`}>
         <div className={styles.imageContainer}>
           <img src={pizza.imageUrl} alt={pizza.name} className={styles.image} />
         </div>

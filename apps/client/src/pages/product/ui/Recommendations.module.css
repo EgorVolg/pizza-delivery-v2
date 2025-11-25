@@ -1,0 +1,27 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
+.title {
+  font-family: Nunito;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 28px;
+  line-height: 110.00000000000001%;
+  letter-spacing: -0.5px;
+
+  margin-bottom: 25px;
+  color: black;
+}
+
+.card {
+  height: 430px;
+
+  @media (max-width: 1024px) {
+    height: 200px;
+  }
+
+  @media (max-width: 480px) {
+    height: auto;
+  }
+}
