@@ -17,6 +17,12 @@
 }
 
 .path {
+  font-family: "Nunito";
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0%;
+
   display: flex;
   flex-wrap: wrap;
   gap: 10px;

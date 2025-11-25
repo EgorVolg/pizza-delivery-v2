@@ -123,7 +123,7 @@ export const ProductPage = () => {
 
   return (
     <Container className={styles.container}>
-      <p className={styles.path}>
+      <div className={styles.path}>
         <Link to="/main">
           <span>Главная</span>
         </Link>
@@ -132,7 +132,8 @@ export const ProductPage = () => {
           <span>{category_name}</span>
         </Link>
         /<p>{product.name}</p>
-      </p>
+      </div>
+
       <Container className={styles.modal}>
         <img className={styles.productImg} src={pizza.imageUrl} alt="" />
         <div className={styles.body}>
