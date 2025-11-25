@@ -11,7 +11,7 @@ import { useAddCartItemMutation } from "../../../entities/cart/model/cart.api";
 import { useGetPizzaToppingsQuery } from "../../../entities/products/model/pizzatoppings.api";
 import { useGetCoffeeToppingsQuery } from "../../../entities/products/model/coffeetoppings.api";
 import type { Topping } from "../../../entities/products/model/pizza.types";
-import { Recommendations } from "./Recommendations";
+import { Recommendations } from "./Recommendations/Recommendations";
 
 export const ProductPage = () => {
   const { categoryId, productId } = useParams();
