@@ -7,14 +7,14 @@ export const ProductsSection = ({
   products,
   titleID,
   sectionRef,
+  isLoading = false,
 }: {
   products: PizzaResponse[];
   titleID: number;
   sectionRef?: React.Ref<HTMLHeadingElement>;
+  isLoading?: boolean;
 }) => {
-  const { data: categories, isLoading } = useGetCategoriesQuery();
-
-  if (isLoading) return null;
+  const { data: categories } = useGetCategoriesQuery();
 
   const category = categories?.find((c) => +c.id === titleID);
   const categoryTitle = category?.name;
@@ -32,7 +32,7 @@ export const ProductsSection = ({
 
       <div className={styles.grid}>
         {products.map((pizza, index) => (
-          <ProductCard key={index} pizza={pizza} />
+          <ProductCard key={index} pizza={pizza} isLoading={isLoading} />
         ))}
       </div>
     </section>

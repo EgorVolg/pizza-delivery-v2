@@ -365,10 +365,23 @@
   background-color: var(--color-brand);
   width: 100%;
   height: 50px;
+  transition: all 0.5s ease;
 
-  @media (hover: hover) and (pointer: fine) {
+   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      color: var(--color-bg-primary);
+      background: #fff3e5 !important;
+      color: var(--color-brand) !important;
+      border: 1px solid #fff3e5 !important;
+
+      .line {
+        background-color: var(--color-brand) !important;
+      }
+
+      svg {
+        path {
+          stroke: var(--color-brand) !important;
+        }
+      }
     }
   }
 }

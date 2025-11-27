@@ -21,12 +21,14 @@ export const CartBtn = () => {
     >
       {cartData.quantity > 0 && (
         <div className={styles.info}>
-          <span className={styles.quantity}>{cartData.totalPrice} ₽</span>
+          <span className={styles.totalPrice}>{cartData.totalPrice} ₽</span>
           <div className={styles.line} />
         </div>
       )}
+      
       <div className={styles.icon}>
         <svg
+          className={styles.cart}
           width="18"
           height="18"
           viewBox="0 0 18 18"
@@ -55,6 +57,18 @@ export const CartBtn = () => {
             strokeLinejoin="round"
           />
         </svg>
+
+        <svg
+          className={styles.arrow}
+          xmlns="http://www.w3.org/2000/svg "
+          height="24px"
+          viewBox="0 -960 960 960"
+          width="24px"
+          fill="#fff"
+        >
+          <path d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z" />
+        </svg>
+
         {cartData.quantity > 0 && (
           <span className={styles.quantity}>{cartData.quantity}</span>
         )}

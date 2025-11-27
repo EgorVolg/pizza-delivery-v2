@@ -7,7 +7,6 @@ import { SwiperButtons } from "./SwiperButtons";
 import styles from "./Recommendations.module.css";
 
 export const Recommendations = ({ product }: { product: PizzaCard }) => {
-  const [isMobile, setIsMobile] = useState(false);
   const { data } = useGetAllProductsQuery();
 
   if (!data) return null;
@@ -18,13 +17,6 @@ export const Recommendations = ({ product }: { product: PizzaCard }) => {
         ? pr.ingredients.some((ing) => product.ingredients.includes(ing))
         : pr
     );
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   return (
     <div className={styles.recommendations}>

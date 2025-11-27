@@ -159,7 +159,7 @@ export const Search = () => {
                       whileTap={{ scale: 0.98 }}
                     >
                       <Link
-                        to={`/pizza/${p.id}`}
+                        to={`/products/category/${p.category_id}/product/${p.id}`}
                         onClick={() => setSearchValue("")}
                       >
                         <li className={styles.item}>

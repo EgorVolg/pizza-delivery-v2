@@ -8,16 +8,23 @@
   gap: 13px;
   transition: all 0.5s ease;
 
-  width: auto;
+  width: 180px;
   max-width: none;
 
   background-color: var(--color-brand);
   color: var(--color-bg-primary);
 
-  svg {
+  .cart {
     path {
       stroke: var(--color-bg-primary);
     }
+  }
+
+  .arrow {
+    display: none;
+    fill: var(--color-brand);
+    transform: rotate(180deg);
+    width: 24px;
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -30,15 +37,22 @@
         background-color: var(--color-brand) !important;
       }
 
-      svg {
-        path {
-          stroke: var(--color-brand) !important;
-        }
+      .icon {
+        flex-direction: row-reverse;
+      }
+
+      .cart {
+        display: none;
+      }
+
+      .arrow {
+        display: block;
       }
     }
   }
 
   @media (max-width: 768px) {
+    width: 80px;
     font-size: 16px;
     padding: 10px 15px;
   }
@@ -72,6 +86,8 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
+  min-width: 40px;
+  cursor: pointer;
 }
 
 .quantity {
