@@ -117,7 +117,7 @@
 
   /* Text */
   --color-text-primary: #000000; /* основной текст, заголовки */
-  --color-text-secondary: #888888; /* подзаголовки, подписи, placeholder */
+  --color-text-secondary: #b1b1b1; /* подзаголовки, подписи, placeholder */
 
   /* Border */
   --color-border: #f4f1ee; /* мягкие разделители, обводки */
