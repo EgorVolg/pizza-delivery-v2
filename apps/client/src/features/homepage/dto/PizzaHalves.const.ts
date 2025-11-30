@@ -5,7 +5,8 @@ export const pizzaHalves = {
   price: 300,
   imageUrl:
     "https://bihemgflzeaaltqlvqeh.supabase.co/storage/v1/object/public/pizza-images/Pizza halves.avif",
-  ingredients: "Собери свою пиццу из половинок!",
+  ingredients: "",
+  description: "Собери свою пиццу из половинок!",
   id: 0,
   createdAt: "",
   category_id: 1,

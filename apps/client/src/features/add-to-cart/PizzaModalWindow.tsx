@@ -21,7 +21,7 @@ export const PizzaModalWindow = ({
       isOpen={selector.open}
     >
       {selector.categoryId === 1 && selector.id === 0 ? (
-        <PizzaHalves />
+        <PizzaHalves isMobile={isMobile} handleCloseModal={handleCloseModal} />
       ) : (
         <Product isMobile={isMobile} handleCloseModal={handleCloseModal} />
       )}

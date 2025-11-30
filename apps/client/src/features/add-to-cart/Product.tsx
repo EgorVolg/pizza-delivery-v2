@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../shared/ui/Button/Button";
 import styles from "./PizzaModalWindow.module.css";
 import { useGetPizzaToppingsQuery } from "../../entities/products/model/pizzatoppings.api";
 import { useGetCoffeeToppingsQuery } from "../../entities/products/model/coffeetoppings.api";
 import { useAddCartItemMutation } from "../../entities/cart/model/cart.api";
 import type { Topping } from "../../entities/products/model/pizza.types";
-import {
-  useGetProductByIdQuery,
-  useGetProductsQuery,
-} from "../../entities/products/model/products.api";
+import { useGetProductByIdQuery } from "../../entities/products/model/products.api";
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
 import type { RootState } from "../../app/store";
 import { useSelector } from "react-redux";
 import { typesOfDough } from "../../widgets/Filters/model/filter.const";
+import type { TCartItem } from "../../entities/cart/model/cart.types";
 
 interface ChoosePizzaParams {
   type: number | string | null;
@@ -37,7 +35,6 @@ export const Product = ({
 
   const queryParams = { id: selector.id, categoryId: selector.categoryId };
   const { data: pizza } = useGetProductByIdQuery(queryParams);
-  const { data: pizzas } = useGetProductsQuery();
   const ingredientsQuery = useGetIngredientsQuery();
   const ingredients = ingredientsQuery.data;
 
