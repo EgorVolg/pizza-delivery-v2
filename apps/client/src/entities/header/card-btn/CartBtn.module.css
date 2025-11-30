@@ -1,3 +1,24 @@
+@keyframes toRight {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(2px);
+  }
+  40% {
+    transform: translateX(4px);
+  }
+  60% {
+    transform: translateX(6px);
+  }
+  80% {
+    transform: translateX(8px);
+  }
+  100% {
+    transform: translateX(10px);
+  }
+}
+
 .active {
   font-family: Nunito;
   font-weight: 700;
@@ -8,7 +29,6 @@
   gap: 13px;
   transition: all 0.5s ease;
 
-  width: 180px;
   max-width: none;
 
   background-color: var(--color-brand);
@@ -18,13 +38,6 @@
     path {
       stroke: var(--color-bg-primary);
     }
-  }
-
-  .arrow {
-    display: none;
-    fill: var(--color-brand);
-    transform: rotate(180deg);
-    width: 24px;
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -37,8 +50,9 @@
         background-color: var(--color-brand) !important;
       }
 
-      .icon {
+      .icons {
         flex-direction: row-reverse;
+        width: 35.6px;
       }
 
       .cart {
@@ -47,6 +61,8 @@
 
       .arrow {
         display: block;
+        position: absolute;
+        left: 15px;
       }
     }
   }
@@ -56,6 +72,21 @@
     font-size: 16px;
     padding: 10px 15px;
   }
+
+  @media (max-width: 425px) {
+    width: 60px;
+  }
+
+  @media (max-width: 375px) {
+    width: 50px;
+  }
+}
+
+.arrow {
+  display: none;
+  fill: var(--color-brand);
+  width: 24px;
+  animation: toRight 0.2s ease-in forwards;
 }
 
 .info {
@@ -80,13 +111,13 @@
   }
 }
 
-.icon {
+.icons {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   gap: 8px;
-  min-width: 40px;
+
   cursor: pointer;
 }
 

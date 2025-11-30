@@ -33,7 +33,7 @@ export const LoginBtn = () => {
 
   return (
     <div className={styles.profile_wrapper} ref={wrapperRef}>
-      <Button onClick={toggleMenu} aria-haspopup="menu" aria-expanded={isOpen}>
+      <Button className={styles.loginBtn} onClick={toggleMenu} aria-haspopup="menu" aria-expanded={isOpen} >
         <svg
           width="13"
           height="15"

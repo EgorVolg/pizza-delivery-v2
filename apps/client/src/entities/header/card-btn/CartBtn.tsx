@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import Button from "../../../shared/ui/Button/Button";
 import styles from "./CartBtn.module.css";
 import { useGetCartItemsQuery } from "../../cart/model/cart.api";
+import { ArrowRight } from "../../../shared/ui/ArrowRight";
 
 export const CartBtn = () => {
   const dispatch = useDispatch();
@@ -25,8 +26,8 @@ export const CartBtn = () => {
           <div className={styles.line} />
         </div>
       )}
-      
-      <div className={styles.icon}>
+
+      <div className={styles.icons}>
         <svg
           className={styles.cart}
           width="18"
@@ -58,16 +59,7 @@ export const CartBtn = () => {
           />
         </svg>
 
-        <svg
-          className={styles.arrow}
-          xmlns="http://www.w3.org/2000/svg "
-          height="24px"
-          viewBox="0 -960 960 960"
-          width="24px"
-          fill="#fff"
-        >
-          <path d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z" />
-        </svg>
+        <ArrowRight className={styles.arrow} />
 
         {cartData.quantity > 0 && (
           <span className={styles.quantity}>{cartData.quantity}</span>

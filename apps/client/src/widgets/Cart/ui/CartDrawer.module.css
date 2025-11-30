@@ -1,3 +1,24 @@
+@keyframes toRight {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(2px);
+  }
+  40% {
+    transform: translateX(4px);
+  }
+  60% {
+    transform: translateX(6px);
+  }
+  80% {
+    transform: translateX(8px);
+  }
+  100% {
+    transform: translateX(10px);
+  }
+}
+
 .cartDrawer {
   width: 28%;
   min-width: 395px;
@@ -73,7 +94,6 @@
   position: absolute;
   bottom: 0;
   padding: 38px 35px;
-  /* max-height: 18vh;  */
 
   display: flex;
   flex-direction: column;
@@ -116,10 +136,6 @@
   min-height: 55px;
   transition: all 0.3s ease;
 
-  svg {
-    transform: rotate(180deg);
-  }
-
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       background-color: #fff3e5 !important;
@@ -127,6 +143,7 @@
 
       svg {
         fill: var(--color-brand) !important;
+        animation: toRight 0.3s ease forwards;
       }
     }
   }

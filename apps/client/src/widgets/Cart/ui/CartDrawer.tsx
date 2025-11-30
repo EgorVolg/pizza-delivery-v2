@@ -6,6 +6,7 @@ import { EmptyCart } from "./EmptyCart";
 import type { TCartItem } from "../../../entities/cart/model/cart.types";
 import { CartItem } from "./CartItem";
 import { useMemo } from "react";
+import { ArrowRight } from "../../../shared/ui/ArrowRight";
 
 const panelVariants = {
   hidden: { x: "100%" },
@@ -105,15 +106,7 @@ export const CartDrawer = ({
             </div>
             <Button className={styles.cartFooter__button}>
               Оформить заказ
-              <svg
-                xmlns="http://www.w3.org/2000/svg "
-                height="24px"
-                viewBox="0 -960 960 960"
-                width="24px"
-                fill="#fff"
-              >
-                <path d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z" />
-              </svg>
+              <ArrowRight />
             </Button>
           </footer>
         )}

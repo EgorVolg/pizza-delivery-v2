@@ -48,7 +48,7 @@
   &:focus-within {
     .input {
       opacity: 1;
-      z-index: 52;
+      z-index: 55;
     }
 
     .input_icon {
@@ -60,6 +60,7 @@
     border: none;
     width: 50px;
     height: 50px;
+    margin: none;
 
     &:focus-within {
       border: none;
