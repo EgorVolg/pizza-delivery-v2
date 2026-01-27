@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../../app/store";
@@ -8,7 +8,7 @@ import Container from "../../../shared/ui/Container/Container";
 import { TopBar } from "../../../widgets/Topbar/TopBar";
 import { Filters } from "../../../widgets/Filters/Filters";
 import { Overlay } from "../../../shared/ui/Overlay/Overlay";
-import ProductCardSkeleton from "../../../entities/homepage/ProductCard/ProductCard.Skeleton";
+import { ProductCardSkeleton } from "../../../entities/homepage/ProductCard/ProductCard.Skeleton";
 import { useFilterUrlSync } from "../../../shared/hooks/useFilterUrlSync";
 import { ModalWindow } from "../../../shared/ui/ModalWindow/ModalWindow";
 import { useGetAllProductsQuery } from "../../../entities/products/model/products.api";
