@@ -45,6 +45,17 @@
   }
 }
 
+.xbtnContainer {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  
+  path {
+    stroke: black;
+    fill: black;
+  }
+}
+
 .modal {
   display: grid;
   grid-template-columns: 1fr 1fr;
