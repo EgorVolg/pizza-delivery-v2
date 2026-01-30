@@ -1,28 +1,29 @@
 .order_section_header {
   font-family: Nunito;
   font-weight: 700;
-  font-style: Bold;
-  font-size: 24px;
-  line-height: 100%;
-  letter-spacing: 0%;
-} 
-
-.order_section_header {
-  font-family: Nunito;
-  font-weight: 700;
   font-style: bold;
   font-size: 24px;
   line-height: 100%;
   letter-spacing: 0%;
   counter-increment: section-counter;
+  text-wrap: nowrap;
 
   position: relative;
   padding: 30px 25px 29px;
   border-bottom: 1px solid #f3f3f3;
+
+  @media (max-width: 480px) {
+    padding: 20px 25px 19px;
+    font-size: clamp(12px, 5vw, 16px);
+  }
+
+  @media (max-width: 375px) { 
+    font-size: clamp(8px, 5vw, 14px);
+  }
 }
 
 .order_section_header::before {
   content: counter(section-counter) ".";
   position: absolute;
-  left: 0; 
+  left: 0;
 }

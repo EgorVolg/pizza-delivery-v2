@@ -13,9 +13,10 @@ export const Orderpage = () => {
         <div className={styles.cart_items}>
           <div className={styles.cart_items_section}>
             <OrderSectionHeader text="Корзина" />
+            
             <button className={styles.clear_cart_button}>
               <img src={TrashIcon} alt="Clear cart" />
-              Очистить корзину
+              <span>Очистить корзину</span>
             </button>
             <div className={styles.cart_items_content}></div>
           </div>

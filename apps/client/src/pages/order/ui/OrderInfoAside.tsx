@@ -20,7 +20,7 @@ export const OrderInfoAside = () => {
               <img src={orderbox} alt="total price" /> Стоимость товаров:
             </span>
             <div className={styles.order_info_dots} />
-            <p className={styles.order_info_amount}>5 400 ₽</p>
+            <p className={styles.order_info_amount}>225 400 ₽</p>
           </li>
           <li className={styles.order_info_listitem}>
             <span className={styles.order_info_listitem_span}>
