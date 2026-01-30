@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { ProductPage } from "../../pages/product/ui/ProductPage";
 import { HomePage } from "../../pages/home/ui/HomePage";
+import { Orderpage } from "../../pages/order/ui/Orderpage";
 
 export const AppRoutes = () => {
   return (
@@ -19,6 +20,7 @@ export const AppRoutes = () => {
       <Route path="/profile" element={<div>Profile</div>} />
       <Route path="/settings" element={<div>Settings</div>} />
       <Route path="/orders" element={<div>Orders</div>} />
+      <Route path="/order" element={<Orderpage />} />
       <Route path="/logout" element={<div>Logout</div>} />
     </Routes>
   );

@@ -7,6 +7,7 @@ import type { TCartItem } from "../../../entities/cart/model/cart.types";
 import { CartItem } from "./CartItem";
 import { useMemo } from "react";
 import { ArrowRight } from "../../../shared/ui/ArrowRight";
+import { useNavigate } from "react-router-dom";
 
 const panelVariants = {
   hidden: { x: "100%" },
@@ -37,11 +38,18 @@ export const CartDrawer = ({
   const cartItems = useMemo(() => {
     return [...(cartData?.data ?? [])].sort(
       (a, b) =>
-        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
     );
   }, [cartData?.data]);
 
-  return (
+  const navigate = useNavigate();
+
+  const navigateToOrder = () => {
+    navigate("/order");
+    handleCloseCart();
+  };
+
+  return ( 
     <motion.div
       className={styles.cartDrawer}
       variants={panelVariants}
@@ -104,7 +112,10 @@ export const CartDrawer = ({
                 <b>{Math.round(cartData.totalPrice * 0.05)} ₽</b>
               </div>
             </div>
-            <Button className={styles.cartFooter__button}>
+            <Button
+              className={styles.cartFooter__button}
+              onClick={navigateToOrder}
+            >
               Оформить заказ
               <ArrowRight />
             </Button>
