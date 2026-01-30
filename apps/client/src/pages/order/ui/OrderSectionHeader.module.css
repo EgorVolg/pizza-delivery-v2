@@ -1,0 +1,28 @@
+.order_section_header {
+  font-family: Nunito;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+} 
+
+.order_section_header {
+  font-family: Nunito;
+  font-weight: 700;
+  font-style: bold;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  counter-increment: section-counter;
+
+  position: relative;
+  padding: 30px 25px 29px;
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.order_section_header::before {
+  content: counter(section-counter) ".";
+  position: absolute;
+  left: 0; 
+}

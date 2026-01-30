@@ -39,154 +39,44 @@
 .orderpage_spacer {
   display: flex;
   flex-direction: row;
-  gap: 45px;
-}
-
-.left {
-  flex: 2;
-  background-color: #f0f0f0;
-  padding: 20px;
-}
-
-.order_info {
-  flex: 1;
-  padding: 0 45px;
-  border-radius: 30px;
-  border: 1px solid #e0e0e0;
-  height: fit-content;
-}
-
-.order_info_section {
-  display: flex;
-  justify-content: start;
-  flex-direction: column;
-
-  &:not(:last-child) {
-    border-bottom: 1px solid #f3f3f3;
-  }
-
-  &:last-child {
-    padding-bottom: 45px;
-  }
-}
-
-.order_info_title {
-  font-family: Nunito;
-  font-weight: 400;
-  font-style: Regular;
-  font-size: 22px;
-  line-height: 100%;
-  letter-spacing: 0%;
-
-  margin-bottom: 3px;
-
-  padding-top: 40px;
-}
-
-.order_info_price {
-  font-family: Nunito;
-  font-weight: 800;
-  font-style: ExtraBold;
-  font-size: 34px;
-  line-height: 100%;
-  letter-spacing: 0%;
-
-  padding-bottom: 27px;
-}
-
-.order_info_list {
-  display: flex;
-  flex-direction: column;
-  padding: 31.5px 0;
-}
-
-.order_info_listitem {
-  display: flex;
-  align-items: end;
   justify-content: space-between;
-  text-wrap: nowrap;
+  gap: 45px;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 30px;
+  }
 }
 
-.order_info_listitem_span {
+.cart_items {
+  position: relative;
+  border: 1px solid #f4f1ee;
+  border-radius: 30px;
+  counter-reset: section-counter;
+  padding-left: 35px;
+
+  max-width: 752px;
+  width: 100%;
+}
+
+.clear_cart_button {
+  all: unset;
+
   font-family: Nunito;
   font-weight: 400;
   font-style: Regular;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 100%;
   letter-spacing: 0%;
+  color: #a1a1a1;
 
   display: flex;
+  justify-content: center;
   align-items: center;
-  margin-right: 0px;
-  gap: 13px;
+  gap: 7px;
 
-  img {
-    width: 14px;
-  }
-}
-
-.order_info_dots {
-  display: inline-flex;
-  width: 100%;
-  height: max-content;
-  margin-bottom: 3px;
-  margin-left: 19px;
-  margin-right: 9px;
-  border-bottom: 1px dashed #c4c4c4;
-}
-
-.order_info_amount {
-  font-family: Nunito;
-  font-weight: 700;
-  font-style: Bold;
-  font-size: 18px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  text-align: right;
-}
-
-.promo_code_input {
-  font-family: Nunito;
-  font-weight: 400;
-  font-style: Regular;
-  font-size: 18px;
-  line-height: 100%;
-  letter-spacing: 0%;
-
-  width: 100%;
-  height: 100%;
-  min-height: 60px;
-  border: none;
-
-  &::placeholder {
-    color: #b0b0b0;
-  }
-
-  &:focus {
-    outline: none;
-  }
-}
-
-.goPay_button {
-  font-family: Nunito;
-  font-weight: 700;
-  font-style: Bold;
-  font-size: 18px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  text-align: center;
-
-  background: var(--color-brand) !important;
-  color: var(--color-bg-primary) !important;
-  max-height: 60px;
-  height: 100%;
-  width: 100%;
-  transition: all 0.3s ease;
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      background-color: #fff3e5 !important;
-      color: var(--color-brand) !important;
-    }
-  }
+  position: absolute;
+  top: 32px;
+  right: 35px;
 }
