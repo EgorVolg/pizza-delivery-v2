@@ -1,8 +1,10 @@
 .cartItem {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 85px;
+  padding-bottom: 20px;
 
   &:not(:last-child) {
     border-bottom: 1px solid #f4f1ee;
@@ -43,6 +45,7 @@
   @media (max-width: 425px) {
     width: 150px;
     height: 150px;
+    margin: 0;
   }
 }
 
@@ -105,7 +108,7 @@
   @media (max-width: 768px) {
     width: 100%;
     justify-content: space-around;
-    gap: 30px;
+    gap: 20px;
   }
 }
 
@@ -153,9 +156,15 @@
   }
 
   @media (max-width: 480px) {
+    gap: 5px;
+
     span {
       font-size: 14px;
     }
+  }
+
+  @media (max-width: 425px) {
+    gap: 10px;
   }
 }
 
@@ -179,5 +188,25 @@
   @media (max-width: 425px) {
     width: 30px;
     height: 30px;
+  }
+}
+
+.cartItem_delete_button {
+  all: unset;
+  transition: all 0.3s ease;
+
+  @media (hover: hover) and (pointer: fine) {
+    cursor: pointer;
+  }
+
+  @media (max-width: 425px) {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    svg {
+      width: 25px;
+      height: 25px;
+    }
   }
 }

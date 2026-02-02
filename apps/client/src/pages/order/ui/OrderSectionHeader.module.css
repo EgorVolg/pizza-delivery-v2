@@ -8,16 +8,18 @@
   counter-increment: section-counter;
   text-wrap: nowrap;
 
+  display: flex;
+  align-items: center;
+  gap: 15px;
   position: relative;
   padding: 30px 25px 29px;
- 
 
   @media (max-width: 480px) {
     padding: 20px 25px 19px;
     font-size: clamp(12px, 5vw, 16px);
   }
 
-  @media (max-width: 375px) { 
+  @media (max-width: 375px) {
     font-size: clamp(8px, 5vw, 14px);
   }
 }
@@ -26,4 +28,17 @@
   content: counter(section-counter) ".";
   position: absolute;
   left: 0;
+}
+
+.show_cart_button {
+  all: unset;
+  transition: transform 0.5s ease;
+
+  &.active {
+    transform: rotate(180deg);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    cursor: pointer;
+  }
 }

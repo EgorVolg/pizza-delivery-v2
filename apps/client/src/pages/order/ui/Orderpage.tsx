@@ -11,13 +11,16 @@ import {
 } from "../../../entities/cart/model/cart.api";
 import { CartItem } from "./CartItem";
 import type { TCartItem } from "../../../entities/cart/model/cart.types";
+import { useState } from "react";
 
 export const Orderpage = () => {
   const [deleteCartItem] = useDeleteCartItemMutation();
   const [updateCartItem] = useUpdateCartItemMutation();
   const [deleteCartItemsGroup] = useDeleteCartItemsMutation();
 
-  const USER_CART_ID = 1; 
+  const [isShowCartList, setIsShowCartList] = useState(true);
+
+  const USER_CART_ID = 1;
 
   const deleteItem = (id: number) => {
     deleteCartItem(id);
@@ -39,6 +42,10 @@ export const Orderpage = () => {
     }
   };
 
+  const showCartList = () => {
+    setIsShowCartList(!isShowCartList);
+  };
+
   const { data: cart } = useGetCartItemsQuery();
   if (!cart) {
     return null;
@@ -51,27 +58,34 @@ export const Orderpage = () => {
       <div className={styles.orderpage_spacer}>
         <div className={styles.cart_items}>
           <div className={styles.cart_items_section}>
-            <OrderSectionHeader text="Корзина" />
+            <OrderSectionHeader
+              text="Корзина"
+              showCartList={showCartList}
+              isShowCartList={isShowCartList}
+            />
+            {isShowCartList && (
+              <>
+                {cart.data.length !== 0 && (
+                  <button
+                    className={styles.clear_cart_button}
+                    onClick={handleDeleteItems}
+                  >
+                    <img src={TrashIcon} alt="Clear cart" />
+                    <span>Очистить корзину</span>
+                  </button>
+                )}
 
-            {cart.data.length !== 0 && (
-              <button
-                className={styles.clear_cart_button}
-                onClick={handleDeleteItems}
-              >
-                <img src={TrashIcon} alt="Clear cart" />
-                <span>Очистить корзину</span>
-              </button>
+                <div className={styles.cart_items_content}>
+                  {cart.data.map((item) => (
+                    <CartItem
+                      key={item.id}
+                      item={item}
+                      updateItemQuantity={updateItemQuantity}
+                    />
+                  ))}
+                </div>
+              </>
             )}
-
-            <div className={styles.cart_items_content}>
-              {cart.data.map((item) => (
-                <CartItem
-                  key={item.id}
-                  item={item}
-                  updateItemQuantity={updateItemQuantity}
-                />
-              ))}
-            </div>
           </div>
           <div className={styles.cart_items_section}>
             <OrderSectionHeader text="Персональные данные" />
