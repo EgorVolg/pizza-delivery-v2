@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
-import { Cart_items } from "../entities/cart/model/cart.model";
+import { Cart_items } from "../entities/cart_items/model/cart_items.model"; 
 import { Pizza } from "../entities/pizzas/model/pizza.model";
+import { Carts } from "../entities/carts/model/carts.model"; 
 
 export const getCartItems = async (_req: Request, res: Response) => {
   try {
@@ -9,7 +10,7 @@ export const getCartItems = async (_req: Request, res: Response) => {
     const quantity = items.reduce((total, item) => total + item.quantity, 0);
     const totalPrice = items.reduce(
       (total, item) => total + (item.price || 0) * item.quantity,
-      0
+      0,
     );
 
     res.json({
@@ -32,7 +33,7 @@ export const addCartItem = async (req: Request, res: Response) => {
         name: req.body.name,
         weight: req.body.weight,
         type: req.body.type,
-        size: req.body.size, 
+        size: req.body.size,
         ingredients: req.body.ingredients,
         productQuantity: req.body.productQuantity,
         toppings: req.body.toppings,
@@ -133,6 +134,35 @@ export const updateCartItem = async (req: Request, res: Response) => {
   }
 };
 
+const clearCartItems = async (req: Request, res: Response) => {
+  try {
+    const defaultCartId = "550e8400-e29b-41d4-a716-446655440000";
+    const cartId =
+      (req.params && (req.params as any).cartId) || req.body?.cartId || req.query?.cartId || defaultCartId;
+
+    console.debug("clearCartItems: cartId=", cartId);
+
+    const deleted = await Cart_items.destroy({ where: { cart_id: cartId } });
+    console.debug("clearCartItems: deletedCount=", deleted);
+
+    try {
+      const [updatedCount] = await Carts.update({ updatedAt: new Date() }, { where: { user_id: cartId } });
+      console.debug("clearCartItems: carts updated=", updatedCount);
+    } catch (updateErr) {
+      console.error("clearCartItems: error updating carts table:", updateErr);
+    }
+
+    res.status(200).json({ success: true, message: `Удалено ${deleted} товаров из корзины ${cartId}`, deletedCount: deleted, cartId });
+  } catch (err) {
+    console.error("Ошибка при очистке корзины:", err);
+    res.status(500).json({
+      success: false,
+      error: "Server error",
+      details: err instanceof Error ? err.message : "Unknown error",
+    });
+  }
+};
+
 const router = express.Router();
 
 // GET /cart — получить все записи
@@ -140,6 +170,9 @@ router.get("/cart", getCartItems);
 
 // POST /cart — добавить новую запись
 router.post("/cart", addCartItem);
+
+// DELETE /cart/clear — очистить корзину
+router.delete("/cart/clear", clearCartItems);
 
 // DELETE /cart/:id — удалить запись по id
 router.delete("/cart/:id", deleteCartItem);

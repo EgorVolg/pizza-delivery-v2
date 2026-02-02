@@ -12,7 +12,7 @@ import cocktailsRoutes from "../routes/cocktails.routes";
 import drinksRoutes from "../routes/drinks.routes";
 import dessertsRoutes from "../routes/desserts.routes";
 import saucesRoutes from "../routes/sauces.routes";
-import "../entities/cart/model/cart.model";
+import "../entities/cart_items/model/cart_items.model";
 
 import "dotenv/config";
 import cors from "cors";
