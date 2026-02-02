@@ -4,6 +4,7 @@ import percent from "../../../shared/assets/percent.svg";
 import styles from "./OrderInfoAside.module.css";
 import Button from "../../../shared/ui/Button/Button";
 import { useGetCartItemsQuery } from "../../../entities/cart/model/cart.api";
+import { Link } from "react-router-dom";
 
 export const OrderInfoAside = () => {
   const { data: cart } = useGetCartItemsQuery();
@@ -55,7 +56,11 @@ export const OrderInfoAside = () => {
           className={styles.promo_code_input}
         />
         <Button className={styles.goPay_button}>
-          {cart.totalPrice > 0 ? "Перейти к оплате" : "Вернуться в магазин"}
+          {cart.totalPrice > 0 ? (
+            "Перейти к оплате"
+          ) : (
+            <Link to="/">Вернуться в магазин</Link>
+          )}
         </Button>
       </div>
     </aside>
