@@ -10,7 +10,7 @@
 
   position: relative;
   padding: 30px 25px 29px;
-  border-bottom: 1px solid #f3f3f3;
+ 
 
   @media (max-width: 480px) {
     padding: 20px 25px 19px;
