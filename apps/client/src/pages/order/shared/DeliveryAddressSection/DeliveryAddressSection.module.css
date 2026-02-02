@@ -1,0 +1,8 @@
+.cart_items_section {
+  padding: 0 35px;
+  border-bottom: 1px solid #f4f1ee;
+
+  @media (max-width: 425px) {
+    padding: 0;
+  }
+}
