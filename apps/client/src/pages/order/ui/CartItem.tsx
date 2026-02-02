@@ -5,9 +5,11 @@ import styles from "./CartItem.module.css";
 type Props = {
   item: TCartItem;
   updateItemQuantity: (item: TCartItem, countAction?: string) => void;
+  deleteItems: (id: number) => void;
 };
 
 export const CartItem = (props: Props) => {
+
   return (
     <article className={styles.cartItem}>
       <div className={styles.cartItem_info_container}>
@@ -49,7 +51,7 @@ export const CartItem = (props: Props) => {
 
         <button
           className={styles.cartItem_delete_button}
-          onClick={() => props.updateItemQuantity(props.item, "delete")}
+          onClick={() => props.deleteItems(props.item.id)}
         >
           <svg 
             width="20"

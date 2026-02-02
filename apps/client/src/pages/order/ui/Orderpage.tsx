@@ -20,14 +20,12 @@ export const Orderpage = () => {
 
   const [isShowCartList, setIsShowCartList] = useState(true);
 
-  const USER_CART_ID = 1;
-
   const deleteItem = (id: number) => {
     deleteCartItem(id);
   };
 
-  const handleDeleteItems = () => {
-    deleteCartItemsGroup(USER_CART_ID);
+  const deleteItems = (id: number) => {
+    deleteCartItemsGroup(id);
   };
 
   const updateItemQuantity = (item: TCartItem, countAction?: string) => {
@@ -68,7 +66,7 @@ export const Orderpage = () => {
                 {cart.data.length !== 0 && (
                   <button
                     className={styles.clear_cart_button}
-                    onClick={handleDeleteItems}
+                    onClick={() => deleteItems(0)}
                   >
                     <img src={TrashIcon} alt="Clear cart" />
                     <span>Очистить корзину</span>
@@ -81,6 +79,7 @@ export const Orderpage = () => {
                       key={item.id}
                       item={item}
                       updateItemQuantity={updateItemQuantity}
+                      deleteItems={() => deleteItems(item.id)}
                     />
                   ))}
                 </div>
