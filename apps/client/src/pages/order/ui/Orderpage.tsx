@@ -80,14 +80,22 @@ export const Orderpage = () => {
                 )}
 
                 <div className={styles.cart_items_content}>
-                  {cart.data.map((item) => (
-                    <CartItem
-                      key={item.id}
-                      item={item}
-                      updateItemQuantity={updateItemQuantity}
-                      deleteItems={() => deleteItems(item.id)}
-                    />
-                  ))}
+                  {cart.data.length !== 0 ? (
+                    <>
+                      {cart.data.map((item) => (
+                        <CartItem
+                          key={item.id}
+                          item={item}
+                          updateItemQuantity={updateItemQuantity}
+                          deleteItems={() => deleteItems(item.id)}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    <div className={styles.empty_cart_message}>
+                      Ваша корзина пуста
+                    </div>
+                  )}
                 </div>
               </>
             )}
