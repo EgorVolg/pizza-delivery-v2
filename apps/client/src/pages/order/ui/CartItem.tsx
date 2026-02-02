@@ -1,5 +1,5 @@
 import type { TCartItem } from "../../../entities/cart/model/cart.types";
-import Button from "../../../shared/ui/Button/Button"; 
+import Button from "../../../shared/ui/Button/Button";
 import styles from "./CartItem.module.css";
 
 type Props = {
@@ -9,7 +9,6 @@ type Props = {
 };
 
 export const CartItem = (props: Props) => {
-
   return (
     <article className={styles.cartItem}>
       <div className={styles.cartItem_info_container}>
@@ -53,7 +52,7 @@ export const CartItem = (props: Props) => {
           className={styles.cartItem_delete_button}
           onClick={() => props.deleteItems(props.item.id)}
         >
-          <svg 
+          <svg
             width="20"
             height="20"
             viewBox="0 0 20 20"

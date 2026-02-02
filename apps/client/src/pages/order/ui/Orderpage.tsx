@@ -4,6 +4,7 @@ import { OrderSectionHeader } from "./OrderSectionHeader";
 import { OrderInfoAside } from "./OrderInfoAside";
 import TrashIcon from "../../../shared/assets/remove.svg";
 import {
+  useClearCartMutation,
   useDeleteCartItemMutation,
   useDeleteCartItemsMutation,
   useGetCartItemsQuery,
@@ -17,6 +18,7 @@ export const Orderpage = () => {
   const [deleteCartItem] = useDeleteCartItemMutation();
   const [updateCartItem] = useUpdateCartItemMutation();
   const [deleteCartItemsGroup] = useDeleteCartItemsMutation();
+  const [clearCart] = useClearCartMutation();
 
   const [isShowCartList, setIsShowCartList] = useState(true);
 
@@ -26,6 +28,10 @@ export const Orderpage = () => {
 
   const deleteItems = (id: number) => {
     deleteCartItemsGroup(id);
+  };
+
+  const handleClearCartItems = () => {
+    clearCart();
   };
 
   const updateItemQuantity = (item: TCartItem, countAction?: string) => {
@@ -66,7 +72,7 @@ export const Orderpage = () => {
                 {cart.data.length !== 0 && (
                   <button
                     className={styles.clear_cart_button}
-                    onClick={() => deleteItems(0)}
+                    onClick={handleClearCartItems}
                   >
                     <img src={TrashIcon} alt="Clear cart" />
                     <span>Очистить корзину</span>
