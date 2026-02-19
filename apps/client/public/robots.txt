@@ -1,0 +1,18 @@
+# robots.txt для pizza-delivery
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+
+# Запрещаем индексировать служебные и персональные страницы
+Disallow: /cart
+Disallow: /order
+Disallow: /profile
+
+# Запрещаем индексировать API и системные пути
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemap (раскомментируйте при наличии sitemap.xml)
+# Sitemap: https://your-domain.com/sitemap.xml

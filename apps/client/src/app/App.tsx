@@ -8,7 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
 import type { RootState } from "./store";
 import { PizzaModalWindow } from "../features/add-to-cart/PizzaModalWindow";
-import { AppRoutes } from "./Routes/AppRoutes";
+import { AppRoutes } from "./routes/AppRoutes";
+
 
 function App() {
   const dispatch = useDispatch();
