@@ -43,9 +43,17 @@ export const ProductCard = ({
 
   return (
     <article key={pizza.id} className={`${styles.card} ${className}`}>
-      <Link to={`/products/category/${pizza.category_id}/product/${pizza.id}`}>
+      <Link to={`/products/category/${pizza.category_id}/product/${pizza.id}`} aria-label={`Перейти к ${pizza.name}`}>
         <div className={styles.imageContainer}>
-          <img src={pizza.imageUrl} alt={pizza.name} className={styles.image} />
+          <img
+            src={pizza.imageUrl}
+            alt={pizza.name}
+            className={styles.image}
+           fetchPriority="high"
+            loading="eager"
+            width="212"
+            height="212"
+          />
         </div>
       </Link>
       <div className={styles.body}>
@@ -62,19 +70,25 @@ export const ProductCard = ({
               <Button
                 onClick={handleRemoveFromCart}
                 className={styles.counterButton}
+                aria-label="Открыть корзину"
               >
                 -
               </Button>
-              <span>{productQuantity}</span>
+              <span aria-label={`Количество: ${productQuantity}`}>{productQuantity}</span>
               <Button
                 onClick={handleAddToCart}
                 className={styles.counterButton}
+                aria-label={`Добавить еще ${pizza.name}`}
               >
                 +
               </Button>
             </div>
           ) : (
-            <Button className={styles.button} onClick={handleAddToCart}>
+            <Button
+              className={styles.button}
+              onClick={handleAddToCart}
+              aria-label={`Добавить ${pizza.name} в корзину`}
+            >
               + Добавить
             </Button>
           )}

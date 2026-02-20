@@ -44,13 +44,12 @@ export const SortPopUp = ({
     };
   }, [openSortPopup, toggleSortPopup]);
 
-  return (
-    // ВАЖНО: ref на весь контейнер
+  return ( 
     <div className={styles.sort} ref={popupRef}>
       <button
         className={styles.sort_button}
         onClick={(e) => {
-          e.stopPropagation(); 
+          e.stopPropagation();
           toggleSortPopup();
         }}
       >

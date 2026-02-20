@@ -161,6 +161,7 @@ export const Search = () => {
                       <Link
                         to={`/products/category/${p.category_id}/product/${p.id}`}
                         onClick={() => setSearchValue("")}
+                        aria-label={`Перейти к ${p.name}`}
                       >
                         <li className={styles.item}>
                           <div className={styles.img_container}>
@@ -168,6 +169,10 @@ export const Search = () => {
                               src={p.imageUrl}
                               alt={p.name}
                               className={styles.img}
+                              loading="lazy"
+                              width="50"
+                              height="50"
+                              decoding="async"
                             />
                           </div>
                           <span className={styles.info}>
