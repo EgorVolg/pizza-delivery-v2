@@ -2,31 +2,151 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="/src/shared/ui/assests/logo.svg"
-    />
+    <link rel="icon" type="image/svg+xml" href="/src/shared/assets/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ff6b35" />
+    <meta name="color-scheme" content="light" />
     <meta
       name="description"
       content="Доставка пиццы на дом и в офис. Большой выбор пицц, закусок, напитков и десертов. Быстрая доставка, свежие продукты, онлайн-заказ."
     />
     <meta
       name="keywords"
-      content="пицца, доставка пиццы, заказ пиццы, пицца на дом, еда на дом, доставка еды"
+      content="пицца, доставка пиццы, заказ пиццы, пицца на дом, еда на дом, доставка еды, пиццерия, доставка пиццы недорого, итальянская пицца, пицца с доставкой"
     />
     <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="Pizza Delivery - Доставка пиццы" />
+    <meta name="author" content="React Pizza" />
+    <meta name="geo.region" content="RU" />
+    <meta name="geo.placename" content="Россия" />
+    <meta name="format-detection" content="telephone=yes" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://react-pizza.ru/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="React Pizza - Доставка пиццы" />
     <meta
       property="og:description"
       content="Доставка пиццы на дом и в офис. Большой выбор пицц, закусок, напитков и десертов."
     />
     <meta property="og:type" content="website" />
-    <title>Pizza Delivery</title>
+    <meta property="og:url" content="https://react-pizza.ru/" />
+    <meta property="og:site_name" content="React Pizza" />
+    <meta property="og:locale" content="ru_RU" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="React Pizza - Доставка пиццы" />
+    <meta name="twitter:description" content="Доставка пиццы на дом и в офис. Большой выбор пицц, закусок, напитков и десертов." />
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "React Pizza",
+      "description": "Доставка пиццы на дом и в офис. Большой выбор пицц, закусок, напитков и десертов.",
+      "url": "https://react-pizza.ru/",
+      "logo": "/src/shared/assets/logo.svg",
+      "image": "/src/shared/assets/pizza.avif",
+      "servesCuisine": ["Italian", "Pizza"],
+      "priceRange": "$$",
+      "paymentAccepted": "Наличные, Карты, Онлайн-оплата",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "10:00",
+          "closes": "23:00"
+        }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Меню доставки",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "FoodService",
+              "name": "Пицца"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "FoodService",
+              "name": "Закуски"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "FoodService",
+              "name": "Напитки"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "FoodService",
+              "name": "Десерты"
+            }
+          }
+        ]
+      },
+      "potentialAction": {
+        "@type": "OrderAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://react-pizza.ru/order",
+          "actionPlatform": [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/MobileWebPlatform"
+          ]
+        },
+        "deliveryMethod": [
+          "http://schema.org/DeliveryModePickUp",
+          "http://schema.org/DeliveryModeOwnFleet"
+        ]
+      }
+    }
+    </script>
+
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="./src/shared/assets/logo.svg" />
+    <link
+      rel="preload"
+      href="/src/app/styles/fonts/Nunito/Nunito-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/src/app/styles/fonts/Nunito/Nunito-Bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/src/app/styles/fonts/Nunito/Nunito-ExtraBold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <title>React Pizza - Доставка пиццы на дом и в офис</title>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <nav aria-label="SEO Navigation">
+        <a href="/main">Главная</a>
+        <a href="/cart">Корзина</a>
+        <a href="/order">Оформить заказ</a>
+      </nav>
+    </noscript>
+
     <script defer type="module" src="./src/app/main.tsx"></script>
   </body>
 </html>
