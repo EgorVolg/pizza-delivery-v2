@@ -2,11 +2,10 @@
   padding: 0 35px;
   border-bottom: 1px solid #f4f1ee;
 
-  @media (max-width: 425px) {
-    padding: 0;
+  @media (max-width: 768px) {
+    padding: 20px;
   }
 }
-
 
 .cart_items_content {
   display: flex;

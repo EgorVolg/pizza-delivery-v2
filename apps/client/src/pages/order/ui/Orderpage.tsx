@@ -1,5 +1,5 @@
 import Container from "../../../shared/ui/Container/Container";
-import styles from "./Orderpage.module.css"; 
+import styles from "./Orderpage.module.css";
 import { OrderInfoAside } from "./OrderInfoAside";
 import { CartItemsSection } from "../shared/CartItemsSection/CartItemsSection";
 import { PersonalDataSection } from "../shared/PersonalDataSection/PersonalDataSection";
@@ -13,8 +13,11 @@ export const Orderpage = () => {
       <div className={styles.orderpage_spacer}>
         <div className={styles.cart_items}>
           <CartItemsSection />
-          <PersonalDataSection />
-          <DeliveryAddressSection />
+
+          <form action="" className={styles.form}>
+            <PersonalDataSection  />
+            <DeliveryAddressSection />
+          </form>
         </div>
 
         <OrderInfoAside />
