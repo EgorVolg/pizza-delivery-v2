@@ -21,6 +21,12 @@ const Orderpage = lazy(() =>
   }))
 );
 
+const NotFoundPage = lazy(() =>
+  import("../../pages/notfound/NotFoundPage").then((module) => ({
+    default: module.NotFoundPage,
+  }))
+);
+
 export const AppRoutes = () => {
   return (
     <Suspense fallback={<PageLoader />}>
@@ -32,6 +38,7 @@ export const AppRoutes = () => {
           path="/products/category/:categoryId/product/:productId"
           element={<ProductPage />}
         />
+        <Route path="*" element={<NotFoundPage />} />
         {/* Авторизация */}
         <Route path="/sign-in" element={<div>Login</div>} />
         <Route path="/sign-up" element={<div>Registration</div>} />
