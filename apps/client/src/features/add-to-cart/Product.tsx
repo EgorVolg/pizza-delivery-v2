@@ -11,6 +11,7 @@ import type { RootState } from "../../app/store";
 import { useSelector } from "react-redux";
 import { typesOfDough } from "../../widgets/Filters/model/filter.const";
 import Xbtn from "../../shared/ui/Xbtn/Xbtn";
+import toast from "react-hot-toast";
 
 interface ChoosePizzaParams {
   type: number | string | null;
@@ -107,7 +108,8 @@ export const Product = ({
       size: choosePizzaParams.size,
       quantity: 1,
     };
-
+    
+    toast.success("Товар добавлен в корзину");
     addCartItem(pizzaParams);
     handleCloseModal();
   };

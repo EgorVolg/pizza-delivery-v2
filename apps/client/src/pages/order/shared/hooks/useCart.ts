@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import {
   useGetCartItemsQuery,
   useDeleteCartItemMutation,
@@ -17,14 +18,17 @@ export const useCart = () => {
   const isEmpty = !cart || cart.data.length === 0;
 
   const deleteItem = (id: number) => {
+    toast.success("Товар удален из корзины");
     deleteCartItem(id);
   };
 
   const deleteItems = (id: number) => {
+    toast.success("Товары удалены из корзины");
     deleteCartItemsGroup(id);
   };
 
   const handleClearCartItems = () => {
+    toast.success("Корзина очищена");
     clearCart();
   };
 

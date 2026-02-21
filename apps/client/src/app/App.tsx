@@ -63,7 +63,7 @@ function App() {
       <Container className={styles.container}>
         <Header />
         <AppRoutes />
-        <Toaster position="top-right" />
+        <Toaster position="top-center" />
       </Container>
     </div>
   );

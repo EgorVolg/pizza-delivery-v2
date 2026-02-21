@@ -10,6 +10,7 @@ import type { PizzaResponse } from "../../entities/products/model/pizza.types";
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
 import { useAddCartItemMutation } from "../../entities/cart/model/cart.api";
 import type { TCartItem } from "../../entities/cart/model/cart.types";
+import toast from "react-hot-toast";
 
 export const PizzaHalves = ({
   isMobile,
@@ -61,7 +62,7 @@ export const PizzaHalves = ({
           0,
           0,
           width / 2,
-          height
+          height,
         );
 
         // Правый canvas
@@ -78,7 +79,7 @@ export const PizzaHalves = ({
           0,
           0,
           width / 2,
-          height
+          height,
         );
 
         resolve({
@@ -94,14 +95,14 @@ export const PizzaHalves = ({
   // --- Обработчик выбора пиццы ---
   const handleChoosePizzaHalf = async (pizza: PizzaResponse) => {
     const exists = selectedPizzaHalf.selectedPizzas.some(
-      (p) => p.id === pizza.id
+      (p) => p.id === pizza.id,
     );
 
     if (exists) {
       setSelectedPizzaHalf({
         ...selectedPizzaHalf,
         selectedPizzas: selectedPizzaHalf.selectedPizzas.filter(
-          (p) => p.id !== pizza.id
+          (p) => p.id !== pizza.id,
         ),
       });
       return;
@@ -135,7 +136,7 @@ export const PizzaHalves = ({
       ?.find((p) => p.id === selectedPizzaId)
       ?.ingredients.map((ingredientId) => {
         const ingredient = ingredientsResponse?.find(
-          (ing) => ing.id === ingredientId
+          (ing) => ing.id === ingredientId,
         );
 
         return ingredient ? ingredient.name : "";
@@ -174,6 +175,7 @@ export const PizzaHalves = ({
       quantity: 1,
     };
 
+    toast.success("Товар добавлен в корзину");
     addCartItem(pizzaParams);
     handleCloseModal();
   };
@@ -221,7 +223,7 @@ export const PizzaHalves = ({
                       alt={pizza.name}
                       className={`${styles.pizzaImage}  ${
                         selectedPizzaHalf.selectedPizzas.some(
-                          (p) => p.id === pizza.id
+                          (p) => p.id === pizza.id,
                         )
                           ? styles.active
                           : ""

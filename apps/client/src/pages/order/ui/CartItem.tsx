@@ -49,6 +49,7 @@ export const CartItem = (props: Props) => {
         </div>
 
         <button
+          type="button"
           className={styles.cartItem_delete_button}
           onClick={() => props.deleteItems(props.item.id)}
         >
