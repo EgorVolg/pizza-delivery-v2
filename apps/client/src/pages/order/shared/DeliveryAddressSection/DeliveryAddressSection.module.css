@@ -2,6 +2,18 @@
   display: none;
 }
 
+.error {
+  border-color: #e74c3c !important;
+  background-color: #fdf2f2;
+}
+
+.error_text {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
 .cart_items_section {
   padding: 0 35px;
 

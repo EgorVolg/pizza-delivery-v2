@@ -16,6 +16,7 @@ export const OrderSectionHeader = ({
 
       {showCartList && (
         <button
+          type="button"
           className={`${styles.show_cart_button} ${isShowCartList && styles.active}`}
           onClick={showCartList}
         >

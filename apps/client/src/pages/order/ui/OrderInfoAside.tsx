@@ -55,7 +55,7 @@ export const OrderInfoAside = () => {
           placeholder="У меня есть промокод"
           className={styles.promo_code_input}
         />
-        <Button className={styles.goPay_button}>
+        <Button className={styles.goPay_button} type="submit">
           {cart.totalPrice > 0 ? (
             "Перейти к оплате"
           ) : (

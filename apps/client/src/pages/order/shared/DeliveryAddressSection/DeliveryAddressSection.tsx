@@ -2,8 +2,9 @@ import { OrderSectionHeader } from "../../ui/OrderSectionHeader";
 import styles from "./DeliveryAddressSection.module.css";
 import timerIcon from "../../../../shared/assets/timer.svg";
 import arrowBottom from "../../../../shared/assets/arrowbottom.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import type { FormData, FormErrors } from "../../ui/Orderpage";
 
 const listVariants = {
   hidden: {
@@ -81,10 +82,29 @@ const times = [
   "23:00",
 ];
 
-export const DeliveryAddressSection = () => {
+export const DeliveryAddressSection = ({
+  formData,
+  handleChange,
+  handleDeliveryTimeChange,
+  errors,
+}: {
+  formData: FormData;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleDeliveryTimeChange: (time: string) => void;
+  errors: FormErrors;
+}) => {
   const [openPopUp, setOpenPopUp] = useState(false);
-  const [selectedTime, setSelectedTime] = useState<string>(times[0]);
+  const [selectedTime, setSelectedTime] = useState<string>(formData.deliveryTime || times[0]);
+
+  // Синхронизация selectedTime с formData.deliveryTime при загрузке из localStorage
+  useEffect(() => {
+    if (formData.deliveryTime && times.includes(formData.deliveryTime)) {
+      setSelectedTime(formData.deliveryTime);
+    }
+  }, [formData.deliveryTime]);
+
   const handleSelectTime = (time: string) => {
+    handleDeliveryTimeChange(time);
     setSelectedTime(time);
     setOpenPopUp(false);
   };
@@ -101,7 +121,16 @@ export const DeliveryAddressSection = () => {
           <label className={styles.form_label} htmlFor="name">
             Введите адрес
           </label>
-          <input className={styles.form_input} type="text" id="name" />
+          <input
+            className={`${styles.form_input} ${errors.address ? styles.error : ""}`}
+            type="text"
+            id="address"
+            value={formData.address}
+            onChange={handleChange}
+          />
+          {errors.address && (
+            <span className={styles.error_text}>{errors.address}</span>
+          )}
         </div>
         <div className={styles.form_group}>
           <label className={styles.form_label} htmlFor="surname">
@@ -111,6 +140,8 @@ export const DeliveryAddressSection = () => {
             className={styles.form_area}
             id="Comment"
             placeholder="Укажите тут дополнительную информацию для курьера"
+            value={formData.comment}
+            onChange={handleChange}
           />
         </div>
         <div
