@@ -9,7 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { RootState } from "./store";
 import { PizzaModalWindow } from "../features/add-to-cart/PizzaModalWindow";
 import { AppRoutes } from "./routes/AppRoutes";
-
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const dispatch = useDispatch();
@@ -63,6 +63,7 @@ function App() {
       <Container className={styles.container}>
         <Header />
         <AppRoutes />
+        <Toaster position="top-right" />
       </Container>
     </div>
   );
