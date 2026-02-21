@@ -130,7 +130,7 @@ export const Product = ({
 
       <div className={styles.modal}>
         <div className={styles.imageContainer}>
-          <img src={pizza.imageUrl} alt="" />
+          <img src={pizza.imageUrl} alt="Pizza image" />
         </div>
         <section className={styles.body}>
           <header className={styles.header}>
@@ -152,7 +152,7 @@ export const Product = ({
                   ? `${choosePizzaParams.weight + "л."} `
                   : `${choosePizzaParams.weight + "гр."} `)}
 
-              <div className={styles.params} style={{ padding: "10px 0" }}>
+              <div className={styles.params}>
                 {choosePizzaParams.quantity !== null && (
                   <div className={styles.selectors}>
                     {pizza.quantity !== null &&
@@ -204,9 +204,9 @@ export const Product = ({
                   )}
               </div>
             </div>
-            <p className={styles.ingredients}>
+            {/* <p className={styles.ingredients}>
               {ingredientsNames ? ingredientsNames : pizza.description}
-            </p>
+            </p> */}
           </header>
 
           <section className={styles.params}>

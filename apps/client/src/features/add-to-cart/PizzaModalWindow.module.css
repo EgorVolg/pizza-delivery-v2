@@ -9,26 +9,15 @@
 .modalWindow {
   position: fixed;
   max-width: 1000px;
+  width: 100%;
   top: 50%;
   left: 50%;
   translate: -50% -50%;
 
-  @media (min-width: 1200px) {
-    width: 1200px;
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
-  }
-
-  @media (max-width: 1200px) {
-    min-width: 700px;
-  }
-
   @media (max-width: 1024px) {
-    top: 50%;
-    left: 29px;
-    right: 29px;
-    translate: 0 -50%;
+    top: 0;
+    left: unset;
+    translate: unset;
   }
 
   @media (max-width: 768px) {
@@ -38,18 +27,13 @@
     top: unset;
     bottom: 0;
   }
-
-  @media (max-width: 425px) {
-    left: 30px;
-    right: 30px;
-  }
 }
 
 .xbtnContainer {
   position: absolute;
   top: 20px;
   left: 20px;
-  
+
   path {
     stroke: black;
     fill: black;
@@ -60,7 +44,6 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 37px 40px;
-
   height: 580px;
 
   @media (max-width: 768px) {
@@ -144,7 +127,7 @@
   font-size: 24px;
   line-height: 100%;
   letter-spacing: 0%;
-  padding-bottom: 10px;
+  padding-bottom: 1px;
 }
 
 .description {
@@ -170,7 +153,8 @@
 .params {
   display: flex;
   flex-direction: column;
-  gap: 20px 0;
+  margin-top: 15px;
+  gap: 12px;
 }
 
 .selectors {
@@ -224,9 +208,9 @@
 .toppings {
   display: grid;
   grid-template-columns: repeat(2, minmax(125px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(193px, 1fr));
   place-items: center;
   gap: 10px;
-  height: 420px;
 
   @media (min-width: 1200px) {
     grid-template-columns: repeat(3, minmax(150px, 1fr));
