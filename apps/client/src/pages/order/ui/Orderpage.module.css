@@ -40,7 +40,7 @@
   }
 }
 
-.orderpage_spacer {
+.orderpage_form {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -49,6 +49,7 @@
 
   @media (max-width: 1024px) {
     flex-direction: column;
+    margin-bottom: 20px;
   }
 }
 
@@ -65,5 +66,3 @@
     width: 100%;
   }
 }
-
- 

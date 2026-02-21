@@ -108,7 +108,7 @@ export const Orderpage = () => {
     <Container className={styles.orderpage_container}>
       <h1 className={styles.title_section}>Оформление заказа</h1>
 
-      <form onSubmit={handleSubmit} className={styles.orderpage_spacer}>
+      <form onSubmit={handleSubmit} className={styles.orderpage_form}>
         <div className={styles.cart_items}>
           <CartItemsSection />
 
