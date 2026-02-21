@@ -3,8 +3,11 @@ import error404Img from "./../../shared/assets/error404.svg";
 import { ArrowRight } from "../../shared/ui/ArrowRight";
 import Button from "../../shared/ui/Button/Button";
 import Container from "../../shared/ui/Container/Container";
+import { useNavigate } from "react-router-dom";
 
 export const NotFoundPage = () => {
+  const navigate = useNavigate();
+
   return (
     <Container className={styles.container}>
       <div className={styles.notFoundPage}>
@@ -15,11 +18,16 @@ export const NotFoundPage = () => {
           </p>
 
           <div className={styles.btn_container}>
-            <Button className={styles.btn_back}>
+            <Button className={styles.btn_back} onClick={() => navigate("/")}>
               <ArrowRight className={styles.arrow} />
               На главную
             </Button>
-            <Button className={styles.btn_refresh}>Обновить</Button>
+            <Button
+              className={styles.btn_refresh}
+              onClick={() => window.location.reload()}
+            >
+              Обновить
+            </Button>
           </div>
         </div>
         <img className={styles.img} src={error404Img} alt="Page not found" />
