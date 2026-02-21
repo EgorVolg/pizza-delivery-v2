@@ -1,5 +1,5 @@
 import styles from "./PersonalDataSection.module.css";
-import { OrderSectionHeader } from "../../ui/OrderSectionHeader";
+import { OrderSectionHeader } from "../OrderSectionHeader/OrderSectionHeader";
 import type { FormData, FormErrors } from "../../ui/Orderpage";
 
 export const PersonalDataSection = ({

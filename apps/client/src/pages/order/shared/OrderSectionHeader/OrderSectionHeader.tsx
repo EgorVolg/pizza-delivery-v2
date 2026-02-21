@@ -1,5 +1,5 @@
 import styles from "./OrderSectionHeader.module.css";
-import arrow from "../../../shared/assets/arrow_drop_down.svg";
+import arrow from "../../../../shared/assets/arrow_drop_down.svg";
 
 export const OrderSectionHeader = ({
   text,

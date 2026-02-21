@@ -1,10 +1,10 @@
-import track from "../../../shared/assets/track.svg";
-import orderbox from "../../../shared/assets/orderbox.svg";
-import percent from "../../../shared/assets/percent.svg";
+import track from "../../../../shared/assets/track.svg";
+import orderbox from "../../../../shared/assets/orderbox.svg";
+import percent from "../../../../shared/assets/percent.svg";
 import styles from "./OrderInfoAside.module.css";
-import Button from "../../../shared/ui/Button/Button";
-import { useGetCartItemsQuery } from "../../../entities/cart/model/cart.api";
 import { Link } from "react-router-dom";
+import { useGetCartItemsQuery } from "../../../../entities/cart/model/cart.api";
+import Button from "../../../../shared/ui/Button/Button";
 
 export const OrderInfoAside = () => {
   const { data: cart } = useGetCartItemsQuery();

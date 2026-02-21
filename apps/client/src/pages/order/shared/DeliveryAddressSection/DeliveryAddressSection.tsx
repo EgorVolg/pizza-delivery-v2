@@ -1,4 +1,4 @@
-import { OrderSectionHeader } from "../../ui/OrderSectionHeader";
+import { OrderSectionHeader } from "../OrderSectionHeader/OrderSectionHeader";
 import styles from "./DeliveryAddressSection.module.css";
 import timerIcon from "../../../../shared/assets/timer.svg";
 import arrowBottom from "../../../../shared/assets/arrowbottom.svg";

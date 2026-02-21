@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCart } from "../hooks/useCart";
 import { CartItemsList } from "./CartItemsList";
-import { OrderSectionHeader } from "../../ui/OrderSectionHeader";
+import { OrderSectionHeader } from "../OrderSectionHeader/OrderSectionHeader";
 import styles from "./CartItemsSection.module.css";
 import { ClearCartButton } from "../../ui/ClearCartButton";
 
