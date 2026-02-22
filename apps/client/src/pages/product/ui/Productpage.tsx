@@ -12,6 +12,7 @@ import { useGetPizzaToppingsQuery } from "../../../entities/products/model/pizza
 import { useGetCoffeeToppingsQuery } from "../../../entities/products/model/coffeetoppings.api";
 import type { Topping } from "../../../entities/products/model/pizza.types";
 import { Recommendations } from "./Recommendations/Recommendations";
+import toast from "react-hot-toast";
 
 export const ProductPage = () => {
   const { categoryId, productId } = useParams();
@@ -103,6 +104,7 @@ export const ProductPage = () => {
       quantity: 1,
     };
 
+    toast.success("Товар добавлен в корзину");
     addCartItem(pizzaParams);
   };
 
