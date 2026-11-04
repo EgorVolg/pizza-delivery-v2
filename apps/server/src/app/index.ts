@@ -20,7 +20,6 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 app.use(helmet());
 app.use(cors());
@@ -41,6 +40,4 @@ app.use("/api", drinksRoutes);
 app.use("/api", dessertsRoutes);
 app.use("/api", saucesRoutes);
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server listening on port ${PORT}`);
-});
+export default app;
