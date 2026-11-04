@@ -7,7 +7,7 @@ jest.mock("../../entities/categories/model/categories.model", () => ({
   Category: { findAll: jest.fn() },
 }));
 
-const mockReq = () => ({} as Request);
+const mockReq = () => ({}) as Request;
 const mockRes = () =>
   mockDeep<Response>({ status: jest.fn().mockReturnThis() });
 

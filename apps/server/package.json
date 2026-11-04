@@ -36,6 +36,7 @@
     "@types/supertest": "^6.0.3",
     "cypress": "^13.17.0",
     "jest": "^30.0.5",
+    "jest-mock-extended": "^4.0.0",
     "nodemon": "^3.1.10",
     "sequelize-cli": "^6.6.3",
     "supertest": "^7.1.4",
