@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from "react";
 import type { PizzaCard } from "../../../../entities/products/model/pizza.types";
 import { useGetAllProductsQuery } from "../../../../entities/products/model/products.api";
+// @ts-ignore Swiper's CSS is bundled at runtime and has no side-effect import declaration.
 import "swiper/css";
 import { RecSwiper } from "./RecSwiper";
 import { SwiperButtons } from "./SwiperButtons";
@@ -14,7 +14,7 @@ export const Recommendations = ({ product }: { product: PizzaCard }) => {
     .filter((pr) => product.category_id === pr.category_id)
     .filter((pr) =>
       pr.ingredients || pr.ingredients !== null
-        ? pr.ingredients.some((ing) => product.ingredients.includes(ing))
+        ? pr.ingredients.some((ing) => product.ingredients.includes(ing.toString()))
         : pr
     );
 

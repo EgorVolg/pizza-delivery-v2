@@ -5,10 +5,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { InputSkeleton } from "../../../../shared/ui/Input/ui/Input.Skeleton";
 import { Input } from "../../../../shared/ui/Input/Input";
 import { Link } from "react-router-dom";
-import Xbtn from "../../../../shared/ui/Xbtn/Xbtn";
-import { Overlay } from "../../../../shared/ui/Overlay/Overlay";
+import Xbtn from "../../../../shared/ui/Xbtn/Xbtn"; 
 import Container from "../../../../shared/ui/Container/Container";
 import { useGetAllProductsQuery } from "../../../products/model/products.api";
+import { Overlay } from "../../../../shared/ui/Overlay/Overlay";
 
 // Enhanced dropdown animation variants
 const dropdownVariants = {

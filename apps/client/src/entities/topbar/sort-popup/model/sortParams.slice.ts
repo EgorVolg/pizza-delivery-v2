@@ -4,7 +4,7 @@ export const sortParamsSlice = createSlice({
   name: "sortParams",
   initialState: "рейтингу",
   reducers: {
-    sortParams: (state, action: PayloadAction<string>) => {
+    sortParams: (_, action: PayloadAction<string>) => {
      return action.payload;
     },
   },

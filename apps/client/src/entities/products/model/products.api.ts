@@ -3,7 +3,7 @@ import { baseQuery } from "../../../shared/api/baseUrl";
 import type { PizzaResponse, ProductFilters } from "./pizza.types";
 
 // Вспомогательная функция для сериализации фильтров
-const buildQueryString = (filters?: ProductFilters) => {
+const buildQueryString = (filters?: ProductFilters | void) => {
   if (!filters) return "";
   const params = new URLSearchParams();
   Object.entries(filters).forEach(([key, value]) => {

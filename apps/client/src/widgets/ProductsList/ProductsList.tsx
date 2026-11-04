@@ -51,7 +51,7 @@ export const ProductsList = ({
 
     return Object.entries(grouped).map(([catId, list]) => ({
       catId: +catId,
-      pizzas: +catId === 1 ? [pizzaHalves, ...list] : list,
+      pizzas: +catId === 1 ? [pizzaHalves as unknown as PizzaResponse, ...list] : list,
     }));
   }, [products]);
 

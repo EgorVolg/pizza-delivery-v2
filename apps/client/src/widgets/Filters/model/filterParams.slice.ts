@@ -13,10 +13,8 @@ export const filterParamsSlice = createSlice({
   name: "filterParams",
   initialState: initialFilterParamsState,
   reducers: {
-    setParams: (state, action: PayloadAction<FilterStateParams>) =>
-      (state = action.payload),
-
-    resetParams: (state) => (state = initialFilterParamsState),
+    setParams: (_, action: PayloadAction<FilterStateParams>) => action.payload,
+    resetParams: () => initialFilterParamsState,
   },
 });
 

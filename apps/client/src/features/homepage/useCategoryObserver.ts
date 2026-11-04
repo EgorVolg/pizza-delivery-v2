@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import type { PizzaCard } from "../../entities/products/model/pizza.types";
+import type { PizzaResponse } from "../../entities/products/model/pizza.types";
 import { setActiveId } from "../../entities/topbar/categories/model/activeCategories.slice";
 
 type Props = {
-  data: PizzaCard[] | undefined;
+  data: PizzaResponse[] | undefined;
   sectionRefs: React.RefObject<Record<number, HTMLElement | null>>;
 };
 

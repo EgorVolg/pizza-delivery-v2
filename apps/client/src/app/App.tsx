@@ -7,9 +7,9 @@ import { AnimatePresence } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
 import type { RootState } from "./store";
-import { PizzaModalWindow } from "../features/add-to-cart/PizzaModalWindow";
-import { AppRoutes } from "./routes/AppRoutes";
+import { PizzaModalWindow } from "../features/add-to-cart/PizzaModalWindow"; 
 import { Toaster } from "react-hot-toast";
+import { AppRoutes } from "./Routes/AppRoutes";
 
 function App() {
   const dispatch = useDispatch();

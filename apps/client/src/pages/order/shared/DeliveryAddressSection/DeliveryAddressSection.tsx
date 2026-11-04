@@ -4,9 +4,10 @@ import timerIcon from "../../../../shared/assets/timer.svg";
 import arrowBottom from "../../../../shared/assets/arrowbottom.svg";
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import type { Variants } from "framer-motion";
 import type { FormData, FormErrors } from "../../ui/Orderpage";
 
-const listVariants = {
+const listVariants: Variants = {
   hidden: {
     opacity: 0,
     height: 0,

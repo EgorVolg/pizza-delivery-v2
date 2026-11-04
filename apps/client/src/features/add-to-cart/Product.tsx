@@ -49,7 +49,7 @@ export const Product = ({
     setChoosePizzaParams({
       type: pizza.type !== null ? pizza.type[0] : null,
       size: pizza.size !== null ? pizza.size[0] : null,
-      weight: pizza.weight !== null ? pizza.weight[0].toString() : null,
+      weight: pizza.weight !== null ? pizza.weight[0] : null,
       quantity: pizza.quantity !== null ? pizza.quantity[0] : null,
     });
   }, [pizza]);
@@ -82,7 +82,7 @@ export const Product = ({
   const selectedToppings = activeTopping.map((t) => t.name).join(", ");
   const typeTitle = pizza.type
     ? typesOfDough.find((t) => t.id === choosePizzaParams.type)?.name
-    : null;
+    : "";
 
   const handleAddToCart = () => {
     const pizzaParams = {
@@ -93,22 +93,21 @@ export const Product = ({
       price: calcPrice(),
       ingredients: ingredientsNames,
       toppings: selectedToppings,
-      productQuantity: (choosePizzaParams.quantity || 1).toString(),
+      productQuantity: choosePizzaParams.quantity || 1,
       type: typeTitle,
       weight:
         choosePizzaParams.weight &&
         choosePizzaParams.weight.toString() +
-          `${
-            pizza.category_id === 4 ||
-            pizza.category_id === 5 ||
-            pizza.category_id === 7
-              ? " л."
-              : " гр."
-          }`,
+        `${pizza.category_id === 4 ||
+          pizza.category_id === 5 ||
+          pizza.category_id === 7
+          ? " л."
+          : " гр."
+        }`,
       size: choosePizzaParams.size,
       quantity: 1,
     };
-    
+
     toast.success("Товар добавлен в корзину");
     addCartItem(pizzaParams);
     handleCloseModal();
@@ -145,12 +144,12 @@ export const Product = ({
 
               {pizza.quantity !== null &&
                 choosePizzaParams.quantity +
-                  `${isNaN(+choosePizzaParams.quantity) ? ", " : "шт.,"}  `}
+                `${typeof choosePizzaParams.quantity === "string" ? ", " : "шт.,"}  `}
 
               {choosePizzaParams.weight !== null &&
                 (pizza.category_id === 5 ||
-                pizza.category_id === 4 ||
-                pizza.category_id === 7
+                  pizza.category_id === 4 ||
+                  pizza.category_id === 7
                   ? `${choosePizzaParams.weight + "л."} `
                   : `${choosePizzaParams.weight + "гр."} `)}
 
@@ -168,18 +167,17 @@ export const Product = ({
                               weight: pizza.weight && pizza.weight[index],
                             })
                           }
-                          className={`${styles.selector} ${
-                            choosePizzaParams.quantity === item && styles.active
-                          }`}
+                          className={`${styles.selector} ${choosePizzaParams.quantity === item && styles.active
+                            }`}
                         >
                           {item}
-                          {isNaN(+choosePizzaParams.quantity) ? " " : "шт."}
+                          {typeof choosePizzaParams.quantity === "string" ? " " : "шт."}
                         </div>
                       ))}
                   </div>
                 )}
 
-                {choosePizzaParams.weight !== null &&
+                {choosePizzaParams.weight != null &&
                   (pizza.category_id === 5 ||
                     pizza.category_id === 4 ||
                     pizza.category_id === 7) && (
@@ -194,10 +192,9 @@ export const Product = ({
                                 weight: pizza.weight && pizza.weight[index],
                               })
                             }
-                            className={`${styles.selector} ${
-                              +choosePizzaParams.weight === +item &&
+                            className={`${styles.selector} ${+(choosePizzaParams.weight ?? 0) === +item &&
                               styles.active
-                            }`}
+                              }`}
                           >
                             {item} л.
                           </div>
@@ -217,9 +214,8 @@ export const Product = ({
                 {pizza.size.map((size, index) => (
                   <div
                     key={index}
-                    className={`${styles.selector} ${
-                      choosePizzaParams.size === size && styles.active
-                    }`}
+                    className={`${styles.selector} ${choosePizzaParams.size === size && styles.active
+                      }`}
                     onClick={() =>
                       setChoosePizzaParams({
                         ...choosePizzaParams,
@@ -244,9 +240,8 @@ export const Product = ({
                         type: type,
                       })
                     }
-                    className={`${styles.selector} ${
-                      choosePizzaParams.type === type && styles.active
-                    }`}
+                    className={`${styles.selector} ${choosePizzaParams.type === type && styles.active
+                      }`}
                   >
                     {typesOfDough.find((t) => t.id === type)?.name}
                   </div>
@@ -263,10 +258,9 @@ export const Product = ({
                 {toppings.map((topping, index) => (
                   <li
                     key={index}
-                    className={`${styles.topping} ${
-                      activeTopping.some((t) => t.id === topping.id) &&
+                    className={`${styles.topping} ${activeTopping.some((t) => t.id === topping.id) &&
                       styles.active
-                    }`}
+                      }`}
                     onClick={() => handleChooseTopping(topping)}
                   >
                     {activeTopping.some((t) => t.id === topping.id) && (

@@ -9,7 +9,6 @@ import Button from "../../shared/ui/Button/Button";
 import type { PizzaResponse } from "../../entities/products/model/pizza.types";
 import { useGetIngredientsQuery } from "../../entities/ingredient/model/ingredient.api";
 import { useAddCartItemMutation } from "../../entities/cart/model/cart.api";
-import type { TCartItem } from "../../entities/cart/model/cart.types";
 import toast from "react-hot-toast";
 
 export const PizzaHalves = ({
@@ -167,8 +166,8 @@ export const PizzaHalves = ({
         selectedPizzaHalf.selectedPizzas[0].price +
         selectedPizzaHalf.selectedPizzas[1].price,
       ingredients: ingredientsNames,
-      toppings: null,
-      productQuantity: "1",
+      toppings: "",
+      productQuantity: 1,
       type: selectedPizzaHalf.type[0],
       weight: null,
       size: selectedPizzaHalf.size[0],
@@ -221,13 +220,12 @@ export const PizzaHalves = ({
                     <img
                       src={pizza.imageUrl}
                       alt={pizza.name}
-                      className={`${styles.pizzaImage}  ${
-                        selectedPizzaHalf.selectedPizzas.some(
-                          (p) => p.id === pizza.id,
-                        )
+                      className={`${styles.pizzaImage}  ${selectedPizzaHalf.selectedPizzas.some(
+                        (p) => p.id === pizza.id,
+                      )
                           ? styles.active
                           : ""
-                      }`}
+                        }`}
                     />
                     <figcaption className={styles.pizzaTitle}>
                       {pizza.name}
@@ -247,11 +245,10 @@ export const PizzaHalves = ({
         <section className={styles.pizzaBuilder}>
           <section className={styles.choosePizzaHalf}>
             <div
-              className={`${styles.pizzaBaseImages} ${
-                selectedPizzaHalf.selectedPizzas.length === 2
+              className={`${styles.pizzaBaseImages} ${selectedPizzaHalf.selectedPizzas.length === 2
                   ? styles.joined
                   : ""
-              }`}
+                }`}
             >
               <img
                 className={styles.leftHalf}
@@ -330,9 +327,8 @@ export const PizzaHalves = ({
                       type: [type],
                     })
                   }
-                  className={`${styles.selector} ${
-                    selectedPizzaHalf.type[0] === type ? styles.active : ""
-                  }`}
+                  className={`${styles.selector} ${selectedPizzaHalf.type[0] === type ? styles.active : ""
+                    }`}
                 >
                   {type}
                 </div>

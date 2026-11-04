@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import styles from "./CartDrawer.module.css";
 import Button from "../../../shared/ui/Button/Button";
 import { useGetCartItemsQuery } from "../../../entities/cart/model/cart.api";
@@ -9,7 +9,7 @@ import { useMemo } from "react";
 import { ArrowRight } from "../../../shared/ui/ArrowRight";
 import { useNavigate } from "react-router-dom";
 
-const panelVariants = {
+const panelVariants: Variants = {
   hidden: { x: "100%" },
   visible: {
     x: 0,
@@ -21,7 +21,7 @@ const panelVariants = {
   },
 };
 
-const innerVariants = {
+const innerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { delay: 0.15 } },
   exit: { opacity: 0, transition: { duration: 0.1 } },
@@ -49,7 +49,7 @@ export const CartDrawer = ({
     handleCloseCart();
   };
 
-  return ( 
+  return (
     <motion.div
       className={styles.cartDrawer}
       variants={panelVariants}
