@@ -1,7 +1,7 @@
 import express from "express";
 import { Pizza } from "../entities/pizzas/model/pizza.model";
 import { Request, Response } from "express";
-import { Op } from "sequelize";
+import { ModelStatic, Op } from "sequelize";
 import { RomanPizzas } from "../entities/romanpizzas/modal/romanpizzas.model";
 import { Appetizers } from "../entities/appetizers/model/appetizers.model";
 import { Coffees } from "../entities/coffees/modal/coffees.model";
@@ -66,7 +66,7 @@ export const getProductById = async (req: Request, res: Response) => {
     const productId = Number(id);
 
     // === Определяем таблицу по категории ===
-    let Model;
+    let Model: ModelStatic<any>;
     switch (categoryNum) {
       case 1:
         Model = Pizza;

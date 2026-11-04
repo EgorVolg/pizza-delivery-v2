@@ -1,12 +1,12 @@
 import type { Request, Response } from "express";
 import { Pizza } from "../../entities/pizzas/model/pizza.model";
-import { getPizzas } from "../products.routes";
+import { getProducts } from "../products.routes";
 
 jest.mock("../../entities/pizzas/model/pizza.model", () => ({
   Pizza: { findAll: jest.fn() },
 }));
 
-describe("getPizzas", () => {
+describe("getProducts", () => {
   const findAll = Pizza.findAll as jest.Mock;
 
   afterEach(() => jest.clearAllMocks());
@@ -52,7 +52,7 @@ describe("getPizzas", () => {
     findAll.mockResolvedValue(pizzas);
 
     const res = mockRes();
-    await getPizzas(mockReq, res);
+    await getProducts(mockReq, res);
 
     expect(findAll).toHaveBeenCalledWith({
       attributes: { exclude: ["createdAt", "updatedAt"] },
@@ -67,7 +67,7 @@ describe("getPizzas", () => {
     const consoleSpy = jest.spyOn(console, "error").mockImplementation();
     const res = mockRes();
 
-    await getPizzas(mockReq, res);
+    await getProducts(mockReq, res);
 
     expect(consoleSpy).toHaveBeenCalledWith(error);
     expect(res.status).toHaveBeenCalledWith(500);
