@@ -38,9 +38,5 @@
     "ts-jest": "^29.4.1",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"
-  },
-  "dependencies": {
-    "framer-motion": "^12.23.12",
-    "react-hot-toast": "^2.6.0"
   }
 }
